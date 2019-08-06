@@ -23,6 +23,7 @@
     "react-redux": "^7.1.0",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
-    "react-scripts": "^3.0.1"
+    "react-scripts": "^3.0.1",
+    "react": "^16.8.6"
   }
 }
