@@ -87,7 +87,7 @@ class NewsGet extends React.Component {
                                         style={{ userSelect: 'none' }}
                                         dangerouslySetInnerHTML={{__html: this.state.news}}>
                                     </p>
-                                    <Group title=' '>
+                                    <Group>
                                         <Gallery
                                             style={{ height: 150 }}
                                         >
