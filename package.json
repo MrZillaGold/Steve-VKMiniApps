@@ -18,6 +18,8 @@
     "redux-devtools-extension": "^2.13.8"
   },
   "dependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
     "@vkontakte/icons": "^1.7.0",
     "@vkontakte/vkui": "^2.23.6",
     "@vkontakte/vkui-connect": "^1.4.0",
