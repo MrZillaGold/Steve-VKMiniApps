@@ -9,12 +9,6 @@
   },
   "author": "MrZillaGold",
   "license": "ISC",
-  "devDependencies": {
-    "cross-env": "^5.2.0",
-    "react-hot-loader": "^4.12.10",
-    "react-scripts": "^2.1.8",
-    "redux-devtools-extension": "^2.13.8"
-  },
   "dependencies": {
     "@vkontakte/icons": "^1.7.0",
     "@vkontakte/vkui": "^2.23.6",
@@ -28,6 +22,10 @@
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",
     "redux": "^4.0.4",
+    "cross-env": "^5.2.0",
+    "react-hot-loader": "^4.12.10",
+    "react-scripts": "^2.1.8",
+    "redux-devtools-extension": "^2.13.8"
     "axios": "^0.19.0",
     "redux-thunk": "^2.3.0"
   },
