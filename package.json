@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": { 
-    "start": "set HTTPS=true&&react-scripts start", 
-    "build": "set HTTPS=true&&react-scripts build", 
-    "eject": "set HTTPS=true&&react-scripts eject" 
-},
+  "scripts": {
+    "start": "cross-env PORT=10888 react-scripts start",
+    "build": "react-scripts build"
+  },
   "author": "MrZillaGold",
   "license": "ISC",
   "devDependencies": {
