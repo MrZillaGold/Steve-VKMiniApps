@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import axios from 'axios';
 
+import "core-js/fn/array/flat-map";
+
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
 import Panel from "@vkontakte/vkui/dist/components/Panel/Panel";
