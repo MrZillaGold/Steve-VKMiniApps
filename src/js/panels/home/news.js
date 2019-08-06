@@ -28,7 +28,7 @@ class NewsGet extends React.Component {
     };
 
     newsGet() {
-        VKConnect.send("VKWebAppCallAPIMethod", {"method": "wall.get", "params": { "owner_id": "-155462018", "count": "1", "extended": "1", "v": "5.60", "access_token": "62fab35762fab35762fab3577862a5cf51662fa62fab3573fbd7436a10b52e8f0045684"}})
+        VKConnect.send("VKWebAppCallAPIMethod", {"method": "wall.get", "params": { "owner_id": "-155462018", "count": "1", "extended": "1", "v": "5.60", "access_token": "76b08f8a87f25d2a76af02438540e16ab1ef2323855c2ea5a620069ac2fdb551f2f6beb29fe907b7daff2"}})
             .then(data => {
                 let attachments = (data.data.response.items[0].attachments === undefined) ? 0 : data.data.response.items[0].attachments[0].type;
 
