@@ -92,12 +92,7 @@ class NewsGet extends React.Component {
                                             style={{ height: 150 }}
                                         >
                                             <div style={{
-                                                backgroundImage: 'url(' + this.state.image + ')',
-                                                backgroundSize: 'contain',
-                                                backgroundPosition: '50%',
-                                                height: '150px',
-                                                width: '100%',
-                                                backgroundRepeat: 'no-repeat'}}
+                                                width: 200, backgroundColor: 'var(--destructive)'}}
                                             />
                                         </Gallery>
                                     </Group>
@@ -116,7 +111,12 @@ class NewsGet extends React.Component {
                                     style={{ height: 200 }}
                                 >
                                     <div style={{
-                                        width: 220, backgroundColor: 'var(--icon_secondary)'}}
+                                        backgroundImage: 'url(https://www.minecraft.net/content/dam/archive/0ef629a3446f9a977087c578189097dd-sticker_creeper.png)',
+                                        backgroundSize: 'contain',
+                                        backgroundPosition: '50%',
+                                        height: '200px',
+                                        width: '100%',
+                                        backgroundRepeat: 'no-repeat'}}
                                     />
                                 </Gallery>
                             </Group>
