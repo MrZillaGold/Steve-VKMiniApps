@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import VKConnect from "@vkontakte/vkui-connect-promise";
-import VK from 'vk-openapi';
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
