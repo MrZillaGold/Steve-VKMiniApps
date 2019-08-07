@@ -43,6 +43,7 @@ class StatusGet extends React.Component {
     render() {
         const {id, goBack} = this.props;
         const good = 'https://s3.amazonaws.com/assets.mojang.com/Happy-Server.gif';
+        const mellow = 'https://s3.amazonaws.com/assets.mojang.com/Mellow-Server.gif';
         const bad = 'https://s3.amazonaws.com/assets.mojang.com/Sad-Server.gif';
         return (
             <Panel id={id}>
@@ -66,34 +67,60 @@ class StatusGet extends React.Component {
                         <Group title="Список серверов">
                             <List>
                                 <Cell
-                                    before={<Avatar src={this.state.status[0]['minecraft.net'] === 'green' ? good : bad}/>}
-                                    description={this.state.status[0]['minecraft.net'] === 'green' ? 'Всё в порядке' : 'Наблюдаются проблемы'}>
-                                    Minecraft.net
+                                    before={<Avatar src={this.state.status[0]['minecraft.net'] === 'green' ?
+                                        good : this.state.status[0]['minecraft.net'] === 'yellow' ? mellow : bad
+                                    }/>}
+                                    description={
+                                        this.state.status[0]['minecraft.net'] === 'green' ?
+                                            'Всё в порядке' : this.state.status[0]['minecraft.net'] === 'yellow' ? 'Небольшие неполадки' : 'Проблемы с доступностью'
+                                    }
+                                >Minecraft.net
                                 </Cell>
                                 <Cell
-                                    before={<Avatar src={this.state.status[4]['sessionserver.mojang.com'] === 'green' ? good : bad}/>}
-                                    description={this.state.status[4]['sessionserver.mojang.com'] === 'green' ? 'Всё в порядке' : 'Наблюдаются проблемы'}>
-                                    Сервер Multiplayer-сессий
+                                    before={<Avatar src={this.state.status[4]['sessionserver.mojang.com'] === 'green' ?
+                                        good : this.state.status[4]['sessionserver.mojang.com'] === 'yellow' ? mellow : bad
+                                    }/>}
+                                    description={this.state.status[4]['sessionserver.mojang.com'] === 'green' ?
+                                        'Всё в порядке' : this.state.status[4]['sessionserver.mojang.com'] === 'yellow' ? 'Небольшие неполадки' : 'Проблемы с доступностью'
+                                    }
+                                >Сервер Multiplayer-сессий
                                 </Cell>
                                 <Cell
-                                    before={<Avatar src={this.state.status[2]['account.mojang.com'] === 'green' ? good : bad}/>}
-                                    description={this.state.status[2]['account.mojang.com'] === 'green' ? 'Всё в порядке' : 'Наблюдаются проблемы'}>
-                                    Сервер аккаунтов Mojang
+                                    before={<Avatar src={this.state.status[2]['account.mojang.com'] === 'green' ?
+                                        good : this.state.status[2]['account.mojang.com'] === 'yellow' ? mellow : bad
+                                    }/>}
+                                    description={this.state.status[2]['account.mojang.com'] === 'green' ?
+                                        'Всё в порядке' : this.state.status[2]['account.mojang.com'] === 'yellow' ? 'Небольшие неполадки' : 'Проблемы с доступностью'
+                                    }
+                                >Сервер аккаунтов Mojang
                                 </Cell>
                                 <Cell
-                                    before={<Avatar src={this.state.status[3]['authserver.mojang.com'] === 'green' ? good : bad}/>}
-                                    description={this.state.status[3]['authserver.mojang.com'] === 'green' ? 'Всё в порядке' : 'Наблюдаются проблемы'}>
-                                    Сервер авторизации
+                                    before={<Avatar src={this.state.status[3]['authserver.mojang.com'] === 'green' ?
+                                        good : this.state.status[3]['authserver.mojang.com'] === 'yellow' ? mellow : bad
+                                    }/>}
+                                    description={this.state.status[3]['authserver.mojang.com'] === 'green' ?
+                                        'Всё в порядке' : this.state.status[3]['authserver.mojang.com'] === 'yellow' ? 'Небольшие неполадки' : 'Проблемы с доступностью'
+                                    }
+                                >Сервер авторизации
                                 </Cell>
                                 <Cell
-                                    before={<Avatar src={this.state.status[5]['api.mojang.com'] === 'green' ? good : bad}/>}
-                                    description={this.state.status[5]['api.mojang.com'] === 'green' ? 'Всё в порядке' : 'Наблюдаются проблемы'}>
-                                    API Mojang
+                                    before={<Avatar src={this.state.status[5]['api.mojang.com'] === 'green' ?
+                                        good : this.state.status[5]['api.mojang.com'] === 'yellow' ? mellow : bad
+                                    }/>}
+                                    description={this.state.status[5]['api.mojang.com'] === 'green' ?
+                                        'Всё в порядке' : this.state.status[5]['api.mojang.com'] === 'yellow' ? 'Небольшие неполадки' : 'Проблемы с доступностью'
+                                    }
+                                >API Mojang
                                 </Cell>
                                 <Cell
-                                    before={<Avatar src={this.state.status[6]['textures.minecraft.net'] === 'green' ? good : bad}/>}
-                                    description={this.state.status[6]['textures.minecraft.net'] === 'green' ? 'Всё в порядке' : 'Наблюдаются проблемы'}>
-                                    Сервер скинов Minecraft
+                                    before={
+                                        <Avatar src={this.state.status[6]['textures.minecraft.net'] === 'green' ?
+                                        good : this.state.status[6]['textures.minecraft.net'] === 'yellow' ? mellow : bad
+                                    }/>}
+                                    description={this.state.status[6]['textures.minecraft.net'] === 'green' ?
+                                        'Всё в порядке' : this.state.status[6]['textures.minecraft.net'] === 'yellow' ? 'Небольшие неполадки' : 'Проблемы с доступностью'
+                                    }
+                                >Сервер скинов Minecraft
                                 </Cell>
                             </List>
                         </Group>
