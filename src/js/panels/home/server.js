@@ -80,68 +80,67 @@ class ServerInfoGet extends React.Component {
                         placeholder="Введите IP-Адрес"
                         maxLength='150'
                     />
-                </FormLayout>
-
-                {
-                    this.state.ip.length > 2 ?
-                        <Button onClick={this.onClick.bind(this)} size='xl'>Получить информацию</Button>
-                        :
-                        <Button disabled onClick={this.onClick.bind(this)} size='xl'>Получить информацию</Button>
-                }
-                {this.state.spinner === null ?
-                    '' :
-                    <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
-                        <Spinner size='large' style={{marginTop: 20}}/>
-                    </div>
-                }
-                {
-                    this.state.response === null ?
-                        ''
-                        :
-                        <Group
-                            title={this.state.titleIp}
-                            description={this.state.response.software === undefined ? `` : `Ядро сервера: ${this.state.response.software}`}
-                        >
-                            <List>
-                                <Cell
-                                    multiline
-                                    before={<Avatar type="app" size={64} src={this.state.response.icon === undefined ? defaultImage : this.state.response.icon.toString().replace(/\//g, '/')}/>}
-                                    description={`Игроков: ${this.state.response.players.online} / ${this.state.response.players.max}`}
-                                >
-                                    <div className='Container' dangerouslySetInnerHTML={{__html: this.state.response.motd.html[0]}}>
-                                    </div>
-                                </Cell>
-                                {this.state.response.players.list === undefined ?
-                                    '' :
-                                    <Cell multiline style={{whiteSpace: 'pre-wrap'}}>
-                                        {this.state.response.players.list.toString().replace(/,/g, '  ')}
-                                    </Cell>}
-                            </List>
-                        </Group>
-                }
-                {
-                    this.state.error === null ?
+                    {
+                        this.state.ip.length > 2 ?
+                            <Button onClick={this.onClick.bind(this)} size='xl'>Получить информацию</Button>
+                            :
+                            <Button disabled onClick={this.onClick.bind(this)} size='xl'>Получить информацию</Button>
+                    }
+                    {this.state.spinner === null ?
                         '' :
-                        <Group>
-                            <List>
-                                <Cell align='center'><b>Упс...</b></Cell>
-                            </List>
-                            <p style={{color: '#909499', textAlign: 'center'}}>{this.state.error}</p>
-                            <Gallery
-                                style={{height: 200}}
+                        <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
+                            <Spinner size='large' style={{marginTop: 20}}/>
+                        </div>
+                    }
+                    {
+                        this.state.response === null ?
+                            ''
+                            :
+                            <Group
+                                title={this.state.titleIp}
+                                description={this.state.response.software === undefined ? `` : `Ядро сервера: ${this.state.response.software}`}
                             >
-                                <div style={{
-                                    backgroundImage: 'url(https://www.minecraft.net/content/dam/archive/0ef629a3446f9a977087c578189097dd-sticker_creeper.png)',
-                                    backgroundSize: 'contain',
-                                    backgroundPosition: '50%',
-                                    height: '200px',
-                                    width: '100%',
-                                    backgroundRepeat: 'no-repeat'
-                                }}
-                                />
-                            </Gallery>
-                        </Group>
-                }
+                                <List>
+                                    <Cell
+                                        multiline
+                                        before={<Avatar type="app" size={64} src={this.state.response.icon === undefined ? defaultImage : this.state.response.icon.toString().replace(/\//g, '/')}/>}
+                                        description={`Игроков: ${this.state.response.players.online} / ${this.state.response.players.max}`}
+                                    >
+                                        <div className='Container' dangerouslySetInnerHTML={{__html: this.state.response.motd.html[0]}}>
+                                        </div>
+                                    </Cell>
+                                    {this.state.response.players.list === undefined ?
+                                        '' :
+                                        <Cell multiline style={{whiteSpace: 'pre-wrap'}}>
+                                            {this.state.response.players.list.toString().replace(/,/g, '  ')}
+                                        </Cell>}
+                                </List>
+                            </Group>
+                    }
+                    {
+                        this.state.error === null ?
+                            '' :
+                            <Group>
+                                <List>
+                                    <Cell align='center'><b>Упс...</b></Cell>
+                                </List>
+                                <p style={{color: '#909499', textAlign: 'center'}}>{this.state.error}</p>
+                                <Gallery
+                                    style={{height: 200}}
+                                >
+                                    <div style={{
+                                        backgroundImage: 'url(https://www.minecraft.net/content/dam/archive/0ef629a3446f9a977087c578189097dd-sticker_creeper.png)',
+                                        backgroundSize: 'contain',
+                                        backgroundPosition: '50%',
+                                        height: '200px',
+                                        width: '100%',
+                                        backgroundRepeat: 'no-repeat'
+                                    }}
+                                    />
+                                </Gallery>
+                            </Group>
+                    }
+                </FormLayout>
             </Panel>
         );
     }
