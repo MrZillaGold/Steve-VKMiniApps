@@ -69,57 +69,49 @@ class NewsGet extends React.Component {
                         Steve
                     </PanelHeaderContent>
                 </PanelHeader>
-                    { this.state.spinner === false ?
+                { this.state.spinner === false ?
+                    ''
+                    :
+                    <Div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                        {this.newsGet()}
+                        <Spinner size='large' style={{ marginTop: 20 }} />
+                    </Div>
+                }
+                {
+                    this.state.time === null ?
                         ''
                         :
-                        <Div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                            {this.newsGet()}
-                            <Spinner size='large' style={{ marginTop: 20 }} />
-                        </Div>
-                    }
-                    {
-                        this.state.time === null ?
-                            ''
-                            :
-                            <Group title={`📅 ${this.state.time}`}>
-                                <Div>
-                                    <p  className='Container'
-                                        style={{ userSelect: 'none' }}
-                                        dangerouslySetInnerHTML={{__html: this.state.news}}>
-                                    </p>
-                                </Div>
-                                        <Gallery
-                                            style={{ height: 150 }}
-                                        >
-                                            <div style={{
-                                                backgroundImage: `url(${this.state.image})`,
-                                                backgroundRepeat: 'no-repeat'}}
-                                            />
-                                        </Gallery>
-                            </Group>
-                    }
-                    {
-                        this.state.error === null ?
-                            '' :
-                            <Group>
-                                <List>
-                                    <Cell align='center'><b>Упс...</b></Cell>
-                                </List>
-                                <p style={{ color: '#909499', textAlign: 'center' }}>{this.state.error}</p>
-                                <Gallery
-                                    style={{ height: 200 }}
-                                >
-                                    <div style={{
-                                        backgroundImage: 'url(https://www.minecraft.net/content/dam/archive/0ef629a3446f9a977087c578189097dd-sticker_creeper.png)',
-                                        backgroundSize: 'contain',
-                                        backgroundPosition: '50%',
-                                        height: '200px',
-                                        width: '100%',
-                                        backgroundRepeat: 'no-repeat'}}
-                                    />
-                                </Gallery>
-                            </Group>
-                    }
+                        <Group title={`📅 ${this.state.time}`}>
+                            <Div>
+                                <p  className='Container'
+                                    style={{ userSelect: 'none' }}
+                                    dangerouslySetInnerHTML={{__html: this.state.news}}>
+                                </p>
+                            </Div>
+                        </Group>
+                }
+                {
+                    this.state.error === null ?
+                        '' :
+                        <Group>
+                            <List>
+                                <Cell align='center'><b>Упс...</b></Cell>
+                            </List>
+                            <p style={{ color: '#909499', textAlign: 'center' }}>{this.state.error}</p>
+                            <Gallery
+                                style={{ height: 200 }}
+                            >
+                                <div style={{
+                                    backgroundImage: 'url(https://www.minecraft.net/content/dam/archive/0ef629a3446f9a977087c578189097dd-sticker_creeper.png)',
+                                    backgroundSize: 'contain',
+                                    backgroundPosition: '50%',
+                                    height: '200px',
+                                    width: '100%',
+                                    backgroundRepeat: 'no-repeat'}}
+                                />
+                            </Gallery>
+                        </Group>
+                }
             </Panel>
         );
     }
