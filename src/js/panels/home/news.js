@@ -23,17 +23,14 @@ class NewsGet extends React.Component {
         spinner: true,
         error: null,
         news: null,
-        image: null,
         time: null
     };
 
     newsGet() {
         VKConnect.send("VKWebAppCallAPIMethod", {"method": "wall.get", "params": { "owner_id": "-155462018", "count": "1", "extended": "1", "v": "5.60", "access_token": "9dcb2aba64305966548c91cea3a21fe1911d6b5f139ecdde5a0f5112a7b3c061832c91678dfdd97773ed1"}})
             .then(data => {
-                let attachments = (data.data.response.items[0].attachments === undefined) ? 0 : data.data.response.items[0].attachments[0].type;
-
+            
                 let currentDate = new Date(data.data.response.items[0].date * 1000);
-
                 let getDate = currentDate.getDate();
                 let getMonth = currentDate.getMonth() + 1;
                 let getYear = currentDate.getFullYear();
@@ -41,17 +38,8 @@ class NewsGet extends React.Component {
                 let month = getMonth > 9 ? getMonth : `0` + getMonth;
                 let date = getDate > 9 ? getDate : `0` + getDate;
                 let newsTitle = date + '.' + month + '.' + getYear;
-
-                if (attachments !== 'photo') {
-                    this.setState({news: data.data.response.items[0].text, spinner: false});
-                } else {
-                    this.setState({
-                        news: data.data.response.items[0].text.replace(/\n/g, '<br />'),
-                        image: data.data.response.items[0].attachments[0].photo.photo_1280,
-                        time: newsTitle,
-                        spinner: false
-                    });
-                }
+                
+                this.setState({news: data.data.response.items[0].text, time: newsTitle, spinner: false});
             }).catch(err => {
             if (err) {
                 this.setState({error: `Новости сейчас недоступны!`, spinner: false});
