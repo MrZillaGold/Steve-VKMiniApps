@@ -87,6 +87,7 @@ class NewsGet extends React.Component {
                                         style={{ userSelect: 'none' }}
                                         dangerouslySetInnerHTML={{__html: this.state.news}}>
                                     </p>
+                                </Div>
                                         <Gallery
                                             style={{ height: 150 }}
                                         >
@@ -95,7 +96,6 @@ class NewsGet extends React.Component {
                                                 backgroundRepeat: 'no-repeat'}}
                                             />
                                         </Gallery>
-                                </Div>
                             </Group>
                     }
                     {
