@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
-import VKConnect from "@vkontakte/vkui-connect-promise";
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
@@ -15,6 +14,7 @@ import List from "@vkontakte/vkui/dist/components/List/List";
 import Gallery from "@vkontakte/vkui/dist/components/Gallery/Gallery";
 import PanelHeaderContent from "@vkontakte/vkui/dist/components//PanelHeaderContent/PanelHeaderContent";
 import Div from "@vkontakte/vkui/dist/components/Div/Div";
+import axios from "axios";
 
 
 class NewsGet extends React.Component {
@@ -23,13 +23,13 @@ class NewsGet extends React.Component {
         spinner: true,
         error: null,
         news: null,
+        image: null,
         time: null
     };
 
     newsGet() {
-        VKConnect.send("VKWebAppCallAPIMethod", {"method": "wall.get", "params": { "owner_id": "-155462018", "count": "1", "extended": "1", "v": "5.60", "access_token": "78096ae7766a847a58d85ce0d7c55425187b909dea6d7c35cd7c41c390f4f6bbf9f00e6620ca0640224a1"}})
-            .then(data => {
-                let currentDate = new Date(data.data.response.items[0].date * 1000);
+        axios.get(`https://vkfreeviews.000webhostapp.com/`).then(data => {
+                let currentDate = new Date(data.data.date * 1000);
 
                 let getDate = currentDate.getDate();
                 let getMonth = currentDate.getMonth() + 1;
@@ -39,8 +39,7 @@ class NewsGet extends React.Component {
                 let date = getDate > 9 ? getDate : `0` + getDate;
                 let newsTitle = date + '.' + month + '.' + getYear;
                 this.setState({
-                    news: data.data.response.items[0].text.replace(/\n/g, '<br />'),
-                    image: data.data.response.items[0].attachments[0].photo.photo_1280,
+                    news: data.data.text.text.replace(/\n/g, '<br />'),
                     time: newsTitle,
                     spinner: false
                 });
