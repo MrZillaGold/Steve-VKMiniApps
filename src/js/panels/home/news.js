@@ -95,6 +95,8 @@ class NewsGet extends React.Component {
                                                 backgroundImage: 'url(' + this.state.image + ')',
                                                 backgroundSize: 'contain',
                                                 backgroundPosition: '50%',
+                                                height: '150px',
+                                                width: '100%',
                                                 backgroundRepeat: 'no-repeat'}}
                                             />
                                         </Gallery>
