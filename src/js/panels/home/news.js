@@ -91,9 +91,7 @@ class NewsGet extends React.Component {
                                             style={{ height: 150 }}
                                         >
                                             <div style={{
-                                                backgroundImage: 'url(' + this.state.image + ')',
-                                                backgroundSize: 'contain',
-                                                backgroundPosition: '50%',
+                                                backgroundImage: `url(${this.state.image})`,
                                                 backgroundRepeat: 'no-repeat'}}
                                             />
                                         </Gallery>
