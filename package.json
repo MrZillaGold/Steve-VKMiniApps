@@ -28,7 +28,8 @@
     "react-scripts": "^2.1.8",
     "redux-devtools-extension": "^2.13.8",
     "axios": "^0.19.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "vk-openapi": "^0.1.2"
   },
   "browserslist": [
     ">0.2%",
