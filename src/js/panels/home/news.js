@@ -27,7 +27,7 @@ class NewsGet extends React.Component {
     };
 
     newsGet() {
-        VKConnect.send("VKWebAppCallAPIMethod", {"method": "wall.get", "params": { "owner_id": "-155462018", "count": "1", "extended": "1", "v": "5.60", "access_token": "43bb8228132ab494563526b9b77abab1e86fb7eb9b68dd91037077a530927d07739c531004dc7533c09df"}})
+        VKConnect.send("VKWebAppCallAPIMethod", {"method": "wall.get", "params": { "owner_id": "-155462018", "count": "1", "extended": "1", "v": "5.60", "access_token": "78096ae7766a847a58d85ce0d7c55425187b909dea6d7c35cd7c41c390f4f6bbf9f00e6620ca0640224a1"}})
             .then(data => {
                 let currentDate = new Date(data.data.response.items[0].date * 1000);
 
