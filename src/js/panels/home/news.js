@@ -39,7 +39,7 @@ class NewsGet extends React.Component {
                 let date = getDate > 9 ? getDate : `0` + getDate;
                 let newsTitle = date + '.' + month + '.' + getYear;
                 
-                this.setState({news: data.data.response.items[0].text.replace(/\n/g, '<br />), time: newsTitle, spinner: false});
+                this.setState({news: data.data.response.items[0].text.replace(/\n/g, '<br />'), time: newsTitle, spinner: false});
             }).catch(err => {
             if (err) {
                 this.setState({error: `Новости сейчас недоступны!`, spinner: false});
