@@ -82,7 +82,6 @@ class App extends React.Component {
                             <HomePanelUser id="user"/>
                             <HomePanelNews id="news"/>
                             <HomePanelStatus id="status"/>
-                            <HomePanelCrafts id="crafts"/>
                         </View>
                     </Root>
                 </Online>
