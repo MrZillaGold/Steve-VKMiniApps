@@ -20,7 +20,6 @@ import HomePanelServer from './js/panels/home/server';
 import HomePanelUser from './js/panels/home/user';
 import HomePanelNews from './js/panels/home/news';
 import HomePanelStatus from './js/panels/home/status';
-import HomePanelCrafts from './js/panels/home/crafts';
 
 class App extends React.Component {
     constructor(props) {
