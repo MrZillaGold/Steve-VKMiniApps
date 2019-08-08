@@ -12,7 +12,6 @@ import Avatar from "@vkontakte/vkui/dist/components/Avatar/Avatar";
 import Cell from "@vkontakte/vkui/dist/components/Cell/Cell";
 
 import Icon24Note from '@vkontakte/icons/dist/24/note';
-import Icon24Attachments from '@vkontakte/icons/dist/24/attachments';
 import Icon24Info from '@vkontakte/icons/dist/24/info';
 import Icon24NewsFeed from '@vkontakte/icons/dist/24/newsfeed';
 import Icon24Globe from '@vkontakte/icons/dist/24/globe';
@@ -25,10 +24,7 @@ class HomePanelBase extends React.Component {
             <Panel id={id}>
                 <PanelHeader>Steve</PanelHeader>
                 <Group>
-                    <CellButton before={<Icon24Note />} onClick={() => setPage('home', 'namehistory')}>История никнейма</CellButton>
-                    <CellButton before={<Icon24Attachments />} onClick={() => setPage('home', 'skin')}>Просмотр скина</CellButton>
-                </Group>
-                <Group>
+                    <CellButton before={<Icon24Note />} onClick={() => setPage('home', 'user')}>Информация о игроке</CellButton>
                     <CellButton before={<Icon24Info />} onClick={() => setPage('home', 'server')}>Информация о сервере по IP</CellButton>
                 </Group>
                 <Group>
