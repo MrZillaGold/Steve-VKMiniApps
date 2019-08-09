@@ -144,7 +144,7 @@ class AchievementsGet extends React.Component {
                                     />
                                 </Gallery>
                                 <div style={{ display: 'flex' }}>
-                                    <Button component="a" target="_blank" href={`${url}&d=1`} stretched before={<Icon16Down/>}>Скачать</Button>
+                                    <Button component="a" download="achievement.png" href={`${url}&d=1`} stretched before={<Icon16Down/>}>Скачать</Button>
                                 </div>
                             </Div>
                         </Group>
