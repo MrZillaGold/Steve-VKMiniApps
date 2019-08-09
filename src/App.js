@@ -21,6 +21,7 @@ import HomePanelUser from './js/panels/home/user';
 import HomePanelNews from './js/panels/home/news';
 import HomePanelStatus from './js/panels/home/status';
 import HomePanelAchievements from './js/panels/home/achievements';
+import HomePanelCalculator from './js/panels/home/calculator';
 
 class App extends React.Component {
     constructor(props) {
@@ -83,6 +84,7 @@ class App extends React.Component {
                             <HomePanelNews id="news"/>
                             <HomePanelStatus id="status"/>
                             <HomePanelAchievements id="achievements"/>
+                            <HomePanelCalculator id="calculator"/>
                         </View>
                     </Root>
                 </Online>
