@@ -15,6 +15,7 @@ import Icon24Note from '@vkontakte/icons/dist/24/note';
 import Icon24Info from '@vkontakte/icons/dist/24/info';
 import Icon24NewsFeed from '@vkontakte/icons/dist/24/newsfeed';
 import Icon24Globe from '@vkontakte/icons/dist/24/globe';
+import Icon24Write from '@vkontakte/icons/dist/24/write';
 
 class HomePanelBase extends React.Component {
     render() {
@@ -30,6 +31,9 @@ class HomePanelBase extends React.Component {
                 <Group>
                     <CellButton before={<Icon24NewsFeed />} onClick={() => setPage('home', 'news')}>Новости Minecraft</CellButton>
                     <CellButton before={<Icon24Globe />} onClick={() => setPage('home', 'status')}>Состояние серверов Minecraft</CellButton>
+                </Group>
+                <Group>
+                    <CellButton before={<Icon24Write />} onClick={() => setPage('home', 'achievements')}>Генератор достижений</CellButton>
                 </Group>
                 <Group>
                     <Cell
