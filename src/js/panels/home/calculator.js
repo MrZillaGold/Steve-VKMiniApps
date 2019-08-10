@@ -51,6 +51,7 @@ class Calculator extends React.Component {
 
                     <Input
                         top='Координата X'
+                        bottom='Целое натуральное число'
                         name='x'
                         value={x}
                         onChange={this.onChange.bind(this)}
@@ -60,15 +61,17 @@ class Calculator extends React.Component {
                     />
                     <Input
                         top='Координата Y'
+                        bottom='Натуральное число'
                         name='y'
                         value={y}
                         onChange={this.onChange.bind(this)}
                         placeholder="64"
                         maxLength='3'
-                        pattern='^[-]?[0-9]+$'
+                        pattern='^[0-9]+$'
                     />
                     <Input
                         top='Координата Z'
+                        bottom='Целое натуральное число'
                         name='z'
                         value={z}
                         onChange={this.onChange.bind(this)}
@@ -82,10 +85,10 @@ class Calculator extends React.Component {
                                 {this.state.x === null ? 'Координата не указана' : this.state.x.match('^[-]?[0-9]+$') ? Math.floor(this.state.x / 8) : 0}
                             </Cell>
                             <Cell description='Координата Y'>
-                                {this.state.y === null ? 'Координата не указана' : this.state.y.match('^[-]?[0-9]+$') ? this.state.x : 0}
+                                {this.state.y === null ? 'Координата не указана' : this.state.y.match('^[0-9]+$') ? this.state.y : 0}
                             </Cell>
                             <Cell description='Координата Z'>
-                                {this.state.z === null ? 'Координата не указана' : this.state.z.match('^[-]?[0-9]+$') ? Math.floor(this.state.x / 8) : 0}
+                                {this.state.z === null ? 'Координата не указана' : this.state.z.match('^[-]?[0-9]+$') ? Math.floor(this.state.z / 8) : 0}
                             </Cell>
                         </List>
                         :
@@ -94,10 +97,10 @@ class Calculator extends React.Component {
                                 {this.state.x === null ? 'Координата не указана' : this.state.x.match('^[-]?[0-9]+$') ? Math.floor(this.state.x * 8) : 0}
                             </Cell>
                             <Cell description='Координата Y'>
-                                {this.state.y === null ? 'Координата не указана' : this.state.y.match('^[-]?[0-9]+$') ? this.state.x : 0}
+                                {this.state.y === null ? 'Координата не указана' : this.state.y.match('^[0-9]+$') ? this.state.y : 0}
                             </Cell>
                             <Cell description='Координата Z'>
-                                {this.state.z === null ? 'Координата не указана' : this.state.x.match('^[-]?[0-9]+$') ? Math.floor(this.state.x * 8) : 0}
+                                {this.state.z === null ? 'Координата не указана' : this.state.z.match('^[-]?[0-9]+$') ? Math.floor(this.state.z * 8) : 0}
                             </Cell>
                         </List>
                     }
