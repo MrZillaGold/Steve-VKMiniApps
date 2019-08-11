@@ -51,7 +51,7 @@ class Calculator extends React.Component {
 
                     <Input
                         top='Координата X'
-                        bottom='Целое натуральное число'
+                        bottom='Целое число'
                         name='x'
                         value={x}
                         onChange={this.onChange.bind(this)}
@@ -61,7 +61,7 @@ class Calculator extends React.Component {
                     />
                     <Input
                         top='Координата Y'
-                        bottom='Натуральное число'
+                        bottom='Целое число'
                         name='y'
                         value={y}
                         onChange={this.onChange.bind(this)}
@@ -71,7 +71,7 @@ class Calculator extends React.Component {
                     />
                     <Input
                         top='Координата Z'
-                        bottom='Целое натуральное число'
+                        bottom='Целое число'
                         name='z'
                         value={z}
                         onChange={this.onChange.bind(this)}
