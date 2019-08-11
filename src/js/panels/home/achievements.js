@@ -53,8 +53,8 @@ class AchievementsGet extends React.Component {
             this.setState({ spinner: null, check: true, lineone: this.state.one, linetwo: this.state.two, rand: randomInteger(1, 39) });
         }).catch(err => {
             this.setState({ spinner: null });
-            if (err.response.status > 0 && err.response.status !== 200) {
-                this.setState({ error: `Произошла ошибка: ${err.response.status}, может об этом нужно куда-то сообщить?` });
+            if (err) {
+                this.setState({ error: `Произошла ошибка. Попробуйте снова.` });
                 return console.log(`Произошла ошибка: ${err.response.status}, может об этом нужно куда-то сообщить?`);
             }
         });
