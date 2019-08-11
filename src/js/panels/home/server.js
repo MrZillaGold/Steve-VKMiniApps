@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import axios from 'axios';
 
+import { Offline, Online } from 'react-detect-offline';
+
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
 import Panel from "@vkontakte/vkui/dist/components/Panel/Panel";
@@ -17,7 +19,8 @@ import Group from "@vkontakte/vkui/dist/components/Group/Group";
 import Cell from "@vkontakte/vkui/dist/components/Cell/Cell";
 import List from "@vkontakte/vkui/dist/components/List/List";
 import Gallery from "@vkontakte/vkui/dist/components/Gallery/Gallery";
-import PanelHeaderContent from "@vkontakte/vkui/dist/components//PanelHeaderContent/PanelHeaderContent";
+import PanelHeaderContent from "@vkontakte/vkui/dist/components/PanelHeaderContent/PanelHeaderContent";
+import Div from "@vkontakte/vkui/dist/components/Div/Div";
 
 
 class ServerInfoGet extends React.Component {
@@ -69,78 +72,97 @@ class ServerInfoGet extends React.Component {
                         Steve
                     </PanelHeaderContent>
                 </PanelHeader>
-                <FormLayout>
-                    <Input
-                        top='IP-Адрес сервера'
-                        name='ip'
-                        value={ip}
-                        onChange={this.onChange.bind(this)}
-                        status={this.state.value === 'error' ? 'error' : 'default'}
-                        bottom={this.state.value === 'error' ? 'Пожалуйста, введите IP-Адрес сервера' : 'Например: Hypixel.net'}
-                        placeholder="Введите IP-Адрес"
-                        maxLength='150'
-                    />
-                    {
-                        this.state.ip.length > 2 ?
-                            <Button onClick={this.onClick.bind(this)} size='xl'>Получить информацию</Button>
-                            :
-                            <Button disabled onClick={this.onClick.bind(this)} size='xl'>Получить информацию</Button>
-                    }
-                    {this.state.spinner === null ?
-                        '' :
-                        <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
-                            <Spinner size='large' style={{marginTop: 20}}/>
-                        </div>
-                    }
-                    {
-                        this.state.response === null ?
-                            ''
-                            :
-                            <Group
-                                title={this.state.titleIp}
-                                description={this.state.response.software === undefined ? `` : `Ядро сервера: ${this.state.response.software}`}
-                            >
-                                <List>
-                                    <Cell
-                                        multiline
-                                        before={<Avatar type="app" size={64} src={this.state.response.icon === undefined ? defaultImage : this.state.response.icon.toString().replace(/\//g, '/')}/>}
-                                        description={`Игроков: ${this.state.response.players.online} / ${this.state.response.players.max}`}
-                                    >
-                                        <div className='Container' dangerouslySetInnerHTML={{__html: this.state.response.motd.html[0]}}>
-                                        </div>
-                                    </Cell>
-                                    {this.state.response.players.list === undefined ?
-                                        '' :
-                                        <Cell multiline style={{whiteSpace: 'pre-wrap'}}>
-                                            {this.state.response.players.list.toString().replace(/,/g, '  ')}
-                                        </Cell>}
-                                </List>
-                            </Group>
-                    }
-                    {
-                        this.state.error === null ?
+                <Online>
+                    <FormLayout>
+                        <Input
+                            top='IP-Адрес сервера'
+                            name='ip'
+                            value={ip}
+                            onChange={this.onChange.bind(this)}
+                            status={this.state.value === 'error' ? 'error' : 'default'}
+                            bottom={this.state.value === 'error' ? 'Пожалуйста, введите IP-Адрес сервера' : 'Например: Hypixel.net'}
+                            placeholder="Введите IP-Адрес"
+                            maxLength='150'
+                        />
+                        {
+                            this.state.ip.length > 2 ?
+                                <Button onClick={this.onClick.bind(this)} size='xl'>Получить информацию</Button>
+                                :
+                                <Button disabled onClick={this.onClick.bind(this)} size='xl'>Получить информацию</Button>
+                        }
+                        {this.state.spinner === null ?
                             '' :
-                            <Group>
-                                <List>
-                                    <Cell align='center'><b>Упс...</b></Cell>
-                                </List>
-                                <p style={{color: '#909499', textAlign: 'center'}}>{this.state.error}</p>
-                                <Gallery
-                                    style={{height: 200}}
+                            <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
+                                <Spinner size='large' style={{marginTop: 20}}/>
+                            </div>
+                        }
+                        {
+                            this.state.response === null ?
+                                ''
+                                :
+                                <Group
+                                    title={this.state.titleIp}
+                                    description={this.state.response.software === undefined ? `` : `Ядро сервера: ${this.state.response.software}`}
                                 >
-                                    <div style={{
-                                        backgroundImage: 'url(https://www.minecraft.net/content/dam/archive/0ef629a3446f9a977087c578189097dd-sticker_creeper.png)',
-                                        backgroundSize: 'contain',
-                                        backgroundPosition: '50%',
-                                        height: '200px',
-                                        width: '100%',
-                                        backgroundRepeat: 'no-repeat'
-                                    }}
-                                    />
-                                </Gallery>
-                            </Group>
-                    }
-                </FormLayout>
+                                    <List>
+                                        <Cell
+                                            multiline
+                                            before={<Avatar type="app" size={64} src={this.state.response.icon === undefined ? defaultImage : this.state.response.icon.toString().replace(/\//g, '/')}/>}
+                                            description={`Игроков: ${this.state.response.players.online} / ${this.state.response.players.max}`}
+                                        >
+                                            <div className='Container' dangerouslySetInnerHTML={{__html: this.state.response.motd.html[0]}}>
+                                            </div>
+                                        </Cell>
+                                        {this.state.response.players.list === undefined ?
+                                            '' :
+                                            <Cell multiline style={{whiteSpace: 'pre-wrap'}}>
+                                                {this.state.response.players.list.toString().replace(/,/g, '  ')}
+                                            </Cell>}
+                                    </List>
+                                </Group>
+                        }
+                        {
+                            this.state.error === null ?
+                                '' :
+                                <Group>
+                                    <List>
+                                        <Cell align='center'><b>Упс...</b></Cell>
+                                    </List>
+                                    <p style={{color: '#909499', textAlign: 'center'}}>{this.state.error}</p>
+                                    <Gallery
+                                        style={{height: 200}}
+                                    >
+                                        <div style={{
+                                            backgroundImage: 'url(https://www.minecraft.net/content/dam/archive/0ef629a3446f9a977087c578189097dd-sticker_creeper.png)',
+                                            backgroundSize: 'contain',
+                                            backgroundPosition: '50%',
+                                            height: '200px',
+                                            width: '100%',
+                                            backgroundRepeat: 'no-repeat'
+                                        }}
+                                        />
+                                    </Gallery>
+                                </Group>
+                        }
+                    </FormLayout>
+                </Online>
+                <Offline>
+                    <Div style={{ userSelect: 'none', marginTop: '56px' }}>
+                        <Cell align='center'><b>Упс...</b></Cell>
+                        <p style={{ whiteSpace: 'pre-wrap', color: '#909499', textAlign: 'center' }}>
+                            Пропало подключение с сервером!<br /><br />Эта вкладка будет доступна как появится соединение.
+                        </p>
+                        <Button level='tertiary' stretched component='a' href='https://vk.com/stevebotmc'>Группа</Button>
+                        <Gallery style={{ height: 200 }}>
+                            <div style={{
+                                backgroundImage: 'url(https://psv4.userapi.com/c848424/u233731786/docs/d8/5b1e5e8f3fa5/Enderman.png)',
+                                backgroundSize: 'contain',
+                                backgroundPosition: '50%',
+                                backgroundRepeat: 'no-repeat'}}
+                            />
+                        </Gallery>
+                    </Div>
+                </Offline>
             </Panel>
         );
     }
@@ -154,10 +176,4 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        accessToken: state.vkui.accessToken
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ServerInfoGet);
+export default connect(null, mapDispatchToProps)(ServerInfoGet);
