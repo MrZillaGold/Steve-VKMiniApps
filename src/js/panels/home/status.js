@@ -33,9 +33,9 @@ class StatusGet extends React.Component {
             this.setState({ status: data, spinner: false });
         }).catch(err => {
             this.setState({ spinner: false });
-            if (err.response.status > 0 && err.response.status !== 200) {
-                this.setState({ error: `Произошла ошибка: ${err.response.status}, может об этом нужно куда-то сообщить?` });
-                return console.log(`Произошла ошибка: ${err.response.status}, может об этом нужно куда-то сообщить?`);
+            if (err) {
+                this.setState({ error: `Произошла ошибка. Попробуйте позже.` });
+                return console.log(`Произошла ошибка: ${err}, может об этом нужно куда-то сообщить?`);
             }
         });
     }
