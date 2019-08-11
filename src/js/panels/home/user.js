@@ -56,9 +56,9 @@ class UserGet extends React.Component {
                 this.setState({ error: `Никнейм может содержать только латинские буквы, цифры и символ "_".` });
                 return console.log(`Произошла ошибка 400 (Bad Request!), проверьте вводимые данные!`);
             }
-            if (err.response.status > 0 && err.response.status !== 200) {
-                this.setState({ error: `Произошла ошибка: ${err.response.status}, может об этом нужно куда-то сообщить?` });
-                return console.log(`Произошла ошибка: ${err.response.status}, может об этом нужно куда-то сообщить?`);
+            if (err) {
+                this.setState({ error: `Произошла ошибка. Попробуйте позже.` });
+                return console.log(`Произошла ошибка: ${err}, может об этом нужно куда-то сообщить?`);
             }
         });
     }
