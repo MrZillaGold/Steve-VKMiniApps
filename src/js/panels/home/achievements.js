@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import axios from 'axios';
 
+import { Offline, Online } from 'react-detect-offline';
+
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
 import Panel from "@vkontakte/vkui/dist/components/Panel/Panel";
@@ -20,7 +22,6 @@ import PanelHeaderContent from "@vkontakte/vkui/dist/components/PanelHeaderConte
 import Div from "@vkontakte/vkui/dist/components/Div/Div";
 
 import Icon16Down from '@vkontakte/icons/dist/16/down';
-
 
 class AchievementsGet extends React.Component {
 
@@ -55,7 +56,7 @@ class AchievementsGet extends React.Component {
             this.setState({ spinner: null });
             if (err) {
                 this.setState({ error: `Произошла ошибка. Попробуйте позже.` });
-                return console.log(`Произошла ошибка: ${err}, может об этом нужно куда-то сообщить?`);
+                return console.log(`Произошла ошибка: ${err.response.status}, может об этом нужно куда-то сообщить?`);
             }
         });
     }
@@ -72,84 +73,103 @@ class AchievementsGet extends React.Component {
                         Steve
                     </PanelHeaderContent>
                 </PanelHeader>
-                <FormLayout>
-                    <Input
-                        top='Первая строка'
-                        name='one'
-                        value={one}
-                        onChange={this.onChange.bind(this)}
-                        status={this.state.value === 'error' ? 'error' : 'default'}
-                        placeholder="Достижение получено!"
-                        maxLength='21'
-                    />
-                    <Input
-                        top='Вторая строка'
-                        name='two'
-                        value={two}
-                        onChange={this.onChange.bind(this)}
-                        status={this.state.value === 'error' ? 'error' : 'default'}
-                        placeholder="Терпение и труд"
-                        maxLength='21'
-                    />
-                    {
-                        this.state.one.length > 0 || this.state.two.length > 0 ?
-                            <Button onClick={this.onClick.bind(this)} size='xl'>Сгенерировать достижение</Button>
-                            :
-                            <Button disabled onClick={this.onClick.bind(this)} size='xl'>Сгенерировать достижение</Button>
-                    }
+                <Online>
+                    <FormLayout>
+                        <Input
+                            top='Первая строка'
+                            name='one'
+                            value={one}
+                            onChange={this.onChange.bind(this)}
+                            status={this.state.value === 'error' ? 'error' : 'default'}
+                            placeholder="Достижение получено!"
+                            maxLength='21'
+                        />
+                        <Input
+                            top='Вторая строка'
+                            name='two'
+                            value={two}
+                            onChange={this.onChange.bind(this)}
+                            status={this.state.value === 'error' ? 'error' : 'default'}
+                            placeholder="Терпение и труд"
+                            maxLength='21'
+                        />
+                        {
+                            this.state.one.length > 0 || this.state.two.length > 0 ?
+                                <Button onClick={this.onClick.bind(this)} size='xl'>Сгенерировать достижение</Button>
+                                :
+                                <Button disabled onClick={this.onClick.bind(this)} size='xl'>Сгенерировать достижение</Button>
+                        }
 
-                    { this.state.spinner === null ?
-                        '' :
-                        <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                            <Spinner size='large' style={{ marginTop: 20 }} />
-                        </div>
-                    }
-                    {
-                        this.state.error === null ?
+                        { this.state.spinner === null ?
                             '' :
+                            <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                                <Spinner size='large' style={{ marginTop: 20 }} />
+                            </div>
+                        }
+                        {
+                            this.state.error === null ?
+                                '' :
+                                <Group>
+                                    <List>
+                                        <Cell align='center'><b>Упс...</b></Cell>
+                                    </List>
+                                    <p style={{ whiteSpace: 'pre-wrap', color: '#909499', textAlign: 'center' }}>{this.state.error}</p>
+                                    <Gallery
+                                        style={{ height: 200 }}
+                                    >
+                                        <div style={{
+                                            backgroundImage: 'url(https://www.minecraft.net/content/dam/archive/0ef629a3446f9a977087c578189097dd-sticker_creeper.png)',
+                                            backgroundSize: 'contain',
+                                            backgroundPosition: '50%',
+                                            height: '200px',
+                                            width: '100%',
+                                            backgroundRepeat: 'no-repeat'}}
+                                        />
+                                    </Gallery>
+                                </Group>
+                        }
+                        {this.state.check == null ? '' :
                             <Group>
-                                <List>
-                                    <Cell align='center'><b>Упс...</b></Cell>
-                                </List>
-                                <p style={{ whiteSpace: 'pre-wrap', color: '#909499', textAlign: 'center' }}>{this.state.error}</p>
-                                <Gallery
-                                    style={{ height: 200 }}
-                                >
-                                    <div style={{
-                                        backgroundImage: 'url(https://www.minecraft.net/content/dam/archive/0ef629a3446f9a977087c578189097dd-sticker_creeper.png)',
-                                        backgroundSize: 'contain',
-                                        backgroundPosition: '50%',
-                                        height: '200px',
-                                        width: '100%',
-                                        backgroundRepeat: 'no-repeat'}}
-                                    />
-                                </Gallery>
+                                <Div>
+                                    <Gallery
+                                        style={{
+                                            height: '70px'
+                                        }}
+                                    >
+                                        <div style={{
+                                            backgroundImage: 'url(' + url +')',
+                                            backgroundSize: 'contain',
+                                            backgroundPosition: '50%',
+                                            height: '64px',
+                                            backgroundRepeat: 'no-repeat'
+                                        }}
+                                        />
+                                    </Gallery>
+                                    <div style={{ display: 'flex' }}>
+                                        <Button component="a" download="achievement.png" href={`${url}&d=1`} stretched before={<Icon16Down/>}>Скачать</Button>
+                                    </div>
+                                </Div>
                             </Group>
-                    }
-                    {this.state.check == null ? '' :
-                        <Group>
-                            <Div>
-                                <Gallery
-                                    style={{
-                                        height: '70px'
-                                    }}
-                                >
-                                    <div style={{
-                                        backgroundImage: 'url(' + url +')',
-                                        backgroundSize: 'contain',
-                                        backgroundPosition: '50%',
-                                        height: '64px',
-                                        backgroundRepeat: 'no-repeat'
-                                    }}
-                                    />
-                                </Gallery>
-                                <div style={{ display: 'flex' }}>
-                                    <Button component="a" download="achievement.png" href={`${url}&d=1`} stretched before={<Icon16Down/>}>Скачать</Button>
-                                </div>
-                            </Div>
-                        </Group>
-                    }
-                </FormLayout>
+                        }
+                    </FormLayout>
+                </Online>
+                <Offline>
+                    <Div style={{ userSelect: 'none', marginTop: '56px' }}>
+                        <Cell align='center'><b>Упс...</b></Cell>
+                        <p style={{ whiteSpace: 'pre-wrap', color: '#909499', textAlign: 'center' }}>
+                            Пропало подключение с сервером!<br /><br />Эта вкладка будет доступна как появится соединение.
+                        </p>
+                        <Button level='tertiary' stretched component='a' href='https://vk.com/stevebotmc'>Группа</Button>
+                        <Gallery style={{ height: 200 }}>
+                            <div style={{
+                                backgroundImage: 'url(https://psv4.userapi.com/c848424/u233731786/docs/d8/5b1e5e8f3fa5/Enderman.png)',
+                                backgroundSize: 'contain',
+                                backgroundPosition: '50%',
+                                backgroundRepeat: 'no-repeat'}}
+                            />
+                        </Gallery>
+                    </Div>
+                </Offline>
             </Panel>
         );
     }
