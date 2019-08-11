@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import axios from 'axios';
 
+import { Offline, Online } from 'react-detect-offline';
+
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
 import Panel from "@vkontakte/vkui/dist/components/Panel/Panel";
@@ -17,7 +19,7 @@ import Cell from "@vkontakte/vkui/dist/components/Cell/Cell";
 import List from "@vkontakte/vkui/dist/components/List/List";
 import Gallery from "@vkontakte/vkui/dist/components/Gallery/Gallery";
 import PanelHeaderContent from "@vkontakte/vkui/dist/components/PanelHeaderContent/PanelHeaderContent";
-import Avatar from "@vkontakte/vkui/dist/components/Avatar/Avatar";
+import Div from "@vkontakte/vkui/dist/components/Div/Div";
 
 
 class UserGet extends React.Component {
@@ -73,141 +75,145 @@ class UserGet extends React.Component {
                         Steve
                     </PanelHeaderContent>
                 </PanelHeader>
-                <FormLayout>
-                    <Input
-                        top='Никнейм'
-                        name='nickname'
-                        value={nickname}
-                        onChange={this.onChange.bind(this)}
-                        status={this.state.value === 'error' ? 'error' : 'default'}
-                        bottom={this.state.value === 'error' ? 'Пожалуйста, введите никнейм игрока' : 'Никнейм может содержать только латинские буквы, цифры и символ "_".'}
-                        placeholder="Введите никнейм"
-                        maxLength='16'
-                        pattern='^[A-Za-z0-9_]+$'
-                    />
-                    {
-                        this.state.nickname.length > 2 && this.state.nickname.match('^[A-Za-z0-9_]+$') ?
-                            <Button onClick={this.onClick.bind(this)} size='xl'>Посмотреть информацию</Button>
-                            :
-                            <Button disabled onClick={this.onClick.bind(this)} size='xl'>Посмотреть информацию</Button>
-                    }
+                <Online>
+                    <FormLayout>
+                        <Input
+                            top='Никнейм'
+                            name='nickname'
+                            value={nickname}
+                            onChange={this.onChange.bind(this)}
+                            status={this.state.value === 'error' ? 'error' : 'default'}
+                            bottom={this.state.value === 'error' ? 'Пожалуйста, введите никнейм игрока' : 'Никнейм может содержать только латинские буквы, цифры и символ "_".'}
+                            placeholder="Введите никнейм"
+                            maxLength='16'
+                            pattern='^[A-Za-z0-9_]+$'
+                        />
+                        {
+                            this.state.nickname.length > 2 && this.state.nickname.match('^[A-Za-z0-9_]+$') ?
+                                <Button onClick={this.onClick.bind(this)} size='xl'>Посмотреть информацию</Button>
+                                :
+                                <Button disabled onClick={this.onClick.bind(this)} size='xl'>Посмотреть информацию</Button>
+                        }
 
-                    { this.state.spinner === null ?
-                        '' :
-                        <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                            <Spinner size='large' style={{ marginTop: 20 }} />
-                        </div>
-                    }
-                    {
-                        this.state.error === null ?
+                        { this.state.spinner === null ?
                             '' :
-                            <Group>
-                                <List>
-                                    <Cell align='center'><b>Упс...</b></Cell>
-                                </List>
-                                <p style={{ whiteSpace: 'pre-wrap', color: '#909499', textAlign: 'center' }}>{this.state.error}</p>
+                            <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                                <Spinner size='large' style={{ marginTop: 20 }} />
+                            </div>
+                        }
+                        {
+                            this.state.error === null ?
+                                '' :
+                                <Group>
+                                    <List>
+                                        <Cell align='center'><b>Упс...</b></Cell>
+                                    </List>
+                                    <p style={{ whiteSpace: 'pre-wrap', color: '#909499', textAlign: 'center' }}>{this.state.error}</p>
+                                    <Gallery
+                                        style={{ height: 200 }}
+                                    >
+                                        <div style={{
+                                            backgroundImage: 'url(https://www.minecraft.net/content/dam/archive/0ef629a3446f9a977087c578189097dd-sticker_creeper.png)',
+                                            backgroundSize: 'contain',
+                                            backgroundPosition: '50%',
+                                            height: '200px',
+                                            width: '100%',
+                                            backgroundRepeat: 'no-repeat'}}
+                                        />
+                                    </Gallery>
+                                </Group>
+                        }
+                        {this.state.skin === null ? '' :
+                            <Group top={`Скин игрока ${this.state.username}`}>
                                 <Gallery
-                                    style={{ height: 200 }}
+                                    bullets="dark"
+                                    style={{
+                                        display: 'flex',
+                                        width: '100%',
+                                        height: '200px',
+                                        backgroundPosition: 'center'
+                                    }}
                                 >
                                     <div style={{
-                                        backgroundImage: 'url(https://www.minecraft.net/content/dam/archive/0ef629a3446f9a977087c578189097dd-sticker_creeper.png)',
+                                        backgroundImage: 'url(https://mc-heads.net/body/' + this.state.username + '/200)',
                                         backgroundSize: 'contain',
-                                        backgroundPosition: '50%',
+                                        backgroundPosition: 'center',
                                         height: '200px',
-                                        width: '100%',
-                                        backgroundRepeat: 'no-repeat'}}
+                                        width: 'auto',
+                                        display: 'block',
+                                        backgroundRepeat: 'no-repeat'
+                                    }}
+                                    />
+                                    <div style={{
+                                        backgroundImage: 'url(https://mc-heads.net/player/' + this.state.username + '/200)',
+                                        backgroundSize: 'contain',
+                                        backgroundPosition: 'center',
+                                        height: '200px',
+                                        width: 'auto',
+                                        display: 'block',
+                                        backgroundRepeat: 'no-repeat'
+                                    }}
+                                    />
+                                    <div style={{
+                                        backgroundImage: 'url(https://mc-heads.net/head/' + this.state.username + '/300)',
+                                        backgroundSize: 'contain',
+                                        backgroundPosition: 'center',
+                                        height: '200px',
+                                        width: 'auto',
+                                        display: 'block',
+                                        backgroundRepeat: 'no-repeat'
+                                    }}
+                                    />
+                                    <div style={{
+                                        backgroundImage: 'url(https://mc-heads.net/avatar/' + this.state.username + '/200)',
+                                        backgroundSize: 'contain',
+                                        backgroundPosition: 'center',
+                                        height: '200px',
+                                        width: 'auto',
+                                        display: 'block',
+                                        backgroundRepeat: 'no-repeat'
+                                    }}
                                     />
                                 </Gallery>
                             </Group>
-                    }
-                    {this.state.skin === null ? '' :
-                        <Group top={`Скин игрока ${this.state.username}`}>
-                            <Gallery
-                                bullets="dark"
-                                style={{
-                                    display: 'flex',
-                                    width: '100%',
-                                    height: '200px',
-                                    backgroundPosition: 'center'
-                                }}
-                            >
-                                <div style={{
-                                    backgroundImage: 'url(https://mc-heads.net/body/' + this.state.username + '/200)',
-                                    backgroundSize: 'contain',
-                                    backgroundPosition: 'center',
-                                    height: '200px',
-                                    width: 'auto',
-                                    display: 'block',
-                                    backgroundRepeat: 'no-repeat'
-                                }}
-                                />
-                                <div style={{
-                                    backgroundImage: 'url(https://mc-heads.net/player/' + this.state.username + '/200)',
-                                    backgroundSize: 'contain',
-                                    backgroundPosition: 'center',
-                                    height: '200px',
-                                    width: 'auto',
-                                    display: 'block',
-                                    backgroundRepeat: 'no-repeat'
-                                }}
-                                />
-                                <div style={{
-                                    backgroundImage: 'url(https://mc-heads.net/head/' + this.state.username + '/300)',
-                                    backgroundSize: 'contain',
-                                    backgroundPosition: 'center',
-                                    height: '200px',
-                                    width: 'auto',
-                                    display: 'block',
-                                    backgroundRepeat: 'no-repeat'
-                                }}
-                                />
-                                <div style={{
-                                    backgroundImage: 'url(https://mc-heads.net/avatar/' + this.state.username + '/200)',
-                                    backgroundSize: 'contain',
-                                    backgroundPosition: 'center',
-                                    height: '200px',
-                                    width: 'auto',
-                                    display: 'block',
-                                    backgroundRepeat: 'no-repeat'
-                                }}
-                                />
-                            </Gallery>
-                            <Group>
-                                <Cell
-                                    multiline
-                                    before={<Avatar type='app' size={64} src={`https://mc-heads.net/head/${this.state.username}/150`} style={{backgroundColor: 'transparent'}}/>}
-                                    size="l"
-                                    description="Вы можете скачать этот скин в диалоге с ботом!"
-                                    bottomContent={
-                                        <div style={{ display: 'flex' }}>
-                                            <Button component="a" target="_blank" href="https://vk.com/im?sel=-175914098" stretched>Перейти в диалог</Button>
-                                        </div>
-                                    }
-                                >
-                                    Скачать скин
+                        }
+                        <List top={this.state.username === null ? '' : `История никнейма ${this.state.username}`}>
+                            {this.state.list === null ? '' : Array.prototype.map.call(this.state.list, function (item) {
+
+                                let currentDate = new Date(item.changed_at);
+
+                                let getDate = currentDate.getDate();
+                                let getMonth = currentDate.getMonth() + 1;
+                                let getYear = currentDate.getFullYear();
+
+                                let month = getMonth > 9 ? getMonth : `0` + getMonth;
+                                let date = getDate > 9 ? getDate : `0` + getDate;
+                                let changed_at = date + '.' + month + '.' + getYear;
+
+                                return <Cell key={item.username} description={item.changed_at !== undefined ? changed_at : 'Первый'}>
+                                    {item.username}
                                 </Cell>
-                            </Group>
-                        </Group>
-                    }
-                    <List top={this.state.username === null ? '' : `История никнейма ${this.state.username}`}>
-                        {this.state.list === null ? '' : Array.prototype.map.call(this.state.list, function (item) {
-
-                            let currentDate = new Date(item.changed_at);
-
-                            let getDate = currentDate.getDate();
-                            let getMonth = currentDate.getMonth() + 1;
-                            let getYear = currentDate.getFullYear();
-
-                            let month = getMonth > 9 ? getMonth : `0` + getMonth;
-                            let date = getDate > 9 ? getDate : `0` + getDate;
-                            let changed_at = date + '.' + month + '.' + getYear;
-
-                            return <Cell key={item.username} description={item.changed_at !== undefined ? changed_at : 'Первый'}>
-                                {item.username}
-                            </Cell>
-                        }).reverse()}
-                    </List>
-                </FormLayout>
+                            }).reverse()}
+                        </List>
+                    </FormLayout>
+                </Online>
+                <Offline>
+                    <Div style={{ userSelect: 'none', marginTop: '56px' }}>
+                        <Cell align='center'><b>Упс...</b></Cell>
+                        <p style={{ whiteSpace: 'pre-wrap', color: '#909499', textAlign: 'center' }}>
+                            Пропало подключение с сервером!<br /><br />Эта вкладка будет доступна как появится соединение.
+                        </p>
+                        <Button level='tertiary' stretched component='a' href='https://vk.com/stevebotmc'>Группа</Button>
+                        <Gallery style={{ height: 200 }}>
+                            <div style={{
+                                backgroundImage: 'url(https://psv4.userapi.com/c848424/u233731786/docs/d8/5b1e5e8f3fa5/Enderman.png)',
+                                backgroundSize: 'contain',
+                                backgroundPosition: '50%',
+                                backgroundRepeat: 'no-repeat'}}
+                            />
+                        </Gallery>
+                    </Div>
+                </Offline>
             </Panel>
         );
     }
@@ -221,10 +227,4 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        accessToken: state.vkui.accessToken
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserGet);
+export default connect(null, mapDispatchToProps)(UserGet);
