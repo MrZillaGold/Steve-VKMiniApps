@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 
+import { Offline, Online } from 'react-detect-offline';
+
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
 import Panel from "@vkontakte/vkui/dist/components/Panel/Panel";
@@ -12,9 +14,10 @@ import Group from "@vkontakte/vkui/dist/components/Group/Group";
 import Cell from "@vkontakte/vkui/dist/components/Cell/Cell";
 import List from "@vkontakte/vkui/dist/components/List/List";
 import Gallery from "@vkontakte/vkui/dist/components/Gallery/Gallery";
-import PanelHeaderContent from "@vkontakte/vkui/dist/components//PanelHeaderContent/PanelHeaderContent";
+import PanelHeaderContent from "@vkontakte/vkui/dist/components/PanelHeaderContent/PanelHeaderContent";
 import Div from "@vkontakte/vkui/dist/components/Div/Div";
 import axios from "axios";
+import Button from "@vkontakte/vkui/dist/components/Button/Button";
 
 
 class NewsGet extends React.Component {
@@ -60,6 +63,7 @@ class NewsGet extends React.Component {
                         Steve
                     </PanelHeaderContent>
                 </PanelHeader>
+                <Online>
                 { this.state.spinner === false ?
                     ''
                     :
@@ -103,6 +107,24 @@ class NewsGet extends React.Component {
                             </Gallery>
                         </Group>
                 }
+                </Online>
+                <Offline>
+                    <Div style={{ userSelect: 'none', marginTop: '56px' }}>
+                        <Cell align='center'><b>Упс...</b></Cell>
+                        <p style={{ whiteSpace: 'pre-wrap', color: '#909499', textAlign: 'center' }}>
+                            Пропало подключение с сервером!<br /><br />Эта вкладка будет доступна как появится соединение.
+                        </p>
+                        <Button level='tertiary' stretched component='a' href='https://vk.com/stevebotmc'>Группа</Button>
+                        <Gallery style={{ height: 200 }}>
+                            <div style={{
+                                backgroundImage: 'url(https://psv4.userapi.com/c848424/u233731786/docs/d8/5b1e5e8f3fa5/Enderman.png)',
+                                backgroundSize: 'contain',
+                                backgroundPosition: '50%',
+                                backgroundRepeat: 'no-repeat'}}
+                            />
+                        </Gallery>
+                    </Div>
+                </Offline>
             </Panel>
         );
     }
@@ -116,10 +138,4 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        accessToken: state.vkui.accessToken
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(NewsGet);
+export default connect(null, mapDispatchToProps)(NewsGet);
