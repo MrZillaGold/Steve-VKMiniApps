@@ -4,16 +4,9 @@ import {bindActionCreators} from 'redux'
 import {goBack, closeModal} from "./js/store/router/actions";
 import * as VK from './js/services/VK';
 
-import { Offline, Online } from 'react-detect-offline';
-
 import View from '@vkontakte/vkui/dist/components/View/View';
 import Root from '@vkontakte/vkui/dist/components/Root/Root';
 import ConfigProvider from '@vkontakte/vkui/dist/components/ConfigProvider/ConfigProvider';
-import Gallery from "@vkontakte/vkui/dist/components/Gallery/Gallery";
-import Button from "@vkontakte/vkui/dist/components/Button/Button";
-import Cell from "@vkontakte/vkui/dist/components/Cell/Cell";
-import Div from "@vkontakte/vkui/dist/components/Div/Div";
-
 
 import HomePanelProfile from './js/panels/home/base';
 import HomePanelServer from './js/panels/home/server';
@@ -63,21 +56,14 @@ class App extends React.Component {
     }
 
     render() {
-        const {goBack, popouts, activeView, activePanel, panelsHistory, colorScheme} = this.props;
+        const {goBack, activeView, activePanel, panelsHistory, colorScheme} = this.props;
 
         let history = (panelsHistory[activeView] === undefined) ? [activeView] : panelsHistory[activeView];
-        let popout = (popouts[activeView] === undefined) ? null : popouts[activeView];
 
         return (
             <ConfigProvider isWebView={true} scheme={colorScheme}>
-                <Online>
-                    <Root activeView={activeView} popout={popout}>
-                        <View
-                            id="home"
-                            activePanel={activePanel}
-                            history={history}
-                            onSwipeBack={() => goBack()}
-                        >
+                    <Root activeView={activeView}>
+                        <View id="home" activePanel={activePanel} history={history} onSwipeBack={() => goBack()}>
                             <HomePanelProfile id="base" />
                             <HomePanelServer id="server"/>
                             <HomePanelUser id="user"/>
@@ -87,26 +73,6 @@ class App extends React.Component {
                             <HomePanelCalculator id="calculator"/>
                         </View>
                     </Root>
-                </Online>
-                <Offline>
-                    <Div style={{ userSelect: 'none', marginTop: '56px' }}>
-                        <Cell align='center'><b>Упс...</b></Cell>
-                        <p style={{ whiteSpace: 'pre-wrap', color: '#909499', textAlign: 'center' }}>
-                            Пропало подключение с сервером!<br /><br />Сервис автоматически переподключится как появится соединение.
-                        </p>
-                        <Button level='tertiary' stretched component='a' href='https://vk.com/stevebotmc'>Группа</Button>
-                        <Gallery
-                            style={{ height: 200 }}
-                        >
-                            <div style={{
-                                backgroundImage: 'url(https://psv4.userapi.com/c848424/u233731786/docs/d8/5b1e5e8f3fa5/Enderman.png)',
-                                backgroundSize: 'contain',
-                                backgroundPosition: '50%',
-                                backgroundRepeat: 'no-repeat'}}
-                            />
-                        </Gallery>
-                    </Div>
-                </Offline>
             </ConfigProvider>
         );
     }
@@ -125,7 +91,6 @@ const mapStateToProps = (state) => {
         colorScheme: state.vkui.colorScheme
     };
 };
-
 
 function mapDispatchToProps(dispatch) {
     return {
