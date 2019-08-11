@@ -51,7 +51,7 @@ class Calculator extends React.Component {
 
                     <Input
                         top='Координата X'
-                        bottom='Целое число'
+                        bottom='Целое натуральное число'
                         name='x'
                         value={x}
                         onChange={this.onChange.bind(this)}
@@ -61,7 +61,7 @@ class Calculator extends React.Component {
                     />
                     <Input
                         top='Координата Y'
-                        bottom='Целое число'
+                        bottom='Натуральное число'
                         name='y'
                         value={y}
                         onChange={this.onChange.bind(this)}
@@ -71,7 +71,7 @@ class Calculator extends React.Component {
                     />
                     <Input
                         top='Координата Z'
-                        bottom='Целое число'
+                        bottom='Целое натуральное число'
                         name='z'
                         value={z}
                         onChange={this.onChange.bind(this)}
@@ -79,28 +79,26 @@ class Calculator extends React.Component {
                         maxLength='8'
                         pattern='^[-]?[0-9]+$'
                     />
-                    {this.state.world === null ? '' : this.state.world === 'nether' ?
-                        <List top='Координаты в аду'>
+                    {this.state.world === null ? '' :
+                        <List top={this.state.world === 'nether' ? 'Координаты в аду' : 'Координаты в обычном мире'}>
                             <Cell description='Координата X'>
-                                {this.state.x === null ? 'Координата не указана' : this.state.x.match('^[-]?[0-9]+$') ? Math.floor(this.state.x / 8) : 0}
+                                {this.state.x === null ? '0' : this.state.x.match('^[-]?[0-9]+$') ? this.state.world === 'nether' ? Math.floor(this.state.x / 8) : Math.floor(this.state.x * 8) : 0}
                             </Cell>
                             <Cell description='Координата Y'>
-                                {this.state.y === null ? 'Координата не указана' : this.state.y.match('^[0-9]+$') ? this.state.y : 0}
+                                {this.state.y === null ? '0' : this.state.y.match('^[0-9]+$') ? this.state.y : 0}
                             </Cell>
                             <Cell description='Координата Z'>
-                                {this.state.z === null ? 'Координата не указана' : this.state.z.match('^[-]?[0-9]+$') ? Math.floor(this.state.z / 8) : 0}
+                                {this.state.z === null ? '0' : this.state.z.match('^[-]?[0-9]+$') ? this.state.world === 'nether' ? Math.floor(this.state.z / 8) : Math.floor(this.state.z * 8) : 0}
                             </Cell>
                         </List>
-                        :
-                        <List top='Координаты в обычном мире'>
-                            <Cell description='Координата X'>
-                                {this.state.x === null ? 'Координата не указана' : this.state.x.match('^[-]?[0-9]+$') ? Math.floor(this.state.x * 8) : 0}
+                    }
+                    {this.state.world === null ? '' :
+                        <List>
+                            <Cell description='Номер чанка'>
+                                {`${this.state.x === null ? '0' : this.state.x.match('^[-]?[0-9]+$') ? Math.floor(this.state.x / 16) : 0}, ${this.state.y === null ? '0' : this.state.y.match('^[-]?[0-9]+$') ? Math.floor(this.state.y / 16) : 0}, ${this.state.z === null ? '0' : this.state.z.match('^[-]?[0-9]+$') ? Math.floor(this.state.z / 16) : 0}`}
                             </Cell>
-                            <Cell description='Координата Y'>
-                                {this.state.y === null ? 'Координата не указана' : this.state.y.match('^[0-9]+$') ? this.state.y : 0}
-                            </Cell>
-                            <Cell description='Координата Z'>
-                                {this.state.z === null ? 'Координата не указана' : this.state.z.match('^[-]?[0-9]+$') ? Math.floor(this.state.z * 8) : 0}
+                            <Cell description='Файл чанка'>
+                                {`r.${this.state.x === null ? '0' : this.state.x.match('^[-]?[0-9]+$') ? Math.floor(this.state.x / 512) : 0}.${this.state.z === null ? '0' : this.state.z.match('^[-]?[0-9]+$') ? Math.floor(this.state.z / 512) : 0}.mca`}
                             </Cell>
                         </List>
                     }
