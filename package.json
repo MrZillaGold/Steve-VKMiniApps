@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "set HTTPS=true&&react-scripts start",
-    "start": "set HTTPS=true&&react-scripts start",
+    "start": "serve -s build",
     "build": "set HTTPS=true&&react-scripts build",
     "test": "set HTTPS=true&&react-scripts test --env=jsdom",
     "eject": "set HTTPS=true&&react-scripts eject",
@@ -32,7 +32,8 @@
     "react-scripts": "^2.1.8",
     "redux-devtools-extension": "^2.13.8",
     "axios": "^0.19.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "serve": "^11.1.0"
   },
   "browserslist": [
     ">0.2%",
