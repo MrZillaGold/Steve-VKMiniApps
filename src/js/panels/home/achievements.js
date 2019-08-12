@@ -65,6 +65,9 @@ class AchievementsGet extends React.Component {
 
         const {one, two, id, goBack} = this.props;
         const url = 'https://vkfreeviews.000webhostapp.com/a.php?h=' + this.state.lineone +'&t=' + this.state.linetwo + '&i=' + this.state.rand;
+        const download = 'http://image.mrzillagold.me/a.php?h=' + this.state.lineone +'&t=' + this.state.linetwo + '&i=' + this.state.rand+ '&d=1';
+
+
 
         return (
             <Panel id={id}>
@@ -146,7 +149,7 @@ class AchievementsGet extends React.Component {
                                         />
                                     </Gallery>
                                     <div style={{ display: 'flex' }}>
-                                        <Button component="a" download="achievement.png" href={`${url}&d=1`} stretched before={<Icon16Down/>}>Скачать</Button>
+                                        <Button component="a" download="achievement.png" href={download} stretched before={<Icon16Down/>}>Скачать</Button>
                                     </div>
                                 </Div>
                             </Group>
