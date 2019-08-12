@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": { 
-    "start": "set HTTPS=true&&react-scripts start", 
-    "build": "set HTTPS=true&&react-scripts build", 
-    "eject": "set HTTPS=true&&react-scripts eject" 
-},
+  "scripts": {
+    "dev": "set HTTPS=true&&react-scripts start",
+    "start": "serve -s build",
+    "build": "set HTTPS=true&&react-scripts build",
+    "test": "set HTTPS=true&&react-scripts test --env=jsdom",
+    "eject": "set HTTPS=true&&react-scripts eject",
+    "heroku-postbuild": "npm run build"
+  }
   "author": "MrZillaGold",
   "license": "ISC",
   "dependencies": {
