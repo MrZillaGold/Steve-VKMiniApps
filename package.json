@@ -10,7 +10,7 @@
     "test": "set HTTPS=true&&react-scripts test --env=jsdom",
     "eject": "set HTTPS=true&&react-scripts eject",
     "heroku-postbuild": "npm run build"
-  }
+  },
   "author": "MrZillaGold",
   "license": "ISC",
   "dependencies": {
