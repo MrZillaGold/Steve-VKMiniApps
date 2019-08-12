@@ -35,7 +35,8 @@ class AchievementsGet extends React.Component {
         spinner: null,
         error: null,
         value: null,
-        rand: null
+        rand: null,
+        url: null
     };
 
     onChange(e) {
@@ -44,30 +45,30 @@ class AchievementsGet extends React.Component {
     }
 
     share () {
-        const url = 'https://vkfreeviews.000webhostapp.com/a.php?h=' + this.state.lineone +'&t=' + this.state.linetwo + '&i=' + this.state.rand;
         VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098})
             .then(data => {
                 if(data.type === "VKWebAppAllowMessagesFromGroupResult") {
-                    VKConnect.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"url": url}})
+                    VKConnect.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"url": this.state.url}}).then(data => {
+                    console.log(data)}).catch(error => console.log(error));
                 }
             })
             .catch(error => console.log(error));
     }
 
     onClick () {
-        this.setState({ spinner: true, check: null, error: null });
+        this.setState({ spinner: true, check: null, error: null, url: null });
         axios.get(`https://vkfreeviews.000webhostapp.com/a.php?h=${this.state.one}&t=${this.state.two}`).then(() => {
             function randomInteger(min, max) {
                 let rand = min + Math.random() * (max + 1 - min);
                 rand = Math.floor(rand);
                 return rand;
             }
-            this.setState({ spinner: null, check: true, lineone: this.state.one, linetwo: this.state.two, rand: randomInteger(1, 39) });
+            let random = randomInteger(1, 39);
+            this.setState({ spinner: null, check: true, lineone: this.state.one, linetwo: this.state.two, rand: random, url: 'https://vkfreeviews.000webhostapp.com/a.php?h=' + this.state.lineone +'&t=' + this.state.linetwo + '&i=' + random });
         }).catch(err => {
             this.setState({ spinner: null });
             if (err) {
                 this.setState({ error: `Произошла ошибка. Попробуйте позже.` });
-                return console.log(`Произошла ошибка: ${err.response.status}, может об этом нужно куда-то сообщить?`);
             }
         });
     }
