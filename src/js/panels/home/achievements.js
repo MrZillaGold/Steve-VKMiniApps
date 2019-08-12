@@ -47,11 +47,8 @@ class AchievementsGet extends React.Component {
         const url = 'https://vkfreeviews.000webhostapp.com/a.php?h=' + this.state.lineone +'&t=' + this.state.linetwo + '&i=' + this.state.rand;
         VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098})
             .then(data => {
-                console.log(data.type)
                 if(data.type === "VKWebAppAllowMessagesFromGroupResult") {
-                    VKConnect.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"url": "http://image.mrzillagold.me/a.php?h=&t=12&i=9"}}).then(data => {
-                    console.log(data)
-                    }).catch(error => console.log(error));
+                    VKConnect.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"url": url}})
                 }
             })
             .catch(error => console.log(error));
