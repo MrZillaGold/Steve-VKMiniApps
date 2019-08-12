@@ -43,7 +43,7 @@ class UserGet extends React.Component {
         if (this.state.nickname.length === 0){
             return this.setState({ value: 'error' });
         }
-        this.setState({ spinner: true, list: null, username: null, error: null, value: null });
+        this.setState({ spinner: true, list: null, username: null, error: null, value: null, skin: null });
         axios.get(`https://cors-anywhere.herokuapp.com/https://api.ashcon.app/mojang/v2/user/${this.state.nickname}`).then(res => {
             return res.data;
         }).then(data => {
