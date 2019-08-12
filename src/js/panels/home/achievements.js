@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import axios from 'axios';
+import VKConnect from "@vkontakte/vkui-connect-promise";
 
 import { Offline, Online } from 'react-detect-offline';
 
@@ -22,6 +23,7 @@ import PanelHeaderContent from "@vkontakte/vkui/dist/components/PanelHeaderConte
 import Div from "@vkontakte/vkui/dist/components/Div/Div";
 
 import Icon16Down from '@vkontakte/icons/dist/16/down';
+import Icon24Message from '@vkontakte/icons/dist/24/message';
 
 class AchievementsGet extends React.Component {
 
@@ -41,7 +43,19 @@ class AchievementsGet extends React.Component {
         this.setState({[name]: value});
     }
 
-
+    share () {
+        const url = 'https://vkfreeviews.000webhostapp.com/a.php?h=' + this.state.lineone +'&t=' + this.state.linetwo + '&i=' + this.state.rand;
+        VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098})
+            .then(data => {
+                console.log(data.type)
+                if(data.type === "VKWebAppAllowMessagesFromGroupResult") {
+                    VKConnect.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"url": "http://image.mrzillagold.me/a.php?h=&t=12&i=9"}}).then(data => {
+                    console.log(data)
+                    }).catch(error => console.log(error));
+                }
+            })
+            .catch(error => console.log(error));
+    }
 
     onClick () {
         this.setState({ spinner: true, check: null, error: null });
@@ -66,8 +80,6 @@ class AchievementsGet extends React.Component {
         const {one, two, id, goBack} = this.props;
         const url = 'https://vkfreeviews.000webhostapp.com/a.php?h=' + this.state.lineone +'&t=' + this.state.linetwo + '&i=' + this.state.rand;
         const download = 'http://image.mrzillagold.me/a.php?h=' + this.state.lineone +'&t=' + this.state.linetwo + '&i=' + this.state.rand+ '&d=1';
-
-
 
         return (
             <Panel id={id}>
@@ -149,6 +161,9 @@ class AchievementsGet extends React.Component {
                                         />
                                     </Gallery>
                                     <div style={{ display: 'flex' }}>
+                                        <Button onClick={this.share.bind(this)} stretched before={<Icon24Message width={16} height={16} />}>Получить картинку в сообщения</Button>
+                                    </div>
+                                    <div style={{ display: 'flex', marginTop: '10px' }}>
                                         <Button component="a" download="achievement.png" href={download} stretched before={<Icon16Down/>}>Скачать</Button>
                                     </div>
                                 </Div>
