@@ -48,7 +48,7 @@ class AchievementsGet extends React.Component {
         VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098}).then(data => {
 
                 if(data.type === "VKWebAppAllowMessagesFromGroupResult") {
-                    VKConnect.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"url": this.state.url}})
+                    VKConnect.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"type":"photo", "url": this.state.url}})
                 }
 
             }).catch(error => console.log(error));
@@ -57,7 +57,7 @@ class AchievementsGet extends React.Component {
     onClick () {
         this.setState({ spinner: true, check: null, error: null, url: null });
 
-        axios.get(`https://cors-anywhere.herokuapp.com/http://image.mrzillagold.me/a.php?h=&t=`).then(() => {
+        axios.get(`http://image.mrzillagold.me/a.php?h=&t=`).then(() => {
             function randomInteger(min, max) {
                 let rand = min + Math.random() * (max + 1 - min);
                 rand = Math.floor(rand);
@@ -151,7 +151,7 @@ class AchievementsGet extends React.Component {
                                         }}
                                     >
                                         <div style={{
-                                            backgroundImage: 'url(' + url + ')',
+                                            backgroundImage: 'url(' + url +')',
                                             backgroundSize: 'contain',
                                             backgroundPosition: '50%',
                                             height: '64px',
