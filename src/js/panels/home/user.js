@@ -41,6 +41,16 @@ class UserGet extends React.Component {
         this.setState({[name]: value});
     }
 
+    share () {
+        VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098}).then(data => {
+
+            if(data.type === "VKWebAppAllowMessagesFromGroupResult") {
+                VKConnect.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"type":"document", "url": this.state.skin, "name": this.state.username}})
+            }
+
+        }).catch(error => console.log(error));
+    }
+
     onClick () {
         if (this.state.nickname.length === 0){
             return this.setState({ value: 'error' });
@@ -65,16 +75,6 @@ class UserGet extends React.Component {
                 return console.log(`Произошла ошибка: ${err}, может об этом нужно куда-то сообщить?`);
             }
         });
-    }
-
-    share () {
-        VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098}).then(data => {
-
-            if(data.type === "VKWebAppAllowMessagesFromGroupResult") {
-                VKConnect.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"type":"document", "url": this.state.skin, "name": this.state.username}})
-            }
-
-        }).catch(error => console.log(error));
     }
 
     render() {
