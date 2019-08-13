@@ -78,7 +78,7 @@ class AchievementsGet extends React.Component {
     render() {
 
         const {one, two, id, goBack} = this.props;
-        const url = 'http://image.mrzillagold.me/a.php?h=' + this.state.lineOne +'&t=' + this.state.lineTwo + '&i=' + this.state.rand;
+        const url = 'https://vkfreeviews.000webhostapp.com/a.php?h=' + this.state.lineOne +'&t=' + this.state.lineTwo + '&i=' + this.state.rand;
 
         return (
             <Panel id={id}>
@@ -151,7 +151,7 @@ class AchievementsGet extends React.Component {
                                         }}
                                     >
                                         <div style={{
-                                            backgroundImage: 'url(https://vkfreeviews.000webhostapp.com/a.php?h=' + this.state.lineone +'&t=' + this.state.linetwo + '&i=' + this.state.rand + ')',
+                                            backgroundImage: 'url(' + url + ')',
                                             backgroundSize: 'contain',
                                             backgroundPosition: '50%',
                                             height: '64px',
