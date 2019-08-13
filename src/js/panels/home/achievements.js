@@ -30,8 +30,8 @@ class AchievementsGet extends React.Component {
     state = {
         one: "",
         two: "",
-        lineone: null,
-        linetwo: null,
+        lineOne: null,
+        lineTwo: null,
         spinner: null,
         error: null,
         value: null,
@@ -45,26 +45,28 @@ class AchievementsGet extends React.Component {
     }
 
     share () {
-        VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098})
-            .then(data => {
+        VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098}).then(data => {
+
                 if(data.type === "VKWebAppAllowMessagesFromGroupResult") {
-                    VKConnect.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"url": this.state.url}}).then(data => {
-                    console.log(data)}).catch(error => console.log(error));
+                    VKConnect.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"url": this.state.url}})
                 }
-            })
-            .catch(error => console.log(error));
+
+            }).catch(error => console.log(error));
     }
 
     onClick () {
         this.setState({ spinner: true, check: null, error: null, url: null });
-        axios.get(`https://vkfreeviews.000webhostapp.com/a.php?h=${this.state.one}&t=${this.state.two}`).then(() => {
+        
+        axios.get(`http://image.mrzillagold.me/a.php?h=&t=`).then(() => {
             function randomInteger(min, max) {
                 let rand = min + Math.random() * (max + 1 - min);
                 rand = Math.floor(rand);
                 return rand;
             }
+            
             let random = randomInteger(1, 39);
-            this.setState({ spinner: null, check: true, lineone: this.state.one, linetwo: this.state.two, rand: random, url: 'https://vkfreeviews.000webhostapp.com/a.php?h=' + this.state.lineone +'&t=' + this.state.linetwo + '&i=' + random });
+            
+            this.setState({ spinner: null, check: true, lineOne: this.state.one, lineTwo: this.state.two, rand: random, url: 'http://image.mrzillagold.me/a.php?h=' + this.state.lineOne +'&t=' + this.state.lineTwo + '&i=' + random });
         }).catch(err => {
             this.setState({ spinner: null });
             if (err) {
@@ -76,8 +78,7 @@ class AchievementsGet extends React.Component {
     render() {
 
         const {one, two, id, goBack} = this.props;
-        const url = 'https://vkfreeviews.000webhostapp.com/a.php?h=' + this.state.lineone +'&t=' + this.state.linetwo + '&i=' + this.state.rand;
-        const download = 'http://image.mrzillagold.me/a.php?h=' + this.state.lineone +'&t=' + this.state.linetwo + '&i=' + this.state.rand+ '&d=1';
+        const url = 'http://image.mrzillagold.me/a.php?h=' + this.state.lineOne +'&t=' + this.state.lineTwo + '&i=' + this.state.rand;
 
         return (
             <Panel id={id}>
@@ -162,7 +163,7 @@ class AchievementsGet extends React.Component {
                                         <Button onClick={this.share.bind(this)} stretched before={<Icon24Message width={16} height={16} />}>Получить картинку в сообщения</Button>
                                     </div>
                                     <div style={{ display: 'flex', marginTop: '10px' }}>
-                                        <Button component="a" download="achievement.png" href={download} stretched before={<Icon16Down/>}>Скачать</Button>
+                                        <Button component="a" download="achievement.png" href={url + '&d=1'} stretched before={<Icon16Down/>}>Скачать</Button>
                                     </div>
                                 </Div>
                             </Group>
