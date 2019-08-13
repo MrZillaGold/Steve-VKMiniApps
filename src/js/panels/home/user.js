@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import axios from 'axios';
+import VKConnect from "@vkontakte/vkui-connect-promise";
 
 import { Offline, Online } from 'react-detect-offline';
 
@@ -21,6 +22,7 @@ import Gallery from "@vkontakte/vkui/dist/components/Gallery/Gallery";
 import PanelHeaderContent from "@vkontakte/vkui/dist/components/PanelHeaderContent/PanelHeaderContent";
 import Div from "@vkontakte/vkui/dist/components/Div/Div";
 
+import Icon24Message from '@vkontakte/icons/dist/24/message';
 
 class UserGet extends React.Component {
 
@@ -63,6 +65,16 @@ class UserGet extends React.Component {
                 return console.log(`Произошла ошибка: ${err}, может об этом нужно куда-то сообщить?`);
             }
         });
+    }
+
+    share () {
+        VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098}).then(data => {
+
+            if(data.type === "VKWebAppAllowMessagesFromGroupResult") {
+                VKConnect.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"type":"document", "url": this.state.url, "name": this.state.username}})
+            }
+
+        }).catch(error => console.log(error));
     }
 
     render() {
@@ -125,6 +137,7 @@ class UserGet extends React.Component {
                         }
                         {this.state.skin === null ? '' :
                             <Group top={`Скин игрока ${this.state.username}`}>
+                                <Div>
                                 <Gallery
                                     bullets="dark"
                                     style={{
@@ -175,6 +188,10 @@ class UserGet extends React.Component {
                                     }}
                                     />
                                 </Gallery>
+                                </Div>
+                                <Div style={{ display: 'flex' }}>
+                                    <Button onClick={this.share.bind(this)} stretched before={<Icon24Message width={16} height={16} />}>Получить cкин в сообщения</Button>
+                                </Div>
                             </Group>
                         }
                         <List top={this.state.username === null ? '' : `История никнейма ${this.state.username}`}>
