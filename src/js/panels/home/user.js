@@ -71,7 +71,7 @@ class UserGet extends React.Component {
         VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098}).then(data => {
 
             if(data.type === "VKWebAppAllowMessagesFromGroupResult") {
-                VKConnect.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"type":"document", "url": this.state.url, "name": this.state.username}})
+                VKConnect.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"type":"document", "url": this.state.skin, "name": this.state.username}})
             }
 
         }).catch(error => console.log(error));
