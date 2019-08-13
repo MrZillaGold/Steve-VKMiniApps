@@ -56,17 +56,17 @@ class AchievementsGet extends React.Component {
 
     onClick () {
         this.setState({ spinner: true, check: null, error: null, url: null });
-        
-        axios.get(`https://cors-anywhere.herokuapp.com/https://vkfreeviews.000webhostapp.com/a.php?h=&t=`).then(() => {
+
+        axios.get(`http://image.mrzillagold.me/a.php?h=&t=`).then(() => {
             function randomInteger(min, max) {
                 let rand = min + Math.random() * (max + 1 - min);
                 rand = Math.floor(rand);
                 return rand;
             }
-            
+
             let random = randomInteger(1, 39);
-            
-            this.setState({ spinner: null, check: true, lineOne: this.state.one, lineTwo: this.state.two, rand: random, url: 'http://image.mrzillagold.me/a.php?h=' + this.state.lineOne +'&t=' + this.state.lineTwo + '&i=' + random });
+
+            this.setState({ spinner: null, check: true, lineOne: this.state.one, lineTwo: this.state.two, rand: random, url: 'http://image.mrzillagold.me/a.php?h=' + this.state.one +'&t=' + this.state.two + '&i=' + random });
         }).catch(err => {
             this.setState({ spinner: null });
             if (err) {
