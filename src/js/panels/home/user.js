@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import axios from 'axios';
 import VKConnect from "@vkontakte/vkui-connect-promise";
+import VKConnectOld from "@vkontakte/vkui-connect";
 
 import { Offline, Online } from 'react-detect-offline';
 
@@ -43,12 +44,9 @@ class UserGet extends React.Component {
 
     share () {
         VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098}).then(data => {
-
-            if(data.type === "VKWebAppAllowMessagesFromGroupFailed") {
-                return
+            if(data.type === "VKWebAppAllowMessagesFromGroupResult") {
+                VKConnectOld.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"type":"document", "url": this.state.skin, "name": this.state.username}})
             }
-            VKConnect.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"type":"document", "url": this.state.skin, "name": this.state.username}})
-
         }).catch(error => console.log(error));
     }
 
@@ -105,7 +103,7 @@ class UserGet extends React.Component {
                             this.state.nickname.length > 2 && this.state.nickname.match('^[A-Za-z0-9_]+$') ?
                                 <Button onClick={this.onClick.bind(this)} size='xl'>Посмотреть информацию</Button>
                                 :
-                                <Button disabled onClick={this.onClick.bind(this)} size='xl'>Посмотреть информацию</Button>
+                                <Button disabled size='xl'>Посмотреть информацию</Button>
                         }
 
                         { this.state.spinner === null ?
