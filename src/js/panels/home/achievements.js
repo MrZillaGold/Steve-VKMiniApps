@@ -151,7 +151,7 @@ class AchievementsGet extends React.Component {
                                         }}
                                     >
                                         <div style={{
-                                            backgroundImage: 'url(' + url +')',
+                                            backgroundImage: 'url(' + encodeURI(url) + ')',
                                             backgroundSize: 'contain',
                                             backgroundPosition: '50%',
                                             height: '64px',
