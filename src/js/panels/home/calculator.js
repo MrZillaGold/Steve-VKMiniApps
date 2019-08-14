@@ -56,7 +56,7 @@ class Calculator extends React.Component {
                         value={x}
                         onChange={this.onChange.bind(this)}
                         placeholder="220"
-                        maxLength='8'
+                        maxLength='7'
                         pattern='^[-]?[0-9]+$'
                     />
                     <Input
@@ -76,7 +76,7 @@ class Calculator extends React.Component {
                         value={z}
                         onChange={this.onChange.bind(this)}
                         placeholder="-113"
-                        maxLength='8'
+                        maxLength='7'
                         pattern='^[-]?[0-9]+$'
                     />
                     {this.state.world === null ? '' :
@@ -95,7 +95,7 @@ class Calculator extends React.Component {
                     {this.state.world === null ? '' :
                         <List>
                             <Cell description='Номер чанка'>
-                                {`${this.state.x === null ? '0' : this.state.x.match('^[-]?[0-9]+$') ? Math.floor(this.state.x / 16) : 0}, ${this.state.y === null ? '0' : this.state.y.match('^[-]?[0-9]+$') ? Math.floor(this.state.y / 16) : 0}, ${this.state.z === null ? '0' : this.state.z.match('^[-]?[0-9]+$') ? Math.floor(this.state.z / 16) : 0}`}
+                                {`${this.state.x === null ? '0' : this.state.x.match('^[-]?[0-9]+$') ? Math.floor(this.state.x / 16) : 0}, ${this.state.y === null ? '0' : this.state.y.match('^[0-9]+$') ? Math.floor(this.state.y / 16) : 0}, ${this.state.z === null ? '0' : this.state.z.match('^[-]?[0-9]+$') ? Math.floor(this.state.z / 16) : 0}`}
                             </Cell>
                             <Cell description='Файл чанка'>
                                 {`r.${this.state.x === null ? '0' : this.state.x.match('^[-]?[0-9]+$') ? Math.floor(this.state.x / 512) : 0}.${this.state.z === null ? '0' : this.state.z.match('^[-]?[0-9]+$') ? Math.floor(this.state.z / 512) : 0}.mca`}
