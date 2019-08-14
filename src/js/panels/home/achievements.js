@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import axios from 'axios';
 import VKConnect from "@vkontakte/vkui-connect-promise";
+import VKConnectOld from "@vkontakte/vkui-connect";
 
 import { Offline, Online } from 'react-detect-offline';
 
@@ -46,13 +47,11 @@ class AchievementsGet extends React.Component {
 
     share () {
         VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098}).then(data => {
+            if(data.type === "VKWebAppAllowMessagesFromGroupResult") {
+                VKConnectOld.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"type":"photo", "url": this.state.url}})
+            }
 
-                if(data.type === "VKWebAppAllowMessagesFromGroupFailed") {
-                    return
-                }
-            VKConnect.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"type":"photo", "url": this.state.url}})
-
-            }).catch(error => console.log(error));
+        }).catch(error => console.log(error));
     }
 
     onClick () {
@@ -112,7 +111,7 @@ class AchievementsGet extends React.Component {
                             this.state.one.length > 0 || this.state.two.length > 0 ?
                                 <Button onClick={this.onClick.bind(this)} size='xl'>Сгенерировать достижение</Button>
                                 :
-                                <Button disabled onClick={this.onClick.bind(this)} size='xl'>Сгенерировать достижение</Button>
+                                <Button disabled size='xl'>Сгенерировать достижение</Button>
                         }
 
                         { this.state.spinner === null ?
