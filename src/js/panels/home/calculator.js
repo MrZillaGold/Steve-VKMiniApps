@@ -58,6 +58,7 @@ class Calculator extends React.Component {
                         onChange={this.onChange.bind(this)}
                         placeholder="220"
                         maxLength='7'
+                        pattern='^[-]?[0-9]+$'
                     />
                     <Input
                         top='Координата Y'
@@ -68,6 +69,7 @@ class Calculator extends React.Component {
                         onChange={this.onChange.bind(this)}
                         placeholder="64"
                         maxLength='3'
+                        pattern='^[0-9]+$'
                     />
                     <Input
                         top='Координата Z'
@@ -78,6 +80,7 @@ class Calculator extends React.Component {
                         onChange={this.onChange.bind(this)}
                         placeholder="-113"
                         maxLength='7'
+                        pattern='^[-]?[0-9]+$'
                     />
                     {this.state.world === null ? '' :
                         <List top={this.state.world === 'nether' ? 'Координаты в аду' : 'Координаты в обычном мире'}>
