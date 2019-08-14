@@ -52,53 +52,53 @@ class Calculator extends React.Component {
                     <Input
                         top='Координата X'
                         bottom='Целое число'
+                        type="number"
                         name='x'
                         value={x}
                         onChange={this.onChange.bind(this)}
                         placeholder="220"
                         maxLength='7'
-                        pattern='^[-]?[0-9]+$'
                     />
                     <Input
                         top='Координата Y'
                         bottom='Целое число'
+                        type="number"
                         name='y'
                         value={y}
                         onChange={this.onChange.bind(this)}
                         placeholder="64"
                         maxLength='3'
-                        pattern='^[0-9]+$'
                     />
                     <Input
                         top='Координата Z'
                         bottom='Целое число'
+                        type="number"
                         name='z'
                         value={z}
                         onChange={this.onChange.bind(this)}
                         placeholder="-113"
                         maxLength='7'
-                        pattern='^[-]?[0-9]+$'
                     />
                     {this.state.world === null ? '' :
                         <List top={this.state.world === 'nether' ? 'Координаты в аду' : 'Координаты в обычном мире'}>
                             <Cell description='Координата X'>
-                                {this.state.x === null ? '0' : this.state.x.match('^[-]?[0-9]+$') ? this.state.world === 'nether' ? Math.floor(this.state.x / 8) : Math.floor(this.state.x * 8) : 0}
+                                {this.state.x === null ? '0' : this.state.world === 'nether' ? Math.floor(this.state.x / 8) : Math.floor(this.state.x * 8)}
                             </Cell>
                             <Cell description='Координата Y'>
                                 {this.state.y === null ? '0' : this.state.y.match('^[0-9]+$') ? this.state.y : 0}
                             </Cell>
                             <Cell description='Координата Z'>
-                                {this.state.z === null ? '0' : this.state.z.match('^[-]?[0-9]+$') ? this.state.world === 'nether' ? Math.floor(this.state.z / 8) : Math.floor(this.state.z * 8) : 0}
+                                {this.state.z === null ? '0' : this.state.world === 'nether' ? Math.floor(this.state.z / 8) : Math.floor(this.state.z * 8)}
                             </Cell>
                         </List>
                     }
                     {this.state.world === null ? '' :
                         <List>
                             <Cell description='Номер чанка'>
-                                {`${this.state.x === null ? '0' : this.state.x.match('^[-]?[0-9]+$') ? Math.floor(this.state.x / 16) : 0}, ${this.state.y === null ? '0' : this.state.y.match('^[0-9]+$') ? Math.floor(this.state.y / 16) : 0}, ${this.state.z === null ? '0' : this.state.z.match('^[-]?[0-9]+$') ? Math.floor(this.state.z / 16) : 0}`}
+                                {`${this.state.x === null ? '0' : Math.floor(this.state.x / 16)}, ${this.state.y === null ? '0' : Math.floor(this.state.y / 16)}, ${this.state.z === null ? '0' : Math.floor(this.state.z / 16)}`}
                             </Cell>
                             <Cell description='Файл чанка'>
-                                {`r.${this.state.x === null ? '0' : this.state.x.match('^[-]?[0-9]+$') ? Math.floor(this.state.x / 512) : 0}.${this.state.z === null ? '0' : this.state.z.match('^[-]?[0-9]+$') ? Math.floor(this.state.z / 512) : 0}.mca`}
+                                {`r.${this.state.x === null ? '0' : Math.floor(this.state.x / 512)}.${this.state.z === null ? '0' : Math.floor(this.state.z / 512)}.mca`}
                             </Cell>
                         </List>
                     }
