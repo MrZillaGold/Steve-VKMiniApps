@@ -82,7 +82,7 @@ class UserGet extends React.Component {
         return (
             <Panel id={id}>
                 <PanelHeader left={<PanelHeaderBack onClick={() => goBack()}/>}>
-                    <PanelHeaderContent status="Информация о игроке">
+                    <PanelHeaderContent status="Информация об игроке">
                         Steve
                     </PanelHeaderContent>
                 </PanelHeader>
