@@ -30,7 +30,7 @@ class StatusGet extends React.Component {
     };
 
     statusGet() {
-        axios.get(`https://cors-anywhere.herokuapp.com/https://status.mojang.com/check`).then(res => {
+        axios.get(`https://stevecors.herokuapp.com/https://status.mojang.com/check`).then(res => {
             return res.data;
         }).then(data => {
             this.setState({ status: data, spinner: false });
