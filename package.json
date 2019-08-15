@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "@vkontakte/icons": "^1.7.0",
+    "@vkontakte/mvk-mini-apps-scroll-helper": "^1.0.2",
     "@vkontakte/vkui": "^2.23.6",
     "@vkontakte/vkui-connect": "^1.4.0",
     "@vkontakte/vkui-connect-promise": "^0.1.19",
