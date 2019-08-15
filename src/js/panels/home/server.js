@@ -44,7 +44,7 @@ class ServerInfoGet extends React.Component {
             return this.setState({ value: 'error' });
         }
         this.setState({spinner: true, error: null, response: null, value: null});
-        axios.get(`https://cors-anywhere.herokuapp.com/https://api.mcsrvstat.us/1/${this.state.ip}`).then(res => {
+        axios.get(`https://stevecors.herokuapp.com/https://api.mcsrvstat.us/1/${this.state.ip}`).then(res => {
             return res.data;
         }).then(data => {
             if (data.offline) {
