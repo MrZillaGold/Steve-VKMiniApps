@@ -84,7 +84,7 @@ class AchievementsGet extends React.Component {
         return (
             <Panel id={id}>
                 <PanelHeader left={<PanelHeaderBack onClick={() => goBack()}/>}>
-                    <PanelHeaderContent status="Генератор достижений">
+                    <PanelHeaderContent status="Генератор">
                         Steve
                     </PanelHeaderContent>
                 </PanelHeader>
