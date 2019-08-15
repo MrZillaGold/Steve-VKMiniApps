@@ -39,7 +39,7 @@ class Calculator extends React.Component {
         return (
             <Panel id={id}>
                 <PanelHeader left={<PanelHeaderBack onClick={() => goBack()}/>}>
-                    <PanelHeaderContent status="Калькулятор координат">
+                    <PanelHeaderContent status="Калькулятор">
                         Steve
                     </PanelHeaderContent>
                 </PanelHeader>
