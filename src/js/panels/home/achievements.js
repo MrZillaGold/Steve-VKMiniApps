@@ -79,7 +79,6 @@ class AchievementsGet extends React.Component {
 
         const {one, two, id, goBack} = this.props;
         const url = 'https://vkfreeviews.000webhostapp.com/a.php?h=' + this.state.lineOne +'&t=' + this.state.lineTwo + '&i=' + this.state.rand;
-        const download = 'http://image.mrzillagold.me/a.php?h=' + this.state.lineOne +'&t=' + this.state.lineTwo + '&i=' + this.state.rand;
 
         return (
             <Panel id={id}>
@@ -162,9 +161,6 @@ class AchievementsGet extends React.Component {
                                     </Gallery>
                                     <div style={{ display: 'flex' }}>
                                         <Button onClick={this.share.bind(this)} stretched before={<Icon24Message width={16} height={16} />}>Получить картинку в сообщения</Button>
-                                    </div>
-                                    <div style={{ display: 'flex', marginTop: '10px' }}>
-                                        <Button component="a" download="achievement.png" href={download + '&d=1'} stretched before={<Icon16Down/>}>Скачать</Button>
                                     </div>
                                 </Div>
                             </Group>
