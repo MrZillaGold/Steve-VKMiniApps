@@ -12,6 +12,7 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 
 import {setStory} from "./js/store/router/actions";
 
+import mVKMiniAppsScrollHelper from '@vkontakte/mvk-mini-apps-scroll-helper';
 import '@vkontakte/vkui/dist/vkui.css';
 
 import App from './App';
@@ -22,9 +23,11 @@ export const store = createStore(rootReducer, composeWithDevTools(
 
 store.dispatch(setStory('home', 'base'));
 
+const root = document.getElementById('root');
+mVKMiniAppsScrollHelper(root);
+
 ReactDOM.render(
     <Provider store={store}>
         <App/>
-    </Provider>,
-    document.getElementById('root')
+    </Provider>, root
 );
