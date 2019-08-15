@@ -57,7 +57,7 @@ class AchievementsGet extends React.Component {
     onClick () {
         this.setState({ spinner: true, check: null, error: null, url: null });
 
-        axios.get(`https://cors-anywhere.herokuapp.com/http://image.mrzillagold.me/a.php?h=&t=`).then(() => {
+        axios.get(`https://stevecors.herokuapp.com/http://image.mrzillagold.me/a.php?h=&t=`).then(() => {
             function randomInteger(min, max) {
                 let rand = min + Math.random() * (max + 1 - min);
                 rand = Math.floor(rand);
