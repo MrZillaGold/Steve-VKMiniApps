@@ -26,8 +26,8 @@ class HomePanelBase extends React.Component {
             <Panel id={id}>
                 <PanelHeader>Steve</PanelHeader>
                 <Group>
-                    <CellButton before={<Icon24Note />} onClick={() => setPage('home', 'user')}>Информация о игроке</CellButton>
-                    <CellButton before={<Icon24Info />} onClick={() => setPage('home', 'server')}>Информация о сервере по IP</CellButton>
+                    <CellButton before={<Icon24Note />} onClick={() => setPage('home', 'user')}>Информация об игроке</CellButton>
+                    <CellButton before={<Icon24Info />} onClick={() => setPage('home', 'server')}>Информация об сервере по IP</CellButton>
                 </Group>
                 <Group>
                     <CellButton before={<Icon24NewsFeed />} onClick={() => setPage('home', 'news')}>Новости Minecraft</CellButton>
