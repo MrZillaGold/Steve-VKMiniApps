@@ -108,7 +108,7 @@ class AchievementsGet extends React.Component {
                             maxLength='21'
                         />
                         {
-                            this.state.one.length > 0 || this.state.two.length > 0 ?
+                            (this.state.one.length > 0 || this.state.two.length > 0) && this.state.spinner === null ?
                                 <Button onClick={this.onClick.bind(this)} size='xl'>Сгенерировать достижение</Button>
                                 :
                                 <Button disabled size='xl'>Сгенерировать достижение</Button>
