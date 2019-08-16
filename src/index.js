@@ -13,6 +13,7 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import {setStory} from "./js/store/router/actions";
 
 import mVKMiniAppsScrollHelper from '@vkontakte/mvk-mini-apps-scroll-helper';
+import {platform} from "@vkontakte/vkui/dist/lib/platform";
 import '@vkontakte/vkui/dist/vkui.css';
 
 import App from './App';
@@ -23,8 +24,11 @@ export const store = createStore(rootReducer, composeWithDevTools(
 
 store.dispatch(setStory('home', 'base'));
 
+const OsName = platform();
 const root = document.getElementById('root');
-mVKMiniAppsScrollHelper(root);
+if (OsName === 'IOS') {
+    mVKMiniAppsScrollHelper(root);
+}
 
 ReactDOM.render(
     <Provider store={store}>
