@@ -82,11 +82,11 @@ class ServerInfoGet extends React.Component {
                             status={this.state.value === 'error' ? 'error' : 'default'}
                             bottom={this.state.value === 'error' ? 'Пожалуйста, введите IP-Адрес сервера' : 'Например: Hypixel.net'}
                             placeholder="Введите IP-Адрес"
-                            pattern='[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)+.*'
+                            pattern='[а-яА-ЯёЁa-zA-Z0-9]+(\.[а-яА-ЯёЁa-zA-Z0-9]+)+.*'
                             maxLength='150'
                         />
                         {
-                            this.state.ip.length > 2 && this.state.spinner === null && this.state.ip.match('[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)+.*') ?
+                            this.state.ip.length > 2 && this.state.spinner === null && this.state.ip.match('[а-яА-ЯёЁa-zA-Z0-9]+(\.[а-яА-ЯёЁa-zA-Z0-9]+)+.*') ?
                                 <Button onClick={this.onClick.bind(this)} size='xl'>Посмотреть информацию</Button>
                                 :
                                 <Button disabled size='xl'>Посмотреть информацию</Button>
