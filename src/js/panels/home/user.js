@@ -62,7 +62,7 @@ class UserGet extends React.Component {
         }).catch(err => {
             this.setState({ spinner: null });
             if (err.response.status === 404) {
-                this.setState({ error: `Игрок с никнеймом ${this.state.nickname} не существует!` });
+                this.setState({ error: `Игрока с никнеймом ${this.state.nickname} не существует!` });
                 return console.log(`Игрок с никнеймом ${this.state.nickname} не существует!`);
             }
             if (err.response.status === 400) {
