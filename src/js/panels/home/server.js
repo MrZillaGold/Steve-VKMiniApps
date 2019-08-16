@@ -82,6 +82,7 @@ class ServerInfoGet extends React.Component {
                             status={this.state.value === 'error' ? 'error' : 'default'}
                             bottom={this.state.value === 'error' ? 'Пожалуйста, введите IP-Адрес сервера' : 'Например: Hypixel.net'}
                             placeholder="Введите IP-Адрес"
+                            pattern='[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)+.*'
                             maxLength='150'
                         />
                         {
