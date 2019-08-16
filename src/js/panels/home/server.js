@@ -86,9 +86,9 @@ class ServerInfoGet extends React.Component {
                         />
                         {
                             this.state.ip.length > 2 && this.state.spinner === null ?
-                                <Button onClick={this.onClick.bind(this)} size='xl'>Получить информацию</Button>
+                                <Button onClick={this.onClick.bind(this)} size='xl'>Посмотреть информацию</Button>
                                 :
-                                <Button disabled onClick={this.onClick.bind(this)} size='xl'>Получить информацию</Button>
+                                <Button disabled size='xl'>Посмотреть информацию</Button>
                         }
                         {this.state.spinner === null ?
                             '' :
