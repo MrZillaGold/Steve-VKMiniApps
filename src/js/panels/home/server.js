@@ -86,7 +86,7 @@ class ServerInfoGet extends React.Component {
                             maxLength='150'
                         />
                         {
-                            this.state.ip.length > 2 && this.state.spinner === null ?
+                            this.state.ip.length > 2 && this.state.spinner === null && this.state.ip.match('[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)+.*') ?
                                 <Button onClick={this.onClick.bind(this)} size='xl'>Посмотреть информацию</Button>
                                 :
                                 <Button disabled size='xl'>Посмотреть информацию</Button>
