@@ -90,7 +90,7 @@ class AchievementsGet extends React.Component {
                 <Online>
                     <FormLayout>
                         <Input
-                            top='Первая строка'
+                            top='Заголовок'
                             name='one'
                             value={one}
                             onChange={this.onChange.bind(this)}
@@ -99,7 +99,7 @@ class AchievementsGet extends React.Component {
                             maxLength='21'
                         />
                         <Input
-                            top='Вторая строка'
+                            top='Текст достижения'
                             name='two'
                             value={two}
                             onChange={this.onChange.bind(this)}
