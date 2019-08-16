@@ -79,8 +79,8 @@ class ServerInfoGet extends React.Component {
                             name='ip'
                             value={ip}
                             onChange={this.onChange.bind(this)}
-                            status={this.state.value === 'error' ? 'error' : 'default'}
-                            bottom={this.state.value === 'error' ? 'Пожалуйста, введите IP-Адрес сервера' : 'Например: Hypixel.net'}
+                            status={this.state.ip.match(/[а-яА-ЯёЁa-zA-Z0-9]+(\.[а-яА-ЯёЁa-zA-Z0-9]+)+.*/g) || this.state.ip === "" ? 'default' : 'error'}
+                            bottom={this.state.ip.match(/[а-яА-ЯёЁa-zA-Z0-9]+(\.[а-яА-ЯёЁa-zA-Z0-9]+)+.*/g) || this.state.ip === "" ? 'Например: Hypixel.net' : 'Неправильный IP-Адрес'}
                             placeholder="Введите IP-Адрес"
                             pattern='[а-яА-ЯёЁa-zA-Z0-9]+(\.[а-яА-ЯёЁa-zA-Z0-9]+)+.*'
                             maxLength='150'
