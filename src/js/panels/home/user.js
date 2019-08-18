@@ -94,7 +94,7 @@ class UserGet extends React.Component {
                             name='nickname'
                             value={this.state.nickname}
                             onChange={this.onChange.bind(this)}
-                            status={this.state.nickname.match('^[A-Za-z0-9_]+$') || this.state.nickname === "" ? 'default' : 'error'}
+                            status={this.state.nickname.match('[^A-Za-z0-9_]') || this.state.nickname === "" ? 'default' : 'error'}
                             bottom='Никнейм может содержать только латинские буквы, цифры и символ "_". (От 3 до 16 символов)'
                             placeholder="Введите никнейм"
                             maxLength='16'
