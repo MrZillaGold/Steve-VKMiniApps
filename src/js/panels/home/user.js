@@ -90,6 +90,7 @@ class UserGet extends React.Component {
                     <FormLayout>
                         <Input
                             top='Никнейм'
+                            type="text"
                             name='nickname'
                             value={nickname}
                             onChange={this.onChange.bind(this)}
