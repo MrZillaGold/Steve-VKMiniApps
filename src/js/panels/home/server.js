@@ -76,6 +76,7 @@ class ServerInfoGet extends React.Component {
                     <FormLayout>
                         <Input
                             top='IP-Адрес сервера'
+                            type="text"
                             name='ip'
                             value={ip}
                             onChange={this.onChange.bind(this)}
