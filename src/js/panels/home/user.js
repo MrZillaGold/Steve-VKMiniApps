@@ -39,7 +39,7 @@ class UserGet extends React.Component {
 
     onChange(e) {
         const {name, value} = e.currentTarget;
-        this.setState({[name]: value.slice(0, 16)});
+        this.setState({[name]: value.replace(/[^A-Za-z0-9_]/g, "").slice(0, 16)});
     }
 
     share () {
@@ -98,7 +98,7 @@ class UserGet extends React.Component {
                             bottom='Никнейм может содержать только латинские буквы, цифры и символ "_". (От 3 до 16 символов)'
                             placeholder="Введите никнейм"
                             maxLength='16'
-                            pattern='^[A-Za-z0-9_]+$'
+                            pattern='[^A-Za-z0-9_]'
                         />
                         {
                             this.state.nickname.length > 2 && this.state.nickname.match('^[A-Za-z0-9_]+$') && this.state.spinner === null ?
