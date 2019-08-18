@@ -39,7 +39,7 @@ class UserGet extends React.Component {
 
     onChange(e) {
         const {name, value} = e.currentTarget;
-        this.setState({[name]: value});
+        this.setState({[name]: value.slice(0, 16)});
     }
 
     share () {
@@ -77,7 +77,7 @@ class UserGet extends React.Component {
     }
 
     render() {
-        const {nickname, id, goBack} = this.props;
+        const {id, goBack} = this.props;
 
         return (
             <Panel id={id}>
@@ -92,7 +92,7 @@ class UserGet extends React.Component {
                             top='Никнейм'
                             type="text"
                             name='nickname'
-                            value={nickname}
+                            value={this.state.nickname}
                             onChange={this.onChange.bind(this)}
                             status={this.state.nickname.match('^[A-Za-z0-9_]+$') || this.state.nickname === "" ? 'default' : 'error'}
                             bottom='Никнейм может содержать только латинские буквы, цифры и символ "_". (От 3 до 16 символов)'
@@ -138,56 +138,56 @@ class UserGet extends React.Component {
                         {this.state.skin === null ? '' :
                             <Group top={`Скин игрока ${this.state.username}`}>
                                 <Div>
-                                <Gallery
-                                    bullets="dark"
-                                    style={{
-                                        display: 'flex',
-                                        width: '100%',
-                                        height: '200px',
-                                        backgroundPosition: 'center'
-                                    }}
-                                >
-                                    <div style={{
-                                        backgroundImage: 'url(https://mc-heads.net/body/' + this.state.username + '/200)',
-                                        backgroundSize: 'contain',
-                                        backgroundPosition: 'center',
-                                        height: '200px',
-                                        width: 'auto',
-                                        display: 'block',
-                                        backgroundRepeat: 'no-repeat'
-                                    }}
-                                    />
-                                    <div style={{
-                                        backgroundImage: 'url(https://mc-heads.net/player/' + this.state.username + '/200)',
-                                        backgroundSize: 'contain',
-                                        backgroundPosition: 'center',
-                                        height: '200px',
-                                        width: 'auto',
-                                        display: 'block',
-                                        backgroundRepeat: 'no-repeat'
-                                    }}
-                                    />
-                                    <div style={{
-                                        backgroundImage: 'url(https://mc-heads.net/head/' + this.state.username + '/300)',
-                                        backgroundSize: 'contain',
-                                        backgroundPosition: 'center',
-                                        height: '200px',
-                                        width: 'auto',
-                                        display: 'block',
-                                        backgroundRepeat: 'no-repeat'
-                                    }}
-                                    />
-                                    <div style={{
-                                        backgroundImage: 'url(https://mc-heads.net/avatar/' + this.state.username + '/200)',
-                                        backgroundSize: 'contain',
-                                        backgroundPosition: 'center',
-                                        height: '200px',
-                                        width: 'auto',
-                                        display: 'block',
-                                        backgroundRepeat: 'no-repeat'
-                                    }}
-                                    />
-                                </Gallery>
+                                    <Gallery
+                                        bullets="dark"
+                                        style={{
+                                            display: 'flex',
+                                            width: '100%',
+                                            height: '200px',
+                                            backgroundPosition: 'center'
+                                        }}
+                                    >
+                                        <div style={{
+                                            backgroundImage: 'url(https://mc-heads.net/body/' + this.state.username + '/200)',
+                                            backgroundSize: 'contain',
+                                            backgroundPosition: 'center',
+                                            height: '200px',
+                                            width: 'auto',
+                                            display: 'block',
+                                            backgroundRepeat: 'no-repeat'
+                                        }}
+                                        />
+                                        <div style={{
+                                            backgroundImage: 'url(https://mc-heads.net/player/' + this.state.username + '/200)',
+                                            backgroundSize: 'contain',
+                                            backgroundPosition: 'center',
+                                            height: '200px',
+                                            width: 'auto',
+                                            display: 'block',
+                                            backgroundRepeat: 'no-repeat'
+                                        }}
+                                        />
+                                        <div style={{
+                                            backgroundImage: 'url(https://mc-heads.net/head/' + this.state.username + '/300)',
+                                            backgroundSize: 'contain',
+                                            backgroundPosition: 'center',
+                                            height: '200px',
+                                            width: 'auto',
+                                            display: 'block',
+                                            backgroundRepeat: 'no-repeat'
+                                        }}
+                                        />
+                                        <div style={{
+                                            backgroundImage: 'url(https://mc-heads.net/avatar/' + this.state.username + '/200)',
+                                            backgroundSize: 'contain',
+                                            backgroundPosition: 'center',
+                                            height: '200px',
+                                            width: 'auto',
+                                            display: 'block',
+                                            backgroundRepeat: 'no-repeat'
+                                        }}
+                                        />
+                                    </Gallery>
                                 </Div>
                                 <Div style={{ display: 'flex' }}>
                                     <Button onClick={this.share.bind(this)} stretched before={<Icon24Message width={16} height={16} />}>Получить cкин в сообщения</Button>
