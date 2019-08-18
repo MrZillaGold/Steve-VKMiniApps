@@ -91,6 +91,7 @@ class AchievementsGet extends React.Component {
                     <FormLayout>
                         <Input
                             top='Заголовок'
+                            type="text"
                             name='one'
                             value={one}
                             onChange={this.onChange.bind(this)}
@@ -100,6 +101,7 @@ class AchievementsGet extends React.Component {
                         />
                         <Input
                             top='Текст достижения'
+                            type="text"
                             name='two'
                             value={two}
                             onChange={this.onChange.bind(this)}
