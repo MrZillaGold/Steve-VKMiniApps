@@ -111,8 +111,8 @@ class ServerInfoGet extends React.Component {
                                             before={<Avatar type="app" size={64} src={this.state.response.icon === undefined ? defaultImage : this.state.response.icon.toString().replace(/\//g, '/')}/>}
                                             description={`Игроков: ${this.state.response.players.online} / ${this.state.response.players.max}`}
                                         >
-                                            <div className='Container' dangerouslySetInnerHTML={{__html: this.state.response.motd.html[0]}}>
-                                            </div>
+                                            <div className='Container' dangerouslySetInnerHTML={{__html: this.state.response.motd.html[0]}} />
+                                            <div className='Container' dangerouslySetInnerHTML={{__html: this.state.response.motd.html[1]}} />
                                         </Cell>
                                         {this.state.response.players.list === undefined ?
                                             '' :
