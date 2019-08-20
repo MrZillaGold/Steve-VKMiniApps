@@ -25,8 +25,8 @@ export const store = createStore(rootReducer, composeWithDevTools(
 store.dispatch(setStory('home', 'base'));
 
 const OsName = platform();
-if (OsName === 'IOS') {
-    const root = document.getElementById('root');
+const root = document.getElementById('root');
+if (OsName === 'ios') {
     mVKMiniAppsScrollHelper(root);
 }
 
