@@ -13,7 +13,7 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import {setStory} from "./js/store/router/actions";
 
 import mVKMiniAppsScrollHelper from '@vkontakte/mvk-mini-apps-scroll-helper';
-import {platform} from "@vkontakte/vkui/dist/lib/platform";
+import {platform, IOS} from "@vkontakte/vkui/dist/lib/platform";
 import '@vkontakte/vkui/dist/vkui.css';
 
 import App from './App';
@@ -26,7 +26,7 @@ store.dispatch(setStory('home', 'base'));
 
 const OsName = platform();
 const root = document.getElementById('root');
-if (OsName === 'ios') {
+if (OsName === IOS) {
     mVKMiniAppsScrollHelper(root);
 }
 
