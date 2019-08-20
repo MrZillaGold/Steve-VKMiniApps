@@ -44,14 +44,14 @@ class Calculator extends React.Component {
                     </PanelHeaderContent>
                 </PanelHeader>
                 <FormLayout>
-                    <Select name="world" onChange={this.onChange.bind(this)} value={world} top="Мир" placeholder="Выберите мир" bottom='Мир, для которого необходимо просчитать координаты'>
+                    <Select name="world" onChange={this.onChange.bind(this)} value={world} top="Мир" placeholder="Выберите мир" bottom='Мир, для которого необходимо просчитать координаты.'>
                         <option value="world">Обычный</option>
                         <option value="nether">Ад</option>
                     </Select>
 
                     <Input
                         top='Координата X'
-                        bottom='Целое число'
+                        bottom='Целое число.'
                         type="number"
                         name='x'
                         value={x}
@@ -62,7 +62,7 @@ class Calculator extends React.Component {
                     />
                     <Input
                         top='Координата Y'
-                        bottom='Целое число'
+                        bottom='Целое число.'
                         type="number"
                         name='y'
                         value={y}
@@ -73,7 +73,7 @@ class Calculator extends React.Component {
                     />
                     <Input
                         top='Координата Z'
-                        bottom='Целое число'
+                        bottom='Целое число.'
                         type="number"
                         name='z'
                         value={z}
