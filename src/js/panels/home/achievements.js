@@ -41,7 +41,7 @@ class AchievementsGet extends React.Component {
 
     onChange(e) {
         const {name, value} = e.currentTarget;
-        this.setState({[name]: value});
+        this.setState({[name]: value.replace(/[^а-яА-ЯёЁA-Za-z0-9!?., ]+$/g, "").slice(0, 21)});
     }
 
     share () {
@@ -56,7 +56,7 @@ class AchievementsGet extends React.Component {
     onClick () {
         this.setState({ spinner: true, check: null, error: null, url: null });
 
-        axios.get(`https://stevecors.herokuapp.com/http://image.mrzillagold.me/a.php?h=&t=`).then(() => {
+        axios.get(`https://stevecors.herokuapp.com/https://vkfreeviews.000webhostapp.com/a.php?h=&t=`).then(() => {
             function randomInteger(min, max) {
                 let rand = min + Math.random() * (max + 1 - min);
                 rand = Math.floor(rand);
@@ -65,7 +65,7 @@ class AchievementsGet extends React.Component {
 
             let random = randomInteger(1, 39);
 
-            this.setState({ spinner: null, check: true, lineOne: this.state.one, lineTwo: this.state.two, rand: random, url: 'http://image.mrzillagold.me/a.php?h=' + this.state.one +'&t=' + this.state.two + '&i=' + random });
+            this.setState({ spinner: null, check: true, lineOne: this.state.one, lineTwo: this.state.two, rand: random, url: 'https://vkfreeviews.000webhostapp.com/a.php?h=' + this.state.one +'&t=' + this.state.two + '&i=' + random });
         }).catch(err => {
             this.setState({ spinner: null });
             if (err) {
@@ -76,7 +76,7 @@ class AchievementsGet extends React.Component {
 
     render() {
 
-        const {one, two, id, goBack} = this.props;
+        const {id, goBack} = this.props;
         const url = 'https://vkfreeviews.000webhostapp.com/a.php?h=' + this.state.lineOne +'&t=' + this.state.lineTwo + '&i=' + this.state.rand;
 
         return (
@@ -90,22 +90,22 @@ class AchievementsGet extends React.Component {
                     <FormLayout>
                         <Input
                             top='Заголовок'
-                            type="text"
                             name='one'
-                            value={one}
+                            value={this.state.one}
                             onChange={this.onChange.bind(this)}
                             status={this.state.value === 'error' ? 'error' : 'default'}
                             placeholder="Достижение получено!"
+                            bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , .'
                             maxLength='21'
                         />
                         <Input
                             top='Текст достижения'
-                            type="text"
                             name='two'
-                            value={two}
+                            value={this.state.two}
                             onChange={this.onChange.bind(this)}
                             status={this.state.value === 'error' ? 'error' : 'default'}
                             placeholder="Терпение и труд"
+                            bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , .'
                             maxLength='21'
                         />
                         {
