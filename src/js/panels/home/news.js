@@ -79,7 +79,6 @@ class NewsGet extends React.Component {
                         <Group title={`📅 ${this.state.time}`}>
                             <Div>
                                 <p  className='Container'
-                                    style={{ userSelect: 'none' }}
                                     dangerouslySetInnerHTML={{__html: this.state.news}}>
                                 </p>
                             </Div>
