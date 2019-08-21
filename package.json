@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "set HTTPS=true&&react-scripts start",
-    "start": "serve -s build",
+    "start": "npm run-script build",
     "build": "set HTTPS=true&&react-scripts build",
     "test": "set HTTPS=true&&react-scripts test --env=jsdom",
     "eject": "set HTTPS=true&&react-scripts eject",
