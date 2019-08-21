@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "serve -s build",
+    "start": "serve -s build",
     "test": "set HTTPS=true&&react-scripts test --env=jsdom",
     "eject": "set HTTPS=true&&react-scripts eject"
   },
