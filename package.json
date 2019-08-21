@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "serve -s build",
-    "test": "react-scripts test --env=jsdom",
+    "start": "react-scripts start",
     "build": "react-scripts build",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "deploy": "serve -s build"
   },
   "author": "MrZillaGold",
   "license": "ISC",
