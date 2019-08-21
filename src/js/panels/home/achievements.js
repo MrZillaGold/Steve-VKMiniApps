@@ -95,7 +95,7 @@ class AchievementsGet extends React.Component {
                             onChange={this.onChange.bind(this)}
                             status={this.state.value === 'error' ? 'error' : 'default'}
                             placeholder="Достижение получено!"
-                            bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , .'
+                            bottom='Доступные символы: а-я А-Я a-z A-Z 0-9 ! ? , .'
                             maxLength='21'
                         />
                         <Input
@@ -105,7 +105,7 @@ class AchievementsGet extends React.Component {
                             onChange={this.onChange.bind(this)}
                             status={this.state.value === 'error' ? 'error' : 'default'}
                             placeholder="Терпение и труд"
-                            bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , .'
+                            bottom='Доступные символы: а-я А-Я a-z A-Z 0-9 ! ? , .'
                             maxLength='21'
                         />
                         {
