@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "serve -s build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "deploy": "serve -s build"
+    "eject": "react-scripts eject"
   },
   "author": "MrZillaGold",
   "license": "ISC",
