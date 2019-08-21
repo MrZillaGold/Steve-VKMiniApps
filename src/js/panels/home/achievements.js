@@ -23,7 +23,6 @@ import Gallery from "@vkontakte/vkui/dist/components/Gallery/Gallery";
 import PanelHeaderContent from "@vkontakte/vkui/dist/components/PanelHeaderContent/PanelHeaderContent";
 import Div from "@vkontakte/vkui/dist/components/Div/Div";
 
-import Icon16Down from '@vkontakte/icons/dist/16/down';
 import Icon24Message from '@vkontakte/icons/dist/24/message';
 
 class AchievementsGet extends React.Component {
