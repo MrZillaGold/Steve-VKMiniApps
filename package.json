@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "start": "serve -s build",
-    "build": "set HTTPS=true&&react-scripts build",
-    "test": "set HTTPS=true&&react-scripts test --env=jsdom",
-    "eject": "set HTTPS=true&&react-scripts eject"
+  "scripts": {    
+    "start": "react-scripts start",
+    "build": "GENERATE_SOURCEMAP=false npm run build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   },
   "author": "MrZillaGold",
   "license": "ISC",
