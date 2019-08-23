@@ -7,18 +7,7 @@ import { Offline, Online } from 'react-detect-offline';
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
-import Panel from "@vkontakte/vkui/dist/components/Panel/Panel";
-import PanelHeader from "@vkontakte/vkui/dist/components/PanelHeader/PanelHeader";
-import PanelHeaderBack from "@vkontakte/vkui/dist/components/PanelHeaderBack/PanelHeaderBack";
-import Spinner from "@vkontakte/vkui/dist/components/Spinner/Spinner";
-import Avatar from "@vkontakte/vkui/dist/components/Avatar/Avatar";
-import Group from "@vkontakte/vkui/dist/components/Group/Group";
-import Cell from "@vkontakte/vkui/dist/components/Cell/Cell";
-import List from "@vkontakte/vkui/dist/components/List/List";
-import Gallery from "@vkontakte/vkui/dist/components/Gallery/Gallery";
-import PanelHeaderContent from "@vkontakte/vkui/dist/components/PanelHeaderContent/PanelHeaderContent";
-import Div from "@vkontakte/vkui/dist/components/Div/Div";
-import Button from "@vkontakte/vkui/dist/components/Button/Button";
+import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Spinner, Avatar, Group, Cell, List, Gallery, Div, Button } from "@vkontakte/vkui";
 
 
 class StatusGet extends React.Component {
