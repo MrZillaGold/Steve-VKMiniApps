@@ -4,21 +4,11 @@ import {bindActionCreators} from "redux";
 
 import { Offline, Online } from 'react-detect-offline';
 
+import axios from "axios";
+
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
-import Panel from "@vkontakte/vkui/dist/components/Panel/Panel";
-import PanelHeader from "@vkontakte/vkui/dist/components/PanelHeader/PanelHeader";
-import PanelHeaderBack from "@vkontakte/vkui/dist/components/PanelHeaderBack/PanelHeaderBack";
-import Spinner from "@vkontakte/vkui/dist/components/Spinner/Spinner";
-import Group from "@vkontakte/vkui/dist/components/Group/Group";
-import Cell from "@vkontakte/vkui/dist/components/Cell/Cell";
-import List from "@vkontakte/vkui/dist/components/List/List";
-import Gallery from "@vkontakte/vkui/dist/components/Gallery/Gallery";
-import PanelHeaderContent from "@vkontakte/vkui/dist/components/PanelHeaderContent/PanelHeaderContent";
-import Div from "@vkontakte/vkui/dist/components/Div/Div";
-import axios from "axios";
-import Button from "@vkontakte/vkui/dist/components/Button/Button";
-
+import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Spinner, Group, Cell, List, Gallery, Div, Button } from "@vkontakte/vkui";
 
 class NewsGet extends React.Component {
 
