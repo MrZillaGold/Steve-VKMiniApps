@@ -4,15 +4,7 @@ import {bindActionCreators} from "redux";
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
-import Panel from "@vkontakte/vkui/dist/components/Panel/Panel";
-import PanelHeader from "@vkontakte/vkui/dist/components/PanelHeader/PanelHeader";
-import PanelHeaderBack from "@vkontakte/vkui/dist/components/PanelHeaderBack/PanelHeaderBack";
-import Input from "@vkontakte/vkui/dist/components/Input/Input";
-import FormLayout from "@vkontakte/vkui/dist/components/FormLayout/FormLayout";
-import PanelHeaderContent from "@vkontakte/vkui/dist/components/PanelHeaderContent/PanelHeaderContent";
-import Select from "@vkontakte/vkui/dist/components/Select/Select";
-import List from "@vkontakte/vkui/dist/components/List/List";
-import Cell from "@vkontakte/vkui/dist/components/Cell/Cell";
+import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Select, List, Cell } from "@vkontakte/vkui";
 
 
 class Calculator extends React.Component {
