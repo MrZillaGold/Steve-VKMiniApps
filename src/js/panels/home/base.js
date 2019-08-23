@@ -3,13 +3,7 @@ import {connect} from 'react-redux';
 
 import {closePopout, goBack, openModal, openPopout, setPage} from '../../store/router/actions';
 
-import Panel from '@vkontakte/vkui/dist/components/Panel/Panel';
-import Group from '@vkontakte/vkui/dist/components/Group/Group';
-import Button from '@vkontakte/vkui/dist/components/Button/Button';
-import PanelHeader from '@vkontakte/vkui/dist/components/PanelHeader/PanelHeader';
-import CellButton from "@vkontakte/vkui/dist/components/CellButton/CellButton";
-import Avatar from "@vkontakte/vkui/dist/components/Avatar/Avatar";
-import Cell from "@vkontakte/vkui/dist/components/Cell/Cell";
+import { Panel, Group, Button, PanelHeader, Cell, CellButton, Avatar } from '@vkontakte/vkui';
 
 import Icon24Note from '@vkontakte/icons/dist/24/note';
 import Icon24Info from '@vkontakte/icons/dist/24/info';
