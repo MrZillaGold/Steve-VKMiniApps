@@ -6,7 +6,6 @@ import {goBack, openPopout, closePopout, openModal} from "../../store/router/act
 
 import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Select, List, Cell } from "@vkontakte/vkui";
 
-
 class Calculator extends React.Component {
 
     state = {
