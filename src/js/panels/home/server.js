@@ -104,7 +104,7 @@ class ServerInfoGet extends React.Component {
                                         {this.state.response.players.list === undefined ?
                                             '' :
                                             <Cell multiline style={{whiteSpace: 'pre-wrap'}}>
-                                                {this.state.response.players.list.toString().replace(/,/g, '  ')}
+                                                {this.state.response.players.list.toString().replace(/,/g, ',  ')}
                                             </Cell>}
                                     </List>
                                 </Group>
