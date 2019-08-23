@@ -9,19 +9,7 @@ import { Offline, Online } from 'react-detect-offline';
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
-import Panel from "@vkontakte/vkui/dist/components/Panel/Panel";
-import PanelHeader from "@vkontakte/vkui/dist/components/PanelHeader/PanelHeader";
-import PanelHeaderBack from "@vkontakte/vkui/dist/components/PanelHeaderBack/PanelHeaderBack";
-import Input from "@vkontakte/vkui/dist/components/Input/Input";
-import FormLayout from "@vkontakte/vkui/dist/components/FormLayout/FormLayout";
-import Button from "@vkontakte/vkui/dist/components/Button/Button";
-import Spinner from "@vkontakte/vkui/dist/components/Spinner/Spinner";
-import Group from "@vkontakte/vkui/dist/components/Group/Group";
-import Cell from "@vkontakte/vkui/dist/components/Cell/Cell";
-import List from "@vkontakte/vkui/dist/components/List/List";
-import Gallery from "@vkontakte/vkui/dist/components/Gallery/Gallery";
-import PanelHeaderContent from "@vkontakte/vkui/dist/components/PanelHeaderContent/PanelHeaderContent";
-import Div from "@vkontakte/vkui/dist/components/Div/Div";
+import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Button, Spinner, Group, Cell, List, Gallery, Div } from "@vkontakte/vkui";
 
 import Icon24Message from '@vkontakte/icons/dist/24/message';
 
