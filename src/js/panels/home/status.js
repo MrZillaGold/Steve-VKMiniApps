@@ -27,7 +27,7 @@ class StatusGet extends React.Component {
             this.setState({ spinner: false });
             if (err) {
                 this.setState({ error: `Произошла ошибка. Попробуйте позже.` });
-                return console.log(`Данная ошибка решается, репортить не нужно!`);
+                return console.log(err);
             }
         });
     }
