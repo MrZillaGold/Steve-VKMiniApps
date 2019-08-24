@@ -58,6 +58,7 @@ class AchievementsGet extends React.Component {
             this.setState({ spinner: null });
             if (err) {
                 this.setState({ error: `Произошла ошибка. Попробуйте позже.` });
+                console.log(err);
             }
         });
     }
