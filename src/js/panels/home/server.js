@@ -43,7 +43,7 @@ class ServerInfoGet extends React.Component {
             this.setState({spinner: null});
             if (err) {
                 this.setState({ error: `Произошла ошибка. Попробуйте позже.` });
-                return console.log(`Данная ошибка решается, репортить не нужно!`);
+                return console.log(err);
             }
         });
     }
