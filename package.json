@@ -15,7 +15,7 @@
   "dependencies": {
     "@vkontakte/icons": "^1.7.0",
     "@vkontakte/mvk-mini-apps-scroll-helper": "^1.0.2",
-    "@vkontakte/vkui": "^2.26.3-rc.0",
+    "@vkontakte/vkui": "^2.27.0-rc.4",
     "@vkontakte/vk-connect": "^1.5.5",
     "@vkontakte/vkui-connect-promise": "^0.1.19",
     "babel-eslint": "^9.0.0",
