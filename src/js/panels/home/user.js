@@ -31,6 +31,7 @@ class UserGet extends React.Component {
     }
 
     share () {
+        console.log("Начинаем отправку сообщения.");
         VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098}).then(data => {
             console.log(data);
             if(data.type === "VKWebAppAllowMessagesFromGroupResult") {
