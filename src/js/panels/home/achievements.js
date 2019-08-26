@@ -33,7 +33,9 @@ class AchievementsGet extends React.Component {
     }
 
     share () {
+        console.log("Начинаем отправку сообщения.");
         VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098}).then(data => {
+            console.log(data);
             if(data.type === "VKWebAppAllowMessagesFromGroupResult") {
                 VKConnectOld.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"type":"photo", "url": this.state.url}})
             }
