@@ -60,7 +60,8 @@ class ServerInfoGet extends React.Component {
                     </PanelHeaderContent>
                 </PanelHeader>
                 <Online>
-                    {this.state.spinner === null ?
+                    <FormLayout>
+                        {this.state.spinner === null ?
                             <Input
                                 top='IP-Адрес сервера'
                                 name='ip'
