@@ -79,26 +79,48 @@ class AchievementsGet extends React.Component {
                 </PanelHeader>
                 <Online>
                     <FormLayout>
-                        <Input
-                            top='Заголовок'
-                            name='one'
-                            value={this.state.one}
-                            onChange={this.onChange.bind(this)}
-                            status={this.state.value === 'error' ? 'error' : 'default'}
-                            placeholder="Достижение получено!"
-                            bottom='Доступные символы: а-я А-Я a-z A-Z 0-9 ! ? , .'
-                            maxLength='21'
-                        />
-                        <Input
-                            top='Текст достижения'
-                            name='two'
-                            value={this.state.two}
-                            onChange={this.onChange.bind(this)}
-                            status={this.state.value === 'error' ? 'error' : 'default'}
-                            placeholder="Терпение и труд"
-                            bottom='Доступные символы: а-я А-Я a-z A-Z 0-9 ! ? , .'
-                            maxLength='21'
-                        />
+                        { this.state.spinner === null ?
+                            <Input
+                                top='Заголовок'
+                                name='one'
+                                value={this.state.one}
+                                onChange={this.onChange.bind(this)}
+                                status={this.state.value === 'error' ? 'error' : 'default'}
+                                placeholder="Достижение получено!"
+                                bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , .'
+                                maxLength='21'
+                            />
+                            :
+                            <Input
+                                top='Заголовок'
+                                name='one'
+                                placeholder="Достижение получено!"
+                                disabled
+                                value={this.state.one}
+                                bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , .'
+                            />
+                        }
+                        { this.state.spinner === null ?
+                            <Input
+                                top='Текст достижения'
+                                name='two'
+                                value={this.state.two}
+                                onChange={this.onChange.bind(this)}
+                                status={this.state.value === 'error' ? 'error' : 'default'}
+                                placeholder="Терпение и труд"
+                                bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , .'
+                                maxLength='21'
+                            />
+                            :
+                            <Input
+                                top='Текст достижения'
+                                name='two'
+                                placeholder="Терпение и труд"
+                                disabled
+                                value={this.state.two}
+                                bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , .'
+                            />
+                        }
                         {
                             (this.state.one.length > 0 || this.state.two.length > 0) && this.state.spinner === null ?
                                 <Button onClick={this.onClick.bind(this)} size='xl'>Сгенерировать достижение</Button>
