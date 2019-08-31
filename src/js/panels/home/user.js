@@ -220,9 +220,9 @@ class UserGet extends React.Component {
                             Пропало подключение с сервером!<br /><br />Эта вкладка будет доступна как появится соединение.
                         </p>
                         <Button level='tertiary' stretched component='a' href='https://vk.com/stevebotmc'>Группа</Button>
-                        <Gallery style={{ height: 200 }}>
+                        <Gallery style={{ height: 210 }}>
                             <div style={{
-                                backgroundImage: 'url(https://psv4.userapi.com/c848424/u233731786/docs/d8/5b1e5e8f3fa5/Enderman.png)',
+                                backgroundImage: 'url(https://github.com/MrZillaGold/steve-vkminiapps/raw/master/src/js/panels/home/img/error.png)',
                                 backgroundSize: 'contain',
                                 backgroundPosition: '50%',
                                 backgroundRepeat: 'no-repeat'}}
