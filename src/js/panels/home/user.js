@@ -121,10 +121,10 @@ class UserGet extends React.Component {
                                     </List>
                                     <p style={{ whiteSpace: 'pre-wrap', color: '#909499', textAlign: 'center' }}>{this.state.error}</p>
                                     <Gallery
-                                        style={{ height: 200 }}
+                                        style={{ height: 210 }}
                                     >
                                         <div style={{
-                                            backgroundImage: 'url(https://www.minecraft.net/content/dam/archive/0ef629a3446f9a977087c578189097dd-sticker_creeper.png)',
+                                            backgroundImage: 'url(https://github.com/MrZillaGold/steve-vkminiapps/raw/master/src/js/panels/home/img/error.png)',
                                             backgroundSize: 'contain',
                                             backgroundPosition: '50%',
                                             height: '200px',
