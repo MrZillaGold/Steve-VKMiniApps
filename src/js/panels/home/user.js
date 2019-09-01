@@ -12,6 +12,7 @@ import {goBack, openPopout, closePopout, openModal} from "../../store/router/act
 import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Button, Spinner, Group, Cell, List, Gallery, Div } from "@vkontakte/vkui";
 
 import Icon24Message from '@vkontakte/icons/dist/24/message';
+import Icon16Done from '@vkontakte/icons/dist/16/done';
 
 class UserGet extends React.Component {
 
@@ -22,7 +23,8 @@ class UserGet extends React.Component {
         error: null,
         list: null,
         skin: null,
-        value: null
+        value: null,
+        lock: false
     };
 
     onChange(e) {
@@ -35,6 +37,7 @@ class UserGet extends React.Component {
         VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098}).then(data => {
             console.log(data);
             if(data.type === "VKWebAppAllowMessagesFromGroupResult") {
+                this.setState({ lock: true });
                 VKConnectOld.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"type":"document", "url": this.state.skin, "name": this.state.username}})
             }
         }).catch(error => console.log(error));
@@ -44,7 +47,7 @@ class UserGet extends React.Component {
         if (this.state.nickname.length === 0){
             return this.setState({ value: 'error' });
         }
-        this.setState({ spinner: true, list: null, username: null, error: null, value: null, skin: null });
+        this.setState({ spinner: true, list: null, username: null, error: null, value: null, skin: null, lock: false });
         axios.get(`https://stevecors.herokuapp.com/https://api.ashcon.app/mojang/v2/user/${this.state.nickname}`).then(res => {
             return res.data;
         }).then(data => {
@@ -189,7 +192,11 @@ class UserGet extends React.Component {
                                     </Gallery>
                                 </Div>
                                 <Div style={{ display: 'flex' }}>
-                                    <Button onClick={this.share.bind(this)} stretched before={<Icon24Message width={16} height={16} />}>Получить cкин в сообщения</Button>
+                                    { this.state.lock ?
+                                        <Button disabled stretched before={<Icon16Done width={16} height={16} />}>Сообщение отправлено!</Button>
+                                        :
+                                        <Button onClick={this.share.bind(this)} stretched before={<Icon24Message width={16} height={16} />}>Получить cкин в сообщения</Button>
+                                    }
                                 </Div>
                             </Group>
                         }
