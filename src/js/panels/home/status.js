@@ -130,7 +130,7 @@ class StatusGet extends React.Component {
                                     style={{ height: 210 }}
                                 >
                                     <div style={{
-                                        backgroundImage: 'url(https://github.com/MrZillaGold/steve-vkminiapps/raw/master/src/js/panels/home/img/error.png)',
+                                        backgroundImage: 'url(https://3.downloader.disk.yandex.ru/preview/912e14888c438f33ed6269323ccdf2e064952ae55d4b89129f29e4d953ab66ac/inf/OcpZuHPnQP0-O7zZbr93r1ycYyrCD30m82IfiaGo7UIkuZhyU6fBrlZ47h5RKLS_kKIv-5Mt66badzRXBYpGwg%3D%3D?uid=377051847&filename=error.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=377051847&tknv=v2&size=1263x695)',
                                         backgroundSize: 'contain',
                                         backgroundPosition: '50%',
                                         height: '200px',
@@ -150,7 +150,7 @@ class StatusGet extends React.Component {
                         <Button level='tertiary' stretched component='a' href='https://vk.com/stevebotmc'>Группа</Button>
                         <Gallery style={{ height: 210 }}>
                             <div style={{
-                                backgroundImage: 'url(https://github.com/MrZillaGold/steve-vkminiapps/raw/master/src/js/panels/home/img/error.png)',
+                                backgroundImage: 'url(https://3.downloader.disk.yandex.ru/preview/912e14888c438f33ed6269323ccdf2e064952ae55d4b89129f29e4d953ab66ac/inf/OcpZuHPnQP0-O7zZbr93r1ycYyrCD30m82IfiaGo7UIkuZhyU6fBrlZ47h5RKLS_kKIv-5Mt66badzRXBYpGwg%3D%3D?uid=377051847&filename=error.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=377051847&tknv=v2&size=1263x695)',
                                 backgroundSize: 'contain',
                                 backgroundPosition: '50%',
                                 backgroundRepeat: 'no-repeat'}}
