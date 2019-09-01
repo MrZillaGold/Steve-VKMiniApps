@@ -127,10 +127,10 @@ class ServerInfoGet extends React.Component {
                                     </List>
                                     <p style={{color: '#909499', textAlign: 'center'}}>{this.state.error}</p>
                                     <Gallery
-                                        style={{ height: 210 }}
+                                        style={{ height: 200 }}
                                     >
                                         <div style={{
-                                            backgroundImage: 'url(https://3.downloader.disk.yandex.ru/preview/912e14888c438f33ed6269323ccdf2e064952ae55d4b89129f29e4d953ab66ac/inf/OcpZuHPnQP0-O7zZbr93r1ycYyrCD30m82IfiaGo7UIkuZhyU6fBrlZ47h5RKLS_kKIv-5Mt66badzRXBYpGwg%3D%3D?uid=377051847&filename=error.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=377051847&tknv=v2&size=1263x695)',
+                                            backgroundImage: 'url(https://www.minecraft.net/content/dam/archive/0ef629a3446f9a977087c578189097dd-sticker_creeper.png)',
                                             backgroundSize: 'contain',
                                             backgroundPosition: '50%',
                                             height: '200px',
@@ -150,9 +150,9 @@ class ServerInfoGet extends React.Component {
                             Пропало подключение с сервером!<br /><br />Эта вкладка будет доступна как появится соединение.
                         </p>
                         <Button level='tertiary' stretched component='a' href='https://vk.com/stevebotmc'>Группа</Button>
-                        <Gallery style={{ height: 210 }}>
+                        <Gallery style={{ height: 200 }}>
                             <div style={{
-                                backgroundImage: 'url(https://3.downloader.disk.yandex.ru/preview/912e14888c438f33ed6269323ccdf2e064952ae55d4b89129f29e4d953ab66ac/inf/OcpZuHPnQP0-O7zZbr93r1ycYyrCD30m82IfiaGo7UIkuZhyU6fBrlZ47h5RKLS_kKIv-5Mt66badzRXBYpGwg%3D%3D?uid=377051847&filename=error.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=377051847&tknv=v2&size=1263x695)',
+                                backgroundImage: 'url(https://www.minecraft.net/content/dam/archive/0ef629a3446f9a977087c578189097dd-sticker_creeper.png)',
                                 backgroundSize: 'contain',
                                 backgroundPosition: '50%',
                                 backgroundRepeat: 'no-repeat'}}
