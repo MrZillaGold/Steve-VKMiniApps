@@ -12,6 +12,7 @@ import {goBack, openPopout, closePopout, openModal} from "../../store/router/act
 import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Button, Spinner, Group, Cell, List, Gallery, Div } from "@vkontakte/vkui";
 
 import Icon24Message from '@vkontakte/icons/dist/24/message';
+import Icon16Done from '@vkontakte/icons/dist/16/done';
 
 class AchievementsGet extends React.Component {
 
@@ -24,7 +25,8 @@ class AchievementsGet extends React.Component {
         error: null,
         value: null,
         rand: null,
-        url: null
+        url: null,
+        lock: false
     };
 
     onChange(e) {
@@ -37,6 +39,7 @@ class AchievementsGet extends React.Component {
         VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098}).then(data => {
             console.log(data);
             if(data.type === "VKWebAppAllowMessagesFromGroupResult") {
+                this.setState({ lock: true });
                 VKConnectOld.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"type":"photo", "url": this.state.url}})
             }
 
@@ -44,7 +47,7 @@ class AchievementsGet extends React.Component {
     }
 
     onClick () {
-        this.setState({ spinner: true, check: null, error: null, url: null });
+        this.setState({ spinner: true, check: null, error: null, url: null, lock: false });
 
         axios.get(`https://stevecors.herokuapp.com/https://vkfreeviews.000webhostapp.com/a.php?h=&t=`).then(() => {
             function randomInteger(min, max) {
@@ -174,7 +177,11 @@ class AchievementsGet extends React.Component {
                                         />
                                     </Gallery>
                                     <div style={{ display: 'flex' }}>
-                                        <Button onClick={this.share.bind(this)} stretched before={<Icon24Message width={16} height={16} />}>Получить картинку в сообщения</Button>
+                                        { this.state.lock ?
+                                            <Button disabled stretched before={<Icon16Done width={16} height={16} />}>Сообщение отправлено!</Button>
+                                            :
+                                            <Button onClick={this.share.bind(this)} stretched before={<Icon24Message width={16} height={16} />}>Получить картинку в сообщения</Button>
+                                        }
                                     </div>
                                 </Div>
                             </Group>
