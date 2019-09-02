@@ -104,7 +104,7 @@ class ServerInfoGet extends React.Component {
                                     <List>
                                         <Cell
                                             multiline
-                                            before={<Avatar type="app" size={64} src={this.state.response.icon === undefined ? defaultImage : this.state.response.icon.toString().replace(/\//g, '/')}/>}
+                                            before={<Avatar type="image" size={64} src={this.state.response.icon === undefined ? defaultImage : this.state.response.icon.toString().replace(/\//g, '/')}/>}
                                             description={`Игроков: ${this.state.response.players.online} / ${this.state.response.players.max}`}
                                         >
                                             <div className='Container' dangerouslySetInnerHTML={{__html: this.state.response.motd.html[0]}} />
