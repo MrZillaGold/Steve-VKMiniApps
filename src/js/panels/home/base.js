@@ -36,7 +36,7 @@ class HomePanelBase extends React.Component {
                 <Group>
                     <Cell
                         multiline
-                        before={<Avatar type='app' size={64} src={require('./img/Steve.png')} style={{backgroundColor: 'transparent'}}/>}
+                        before={<Avatar type='image' size={64} src={require('./img/Steve.png')} style={{backgroundColor: 'transparent'}}/>}
                         size="l"
                         description="Получите быстрый доступ ко всем функциям в сообщениях ВКонтакте!"
                         bottomContent={
