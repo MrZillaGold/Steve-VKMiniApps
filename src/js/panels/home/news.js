@@ -23,13 +23,15 @@ class NewsGet extends React.Component {
     };
 
     newsGet() {
-        axios.get(`https://vkfreeviews.000webhostapp.com/`).then(data => {
+        axios.get(`https://vkfreeviews.000webhostapp.com/`)
+            .then(data => {
                 this.setState({
                     news: data.data.text.text.replace(/\n/g, '<br />'),
                     time: timeConvert(data.data.date * 1000),
                     spinner: false
                 });
-            }).catch(err => {
+            })
+            .catch(err => {
             if (err) {
                 this.setState({error: `Новости сейчас недоступны!`, spinner: false});
                 return console.log(err);
@@ -61,9 +63,7 @@ class NewsGet extends React.Component {
                         :
                         <Group title={`📅 ${this.state.time}`}>
                             <Div>
-                                <p  className='Container'
-                                    dangerouslySetInnerHTML={{__html: this.state.news}}>
-                                </p>
+                                <p className='Container' dangerouslySetInnerHTML={{__html: this.state.news}} />
                             </Div>
                         </Group>
                 }
