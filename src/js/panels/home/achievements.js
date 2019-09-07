@@ -5,6 +5,8 @@ import axios from 'axios';
 import VKConnect from "@vkontakte/vk-connect-promise";
 import VKConnectOld from "@vkontakte/vk-connect";
 
+import {randomInteger} from "../../services/_functions";
+
 import { Offline, Online } from 'react-detect-offline';
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
@@ -36,36 +38,48 @@ class AchievementsGet extends React.Component {
 
     share () {
         console.log("Начинаем отправку сообщения.");
-        VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098}).then(data => {
-            console.log(data);
-            if(data.type === "VKWebAppAllowMessagesFromGroupResult") {
-                this.setState({ lock: true });
-                VKConnectOld.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"type":"photo", "url": this.state.url}})
-            }
-
-        }).catch(error => console.log(error));
+        VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098})
+            .then(data => {
+                console.log(data);
+                if(data.type === "VKWebAppAllowMessagesFromGroupResult") {
+                    this.setState({ lock: true });
+                    VKConnectOld.send("VKWebAppSendPayload",
+                        {"group_id": 175914098, "payload": {"type":"photo", "url": this.state.url}}
+                    );
+                }
+            })
+            .catch(error => console.log(error));
     }
 
     onClick () {
-        this.setState({ spinner: true, check: null, error: null, url: null, lock: false });
 
-        axios.get(`https://stevecors.herokuapp.com/https://vkfreeviews.000webhostapp.com/a.php?h=&t=`).then(() => {
-            function randomInteger(min, max) {
-                let rand = min + Math.random() * (max + 1 - min);
-                rand = Math.floor(rand);
-                return rand;
-            }
-
-            let random = randomInteger(1, 39);
-
-            this.setState({ spinner: null, check: true, lineOne: this.state.one, lineTwo: this.state.two, rand: random, url: 'https://vkfreeviews.000webhostapp.com/a.php?h=' + this.state.one +'&t=' + this.state.two + '&i=' + random });
-        }).catch(err => {
-            this.setState({ spinner: null });
-            if (err) {
-                this.setState({ error: `Произошла ошибка. Попробуйте позже.` });
-                console.log(err);
-            }
+        this.setState({
+            spinner: true,
+            check: null,
+            error: null,
+            url: null,
+            lock: false
         });
+
+        axios.get(`https://stevecors.herokuapp.com/https://vkfreeviews.000webhostapp.com/a.php?h=&t=`)
+            .then(() => {
+                const random = randomInteger(1, 39);
+                this.setState({
+                    spinner: null,
+                    check: true,
+                    lineOne: this.state.one,
+                    lineTwo: this.state.two,
+                    rand: random,
+                    url: 'https://vkfreeviews.000webhostapp.com/a.php?h=' + this.state.one +'&t=' + this.state.two + '&i=' + random
+                });
+            })
+            .catch(err => {
+                this.setState({ spinner: null });
+                if (err) {
+                    this.setState({ error: `Произошла ошибка. Попробуйте позже.` });
+                    console.log(err);
+                }
+            });
     }
 
     render() {
