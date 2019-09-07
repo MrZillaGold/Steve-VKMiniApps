@@ -5,6 +5,8 @@ import axios from 'axios';
 import VKConnect from "@vkontakte/vk-connect-promise";
 import VKConnectOld from "@vkontakte/vk-connect";
 
+import {timeConvert} from "../../services/_functions";
+
 import { Offline, Online } from 'react-detect-offline';
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
@@ -24,12 +26,47 @@ class UserGet extends React.Component {
         list: null,
         skin: null,
         value: null,
+        regDate: null,
         lock: false
     };
 
     onChange(e) {
         const {name, value} = e.currentTarget;
         this.setState({[name]: value.replace(/[^A-Za-z0-9_]+$/g, "").slice(0, 16)});
+    }
+
+    onClick () {
+        if (this.state.nickname.length === 0){
+            return this.setState({ value: 'error' });
+        }
+        this.setState({ spinner: true, list: null, username: null, error: null, value: null, skin: null, regDate: null, lock: false });
+        axios.get(`https://stevecors.herokuapp.com/https://api.ashcon.app/mojang/v2/user/${this.state.nickname}`)
+            .then(res => {
+                return res.data;
+            })
+            .then(data => {
+                this.setState({ list: data.username_history, username: data.username, skin: data.textures.skin.url, spinner: null });
+                if (data.username_history.length === 1) {
+                    this.setState({ regDate: timeConvert(data.created_at) });
+                }
+            })
+            .catch(err => {
+                this.setState({ spinner: null });
+                if (err.response.status) {
+                    if (err.response.status === 404) {
+                        this.setState({error: `Игрока с никнеймом ${this.state.nickname} не существует!`});
+                        return console.log(`Игрок с никнеймом ${this.state.nickname} не существует!`);
+                    }
+                    if (err.response.status === 400) {
+                        this.setState({error: `Никнейм может содержать только латинские буквы, цифры и символ "_".`});
+                        return console.log(`Произошла ошибка 400 (Bad Request!), проверьте вводимые данные!`);
+                    }
+                }
+                if (err) {
+                    this.setState({ error: `Произошла ошибка. Попробуйте позже.` });
+                    return console.log(err);
+                }
+            });
     }
 
     share () {
@@ -43,36 +80,10 @@ class UserGet extends React.Component {
         }).catch(error => console.log(error));
     }
 
-    onClick () {
-        if (this.state.nickname.length === 0){
-            return this.setState({ value: 'error' });
-        }
-        this.setState({ spinner: true, list: null, username: null, error: null, value: null, skin: null, lock: false });
-        axios.get(`https://stevecors.herokuapp.com/https://api.ashcon.app/mojang/v2/user/${this.state.nickname}`).then(res => {
-            return res.data;
-        }).then(data => {
-            this.setState({ list: data.username_history, username: data.username, skin: data.textures.skin.url, spinner: null });
-        }).catch(err => {
-            this.setState({ spinner: null });
-            if (err.response.status) {
-                if (err.response.status === 404) {
-                    this.setState({error: `Игрока с никнеймом ${this.state.nickname} не существует!`});
-                    return console.log(`Игрок с никнеймом ${this.state.nickname} не существует!`);
-                }
-                if (err.response.status === 400) {
-                    this.setState({error: `Никнейм может содержать только латинские буквы, цифры и символ "_".`});
-                    return console.log(`Произошла ошибка 400 (Bad Request!), проверьте вводимые данные!`);
-                }
-            }
-            if (err) {
-                this.setState({ error: `Произошла ошибка. Попробуйте позже.` });
-                return console.log(err);
-            }
-        });
-    }
-
     render() {
         const {id, goBack} = this.props;
+
+        const {regDate} = this.state;
 
         return (
             <Panel id={id}>
@@ -204,18 +215,7 @@ class UserGet extends React.Component {
                         }
                         <List top={this.state.username === null ? '' : `История никнейма ${this.state.username}`}>
                             {this.state.list === null ? '' : Array.prototype.map.call(this.state.list, function (item) {
-
-                                let currentDate = new Date(item.changed_at);
-
-                                let getDate = currentDate.getDate();
-                                let getMonth = currentDate.getMonth() + 1;
-                                let getYear = currentDate.getFullYear();
-
-                                let month = getMonth > 9 ? getMonth : `0` + getMonth;
-                                let date = getDate > 9 ? getDate : `0` + getDate;
-                                let changed_at = date + '.' + month + '.' + getYear;
-
-                                return <Cell key={item.username} description={item.changed_at !== undefined ? changed_at : 'Первый'}>
+                                return <Cell key={item.username} description={item.changed_at !== undefined ? timeConvert(item.changed_at) : regDate === null ? 'Первый' : regDate}>
                                     {item.username}
                                 </Cell>
                             }).reverse()}
