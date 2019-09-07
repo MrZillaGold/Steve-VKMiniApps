@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 
+import {timeConvert} from "../../services/_functions";
+
 import { Offline, Online } from 'react-detect-offline';
 
 import axios from "axios";
@@ -22,18 +24,9 @@ class NewsGet extends React.Component {
 
     newsGet() {
         axios.get(`https://vkfreeviews.000webhostapp.com/`).then(data => {
-                let currentDate = new Date(data.data.date * 1000);
-
-                let getDate = currentDate.getDate();
-                let getMonth = currentDate.getMonth() + 1;
-                let getYear = currentDate.getFullYear();
-
-                let month = getMonth > 9 ? getMonth : `0` + getMonth;
-                let date = getDate > 9 ? getDate : `0` + getDate;
-                let newsTitle = date + '.' + month + '.' + getYear;
                 this.setState({
                     news: data.data.text.text.replace(/\n/g, '<br />'),
-                    time: newsTitle,
+                    time: timeConvert(data.data.date * 1000),
                     spinner: false
                 });
             }).catch(err => {
