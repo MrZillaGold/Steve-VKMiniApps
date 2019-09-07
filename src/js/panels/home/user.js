@@ -46,7 +46,7 @@ class UserGet extends React.Component {
             })
             .then(data => {
                 this.setState({ list: data.username_history, username: data.username, skin: data.textures.skin.url, spinner: null });
-                if (data.username_history.length === 1) {
+                if (data.created_at) {
                     this.setState({ regDate: timeConvert(data.created_at) });
                 }
             })
