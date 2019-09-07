@@ -1,10 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
-import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Select, List, Cell } from "@vkontakte/vkui";
+import {Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Select, List, Cell, Button} from "@vkontakte/vkui";
+import Icon24Copy from '@vkontakte/icons/dist/24/copy';
+import Icon16Done from '@vkontakte/icons/dist/16/done';
 
 class Calculator extends React.Component {
 
@@ -15,16 +18,19 @@ class Calculator extends React.Component {
         spinner: null,
         error: null,
         rand: null,
+        copy: false,
         world: "world"
     };
 
     onChange(e) {
+        this.setState({ copy: false });
+
         const {name, value} = e.currentTarget;
         if (name === "x" || name === "z") {
             return this.setState({[name]: value.replace(/[^-0-9]+$/g, "").slice(0, 9) > 0 || value.replace(/[^-0-9]+$/g, "").slice(0, 9) === 0 ?
-                        value.replace(/[^-0-9]+$/g, "").slice(0, 8) > 29999999 ? "29999999" : value.replace(/[^-0-9]+$/g, "").slice(0, 8)
-                        :
-                        value.replace(/[^-0-9]+$/g, "").slice(0, 9) < -29999999 ? "-29999999" : value.replace(/[^-0-9]+$/g, "").slice(0, 9)});
+                    value.replace(/[^-0-9]+$/g, "").slice(0, 8) > 29999999 ? "29999999" : value.replace(/[^-0-9]+$/g, "").slice(0, 8)
+                    :
+                    value.replace(/[^-0-9]+$/g, "").slice(0, 9) < -29999999 ? "-29999999" : value.replace(/[^-0-9]+$/g, "").slice(0, 9)});
         }
         if (name === "y") {
             return this.setState({[name]: value.replace(/[^0-9]+$/g, "").slice(0, 6) > 100000 ? "100000" : value.replace(/[^0-9]+$/g, "").slice(0, 6)});
@@ -35,6 +41,10 @@ class Calculator extends React.Component {
     render() {
 
         const {world, id, goBack} = this.props;
+
+        const x = this.state.x === '' ? '0' : this.state.x.match('^-?[0-9]+$') ? this.state.world === 'nether' ? Math.floor(this.state.x / 8) : Math.floor(this.state.x * 8) : '0';
+        const y = this.state.y === '' ? '0' : this.state.y.match('^[0-9]+$') ? this.state.y : '0';
+        const z = this.state.z === '' ? '0' : this.state.z.match('^-?[0-9]+$') ? this.state.world === 'nether' ? Math.floor(this.state.z / 8) : Math.floor(this.state.z * 8) : '0';
 
         return (
             <Panel id={id}>
@@ -85,15 +95,27 @@ class Calculator extends React.Component {
                     {
                         <List top={this.state.world === 'nether' ? 'Координаты в аду' : 'Координаты в обычном мире'}>
                             <Cell description='Координата X'>
-                                {this.state.x === '' ? '0' : this.state.x.match('^-?[0-9]+$') ? this.state.world === 'nether' ? Math.floor(this.state.x / 8) : Math.floor(this.state.x * 8) : 'Задано неверное значение'}
+                                {x}
                             </Cell>
                             <Cell description='Координата Y'>
-                                {this.state.y === '' ? '0' : this.state.y.match('^[0-9]+$') ? this.state.y : 'Задано неверное значение'}
+                                {y}
                             </Cell>
                             <Cell description='Координата Z'>
-                                {this.state.z === '' ? '0' : this.state.z.match('^-?[0-9]+$') ? this.state.world === 'nether' ? Math.floor(this.state.z / 8) : Math.floor(this.state.z * 8) : 'Задано неверное значение'}
+                                {z}
                             </Cell>
                         </List>
+                    }
+                    {
+                        this.state.copy ?
+                            <div style={{display: 'flex'}}>
+                                <Button disabled stretched level="primary" before={<Icon16Done />}>Координаты скопированы!</Button>
+                            </div>
+                            :
+                            <CopyToClipboard text={`${x} ${y} ${z}`}>
+                                <div style={{display: 'flex'}}>
+                                    <Button onClick={() => this.setState({ copy: true })} stretched level="primary" before={<Icon24Copy width={16} height={16}/>}>Скопировать координаты</Button>
+                                </div>
+                            </CopyToClipboard>
                     }
                     {
                         <List>
