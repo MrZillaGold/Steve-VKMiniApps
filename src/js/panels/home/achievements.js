@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import axios from 'axios';
-import VKConnect from "@vkontakte/vkui-connect-promise";
+import VKConnect from "@vkontakte/vk-connect-promise";
 import VKConnectOld from "@vkontakte/vk-connect";
 
 import { Offline, Online } from 'react-detect-offline';
