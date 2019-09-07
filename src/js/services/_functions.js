@@ -22,3 +22,7 @@ export const timeConvert = (time) => {
     const date = getDate > 9 ? getDate : `0` + getDate;
     return date + '.' + month + '.' + getYear;
 };
+
+export const randomInteger = (min, max) => {
+    return Math.floor(min + Math.random() * (max + 1 - min));
+};
