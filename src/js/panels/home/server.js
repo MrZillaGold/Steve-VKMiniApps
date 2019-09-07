@@ -31,21 +31,24 @@ class ServerInfoGet extends React.Component {
             return this.setState({ value: 'error' });
         }
         this.setState({spinner: true, error: null, response: null, value: null});
-        axios.get(`https://stevecors.herokuapp.com/https://api.mcsrvstat.us/1/${this.state.ip}`).then(res => {
-            return res.data;
-        }).then(data => {
-            if (data.offline) {
-                this.setState({error: `Сервер ${this.state.ip} оффлайн, либо информация отсутствует.`, spinner: null});
-            } else {
-                this.setState({response: data, spinner: null, titleIp: this.state.ip});
-            }
-        }).catch(err => {
-            this.setState({spinner: null});
-            if (err) {
-                this.setState({ error: `Произошла ошибка. Попробуйте позже.` });
-                return console.log(err);
-            }
-        });
+        axios.get(`https://stevecors.herokuapp.com/https://api.mcsrvstat.us/1/${this.state.ip}`)
+            .then(res => {
+                return res.data;
+            })
+            .then(data => {
+                if (data.offline) {
+                    this.setState({error: `Сервер ${this.state.ip} оффлайн, либо информация отсутствует.`, spinner: null});
+                } else {
+                    this.setState({response: data, spinner: null, titleIp: this.state.ip});
+                }
+            })
+            .catch(err => {
+                this.setState({spinner: null});
+                if (err) {
+                    this.setState({ error: `Произошла ошибка. Попробуйте позже.` });
+                    return console.log(err);
+                }
+            });
     }
 
     render() {
@@ -67,8 +70,8 @@ class ServerInfoGet extends React.Component {
                                 name='ip'
                                 value={this.state.ip}
                                 onChange={this.onChange.bind(this)}
-                                status={this.state.ip.match(/(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):(1|2|3|4|5|6|7|8|9)([0-9]{1,5})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:(1|2|3|4|5|6|7|8|9)([0-9]{1,5})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g) || this.state.ip === "" ? 'default' : 'error'}
-                                bottom={this.state.ip.match(/(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):(1|2|3|4|5|6|7|8|9)([0-9]{1,5})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:(1|2|3|4|5|6|7|8|9)([0-9]{1,5})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g) || this.state.ip === "" ? 'Например: Hypixel.net' : 'Неправильный IP-Адрес.'}
+                                status={this.state.ip.match(/(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([123456789])([0-9]{1,5})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:([123456789])([0-9]{1,5})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g) || this.state.ip === "" ? 'default' : 'error'}
+                                bottom={this.state.ip.match(/(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([123456789])([0-9]{1,5})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:([123456789])([0-9]{1,5})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g) || this.state.ip === "" ? 'Например: Hypixel.net' : 'Неправильный IP-Адрес.'}
                                 placeholder="Введите IP-Адрес"
                                 maxLength='100'
                             />
@@ -82,7 +85,7 @@ class ServerInfoGet extends React.Component {
                             />
                         }
                         {
-                            this.state.ip.length > 2 && this.state.spinner === null && (this.state.ip.match(/(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):(1|2|3|4|5|6|7|8|9)([0-9]{1,5})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:(1|2|3|4|5|6|7|8|9)([0-9]{1,5})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g)) ?
+                            this.state.ip.length > 2 && this.state.spinner === null && (this.state.ip.match(/(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([123456789])([0-9]{1,5})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:([123456789])([0-9]{1,5})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g)) ?
                                 <Button onClick={this.onClick.bind(this)} size='xl'>Посмотреть информацию</Button>
                                 :
                                 <Button disabled size='xl'>Посмотреть информацию</Button>
