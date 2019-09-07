@@ -19,24 +19,29 @@ class StatusGet extends React.Component {
     };
 
     statusGet() {
-        axios.get(`https://stevecors.herokuapp.com/https://status.mojang.com/check`).then(res => {
-            return res.data;
-        }).then(data => {
-            this.setState({ status: data, spinner: false });
-        }).catch(err => {
-            this.setState({ spinner: false });
-            if (err) {
-                this.setState({ error: `Произошла ошибка. Попробуйте позже.` });
-                return console.log(err);
-            }
-        });
+        axios.get(`https://stevecors.herokuapp.com/https://status.mojang.com/check`)
+            .then(res => {
+                return res.data;
+            })
+            .then(data => {
+                this.setState({ status: data, spinner: false });
+            })
+            .catch(err => {
+                this.setState({ spinner: false });
+                if (err) {
+                    this.setState({ error: `Произошла ошибка. Попробуйте позже.` });
+                    return console.log(err);
+                }
+            });
     }
 
     render() {
         const {id, goBack} = this.props;
+
         const good = 'https://s3.amazonaws.com/assets.mojang.com/Happy-Server.gif';
         const mellow = 'https://s3.amazonaws.com/assets.mojang.com/Mellow-Server.gif';
         const bad = 'https://s3.amazonaws.com/assets.mojang.com/Sad-Server.gif';
+
         return (
             <Panel id={id}>
                 <PanelHeader left={<PanelHeaderBack onClick={() => goBack()}/>}>
