@@ -54,13 +54,15 @@ class UserGet extends React.Component {
             this.setState({ list: data.username_history, username: data.username, skin: data.textures.skin.url, spinner: null });
         }).catch(err => {
             this.setState({ spinner: null });
-            if (err.response.status === 404) {
-                this.setState({ error: `Игрока с никнеймом ${this.state.nickname} не существует!` });
-                return console.log(`Игрок с никнеймом ${this.state.nickname} не существует!`);
-            }
-            if (err.response.status === 400) {
-                this.setState({ error: `Никнейм может содержать только латинские буквы, цифры и символ "_".` });
-                return console.log(`Произошла ошибка 400 (Bad Request!), проверьте вводимые данные!`);
+            if (err.response.status) {
+                if (err.response.status === 404) {
+                    this.setState({error: `Игрока с никнеймом ${this.state.nickname} не существует!`});
+                    return console.log(`Игрок с никнеймом ${this.state.nickname} не существует!`);
+                }
+                if (err.response.status === 400) {
+                    this.setState({error: `Никнейм может содержать только латинские буквы, цифры и символ "_".`});
+                    return console.log(`Произошла ошибка 400 (Bad Request!), проверьте вводимые данные!`);
+                }
             }
             if (err) {
                 this.setState({ error: `Произошла ошибка. Попробуйте позже.` });
