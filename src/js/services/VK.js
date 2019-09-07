@@ -1,5 +1,5 @@
 import VKConnectOld from "@vkontakte/vk-connect";
-import VKConnect from "@vkontakte/vkui-connect-promise";
+import VKConnect from "@vkontakte/vk-connect-promise";
 
 import {setColorScheme} from "../store/vk/actions";
 
