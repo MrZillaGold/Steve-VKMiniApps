@@ -31,15 +31,15 @@ class ServerInfoGet extends React.Component {
             return this.setState({ value: 'error' });
         }
         this.setState({spinner: true, error: null, response: null, value: null});
-        axios.get(`https://stevecors.herokuapp.com/https://api.mcsrvstat.us/1/${this.state.ip}`)
+        axios.get(`https://stevecors.herokuapp.com/https://api.mcsrvstat.us/2/${this.state.ip}`)
             .then(res => {
                 return res.data;
             })
             .then(data => {
-                if (data.offline) {
-                    this.setState({error: `Сервер ${this.state.ip} оффлайн, либо информация отсутствует.`, spinner: null});
-                } else {
+                if (data.online) {
                     this.setState({response: data, spinner: null, titleIp: this.state.ip});
+                } else {
+                    this.setState({error: `Сервер ${this.state.ip} оффлайн, либо информация отсутствует.`, spinner: null});
                 }
             })
             .catch(err => {
