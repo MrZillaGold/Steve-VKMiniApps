@@ -86,9 +86,9 @@ class ServerInfoGet extends React.Component {
                         }
                         {
                             this.state.ip.length > 2 && this.state.spinner === null && (this.state.ip.match(/(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([123456789])([0-9]{1,5})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:([123456789])([0-9]{1,5})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g)) ?
-                                <Button onClick={this.onClick.bind(this)} size='xl'>Посмотреть информацию</Button>
+                                <Button onClick={this.onClick.bind(this)} size='xl'>Получить информацию</Button>
                                 :
-                                <Button disabled size='xl'>Посмотреть информацию</Button>
+                                <Button disabled size='xl'>Получить информацию</Button>
                         }
                         {this.state.spinner === null ?
                             '' :
