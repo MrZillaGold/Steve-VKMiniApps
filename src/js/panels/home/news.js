@@ -25,7 +25,6 @@ class NewsGet extends React.Component {
     newsGet() {
         axios.get(`https://vkfreeviews.000webhostapp.com`)
             .then(data => {
-                console.log(data.data)
                 this.setState({
                     news: data.data.text.replace(/\n/g, '<br />'),
                     time: timeConvert(data.data.date * 1000),
