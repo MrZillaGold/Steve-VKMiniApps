@@ -101,7 +101,7 @@ class UserGet extends React.Component {
                                 value={this.state.nickname}
                                 onChange={this.onChange.bind(this)}
                                 status={this.state.nickname.length > 2 || this.state.nickname === "" ? 'default' : 'error'}
-                                bottom='Никнейм может содержать только латинские буквы, цифры и символ "_". (От 3 до 16 символов)'
+                                bottom='Может содержать только латинские буквы, цифры и символ "_". (От 3 до 16 символов)'
                                 placeholder="Введите никнейм"
                                 maxLength='16'
                                 pattern='^[A-Za-z0-9_]+$'
@@ -112,14 +112,14 @@ class UserGet extends React.Component {
                                 name='nickname'
                                 disabled
                                 value={this.state.nickname}
-                                bottom='Никнейм может содержать только латинские буквы, цифры и символ "_". (От 3 до 16 символов)'
+                                bottom='Может содержать только латинские буквы, цифры и символ "_". (От 3 до 16 символов)'
                             />
                         }
                         {
                             this.state.nickname.length > 2 && this.state.nickname.match('^[A-Za-z0-9_]+$') && this.state.spinner === null ?
-                                <Button onClick={this.onClick.bind(this)} size='xl'>Посмотреть информацию</Button>
+                                <Button onClick={this.onClick.bind(this)} size='xl'>Получить информацию</Button>
                                 :
-                                <Button disabled size='xl'>Посмотреть информацию</Button>
+                                <Button disabled size='xl'>Получить информацию</Button>
                         }
 
                         { this.state.spinner === null ?
