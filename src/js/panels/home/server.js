@@ -23,7 +23,7 @@ class ServerInfoGet extends React.Component {
 
     onChange(e) {
         const {name, value} = e.currentTarget;
-        this.setState({[name]: value.replace(/[^а-яА-ЯёЁa-zA-Z0-9.:]+$/g, "").slice(0, 100)});
+        this.setState({[name]: value.replace(/[^а-яА-ЯёЁa-zA-Z0-9.:]/g, "").slice(0, 100)});
     }
 
     onClick() {
