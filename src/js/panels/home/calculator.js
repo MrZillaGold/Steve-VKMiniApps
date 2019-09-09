@@ -27,13 +27,13 @@ class Calculator extends React.Component {
 
         const {name, value} = e.currentTarget;
         if (name === "x" || name === "z") {
-            return this.setState({[name]: value.replace(/[^-0-9]+$/g, "").slice(0, 9) > 0 || value.replace(/[^-0-9]+$/g, "").slice(0, 9) === 0 ?
-                    value.replace(/[^-0-9]+$/g, "").slice(0, 8) > 29999999 ? "29999999" : value.replace(/[^-0-9]+$/g, "").slice(0, 8)
+            return this.setState({[name]: value.replace(/[^-0-9]/g, "").slice(0, 9) > 0 || value.replace(/[^-0-9]/g, "").slice(0, 9) === 0 ?
+                    value.replace(/[^-0-9]/g, "").slice(0, 8) > 29999999 ? "29999999" : value.replace(/[^-0-9]/g, "").slice(0, 8)
                     :
-                    value.replace(/[^-0-9]+$/g, "").slice(0, 9) < -29999999 ? "-29999999" : value.replace(/[^-0-9]+$/g, "").slice(0, 9)});
+                    value.replace(/[^-0-9]/g, "").slice(0, 9) < -29999999 ? "-29999999" : value.replace(/[^-0-9]/g, "").slice(0, 9)});
         }
         if (name === "y") {
-            return this.setState({[name]: value.replace(/[^0-9]+$/g, "").slice(0, 6) > 100000 ? "100000" : value.replace(/[^0-9]+$/g, "").slice(0, 6)});
+            return this.setState({[name]: value.replace(/[^0-9]/g, "").slice(0, 6) > 100000 ? "100000" : value.replace(/[^0-9]/g, "").slice(0, 6)});
         }
         this.setState({[name]: value});
     }
@@ -42,9 +42,9 @@ class Calculator extends React.Component {
 
         const {world, id, goBack} = this.props;
 
-        const x = this.state.x === '' ? '0' : this.state.x.match('^-?[0-9]+$') ? this.state.world === 'nether' ? Math.floor(this.state.x / 8) : Math.floor(this.state.x * 8) : '0';
-        const y = this.state.y === '' ? '0' : this.state.y.match('^[0-9]+$') ? this.state.y : '0';
-        const z = this.state.z === '' ? '0' : this.state.z.match('^-?[0-9]+$') ? this.state.world === 'nether' ? Math.floor(this.state.z / 8) : Math.floor(this.state.z * 8) : '0';
+        const x = this.state.x === '' ? '0' : this.state.x.match('^-?[0-9]') ? this.state.world === 'nether' ? Math.floor(this.state.x / 8) : Math.floor(this.state.x * 8) : '0';
+        const y = this.state.y === '' ? '0' : this.state.y.match('^[0-9]') ? this.state.y : '0';
+        const z = this.state.z === '' ? '0' : this.state.z.match('^-?[0-9]') ? this.state.world === 'nether' ? Math.floor(this.state.z / 8) : Math.floor(this.state.z * 8) : '0';
 
         return (
             <Panel id={id}>
@@ -64,7 +64,7 @@ class Calculator extends React.Component {
                         bottom='Целое число. (-29999999 — 29999999)'
                         name='x'
                         value={this.state.x}
-                        status={this.state.x.match(/^-?[0-9]+$/g) || this.state.x === "" ? 'default' : 'error'}
+                        status={this.state.x.match(/^-?[0-9]/g) || this.state.x === "" ? 'default' : 'error'}
                         onChange={this.onChange.bind(this)}
                         placeholder="220"
                         autocomplete="off"
@@ -75,7 +75,7 @@ class Calculator extends React.Component {
                         bottom='Целое число. (0 — 100000)'
                         name='y'
                         value={this.state.y}
-                        status={this.state.y.match(/^[0-9]+$/g) || this.state.y === "" ? 'default' : 'error'}
+                        status={this.state.y.match(/^[0-9]/g) || this.state.y === "" ? 'default' : 'error'}
                         onChange={this.onChange.bind(this)}
                         placeholder="64"
                         autocomplete="off"
@@ -86,7 +86,7 @@ class Calculator extends React.Component {
                         bottom='Целое число. (-29999999 — 29999999)'
                         name='z'
                         value={this.state.z}
-                        status={this.state.z.match(/^-?[0-9]+$/g) || this.state.z === "" ? 'default' : 'error'}
+                        status={this.state.z.match(/^-?[0-9]/g) || this.state.z === "" ? 'default' : 'error'}
                         onChange={this.onChange.bind(this)}
                         placeholder="-113"
                         autocomplete="off"
@@ -120,10 +120,10 @@ class Calculator extends React.Component {
                     {
                         <List>
                             <Cell description='Номер чанка'>
-                                {`${this.state.x === '' ? '0' : this.state.x.match('^-?[0-9]+$') ? Math.floor(this.state.x / 16) : '0'}, ${this.state.y === '' ? '0' : this.state.y.match('^[0-9]+$') ? Math.floor(this.state.y / 16) : '0'}, ${this.state.z === '' ? '0' : this.state.z.match('^-?[0-9]+$') ? Math.floor(this.state.z / 16) : '0'}`}
+                                {`${this.state.x === '' ? '0' : this.state.x.match('^-?[0-9]') ? Math.floor(this.state.x / 16) : '0'}, ${this.state.y === '' ? '0' : this.state.y.match('^[0-9]') ? Math.floor(this.state.y / 16) : '0'}, ${this.state.z === '' ? '0' : this.state.z.match('^-?[0-9]') ? Math.floor(this.state.z / 16) : '0'}`}
                             </Cell>
                             <Cell description='Файл чанка'>
-                                {`r.${this.state.x === '' ? '0' : this.state.x.match('^-?[0-9]+$') ? Math.floor(this.state.x / 512) : '0'}.${this.state.z === '' ? '0' : this.state.z.match('^-?[0-9]+$') ? Math.floor(this.state.z / 512) : '0'}.mca`}
+                                {`r.${this.state.x === '' ? '0' : this.state.x.match('^-?[0-9]') ? Math.floor(this.state.x / 512) : '0'}.${this.state.z === '' ? '0' : this.state.z.match('^-?[0-9]') ? Math.floor(this.state.z / 512) : '0'}.mca`}
                             </Cell>
                         </List>
                     }
