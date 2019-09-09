@@ -8,11 +8,10 @@ export const initApp = () => (dispatch) => {
         if (e.detail.type === 'VKWebAppUpdateConfig') {
             VKConnectOld.unsubscribe(VKConnectOldCallback);
 
+            console.log(`Активация цветовой схемы: ${e.detail.data.scheme}`);
             dispatch(setColorScheme(e.detail.data.scheme));
         }
     };
-
-    console.log(`Активация цветовой схемы: ${e.detail.data.scheme}`);
 
     VKConnectOld.subscribe(VKConnectOldCallback);
     VKConnect.send('VKWebAppInit', {});
