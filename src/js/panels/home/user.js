@@ -104,7 +104,7 @@ class UserGet extends React.Component {
                                 bottom='Может содержать только латинские буквы, цифры и символ "_". (От 3 до 16 символов)'
                                 placeholder="Введите никнейм"
                                 maxLength='16'
-                                pattern='^[A-Za-z0-9_]'
+                                pattern='^[A-Za-z0-9_]+$'
                             />
                             :
                             <Input
