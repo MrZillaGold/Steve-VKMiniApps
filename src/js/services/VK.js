@@ -12,6 +12,8 @@ export const initApp = () => (dispatch) => {
         }
     };
 
+    console.log(`Активация цветовой схемы: ${e.detail.data.scheme}`);
+
     VKConnectOld.subscribe(VKConnectOldCallback);
     VKConnect.send('VKWebAppInit', {});
 };
