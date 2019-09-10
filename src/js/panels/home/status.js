@@ -25,12 +25,13 @@ class StatusGet extends React.Component {
             })
             .then(data => {
                 this.setState({ status: data, spinner: false });
+                console.log(data);
             })
             .catch(err => {
                 this.setState({ spinner: false });
                 if (err) {
                     this.setState({ error: `Произошла ошибка. Попробуйте позже.` });
-                    return console.log(err);
+                    console.log(err);
                 }
             });
     }
