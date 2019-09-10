@@ -11,7 +11,7 @@ import { Offline, Online } from 'react-detect-offline';
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
-import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Button, Spinner, Group, Cell, List, Gallery, Div } from "@vkontakte/vkui";
+import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Button, Spinner, Group, Cell, List, Gallery, Div, Separator } from "@vkontakte/vkui";
 
 import Icon24Message from '@vkontakte/icons/dist/24/message';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
