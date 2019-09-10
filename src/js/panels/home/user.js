@@ -204,6 +204,7 @@ class UserGet extends React.Component {
                                         />
                                     </Gallery>
                                 </Div>
+                                <Separator style={{ margin: '8px 0' }} />
                                 <Div style={{ display: 'flex' }}>
                                     { this.state.lock ?
                                         <Button disabled stretched before={<Icon16Done width={16} height={16} />}>Сообщение отправлено!</Button>
