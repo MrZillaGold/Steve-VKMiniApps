@@ -11,7 +11,7 @@ import { Offline, Online } from 'react-detect-offline';
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
-import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Button, Spinner, Group, Cell, List, Gallery, Div } from "@vkontakte/vkui";
+import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Button, Spinner, Group, Cell, List, Gallery, Div, Separator } from "@vkontakte/vkui";
 
 import Icon24Message from '@vkontakte/icons/dist/24/message';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
@@ -178,7 +178,7 @@ class AchievementsGet extends React.Component {
                                 <Div>
                                     <Gallery
                                         style={{
-                                            height: '70px'
+                                            height: '64px'
                                         }}
                                     >
                                         <div style={{
@@ -190,6 +190,7 @@ class AchievementsGet extends React.Component {
                                         }}
                                         />
                                     </Gallery>
+                                    <Separator style={{ margin: '12px 0' }} />
                                     <div style={{ display: 'flex' }}>
                                         { this.state.lock ?
                                             <Button disabled stretched before={<Icon16Done width={16} height={16} />}>Сообщение отправлено!</Button>
