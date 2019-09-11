@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import {closePopout, goBack, openModal, openPopout, setPage} from '../../store/router/actions';
 
-import { Panel, Group, Button, PanelHeader, Cell, CellButton, Avatar } from '@vkontakte/vkui';
+import { Panel, Group, Button, PanelHeader, Cell, CellButton, Avatar, Separator } from '@vkontakte/vkui';
 
 import Icon24Note from '@vkontakte/icons/dist/24/note';
 import Icon24Info from '@vkontakte/icons/dist/24/info';
@@ -22,15 +22,12 @@ class HomePanelBase extends React.Component {
                 <Group>
                     <CellButton before={<Icon24Note />} onClick={() => setPage('home', 'user')}>Информация об игроке</CellButton>
                     <CellButton before={<Icon24Info />} onClick={() => setPage('home', 'server')}>Информация о сервере по IP</CellButton>
-                </Group>
-                <Group>
+                    <Separator />
                     <CellButton before={<Icon24NewsFeed />} onClick={() => setPage('home', 'news')}>Новости Minecraft</CellButton>
                     <CellButton before={<Icon24Globe />} onClick={() => setPage('home', 'status')}>Состояние серверов Minecraft</CellButton>
-                </Group>
-                <Group>
+                    <Separator />
                     <CellButton before={<Icon24Write />} onClick={() => setPage('home', 'achievements')}>Генератор достижений</CellButton>
-                </Group>
-                <Group>
+                    <Separator />
                     <CellButton before={<Icon24Forward10 />} onClick={() => setPage('home', 'calculator')}>Калькулятор координат</CellButton>
                 </Group>
                 <Group>
