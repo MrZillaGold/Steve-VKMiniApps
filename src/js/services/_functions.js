@@ -26,3 +26,15 @@ export const timeConvert = (time) => {
 export const randomInteger = (min, max) => {
     return Math.floor(min + Math.random() * (max + 1 - min));
 };
+
+export const checkStatus = (status) => {
+    if (status === "green") {
+        return {"img" : 'https://s3.amazonaws.com/assets.mojang.com/Happy-Server.gif', "text" : "Всё в порядке"};
+    }
+    if (status === "yellow") {
+        return {"img" : 'https://s3.amazonaws.com/assets.mojang.com/Mellow-Server.gif', "text" : "Небольшие неполадки"};
+    }
+    if (status === "red") {
+        return {"img" : 'https://s3.amazonaws.com/assets.mojang.com/Sad-Server.gif', "text" : "Проблемы с доступностью"};
+    }
+};
