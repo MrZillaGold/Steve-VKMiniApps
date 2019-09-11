@@ -11,7 +11,7 @@ import axios from "axios";
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
-import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Spinner, Group, Cell, List, Gallery, Div, Button } from "@vkontakte/vkui";
+import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Spinner, Group, Cell, List, Gallery, Div } from "@vkontakte/vkui";
 
 class NewsGet extends React.Component {
 
