@@ -23,12 +23,11 @@ class HomePanelBase extends React.Component {
                     <CellButton before={<Icon24Note />} onClick={() => setPage('home', 'user')}>Информация об игроке</CellButton>
                     <CellButton before={<Icon24Info />} onClick={() => setPage('home', 'server')}>Информация о сервере по IP</CellButton>
                     <Separator />
+                    <CellButton before={<Icon24Write />} onClick={() => setPage('home', 'achievements')}>Генератор достижений</CellButton>
+                    <CellButton before={<Icon24Forward10 />} onClick={() => setPage('home', 'calculator')}>Калькулятор координат</CellButton>
+                    <Separator />
                     <CellButton before={<Icon24NewsFeed />} onClick={() => setPage('home', 'news')}>Новости Minecraft</CellButton>
                     <CellButton before={<Icon24Globe />} onClick={() => setPage('home', 'status')}>Состояние серверов Minecraft</CellButton>
-                    <Separator />
-                    <CellButton before={<Icon24Write />} onClick={() => setPage('home', 'achievements')}>Генератор достижений</CellButton>
-                    <Separator />
-                    <CellButton before={<Icon24Forward10 />} onClick={() => setPage('home', 'calculator')}>Калькулятор координат</CellButton>
                 </Group>
                 <Group>
                     <Cell
