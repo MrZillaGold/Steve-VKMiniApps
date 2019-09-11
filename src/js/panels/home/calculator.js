@@ -5,7 +5,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
-import {Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Select, List, Cell, Button} from "@vkontakte/vkui";
+import {Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Group, Separator, Input, FormLayout, Select, List, Cell, Button} from "@vkontakte/vkui";
 import Icon24Copy from '@vkontakte/icons/dist/24/copy';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
 
@@ -92,41 +92,45 @@ class Calculator extends React.Component {
                         autocomplete="off"
                         pattern='^-?[0-9]+'
                     />
-                    {
-                        <List top={this.state.world === 'nether' ? 'Координаты в аду' : 'Координаты в обычном мире'}>
-                            <Cell description='Координата X'>
-                                {x}
-                            </Cell>
-                            <Cell description='Координата Y'>
-                                {y}
-                            </Cell>
-                            <Cell description='Координата Z'>
-                                {z}
-                            </Cell>
-                        </List>
-                    }
-                    {
-                        this.state.copy ?
-                            <div style={{display: 'flex'}}>
-                                <Button disabled stretched level="primary" before={<Icon16Done />}>Координаты скопированы!</Button>
-                            </div>
-                            :
-                            <CopyToClipboard text={`${x} ${y} ${z}`}>
+                    <Group>
+                        {
+                            <List top={this.state.world === 'nether' ? 'Координаты в аду' : 'Координаты в обычном мире'}>
+                                <Cell description='Координата X'>
+                                    {x}
+                                </Cell>
+                                <Cell description='Координата Y'>
+                                    {y}
+                                </Cell>
+                                <Cell description='Координата Z'>
+                                    {z}
+                                </Cell>
+                            </List>
+                        }
+                        <Separator style={{ margin: '12px 0' }} />
+                        {
+                            this.state.copy ?
                                 <div style={{display: 'flex'}}>
-                                    <Button onClick={() => this.setState({ copy: true })} stretched level="primary" before={<Icon24Copy width={16} height={16}/>}>Скопировать координаты</Button>
+                                    <Button disabled stretched level="primary" before={<Icon16Done />}>Координаты скопированы!</Button>
                                 </div>
-                            </CopyToClipboard>
-                    }
-                    {
-                        <List>
-                            <Cell description='Номер чанка'>
-                                {`${this.state.x === '' ? '0' : this.state.x.match('^-?[0-9]') ? Math.floor(this.state.x / 16) : '0'}, ${this.state.y === '' ? '0' : this.state.y.match('^[0-9]') ? Math.floor(this.state.y / 16) : '0'}, ${this.state.z === '' ? '0' : this.state.z.match('^-?[0-9]') ? Math.floor(this.state.z / 16) : '0'}`}
-                            </Cell>
-                            <Cell description='Файл чанка'>
-                                {`r.${this.state.x === '' ? '0' : this.state.x.match('^-?[0-9]') ? Math.floor(this.state.x / 512) : '0'}.${this.state.z === '' ? '0' : this.state.z.match('^-?[0-9]') ? Math.floor(this.state.z / 512) : '0'}.mca`}
-                            </Cell>
-                        </List>
-                    }
+                                :
+                                <CopyToClipboard text={`${x} ${y} ${z}`}>
+                                    <div style={{display: 'flex'}}>
+                                        <Button onClick={() => this.setState({ copy: true })} stretched level="primary" before={<Icon24Copy width={16} height={16}/>}>Скопировать координаты</Button>
+                                    </div>
+                                </CopyToClipboard>
+                        }
+                        <Separator style={{ margin: '12px 0' }} />
+                        {
+                            <List>
+                                <Cell description='Номер чанка'>
+                                    {`${this.state.x === '' ? '0' : this.state.x.match('^-?[0-9]') ? Math.floor(this.state.x / 16) : '0'}, ${this.state.y === '' ? '0' : this.state.y.match('^[0-9]') ? Math.floor(this.state.y / 16) : '0'}, ${this.state.z === '' ? '0' : this.state.z.match('^-?[0-9]') ? Math.floor(this.state.z / 16) : '0'}`}
+                                </Cell>
+                                <Cell description='Файл чанка'>
+                                    {`r.${this.state.x === '' ? '0' : this.state.x.match('^-?[0-9]') ? Math.floor(this.state.x / 512) : '0'}.${this.state.z === '' ? '0' : this.state.z.match('^-?[0-9]') ? Math.floor(this.state.z / 512) : '0'}.mca`}
+                                </Cell>
+                            </List>
+                        }
+                    </Group>
                 </FormLayout>
             </Panel>
         );
