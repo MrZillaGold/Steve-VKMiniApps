@@ -92,7 +92,7 @@ class Calculator extends React.Component {
                         autocomplete="off"
                         pattern='^-?[0-9]+'
                     />
-                    <Group>
+                    <Group title="Координаты">
                         {
                             <List top={this.state.world === 'nether' ? 'Координаты в аду' : 'Координаты в обычном мире'}>
                                 <Cell description='Координата X'>
