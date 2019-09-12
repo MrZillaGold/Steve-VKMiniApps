@@ -11,6 +11,7 @@ import Icon24NewsFeed from '@vkontakte/icons/dist/24/newsfeed';
 import Icon24Globe from '@vkontakte/icons/dist/24/globe';
 import Icon24Write from '@vkontakte/icons/dist/24/write';
 import Icon24Forward10 from '@vkontakte/icons/dist/24/forward_10';
+import Icon24Search from '@vkontakte/icons/dist/24/search';
 
 class HomePanelBase extends React.Component {
     render() {
@@ -25,6 +26,7 @@ class HomePanelBase extends React.Component {
                     <Separator />
                     <CellButton before={<Icon24Write />} onClick={() => setPage('home', 'achievements')}>Генератор достижений</CellButton>
                     <CellButton before={<Icon24Forward10 />} onClick={() => setPage('home', 'calculator')}>Калькулятор координат</CellButton>
+                    <CellButton before={<Icon24Search />} onClick={() => setPage('home', 'endercalculator')}>Получение координат крепости</CellButton>
                     <Separator />
                     <CellButton before={<Icon24NewsFeed />} onClick={() => setPage('home', 'news')}>Новости Minecraft</CellButton>
                     <CellButton before={<Icon24Globe />} onClick={() => setPage('home', 'status')}>Состояние серверов Minecraft</CellButton>
