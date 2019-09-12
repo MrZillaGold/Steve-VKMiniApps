@@ -176,7 +176,7 @@ class EnderPortalCalculator extends React.Component {
                         </div>
                     </FormLayoutGroup>
                 </FormLayout>
-                <Group>
+                <Group title="Координаты крепости">
                     {
                         <List>
                             <Cell description='Координата X'>
