@@ -133,7 +133,7 @@ class EnderPortalCalculator extends React.Component {
                                     placeholder="Z"
                                 />
                             </div>
-                            <div style={{flexGrow: 4, marginRight: "10px"}}>
+                            <div style={{flexGrow: 1, marginRight: "10px"}}>
                                 <Input
                                     name='a1'
                                     value={this.state.a1}
@@ -145,7 +145,7 @@ class EnderPortalCalculator extends React.Component {
                         </div>
                     </FormLayoutGroup>
                     <FormLayoutGroup top="Бросок #2">
-                        <div style={{display: "flex", margin: "5px 0"}}>
+                        <div style={{display: "flex"}}>
                             <div style={{flexGrow: 4, marginRight: "10px"}}>
                                 <Input
                                     name='x2'
@@ -164,7 +164,7 @@ class EnderPortalCalculator extends React.Component {
                                     placeholder="Z"
                                 />
                             </div>
-                            <div style={{flexGrow: 4, marginRight: "10px"}}>
+                            <div style={{flexGrow: 1, marginRight: "10px"}}>
                                 <Input
                                     name='a2'
                                     value={this.state.a2}
