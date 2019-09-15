@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import axios from 'axios';
+import Skinview3d from 'react-skinview3d'
+
 import VKConnect from "@vkontakte/vk-connect-promise";
 import VKConnectOld from "@vkontakte/vk-connect";
 
@@ -153,58 +155,13 @@ class UserGet extends React.Component {
                         }
                         {this.state.skin === null ? '' :
                             <Group top={`Скин игрока ${this.state.username}`}>
-                                <Div>
-                                    <Gallery
-                                        bullets="dark"
-                                        style={{
-                                            display: 'flex',
-                                            width: '100%',
-                                            height: '200px',
-                                            backgroundPosition: 'center'
-                                        }}
-                                    >
-                                        <div style={{
-                                            backgroundImage: 'url(https://mc-heads.net/body/' + this.state.username + '/200)',
-                                            backgroundSize: 'contain',
-                                            backgroundPosition: 'center',
-                                            height: '200px',
-                                            width: 'auto',
-                                            display: 'block',
-                                            backgroundRepeat: 'no-repeat'
-                                        }}
-                                        />
-                                        <div style={{
-                                            backgroundImage: 'url(https://mc-heads.net/player/' + this.state.username + '/200)',
-                                            backgroundSize: 'contain',
-                                            backgroundPosition: 'center',
-                                            height: '200px',
-                                            width: 'auto',
-                                            display: 'block',
-                                            backgroundRepeat: 'no-repeat'
-                                        }}
-                                        />
-                                        <div style={{
-                                            backgroundImage: 'url(https://mc-heads.net/head/' + this.state.username + '/300)',
-                                            backgroundSize: 'contain',
-                                            backgroundPosition: 'center',
-                                            height: '200px',
-                                            width: 'auto',
-                                            display: 'block',
-                                            backgroundRepeat: 'no-repeat'
-                                        }}
-                                        />
-                                        <div style={{
-                                            backgroundImage: 'url(https://mc-heads.net/avatar/' + this.state.username + '/200)',
-                                            backgroundSize: 'contain',
-                                            backgroundPosition: 'center',
-                                            height: '200px',
-                                            width: 'auto',
-                                            display: 'block',
-                                            backgroundRepeat: 'no-repeat'
-                                        }}
-                                        />
-                                    </Gallery>
-                                </Div>
+                                <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+                                    <Skinview3d
+                                        skinUrl={`https://stevecors.herokuapp.com/${this.state.skin}`}
+                                        height="200"
+                                        width="200"
+                                    />
+                                </div>
                                 <Separator style={{ margin: '8px 0' }} />
                                 <Div style={{ display: 'flex' }}>
                                     { this.state.lock ?
