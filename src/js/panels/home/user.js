@@ -158,8 +158,8 @@ class UserGet extends React.Component {
                                 <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
                                     <Skinview3d
                                         skinUrl={`https://stevecors.herokuapp.com/${this.state.skin}`}
-                                        height="256"
-                                        width="256"
+                                        height="196"
+                                        width="196"
                                     />
                                 </div>
                                 <Separator style={{ margin: '8px 0' }} />
