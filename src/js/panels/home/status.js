@@ -70,22 +70,28 @@ class StatusGet extends React.Component {
                                         Minecraft.net
                                     </Cell>
                                     <Cell
-                                        before={<Avatar src={checkStatus(this.state.status[4]['sessionserver.mojang.com']).img}/>}
-                                        description={checkStatus(this.state.status[4]['sessionserver.mojang.com']).text}
+                                        before={<Avatar src={checkStatus(this.state.status[1]['session.minecraft.net']).img}/>}
+                                        description={checkStatus(this.state.status[1]['session.minecraft.net']).text}
                                     >
-                                        Сервер Multiplayer-сессий
+                                        Сессии Minecraft
                                     </Cell>
                                     <Cell
                                         before={<Avatar src={checkStatus(this.state.status[2]['account.mojang.com']).img}/>}
                                         description={checkStatus(this.state.status[2]['account.mojang.com']).text}
                                     >
-                                        Сервер аккаунтов Mojang
+                                        Аккаунты Mojang
                                     </Cell>
                                     <Cell
                                         before={<Avatar src={checkStatus(this.state.status[3]['authserver.mojang.com']).img}/>}
                                         description={checkStatus(this.state.status[3]['authserver.mojang.com']).text}
                                     >
-                                        Сервер авторизации
+                                        Авторизация Mojang
+                                    </Cell>
+                                    <Cell
+                                        before={<Avatar src={checkStatus(this.state.status[4]['sessionserver.mojang.com']).img}/>}
+                                        description={checkStatus(this.state.status[4]['sessionserver.mojang.com']).text}
+                                    >
+                                        Сессии Mojang
                                     </Cell>
                                     <Cell
                                         before={<Avatar src={checkStatus(this.state.status[5]['api.mojang.com']).img}/>}
@@ -98,7 +104,14 @@ class StatusGet extends React.Component {
                                             <Avatar src={checkStatus(this.state.status[6]['textures.minecraft.net']).img}/>}
                                         description={checkStatus(this.state.status[6]['textures.minecraft.net']).text}
                                     >
-                                        Сервер скинов Minecraft
+                                        Текстуры/Скины Minecraft
+                                    </Cell>
+                                    <Cell
+                                        before={
+                                            <Avatar src={checkStatus(this.state.status[7]['mojang.com']).img}/>}
+                                        description={checkStatus(this.state.status[7]['mojang.com']).text}
+                                    >
+                                        Mojang.com
                                     </Cell>
                                 </List>
                             </Group>
