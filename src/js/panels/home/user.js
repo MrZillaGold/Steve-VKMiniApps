@@ -124,7 +124,7 @@ class UserGet extends React.Component {
                             />
                         }
                         {
-                            this.state.nickname.length > 2 && this.state.nickname.match('^[A-Za-z0-9_]+$') && this.state.spinner ?
+                            (this.state.nickname.length > 2 && this.state.nickname.match('^[A-Za-z0-9_]+$')) || this.state.spinner ?
                                 <Button disabled size='xl'>Получить информацию</Button>
                                 :
                                 <Button onClick={this.onClick.bind(this)} size='xl'>Получить информацию</Button>
