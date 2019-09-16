@@ -10,7 +10,7 @@ import {checkStatus} from "../../services/_functions";
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
-import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Avatar, Group, Cell, List, Gallery, Div } from "@vkontakte/vkui";
+import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Avatar, Group, Cell, List, Gallery } from "@vkontakte/vkui";
 
 
 class StatusGet extends React.Component {
