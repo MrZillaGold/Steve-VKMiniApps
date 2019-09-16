@@ -185,11 +185,11 @@ class UserGet extends React.Component {
                         }
                         <List top={this.state.username ? `История никнейма ${this.state.username}` : ""}>
                             {
-                                this.state.list ? Array.prototype.map.call(this.state.list, function (item) {
-                                        return <Cell key={item.username} description={item.changed_at !== undefined ? timeConvert(item.changed_at) : regDate ? regDate : 'Первый'}>
-                                            {item.username}
+                                this.state.list ? this.state.list.map(({username, changed_at}, i) =>
+                                        <Cell key={i} description={changed_at !== undefined ? timeConvert(changed_at) : regDate ? regDate : 'Первый'}>
+                                            {username}
                                         </Cell>
-                                    }).reverse()
+                                    ).reverse()
                                     :
                                     ""
                             }
