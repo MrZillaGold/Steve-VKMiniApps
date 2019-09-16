@@ -11,7 +11,7 @@ import axios from "axios";
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
-import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Spinner, Group, Cell, List, Gallery, Div } from "@vkontakte/vkui";
+import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Group, Cell, List, Gallery, Div } from "@vkontakte/vkui";
 
 class NewsGet extends React.Component {
 
@@ -53,10 +53,10 @@ class NewsGet extends React.Component {
                 { this.state.spinner === false ?
                     ''
                     :
-                    <Div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                         {this.newsGet()}
-                        <Spinner size='large' style={{ marginTop: 20 }} />
-                    </Div>
+                        <img src={require('./img/loading.gif')} alt="Загрузка..." style={{ marginTop: 50 }} />
+                    </div>
                 }
                 {
                     this.state.time === null ?
