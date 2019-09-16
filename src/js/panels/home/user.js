@@ -23,13 +23,13 @@ class UserGet extends React.Component {
 
     state = {
         nickname: '',
-        username: null,
-        spinner: null,
-        error: null,
-        list: null,
-        skin: null,
-        value: null,
-        regDate: null,
+        username: false,
+        spinner: false,
+        error: false,
+        list: false,
+        skin: false,
+        cape: false,
+        regDate: false,
         lock: false
     };
 
@@ -42,12 +42,15 @@ class UserGet extends React.Component {
         if (this.state.nickname.length === 0){
             return this.setState({ value: 'error' });
         }
-        this.setState({ spinner: true, list: null, username: null, error: null, value: null, skin: null, regDate: null, lock: false });
+        this.setState({ spinner: true, list: false, username: false, error: false, value: false, skin: false, cape: false, regDate: false, lock: false });
         axios.get(`https://stevecors.herokuapp.com/https://api.ashcon.app/mojang/v2/user/${this.state.nickname}`)
             .then(res => {
                 return res.data;
             })
             .then(data => {
+                if (data.textures.cape) {
+                    this.setState({ cape: data.textures.cape.url });
+                }
                 this.setState({ list: data.username_history, username: data.username, skin: data.textures.skin.url, spinner: null });
                 if (data.created_at) {
                     this.setState({ regDate: timeConvert(data.created_at) });
@@ -74,13 +77,15 @@ class UserGet extends React.Component {
 
     share () {
         console.log("Начинаем отправку сообщения.");
-        VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098}).then(data => {
-            console.log(data);
-            if(data.type === "VKWebAppAllowMessagesFromGroupResult") {
-                this.setState({ lock: true });
-                VKConnectOld.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"type":"document", "url": this.state.skin, "name": this.state.username}})
-            }
-        }).catch(error => console.log(error));
+        VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098})
+            .then(data => {
+                console.log(data);
+                if(data.type === "VKWebAppAllowMessagesFromGroupResult") {
+                    this.setState({ lock: true });
+                    VKConnectOld.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"type":"document", "url": this.state.skin, "name": this.state.username}})
+                }
+            })
+            .catch(error => console.log(error));
     }
 
     render() {
@@ -97,7 +102,15 @@ class UserGet extends React.Component {
                 </PanelHeader>
                 <Online>
                     <FormLayout>
-                        { this.state.spinner === null ?
+                        { this.state.spinner ?
+                            <Input
+                                top='Никнейм'
+                                name='nickname'
+                                disabled
+                                value={this.state.nickname}
+                                bottom='Может содержать только латинские буквы, цифры и символ "_". (От 3 до 16 символов)'
+                            />
+                            :
                             <Input
                                 top='Никнейм'
                                 name='nickname'
@@ -109,31 +122,24 @@ class UserGet extends React.Component {
                                 maxLength='16'
                                 pattern='^[A-Za-z0-9_]+$'
                             />
-                            :
-                            <Input
-                                top='Никнейм'
-                                name='nickname'
-                                disabled
-                                value={this.state.nickname}
-                                bottom='Может содержать только латинские буквы, цифры и символ "_". (От 3 до 16 символов)'
-                            />
                         }
                         {
-                            this.state.nickname.length > 2 && this.state.nickname.match('^[A-Za-z0-9_]+$') && this.state.spinner === null ?
-                                <Button onClick={this.onClick.bind(this)} size='xl'>Получить информацию</Button>
-                                :
+                            this.state.nickname.length > 2 && this.state.nickname.match('^[A-Za-z0-9_]+$') && this.state.spinner ?
                                 <Button disabled size='xl'>Получить информацию</Button>
+                                :
+                                <Button onClick={this.onClick.bind(this)} size='xl'>Получить информацию</Button>
                         }
 
-                        { this.state.spinner === null ?
-                            '' :
-                            <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                                <img src={require('./img/loading.svg')} alt="Загрузка..." style={{ marginTop: 50, height: '100px', width: '100px' }} />
-                            </div>
+                        {
+                            this.state.spinner ?
+                                <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                                    <img src={require('./img/loading.svg')} alt="Загрузка..." style={{ marginTop: 50, height: '100px', width: '100px' }} />
+                                </div>
+                                :
+                                ""
                         }
                         {
-                            this.state.error === null ?
-                                '' :
+                            this.state.error ?
                                 <Group>
                                     <List>
                                         <Cell align='center'><b>Упс...</b></Cell>
@@ -152,32 +158,42 @@ class UserGet extends React.Component {
                                         />
                                     </Gallery>
                                 </Group>
+                                :
+                                ""
                         }
-                        {this.state.skin === null ? '' :
-                            <Group top={`Скин игрока ${this.state.username}`}>
-                                <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-                                    <Skinview3d
-                                        skinUrl={`https://stevecors.herokuapp.com/${this.state.skin}`}
-                                        height="196"
-                                        width="196"
-                                    />
-                                </div>
-                                <Separator style={{ margin: '8px 0' }} />
-                                <Div style={{ display: 'flex' }}>
-                                    { this.state.lock ?
-                                        <Button disabled stretched before={<Icon16Done width={16} height={16} />}>Сообщение отправлено!</Button>
-                                        :
-                                        <Button onClick={this.share.bind(this)} stretched before={<Icon24Message width={16} height={16} />}>Получить cкин в сообщения</Button>
-                                    }
-                                </Div>
-                            </Group>
+                        {
+                            this.state.skin ?
+                                <Group top={`Скин игрока ${this.state.username}`}>
+                                    <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+                                        <Skinview3d
+                                            skinUrl={`https://stevecors.herokuapp.com/${this.state.skin}`}
+                                            capeUrl={this.state.cape ? `https://stevecors.herokuapp.com/${this.state.cape}` : ""}
+                                            height="196"
+                                            width="196"
+                                        />
+                                    </div>
+                                    <Separator style={{ margin: '8px 0' }} />
+                                    <Div style={{ display: 'flex' }}>
+                                        { this.state.lock ?
+                                            <Button disabled stretched before={<Icon16Done width={16} height={16} />}>Сообщение отправлено!</Button>
+                                            :
+                                            <Button onClick={this.share.bind(this)} stretched before={<Icon24Message width={16} height={16} />}>Получить cкин в сообщения</Button>
+                                        }
+                                    </Div>
+                                </Group>
+                                :
+                                ""
                         }
-                        <List top={this.state.username === null ? '' : `История никнейма ${this.state.username}`}>
-                            {this.state.list === null ? '' : Array.prototype.map.call(this.state.list, function (item) {
-                                return <Cell key={item.username} description={item.changed_at !== undefined ? timeConvert(item.changed_at) : regDate === null ? 'Первый' : regDate}>
-                                    {item.username}
-                                </Cell>
-                            }).reverse()}
+                        <List top={this.state.username ? `История никнейма ${this.state.username}` : ""}>
+                            {
+                                this.state.list ? Array.prototype.map.call(this.state.list, function (item) {
+                                        return <Cell key={item.username} description={item.changed_at !== undefined ? timeConvert(item.changed_at) : regDate ? regDate : 'Первый'}>
+                                            {item.username}
+                                        </Cell>
+                                    }).reverse()
+                                    :
+                                    ""
+                            }
                         </List>
                     </FormLayout>
                 </Online>
