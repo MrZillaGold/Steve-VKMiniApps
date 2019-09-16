@@ -4,6 +4,7 @@ import {
     OPEN_POPOUT,
     CLOSE_POPOUT,
     OPEN_MODAL,
+    CLOSE_MODAL,
     SET_STORY
 } from './actionTypes';
 
@@ -107,8 +108,8 @@ export const routerReducer = (state = initialState, action) => {
 
             const storiesIndexInHistory = storiesHistory.indexOf(action.payload.story);
 
-            if (storiesIndexInHistory !== -1 && storiesIndexInHistory !== 0) {
-                storiesHistory.splice(storiesIndexInHistory, 1);
+            if (storiesIndexInHistory === -1 || (storiesHistory[0] === action.payload.story && storiesHistory[storiesHistory.length - 1] !== action.payload.story)) {
+                storiesHistory = [...storiesHistory, action.payload.story];
             }
 
             return {
@@ -117,7 +118,7 @@ export const routerReducer = (state = initialState, action) => {
                 activeView: activeView,
                 activePanel: activePanel,
 
-                storiesHistory: [...storiesHistory, action.payload.story],
+                storiesHistory: storiesHistory,
                 viewsHistory: {
                     ...state.viewsHistory,
                     [activeView]: viewsHistory
@@ -257,6 +258,31 @@ export const routerReducer = (state = initialState, action) => {
             window.history.pushState(null, null);
 
             let activeModal = action.payload.id || null;
+            let modalsHistory = state.modalHistory[state.activeView] ? [...state.modalHistory[state.activeView]] : [];
+
+            if (activeModal === null) {
+                modalsHistory = [];
+            } else if (modalsHistory.indexOf(activeModal) !== -1) {
+                modalsHistory = modalsHistory.splice(0, modalsHistory.indexOf(activeModal) + 1);
+            } else {
+                modalsHistory.push(activeModal);
+            }
+
+            return {
+                ...state,
+                activeModals: {
+                    ...state.activeModals,
+                    [state.activeView]: activeModal
+                },
+                modalHistory: {
+                    ...state.modalHistory,
+                    [state.activeView]: modalsHistory
+                }
+            };
+        }
+
+        case CLOSE_MODAL: {
+            let activeModal = state.modalHistory[state.activeView][state.modalHistory[state.activeView].length - 2] || null;
             let modalsHistory = state.modalHistory[state.activeView] ? [...state.modalHistory[state.activeView]] : [];
 
             if (activeModal === null) {
