@@ -54,7 +54,7 @@ class StatusGet extends React.Component {
                         :
                         <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                             {this.statusGet()}
-                            <img src={require('./img/loading.gif')} alt="Загрузка..." style={{ marginTop: 50 }} />
+                            <img src={require('./img/loading.svg')} alt="Загрузка..." style={{ marginTop: 50, height: '100px', width: '100px' }} />
                         </div>
                     }
                     {
