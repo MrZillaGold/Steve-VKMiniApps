@@ -149,7 +149,7 @@ class AchievementsGet extends React.Component {
                         { this.state.spinner === null ?
                             '' :
                             <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                                <img src={require('./img/loading.gif')} alt="Загрузка..." style={{ marginTop: 20 }} />
+                                <img src={require('./img/loading.svg')} alt="Загрузка..." style={{ marginTop: 50, height: '100px', width: '100px' }} />
                             </div>
                         }
                         {
