@@ -14,7 +14,7 @@ import OfflineBlock from './offline';
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
-import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Button, Spinner, Group, Cell, List, Gallery, Div, Separator } from "@vkontakte/vkui";
+import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Button, Group, Cell, List, Gallery, Div, Separator } from "@vkontakte/vkui";
 
 import Icon24Message from '@vkontakte/icons/dist/24/message';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
@@ -128,7 +128,7 @@ class UserGet extends React.Component {
                         { this.state.spinner === null ?
                             '' :
                             <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                                <Spinner size='large' style={{ marginTop: 20 }} />
+                                <img src={require('./img/loading.gif')} alt="Загрузка..." style={{ marginTop: 20 }} />
                             </div>
                         }
                         {
