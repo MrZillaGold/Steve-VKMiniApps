@@ -8,7 +8,7 @@ import OfflineBlock from './offline';
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
-import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Button, Spinner, Avatar, Group, Cell, List, Gallery, Div } from "@vkontakte/vkui";
+import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Button, Avatar, Group, Cell, List, Gallery, Div } from "@vkontakte/vkui";
 
 
 class ServerInfoGet extends React.Component {
@@ -93,8 +93,8 @@ class ServerInfoGet extends React.Component {
                         }
                         {this.state.spinner === null ?
                             '' :
-                            <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
-                                <Spinner size='large' style={{marginTop: 20}}/>
+                            <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                                <img src={require('./img/loading.gif')} alt="Загрузка..." style={{ marginTop: 20 }} />
                             </div>
                         }
                         {
