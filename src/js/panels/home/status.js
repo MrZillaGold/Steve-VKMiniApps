@@ -10,7 +10,7 @@ import {checkStatus} from "../../services/_functions";
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
-import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Spinner, Avatar, Group, Cell, List, Gallery, Div } from "@vkontakte/vkui";
+import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Avatar, Group, Cell, List, Gallery, Div } from "@vkontakte/vkui";
 
 
 class StatusGet extends React.Component {
@@ -52,10 +52,10 @@ class StatusGet extends React.Component {
                     { this.state.spinner === false ?
                         ''
                         :
-                        <Div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                             {this.statusGet()}
-                            <Spinner size='large' style={{ marginTop: 20 }} />
-                        </Div>
+                            <img src={require('./img/loading.gif')} alt="Загрузка..." style={{ marginTop: 50 }} />
+                        </div>
                     }
                     {
                         this.state.status === null ?
