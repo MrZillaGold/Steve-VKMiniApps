@@ -34,7 +34,7 @@ class AchievementsGet extends React.Component {
 
     onChange(e) {
         const {name, value} = e.currentTarget;
-        this.setState({[name]: value.replace(/[^а-яА-ЯёЁA-Za-z0-9!?., ]/g, "").slice(0, 21)});
+        this.setState({[name]: value.replace(/[^а-яА-ЯёЁA-Za-z0-9!?., ]/g, "").slice(0, 20)});
     }
 
     share () {
@@ -106,7 +106,7 @@ class AchievementsGet extends React.Component {
                                 status={this.state.value === 'error' ? 'error' : 'default'}
                                 placeholder="Достижение получено!"
                                 bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , .'
-                                maxLength='21'
+                                maxLength='20'
                             />
                             :
                             <Input
