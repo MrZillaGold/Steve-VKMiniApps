@@ -15,7 +15,7 @@ import Icon24Search from '@vkontakte/icons/dist/24/search';
 
 class HomePanelBase extends React.Component {
     render() {
-        const {id, setPage} = this.props;
+        const {id, setPage, eruda} = this.props;
 
         return (
             <Panel id={id}>
@@ -34,7 +34,7 @@ class HomePanelBase extends React.Component {
                 <Group>
                     <Cell
                         multiline
-                        before={<Avatar type='image' size={64} src={require('./img/Steve.png')} style={{backgroundColor: 'transparent'}}/>}
+                        before={<Avatar type='image' onDoubleClick={eruda} size={64} src={require('./img/Steve.png')} style={{backgroundColor: 'transparent'}}/>}
                         size="l"
                         description="Получите быстрый доступ ко всем функциям в сообщениях ВКонтакте!"
                         bottomContent={
