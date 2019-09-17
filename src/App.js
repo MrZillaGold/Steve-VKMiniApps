@@ -18,6 +18,16 @@ import HomePanelCalculator from './js/panels/home/calculator';
 import HomePanelEnderCalculator from './js/panels/home/endercalculator';
 
 class App extends React.Component {
+    
+    state = {
+        eruda: false
+    };
+
+    eruda = async () => {
+        await this.setState({eruda: !this.state.eruda});
+        this.state.eruda ? window.eruda.init() : window.eruda.destroy()
+    };
+
     constructor(props) {
         super(props);
 
@@ -65,7 +75,7 @@ class App extends React.Component {
             <ConfigProvider isWebView={true} scheme={colorScheme}>
                     <Root activeView={activeView}>
                         <View id="home" activePanel={activePanel} history={history} onSwipeBack={() => goBack()}>
-                            <HomePanelProfile id="base" />
+                            <HomePanelProfile id="base" eruda={this.eruda} />
                             <HomePanelServer id="server"/>
                             <HomePanelUser id="user"/>
                             <HomePanelNews id="news"/>
