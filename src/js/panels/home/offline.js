@@ -10,7 +10,7 @@ class OfflineBlock extends React.Component {
                 <div style={{flex: '0 0 auto', textAlign: 'center'}}>
                     <Cell><b>Упс...</b></Cell>
                     <p style={{color: '#909499'}}>
-                        Пропало подключение с сервером!<br /><br />Эта вкладка будет доступна как появится соединение.
+                        Пропало подключение к серверу!<br /><br />Эта вкладка будет доступна как появится соединение.
                     </p>
                     <Button level='tertiary' stretched component='a' href='https://vk.com/stevebotmc'>Группа</Button>
                     <img src="https://www.minecraft.net/content/dam/archive/77427789b44938b5eda7705fd3095d32-sticker_pig3.png"
