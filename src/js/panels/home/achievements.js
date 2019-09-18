@@ -115,7 +115,7 @@ class AchievementsGet extends React.Component {
                                 placeholder="Достижение получено!"
                                 disabled
                                 value={this.state.one}
-                                bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , .'
+                                bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , . (Не больше 20 символов)'
                             />
                         }
                         { this.state.spinner === null ?
@@ -136,7 +136,7 @@ class AchievementsGet extends React.Component {
                                 placeholder="Терпение и труд"
                                 disabled
                                 value={this.state.two}
-                                bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , .'
+                                bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , . (Не больше 20 символов)'
                             />
                         }
                         {
