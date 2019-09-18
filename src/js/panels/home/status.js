@@ -17,7 +17,7 @@ class StatusGet extends React.Component {
 
     state = {
         spinner: true,
-        error: null,
+        error: false,
         status: null
     };
 
@@ -30,11 +30,8 @@ class StatusGet extends React.Component {
                 this.setState({ status: data, spinner: false });
             })
             .catch(err => {
-                this.setState({ spinner: false });
-                if (err) {
-                    this.setState({ error: `Произошла ошибка. Попробуйте позже.` });
-                    return console.log(err);
-                }
+                this.setState({ error: `Произошла ошибка. Попробуйте позже.`, spinner: false });
+                return console.log(err);
             });
     }
 
@@ -49,18 +46,16 @@ class StatusGet extends React.Component {
                     </PanelHeaderContent>
                 </PanelHeader>
                 <Online>
-                    { this.state.spinner === false ?
-                        ''
-                        :
+                    { this.state.spinner ?
                         <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
                             {this.statusGet()}
                             <img src={require('./img/loading.svg')} alt="Загрузка..." style={{ marginTop: 50, height: '100px', width: '100px' }} />
                         </div>
+                        :
+                        ""
                     }
                     {
-                        this.state.status === null ?
-                            ''
-                            :
+                        this.state.status ?
                             <Group title="Список серверов">
                                 <List>
                                     <Cell
@@ -115,10 +110,11 @@ class StatusGet extends React.Component {
                                     </Cell>
                                 </List>
                             </Group>
+                            :
+                            ""
                     }
                     {
-                        this.state.error === null ?
-                            '' :
+                        this.state.error ?
                             <Group>
                                 <List>
                                     <Cell align='center'><b>Упс...</b></Cell>
@@ -137,6 +133,8 @@ class StatusGet extends React.Component {
                                     />
                                 </Gallery>
                             </Group>
+                            :
+                            ""
                     }
                 </Online>
                 <Offline>
