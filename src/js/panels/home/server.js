@@ -8,18 +8,17 @@ import OfflineBlock from './offline';
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
-import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Button, Avatar, Group, Cell, List, Gallery, Div } from "@vkontakte/vkui";
+import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Button, Avatar, Group, Cell, List, Gallery } from "@vkontakte/vkui";
 
 
 class ServerInfoGet extends React.Component {
 
     state = {
         ip: '',
-        spinner: null,
-        error: null,
-        response: null,
-        titleIp: null,
-        value: null
+        spinner: false,
+        error: false,
+        response: false,
+        titleIP: null
     };
 
     onChange(e) {
@@ -28,27 +27,21 @@ class ServerInfoGet extends React.Component {
     }
 
     onClick() {
-        if (this.state.ip === 0){
-            return this.setState({ value: 'error' });
-        }
-        this.setState({spinner: true, error: null, response: null, value: null});
+        this.setState({spinner: true, error: false, response: false});
         axios.get(`https://stevecors.herokuapp.com/https://api.mcsrvstat.us/2/${this.state.ip}`)
             .then(res => {
                 return res.data;
             })
             .then(data => {
                 if (data.online) {
-                    this.setState({response: data, spinner: null, titleIp: this.state.ip});
+                    this.setState({response: data, spinner: false, titleIP: this.state.ip});
                 } else {
-                    this.setState({error: `Сервер ${this.state.ip} оффлайн, либо информация отсутствует.`, spinner: null});
+                    this.setState({error: `Сервер ${this.state.ip} оффлайн, либо информация отсутствует.`, spinner: false});
                 }
             })
             .catch(err => {
-                this.setState({spinner: null});
-                if (err) {
-                    this.setState({ error: `Произошла ошибка. Попробуйте позже.` });
-                    return console.log(err);
-                }
+                this.setState({ error: `Произошла ошибка. Попробуйте позже.`, spinner: null });
+                console.log(err);
             });
     }
 
@@ -65,66 +58,71 @@ class ServerInfoGet extends React.Component {
                 </PanelHeader>
                 <Online>
                     <FormLayout>
-                        {this.state.spinner === null ?
-                            <Input
-                                top='IP-Адрес сервера'
-                                name='ip'
-                                value={this.state.ip}
-                                onChange={this.onChange.bind(this)}
-                                status={this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g) || this.state.ip === "" ? 'default' : 'error'}
-                                bottom={this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g) || this.state.ip === "" ? 'Например: Hypixel.net' : 'Неправильный IP-Адрес.'}
-                                placeholder="Введите IP-Адрес"
-                                maxLength='100'
-                            />
-                            :
-                            <Input
-                                top='IP-Адрес сервера'
-                                name='ip'
-                                disabled
-                                value={this.state.ip}
-                                bottom='Например: Hypixel.net'
-                            />
+                        {
+                            this.state.spinner ?
+                                <Input
+                                    top='IP-Адрес сервера'
+                                    name='ip'
+                                    disabled
+                                    value={this.state.ip}
+                                    bottom='Например: Hypixel.net'
+                                />
+                                :
+                                <Input
+                                    top='IP-Адрес сервера'
+                                    name='ip'
+                                    value={this.state.ip}
+                                    onChange={this.onChange.bind(this)}
+                                    status={this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g) || this.state.ip === "" ? 'default' : 'error'}
+                                    bottom={this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g) || this.state.ip === "" ? 'Например: Hypixel.net' : 'Неправильный IP-Адрес.'}
+                                    placeholder="Введите IP-Адрес"
+                                    maxLength='100'
+                                />
                         }
                         {
-                            this.state.ip.length > 2 && this.state.spinner === null && (this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g)) ?
+                            this.state.ip.length > 2 && !this.state.spinner && (this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g)) ?
                                 <Button onClick={this.onClick.bind(this)} size='xl'>Получить информацию</Button>
                                 :
                                 <Button disabled size='xl'>Получить информацию</Button>
                         }
-                        {this.state.spinner === null ?
-                            '' :
-                            <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                                <img src={require('./img/loading.svg')} alt="Загрузка..." style={{ marginTop: 50, height: '100px', width: '100px' }} />
-                            </div>
+                        {
+                            this.state.spinner ?
+                                <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+                                    <img src={require('./img/loading.svg')} alt="Загрузка..." style={{ marginTop: 50, height: '100px', width: '100px' }} />
+                                </div>
+                                :
+                                ""
                         }
                         {
-                            this.state.response === null ?
-                                ''
-                                :
+                            this.state.response ?
                                 <Group
-                                    title={this.state.titleIp}
-                                    description={this.state.response.software === undefined ? `` : `Ядро сервера: ${this.state.response.software}`}
+                                    title={this.state.titleIP}
+                                    description={this.state.response.software ? `Ядро сервера: ${this.state.response.software}` : ``}
                                 >
                                     <List>
                                         <Cell
                                             multiline
-                                            before={<Avatar type="image" size={64} src={this.state.response.icon === undefined ? defaultImage : this.state.response.icon.toString().replace(/\//g, '/')}/>}
+                                            before={<Avatar type="image" size={64} src={this.state.response.icon ? this.state.response.icon.toString().replace(/\//g, '/') : defaultImage}/>}
                                             description={`Игроков: ${this.state.response.players.online} / ${this.state.response.players.max}`}
                                         >
                                             <div className='Container' dangerouslySetInnerHTML={{__html: this.state.response.motd.html[0]}} />
                                             <div className='Container' dangerouslySetInnerHTML={{__html: this.state.response.motd.html[1]}} />
                                         </Cell>
-                                        {this.state.response.players.list === undefined ?
-                                            '' :
-                                            <Cell multiline style={{whiteSpace: 'pre-wrap'}}>
-                                                {this.state.response.players.list.toString().replace(/,/g, ',  ')}
-                                            </Cell>}
+                                        {
+                                            this.state.response.players.list ?
+                                                <Cell multiline style={{whiteSpace: 'pre-wrap'}}>
+                                                    {this.state.response.players.list.toString().replace(/,/g, ',  ')}
+                                                </Cell>
+                                                :
+                                                ""
+                                        }
                                     </List>
                                 </Group>
+                                :
+                                ""
                         }
                         {
-                            this.state.error === null ?
-                                '' :
+                            this.state.error ?
                                 <Group>
                                     <List>
                                         <Cell align='center'><b>Упс...</b></Cell>
@@ -144,6 +142,8 @@ class ServerInfoGet extends React.Component {
                                         />
                                     </Gallery>
                                 </Group>
+                                :
+                                ""
                         }
                     </FormLayout>
                 </Online>
