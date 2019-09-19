@@ -108,16 +108,21 @@ class Calculator extends React.Component {
                         }
                         <Separator style={{ margin: '12px 0' }} />
                         {
-                            this.state.copy ?
-                                <div style={{display: 'flex'}}>
-                                    <Button disabled stretched level="primary" before={<Icon16Done />}>Координаты скопированы!</Button>
-                                </div>
-                                :
-                                <CopyToClipboard text={`${x} ${y} ${z}`}>
+                            this.state.x !== "" || this.state.y !== "" || this.state.z !== "" ?
+                                this.state.copy ?
                                     <div style={{display: 'flex'}}>
-                                        <Button onClick={() => this.setState({ copy: true })} stretched level="primary" before={<Icon24Copy width={16} height={16}/>}>Скопировать координаты</Button>
+                                        <Button disabled stretched level="primary" before={<Icon16Done />}>Координаты скопированы!</Button>
                                     </div>
-                                </CopyToClipboard>
+                                    :
+                                    <CopyToClipboard text={`${x} ${y} ${z}`}>
+                                        <div style={{display: 'flex'}}>
+                                            <Button onClick={() => this.setState({ copy: true })} stretched level="primary" before={<Icon24Copy width={16} height={16}/>}>Скопировать координаты</Button>
+                                        </div>
+                                    </CopyToClipboard>
+                                :
+                                <div style={{display: 'flex'}}>
+                                    <Button disabled stretched level="primary" before={<Icon24Copy width={16} height={16}/>}>Скопировать координаты</Button>
+                                </div>
                         }
                         <Separator style={{ margin: '12px 0' }} />
                         {
