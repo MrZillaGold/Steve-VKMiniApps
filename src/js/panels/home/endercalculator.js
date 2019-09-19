@@ -190,16 +190,21 @@ class EnderPortalCalculator extends React.Component {
                     <Separator />
                     <Div>
                         {
-                            this.state.copy ?
-                                <div style={{display: 'flex'}}>
-                                    <Button disabled stretched level="primary" before={<Icon16Done />}>Координаты скопированы!</Button>
-                                </div>
-                                :
-                                <CopyToClipboard text={`${xOut.toString() === "NaN" ? 0 : a1 === a2 || (a1 === a2 / -1 || a1 / -1 === a2) ? 0 : xOut} ~ ${zOut.toString() === "NaN" ? 0 : a1 === a2 || (a1 === a2 / -1 || a1 / -1 === a2) ? 0 : zOut}`}>
+                            this.state.a1 !== "" || this.state.a2 !== "" || this.state.x1 !== "" || this.state.x2 !== "" || this.state.z1 !== "" || this.state.z2 ?
+                                this.state.copy ?
                                     <div style={{display: 'flex'}}>
-                                        <Button onClick={() => this.setState({ copy: true })} stretched level="primary" before={<Icon24Copy width={16} height={16}/>}>Скопировать координаты</Button>
+                                        <Button disabled stretched level="primary" before={<Icon16Done />}>Координаты скопированы!</Button>
                                     </div>
-                                </CopyToClipboard>
+                                    :
+                                    <CopyToClipboard text={`${xOut.toString() === "NaN" ? 0 : a1 === a2 || (a1 === a2 / -1 || a1 / -1 === a2) ? 0 : xOut} ~ ${zOut.toString() === "NaN" ? 0 : a1 === a2 || (a1 === a2 / -1 || a1 / -1 === a2) ? 0 : zOut}`}>
+                                        <div style={{display: 'flex'}}>
+                                            <Button onClick={() => this.setState({ copy: true })} stretched level="primary" before={<Icon24Copy width={16} height={16}/>}>Скопировать координаты</Button>
+                                        </div>
+                                    </CopyToClipboard>
+                                :
+                                <div style={{display: 'flex'}}>
+                                    <Button disabled stretched level="primary" before={<Icon24Copy width={16} height={16}/>}>Скопировать координаты</Button>
+                                </div>
                         }
                     </Div>
                 </Group>
