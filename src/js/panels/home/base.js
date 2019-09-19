@@ -39,7 +39,7 @@ class HomePanelBase extends React.Component {
                         description="Получите быстрый доступ ко всем функциям в сообщениях ВКонтакте!"
                         bottomContent={
                             <div style={{ display: 'flex' }}>
-                                <Button component="a" target="_blank" href="https://vk.com/im?sel=-175914098" stretched>Перейти в диалог с ботом</Button>
+                                <Button component="a" target="_blank" href="https://vk.com/public175914098" stretched>Перейти в группу с ботом</Button>
                             </div>
                         }
                     >
