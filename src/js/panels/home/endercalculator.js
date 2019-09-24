@@ -190,7 +190,7 @@ class EnderPortalCalculator extends React.Component {
                     <Separator />
                     <Div>
                         {
-                            this.state.a1 !== "" && this.state.x1 !== "" && this.state.z1 !== "" && this.state.a2 !== "" && this.state.x2 !== "" && this.state.z2 !== "" ?
+                            this.state.a1 !== "" && this.state.x1 !== "" && this.state.z1 !== "" && this.state.a2 !== "" && this.state.x2 !== "" && this.state.z2 !== "" && a1 !== a2 && (a1 !== a2 / -1 || a1 / -1 !== a2) ?
                                 this.state.copy ?
                                     <div style={{display: 'flex'}}>
                                         <Button disabled stretched level="primary" before={<Icon16Done />}>Координаты скопированы!</Button>
