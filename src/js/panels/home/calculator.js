@@ -43,7 +43,7 @@ class Calculator extends React.Component {
         const {world, id, goBack} = this.props;
 
         const x = this.state.x === '' ? '0' : this.state.x.match('^-?[0-9]') ? this.state.world === 'nether' ? Math.floor(this.state.x / 8) : Math.floor(this.state.x * 8) : '0';
-        const y = this.state.y === '' ? '0' : this.state.y.match('^[0-9]') ? this.state.y : '0';
+        const y = this.state.y === '' ? '0' : this.state.y.match('^[0-9]') ? this.state.y / 1 : '0';
         const z = this.state.z === '' ? '0' : this.state.z.match('^-?[0-9]') ? this.state.world === 'nether' ? Math.floor(this.state.z / 8) : Math.floor(this.state.z * 8) : '0';
 
         return (
@@ -108,7 +108,7 @@ class Calculator extends React.Component {
                         }
                         <Separator style={{ margin: '12px 0' }} />
                         {
-                            this.state.x !== "" || this.state.y !== "" || this.state.z !== "" ?
+                            this.state.x !== "-" && this.state.z !== "-" && (this.state.x !== "" || this.state.y !== "" || this.state.z !== "") ?
                                 this.state.copy ?
                                     <div style={{display: 'flex'}}>
                                         <Button disabled stretched level="primary" before={<Icon16Done />}>Координаты скопированы!</Button>
