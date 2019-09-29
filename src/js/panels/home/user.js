@@ -34,12 +34,6 @@ class UserGet extends React.Component {
     };
 
     onChange(e) {
-        document.querySelector("input").addEventListener("keydown", function(e) {
-            if (e.keyCode === 13) {
-                document.querySelector("input").setAttribute("readonly", "readonly");
-                setTimeout(function(){document.querySelector("input").removeAttribute("readonly")}, 500)
-            }
-        });
         const {name, value} = e.currentTarget;
         this.setState({[name]: value.replace(/[^A-Za-z0-9_]/g, "").slice(0, 16)});
     }
