@@ -58,6 +58,7 @@ class UserGet extends React.Component {
                     this.setState({ cape: data.textures.cape.url });
                 }
                 this.setState({ list: data.username_history, username: data.username, skin: data.textures.skin.url, spinner: null });
+                console.log(`URL Скина: ${data.textures.skin.url}`);
                 if (data.created_at) {
                     this.setState({ regDate: timeConvert(data.created_at) });
                 }
