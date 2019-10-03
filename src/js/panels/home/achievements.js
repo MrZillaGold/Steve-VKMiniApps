@@ -2,6 +2,12 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import axios from 'axios';
+import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
+import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Button, Group, Cell, List, Gallery, Div, Separator } from "@vkontakte/vkui";
+
+import Icon24Message from '@vkontakte/icons/dist/24/message';
+import Icon16Done from '@vkontakte/icons/dist/16/done';
+
 import VKConnect from "@vkontakte/vk-connect-promise";
 import VKConnectOld from "@vkontakte/vk-connect";
 
@@ -9,13 +15,7 @@ import {randomInteger} from "../../services/_functions";
 
 import { Offline, Online } from 'react-detect-offline';
 import OfflineBlock from './offline';
-
-import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
-
-import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Button, Group, Cell, List, Gallery, Div, Separator } from "@vkontakte/vkui";
-
-import Icon24Message from '@vkontakte/icons/dist/24/message';
-import Icon16Done from '@vkontakte/icons/dist/16/done';
+import "./spinner.css";
 
 class AchievementsGet extends React.Component {
 
@@ -24,9 +24,7 @@ class AchievementsGet extends React.Component {
         two: "",
         lineOne: null,
         lineTwo: null,
-        spinner: null,
-        error: null,
-        value: null,
+        error: false,
         rand: null,
         url: null,
         lock: false
@@ -62,8 +60,8 @@ class AchievementsGet extends React.Component {
 
         this.setState({
             spinner: true,
-            check: null,
-            error: null,
+            check: false,
+            error: false,
             url: null,
             lock: false
         });
@@ -72,7 +70,7 @@ class AchievementsGet extends React.Component {
             .then(() => {
                 const random = randomInteger(1, 39);
                 this.setState({
-                    spinner: null,
+                    spinner: false,
                     check: true,
                     lineOne: this.state.one,
                     lineTwo: this.state.two,
@@ -81,7 +79,7 @@ class AchievementsGet extends React.Component {
                 });
             })
             .catch(err => {
-                this.setState({ spinner: null });
+                this.setState({ spinner: false });
                 if (err) {
                     this.setState({ error: `Произошла ошибка. Попробуйте позже.` });
                     console.log(err);
@@ -103,18 +101,7 @@ class AchievementsGet extends React.Component {
                 </PanelHeader>
                 <Online>
                     <FormLayout>
-                        { this.state.spinner === null ?
-                            <Input
-                                top='Заголовок'
-                                name='one'
-                                value={this.state.one}
-                                onChange={this.onChange.bind(this)}
-                                status={this.state.value === 'error' ? 'error' : 'default'}
-                                placeholder="Достижение получено!"
-                                bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , . (Не больше 20 символов)'
-                                maxLength='20'
-                            />
-                            :
+                        { this.state.spinner ?
                             <Input
                                 top='Заголовок'
                                 name='one'
@@ -122,20 +109,19 @@ class AchievementsGet extends React.Component {
                                 disabled
                                 value={this.state.one}
                                 bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , . (Не больше 20 символов)'
+                            />
+                            :
+                            <Input
+                                top='Заголовок'
+                                name='one'
+                                value={this.state.one}
+                                onChange={this.onChange.bind(this)}
+                                placeholder="Достижение получено!"
+                                bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , . (Не больше 20 символов)'
+                                maxLength='20'
                             />
                         }
-                        { this.state.spinner === null ?
-                            <Input
-                                top='Текст достижения'
-                                name='two'
-                                value={this.state.two}
-                                onChange={this.onChange.bind(this)}
-                                status={this.state.value === 'error' ? 'error' : 'default'}
-                                placeholder="Терпение и труд"
-                                bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , . (Не больше 20 символов)'
-                                maxLength='20'
-                            />
-                            :
+                        { this.state.spinner ?
                             <Input
                                 top='Текст достижения'
                                 name='two'
@@ -143,24 +129,34 @@ class AchievementsGet extends React.Component {
                                 disabled
                                 value={this.state.two}
                                 bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , . (Не больше 20 символов)'
+                            />
+                            :
+                            <Input
+                                top='Текст достижения'
+                                name='two'
+                                value={this.state.two}
+                                onChange={this.onChange.bind(this)}
+                                placeholder="Терпение и труд"
+                                bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , . (Не больше 20 символов)'
+                                maxLength='20'
                             />
                         }
                         {
-                            (this.state.one.length > 0 || this.state.two.length > 0) && this.state.spinner === null ?
+                            (this.state.one.length > 0 || this.state.two.length > 0) && !this.state.spinner ?
                                 <Button onClick={this.onClick.bind(this)} size='xl'>Сгенерировать достижение</Button>
                                 :
                                 <Button disabled size='xl'>Сгенерировать достижение</Button>
                         }
 
-                        { this.state.spinner === null ?
-                            '' :
-                            <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                                <img src={require('./img/loading.svg')} alt="Загрузка..." style={{ marginTop: 50, height: '100px', width: '100px' }} />
+                        { this.state.spinner ?
+                            <div className="spinner">
+                                <img src={require('./img/loading.svg')} alt="Загрузка..." className="loading" />
                             </div>
+                            :
+                            ""
                         }
                         {
-                            this.state.error === null ?
-                                '' :
+                            this.state.error ?
                                 <Group>
                                     <List>
                                         <Cell align='center'><b>Упс...</b></Cell>
@@ -179,34 +175,39 @@ class AchievementsGet extends React.Component {
                                         />
                                     </Gallery>
                                 </Group>
+                                :
+                                ""
                         }
-                        {this.state.check == null ? '' :
-                            <Group>
-                                <Div>
-                                    <Gallery
-                                        style={{
-                                            height: '64px'
-                                        }}
-                                    >
-                                        <div style={{
-                                            backgroundImage: 'url(' + encodeURI(url) + ')',
-                                            backgroundSize: 'contain',
-                                            backgroundPosition: '50%',
-                                            height: '64px',
-                                            backgroundRepeat: 'no-repeat'
-                                        }}
-                                        />
-                                    </Gallery>
-                                    <Separator style={{ margin: '12px 0' }} />
-                                    <div style={{ display: 'flex' }}>
-                                        { this.state.lock ?
-                                            <Button disabled stretched before={<Icon16Done width={16} height={16} />}>Сообщение отправлено!</Button>
-                                            :
-                                            <Button onClick={this.share.bind(this)} stretched before={<Icon24Message width={16} height={16} />}>Получить картинку в сообщения</Button>
-                                        }
-                                    </div>
-                                </Div>
-                            </Group>
+                        {
+                            this.state.check ?
+                                <Group>
+                                    <Div>
+                                        <Gallery
+                                            style={{
+                                                height: '64px'
+                                            }}
+                                        >
+                                            <div style={{
+                                                backgroundImage: 'url(' + encodeURI(url) + ')',
+                                                backgroundSize: 'contain',
+                                                backgroundPosition: '50%',
+                                                height: '64px',
+                                                backgroundRepeat: 'no-repeat'
+                                            }}
+                                            />
+                                        </Gallery>
+                                        <Separator style={{ margin: '12px 0' }} />
+                                        <div style={{ display: 'flex' }}>
+                                            { this.state.lock ?
+                                                <Button disabled stretched before={<Icon16Done width={16} height={16} />}>Сообщение отправлено!</Button>
+                                                :
+                                                <Button onClick={this.share.bind(this)} stretched before={<Icon24Message width={16} height={16} />}>Получить картинку в сообщения</Button>
+                                            }
+                                        </div>
+                                    </Div>
+                                </Group>
+                                :
+                                ""
                         }
                     </FormLayout>
                 </Online>
