@@ -5,12 +5,9 @@ import {closePopout, goBack, openModal, openPopout, setPage} from '../../store/r
 
 import { Panel, Group, Button, PanelHeader, Cell, CellButton, Avatar, Separator } from '@vkontakte/vkui';
 
-import Icon24Note from '@vkontakte/icons/dist/24/note';
-import Icon24Info from '@vkontakte/icons/dist/24/info';
 import Icon24NewsFeed from '@vkontakte/icons/dist/24/newsfeed';
 import Icon24Globe from '@vkontakte/icons/dist/24/globe';
 import Icon24Write from '@vkontakte/icons/dist/24/write';
-import Icon24Forward10 from '@vkontakte/icons/dist/24/forward_10';
 import Icon24Search from '@vkontakte/icons/dist/24/search';
 
 class HomePanelBase extends React.Component {
@@ -21,11 +18,11 @@ class HomePanelBase extends React.Component {
             <Panel id={id}>
                 <PanelHeader>Steve</PanelHeader>
                 <Group>
-                    <CellButton before={<Icon24Note />} onClick={() => setPage('home', 'user')}>Информация об игроке</CellButton>
-                    <CellButton before={<Icon24Info />} onClick={() => setPage('home', 'server')}>Информация о сервере по IP</CellButton>
+                    <CellButton before={<div style={{height: '24px', width: '36px'}}><img src={require('./img/usericon.svg')} alt="Server Info"/></div>} onClick={() => setPage('home', 'user')}>Информация об игроке</CellButton>
+                    <CellButton before={<div style={{height: '24px', width: '36px'}}><img src={require('./img/servericon.svg')} alt="Server Info"/></div>} onClick={() => setPage('home', 'server')}>Информация о сервере по IP</CellButton>
                     <Separator />
                     <CellButton before={<Icon24Write />} onClick={() => setPage('home', 'achievements')}>Генератор достижений</CellButton>
-                    <CellButton before={<Icon24Forward10 />} onClick={() => setPage('home', 'calculator')}>Калькулятор координат</CellButton>
+                    <CellButton before={<div style={{height: '24px', width: '36px'}}><img src={require('./img/calculatoricon.svg')} alt="Server Info"/></div>} onClick={() => setPage('home', 'calculator')}>Калькулятор координат</CellButton>
                     <CellButton before={<Icon24Search />} onClick={() => setPage('home', 'endercalculator')}>Получение координат крепости</CellButton>
                     <Separator />
                     <CellButton before={<Icon24NewsFeed />} onClick={() => setPage('home', 'news')}>Новости Minecraft</CellButton>
