@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import axios from 'axios';
+import {fixInput} from "../../services/_functions";
 
 import { Offline, Online } from 'react-detect-offline';
 import OfflineBlock from './offline';
@@ -22,12 +23,7 @@ class ServerInfoGet extends React.Component {
     };
 
     onChange(e) {
-        document.querySelector("input").addEventListener("keydown", function(e) {
-            if (e.keyCode === 13) {
-                document.querySelector("input").setAttribute("readonly", "readonly");
-                setTimeout(function(){document.querySelector("input").removeAttribute("readonly")}, 500)
-            }
-        });
+        fixInput();
         const {name, value} = e.currentTarget;
         this.setState({[name]: value.replace(/[^а-яА-ЯёЁa-zA-Z0-9.:]/g, "").slice(0, 100)});
     }
