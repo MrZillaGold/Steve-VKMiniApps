@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import axios from 'axios';
+import {fixInput} from "../../services/_functions";
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Button, Group, Cell, List, Gallery, Div, Separator } from "@vkontakte/vkui";
 
@@ -31,12 +32,7 @@ class AchievementsGet extends React.Component {
     };
 
     onChange(e) {
-        document.querySelector("input").addEventListener("keydown", function(e) {
-            if (e.keyCode === 13) {
-                document.querySelector("input").setAttribute("readonly", "readonly");
-                setTimeout(function(){document.querySelector("input").removeAttribute("readonly")}, 500)
-            }
-        });
+        fixInput();
         const {name, value} = e.currentTarget;
         this.setState({[name]: value.replace(/[^а-яА-ЯёЁA-Za-z0-9!?., ]/g, "").slice(0, 20)});
     }
