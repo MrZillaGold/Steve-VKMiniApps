@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import {fixInput} from "../../services/_functions";
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
@@ -22,12 +23,7 @@ class EnderPortalCalculator extends React.Component {
     };
 
     onChange(e) {
-        document.querySelector("input").addEventListener("keydown", function(e) {
-            if (e.keyCode === 13) {
-                document.querySelector("input").setAttribute("readonly", "readonly");
-                setTimeout(function(){document.querySelector("input").removeAttribute("readonly")}, 500)
-            }
-        });
+        fixInput();
         this.setState({ copy: false });
 
         const {name, value} = e.currentTarget;
