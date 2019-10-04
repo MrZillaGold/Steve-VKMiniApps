@@ -7,6 +7,7 @@ import { Offline, Online } from 'react-detect-offline';
 import OfflineBlock from './offline';
 
 import {checkStatus} from "../../services/_functions";
+import "./spinner.css";
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
@@ -21,7 +22,8 @@ class StatusGet extends React.Component {
         status: null
     };
 
-    statusGet() {
+
+    componentDidMount() {
         axios.get(`https://stevecors.herokuapp.com/https://status.mojang.com/check`)
             .then(res => {
                 return res.data;
@@ -47,9 +49,8 @@ class StatusGet extends React.Component {
                 </PanelHeader>
                 <Online>
                     { this.state.spinner ?
-                        <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                            {this.statusGet()}
-                            <img src={require('./img/loading.svg')} alt="Загрузка..." style={{ marginTop: 50, height: '100px', width: '100px' }} />
+                        <div className="spinner">
+                            <img src={require('./img/loading.svg')} alt="Загрузка..." className="loading" />
                         </div>
                         :
                         ""
@@ -119,19 +120,8 @@ class StatusGet extends React.Component {
                                 <List>
                                     <Cell align='center'><b>Упс...</b></Cell>
                                 </List>
-                                <p style={{ color: '#909499', textAlign: 'center' }}>{this.state.error}</p>
-                                <Gallery
-                                    style={{ height: 200 }}
-                                >
-                                    <div style={{
-                                        backgroundImage: 'url(https://www.minecraft.net/content/dam/archive/0ef629a3446f9a977087c578189097dd-sticker_creeper.png)',
-                                        backgroundSize: 'contain',
-                                        backgroundPosition: '50%',
-                                        height: '200px',
-                                        width: '100%',
-                                        backgroundRepeat: 'no-repeat'}}
-                                    />
-                                </Gallery>
+                                <p className="error_text">{this.state.error}</p>
+                                    <div className="error_image"/>
                             </Group>
                             :
                             ""
