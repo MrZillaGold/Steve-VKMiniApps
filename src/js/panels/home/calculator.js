@@ -6,7 +6,7 @@ import {fixInput} from "../../services/_functions";
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
-import {Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Group, Separator, Input, FormLayout, Select, List, Cell, Button} from "@vkontakte/vkui";
+import {Panel, PanelHeader, PanelHeaderContent, Group, Separator, Input, FormLayout, Select, List, Cell, Button, HeaderButton, platform, IOS} from "@vkontakte/vkui";
 import Icon24Copy from '@vkontakte/icons/dist/24/copy';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
 
@@ -49,7 +49,7 @@ class Calculator extends React.Component {
 
         return (
             <Panel id={id}>
-                <PanelHeader left={<PanelHeaderBack onClick={() => goBack()}/>}>
+                <PanelHeader transparent left={<HeaderButton onClick={() => goBack()}>{platform() === IOS ? <img className="arrow_icon" src={require('./img/arrowios.svg')} alt=""/> : <img className="arrow_icon" src={require('./img/arrowandroid.svg')} alt=""/>}</HeaderButton>}>
                     <PanelHeaderContent status="Калькулятор">
                         Steve
                     </PanelHeaderContent>
@@ -112,7 +112,7 @@ class Calculator extends React.Component {
                             this.state.x !== "-" && this.state.z !== "-" && (this.state.x !== "" || this.state.y !== "" || this.state.z !== "") ?
                                 this.state.copy ?
                                     <div style={{display: 'flex'}}>
-                                        <Button disabled stretched level="primary" before={<Icon16Done />}>Координаты скопированы!</Button>
+                                        <Button disabled stretched level="primary" before={<Icon16Done />}><b>Координаты скопированы!</b></Button>
                                     </div>
                                     :
                                     <CopyToClipboard text={`${x} ${y} ${z}`}>
@@ -122,7 +122,7 @@ class Calculator extends React.Component {
                                     </CopyToClipboard>
                                 :
                                 <div style={{display: 'flex'}}>
-                                    <Button disabled stretched level="primary" before={<Icon24Copy width={16} height={16}/>}>Скопировать координаты</Button>
+                                    <Button disabled stretched level="primary" before={<Icon24Copy width={16} height={16}/>}><b>Скопировать координаты</b></Button>
                                 </div>
                         }
                         <Separator style={{ margin: '12px 0' }} />
