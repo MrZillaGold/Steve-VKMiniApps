@@ -5,8 +5,7 @@ import axios from 'axios';
 import Skinview3d from 'react-skinview3d'
 import {fixInput} from "../../services/_functions";
 
-import VKConnect from "@vkontakte/vk-connect-promise";
-import VKConnectOld from "@vkontakte/vk-connect";
+import VKConnect from "@vkontakte/vk-connect";
 
 import {timeConvert} from "../../services/_functions";
 
@@ -25,13 +24,9 @@ class UserGet extends React.Component {
     state = {
         nickname: '',
         username: false,
-        spinner: false,
-        error: false,
         list: false,
         skin: false,
-        cape: false,
-        regDate: false,
-        lock: false
+        cape: false
     };
 
     onChange(e) {
@@ -80,12 +75,12 @@ class UserGet extends React.Component {
 
     share () {
         console.log("Начинаем отправку сообщения.");
-        VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098})
+        VKConnect.sendPromise("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098})
             .then(data => {
-                console.log(data);
-                if(data.type === "VKWebAppAllowMessagesFromGroupResult") {
+                console.log(data.result);
+                if(data.result) {
                     this.setState({ lock: true });
-                    VKConnectOld.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"type":"document", "url": this.state.skin, "name": this.state.username}})
+                    VKConnect.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"type":"document", "url": this.state.skin, "name": this.state.username}})
                 }
             })
             .catch(error => console.log(error));
