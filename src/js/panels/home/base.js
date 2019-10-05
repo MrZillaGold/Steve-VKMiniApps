@@ -25,7 +25,6 @@ class HomePanelBase extends React.Component {
                     <CellButton before={<div style={{height: '24px', width: '36px'}}><img src={require('./img/calculatoricon.svg')} alt="Server Info"/></div>} onClick={() => setPage('home', 'calculator')}>Калькулятор координат</CellButton>
                     <CellButton before={<Icon24Search />} onClick={() => setPage('home', 'endercalculator')}>Получение координат крепости</CellButton>
                     <Separator />
-                    <CellButton before={<Icon24NewsFeed />} onClick={() => setPage('home', 'news')}>Новости Minecraft</CellButton>
                     <CellButton before={<Icon24Globe />} onClick={() => setPage('home', 'status')}>Состояние серверов Minecraft</CellButton>
                 </Group>
                 <Group>
