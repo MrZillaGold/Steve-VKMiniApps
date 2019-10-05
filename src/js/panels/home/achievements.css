@@ -1,0 +1,11 @@
+.image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 64px;
+    image-rendering: pixelated;
+}
+
+.button {
+    display: flex;
+}
