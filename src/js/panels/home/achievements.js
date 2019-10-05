@@ -9,8 +9,7 @@ import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLay
 import Icon24Message from '@vkontakte/icons/dist/24/message';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
 
-import VKConnect from "@vkontakte/vk-connect-promise";
-import VKConnectOld from "@vkontakte/vk-connect";
+import VKConnect from "@vkontakte/vk-connect";
 
 import {randomInteger} from "../../services/_functions";
 
@@ -25,10 +24,8 @@ class AchievementsGet extends React.Component {
         two: "",
         lineOne: null,
         lineTwo: null,
-        error: false,
         rand: null,
         url: null,
-        lock: false
     };
 
     onChange(e) {
@@ -39,12 +36,12 @@ class AchievementsGet extends React.Component {
 
     share () {
         console.log("Начинаем отправку сообщения.");
-        VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098})
+        VKConnect.sendPromise("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098})
             .then(data => {
                 console.log(data);
-                if(data.type === "VKWebAppAllowMessagesFromGroupResult") {
+                if(data.result) {
                     this.setState({ lock: true });
-                    VKConnectOld.send("VKWebAppSendPayload",
+                    VKConnect.send("VKWebAppSendPayload",
                         {"group_id": 175914098, "payload": {"type":"photo", "url": this.state.url}}
                     );
                 }
