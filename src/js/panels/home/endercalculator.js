@@ -18,8 +18,7 @@ class EnderPortalCalculator extends React.Component {
         x1: "",
         x2: "",
         z1: "",
-        z2: "",
-        copy: false
+        z2: ""
     };
 
     onChange(e) {
