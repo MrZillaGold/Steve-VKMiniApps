@@ -14,16 +14,16 @@ import OfflineBlock from './offline';
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
-import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Button, Group, Cell, List, Gallery, Div, Separator } from "@vkontakte/vkui";
+import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Button, Group, Cell, List, Div, Separator } from "@vkontakte/vkui";
 
 import Icon24Message from '@vkontakte/icons/dist/24/message';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
+import "./spinner.css";
 
 class UserGet extends React.Component {
 
     state = {
         nickname: '',
-        username: false,
         list: false,
         skin: false,
         cape: false
@@ -136,29 +136,6 @@ class UserGet extends React.Component {
                                 ""
                         }
                         {
-                            this.state.error ?
-                                <Group>
-                                    <List>
-                                        <Cell align='center'><b>Упс...</b></Cell>
-                                    </List>
-                                    <p style={{ whiteSpace: 'pre-wrap', color: '#909499', textAlign: 'center' }}>{this.state.error}</p>
-                                    <Gallery
-                                        style={{ height: 200 }}
-                                    >
-                                        <div style={{
-                                            backgroundImage: 'url(https://www.minecraft.net/content/dam/archive/0ef629a3446f9a977087c578189097dd-sticker_creeper.png)',
-                                            backgroundSize: 'contain',
-                                            backgroundPosition: '50%',
-                                            height: '200px',
-                                            width: '100%',
-                                            backgroundRepeat: 'no-repeat'}}
-                                        />
-                                    </Gallery>
-                                </Group>
-                                :
-                                ""
-                        }
-                        {
                             this.state.skin ?
                                 <Group top={`Скин игрока ${this.state.username}`}>
                                     <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
@@ -192,6 +169,18 @@ class UserGet extends React.Component {
                                     ""
                             }
                         </List>
+                        {
+                            this.state.error ?
+                                <Group>
+                                    <List>
+                                        <Cell align='center'><b>Упс...</b></Cell>
+                                    </List>
+                                    <p className="error_text">{this.state.error}</p>
+                                    <div className="error_image"/>
+                                </Group>
+                                :
+                                ""
+                        }
                     </FormLayout>
                 </Online>
                 <Offline>
