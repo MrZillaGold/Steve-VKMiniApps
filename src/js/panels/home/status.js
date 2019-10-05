@@ -11,8 +11,7 @@ import "./spinner.css";
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
-import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Avatar, Group, Cell, List } from "@vkontakte/vkui";
-
+import {Panel, PanelHeader, PanelHeaderContent, Avatar, Group, Cell, List, HeaderButton, platform, IOS} from "@vkontakte/vkui";
 
 class StatusGet extends React.Component {
 
@@ -41,7 +40,7 @@ class StatusGet extends React.Component {
 
         return (
             <Panel id={id}>
-                <PanelHeader left={<PanelHeaderBack onClick={() => goBack()}/>}>
+                <PanelHeader transparent left={<HeaderButton onClick={() => goBack()}>{platform() === IOS ? <img className="arrow_icon" src={require('./img/arrowios.svg')} alt=""/> : <img className="arrow_icon" src={require('./img/arrowandroid.svg')} alt=""/>}</HeaderButton>}>
                     <PanelHeaderContent status="Состояние серверов">
                         Steve
                     </PanelHeaderContent>
