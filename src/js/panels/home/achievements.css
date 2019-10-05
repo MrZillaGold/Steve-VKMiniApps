@@ -1,8 +1,8 @@
 .image {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    background-size: contain;
+    background-position: 50%;
     height: 64px;
+    background-repeat: no-repeat;
     image-rendering: pixelated;
 }
 
