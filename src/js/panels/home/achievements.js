@@ -165,7 +165,7 @@ class AchievementsGet extends React.Component {
                             this.state.check ?
                                 <Group>
                                     <Div>
-                                        <img src={encodeURI(url)} className="image" alt="achievement"/>
+                                        <div className="image" style={{backgroundImage: 'url(' + encodeURI(url) + ')'}}/>
                                         <Separator style={{ margin: '12px 0' }} />
                                         <div className="button">
                                             { this.state.lock ?
