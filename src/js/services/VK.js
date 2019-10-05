@@ -14,6 +14,7 @@ export const initApp = () => (dispatch) => {
 
     VKConnect.subscribe(VKConnectOldCallback);
     VKConnect.send('VKWebAppInit', {});
+    VKConnect.send("VKWebAppSetViewSettings", {"status_bar_style": "light", "action_bar_color": "#1c1c1c"});
 };
 
 export const closeApp = () => {
