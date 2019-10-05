@@ -8,13 +8,13 @@ import View from '@vkontakte/vkui/dist/components/View/View';
 import Root from '@vkontakte/vkui/dist/components/Root/Root';
 import ConfigProvider from '@vkontakte/vkui/dist/components/ConfigProvider/ConfigProvider';
 
-import HomePanelProfile from './js/panels/home/base';
-import HomePanelServer from './js/panels/home/server';
-import HomePanelUser from './js/panels/home/user';
-import HomePanelStatus from './js/panels/home/status';
-import HomePanelAchievements from './js/panels/home/achievements';
-import HomePanelCalculator from './js/panels/home/calculator';
-import HomePanelEnderCalculator from './js/panels/home/endercalculator';
+import Profile from './js/panels/home/base';
+import Server from './js/panels/home/server';
+import User from './js/panels/home/user';
+import Status from './js/panels/home/status';
+import Achievements from './js/panels/home/achievements';
+import Calculator from './js/panels/home/calculator';
+import EnderCalculator from './js/panels/home/endercalculator';
 
 class App extends React.Component {
     
@@ -74,13 +74,13 @@ class App extends React.Component {
             <ConfigProvider isWebView={true} scheme={colorScheme}>
                     <Root activeView={activeView}>
                         <View id="home" activePanel={activePanel} history={history} onSwipeBack={() => goBack()}>
-                            <HomePanelProfile id="base" eruda={this.eruda} />
-                            <HomePanelServer id="server"/>
-                            <HomePanelUser id="user"/>
-                            <HomePanelStatus id="status"/>
-                            <HomePanelAchievements id="achievements"/>
-                            <HomePanelCalculator id="calculator"/>
-                            <HomePanelEnderCalculator id="endercalculator"/>
+                            <Profile id="base" eruda={this.eruda} />
+                            <Server id="server"/>
+                            <User id="user"/>
+                            <Status id="status"/>
+                            <Achievements id="achievements"/>
+                            <Calculator id="calculator"/>
+                            <EnderCalculator id="endercalculator"/>
                         </View>
                     </Root>
             </ConfigProvider>
