@@ -1,19 +1,18 @@
-import VKConnectOld from "@vkontakte/vk-connect";
-import VKConnect from "@vkontakte/vk-connect-promise";
+import VKConnect from "@vkontakte/vk-connect";
 
 import {setColorScheme} from "../store/vk/actions";
 
 export const initApp = () => (dispatch) => {
     const VKConnectOldCallback = (e) => {
         if (e.detail.type === 'VKWebAppUpdateConfig') {
-            VKConnectOld.unsubscribe(VKConnectOldCallback);
+            VKConnect.unsubscribe(VKConnectOldCallback);
 
             console.log(`Активация цветовой схемы: ${e.detail.data.scheme}`);
             dispatch(setColorScheme(e.detail.data.scheme));
         }
     };
 
-    VKConnectOld.subscribe(VKConnectOldCallback);
+    VKConnect.subscribe(VKConnectOldCallback);
     VKConnect.send('VKWebAppInit', {});
 };
 
