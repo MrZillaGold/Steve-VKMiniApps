@@ -5,7 +5,6 @@ import {closePopout, goBack, openModal, openPopout, setPage} from '../../store/r
 
 import { Panel, Group, Button, PanelHeader, Cell, CellButton, Avatar, Separator } from '@vkontakte/vkui';
 
-import Icon24NewsFeed from '@vkontakte/icons/dist/24/newsfeed';
 import Icon24Globe from '@vkontakte/icons/dist/24/globe';
 import Icon24Write from '@vkontakte/icons/dist/24/write';
 import Icon24Search from '@vkontakte/icons/dist/24/search';
