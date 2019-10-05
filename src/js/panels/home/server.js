@@ -10,8 +10,7 @@ import "./spinner.css";
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
-import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Button, Avatar, Group, Cell, List } from "@vkontakte/vkui";
-
+import {Panel, PanelHeader, PanelHeaderContent, Input, FormLayout, Button, Avatar, Group, Cell, List, HeaderButton, platform, IOS} from "@vkontakte/vkui";
 
 class ServerInfoGet extends React.Component {
 
@@ -51,7 +50,7 @@ class ServerInfoGet extends React.Component {
 
         return (
             <Panel id={id}>
-                <PanelHeader left={<PanelHeaderBack onClick={() => goBack()}/>}>
+                <PanelHeader transparent left={<HeaderButton onClick={() => goBack()}>{platform() === IOS ? <img className="arrow_icon" src={require('./img/arrowios.svg')} alt=""/> : <img className="arrow_icon" src={require('./img/arrowandroid.svg')} alt=""/>}</HeaderButton>}>
                     <PanelHeaderContent status="Информация по IP">
                         Steve
                     </PanelHeaderContent>
@@ -81,9 +80,9 @@ class ServerInfoGet extends React.Component {
                         }
                         {
                             this.state.ip.length > 2 && !this.state.spinner && (this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g)) ?
-                                <Button onClick={this.onClick.bind(this)} size='xl'>Получить информацию</Button>
+                                <Button onClick={this.onClick.bind(this)} size='xl'><b>Получить информацию</b></Button>
                                 :
-                                <Button disabled size='xl'>Получить информацию</Button>
+                                <Button disabled size='xl'><b>Получить информацию</b></Button>
                         }
                         {
                             this.state.spinner ?
@@ -102,7 +101,7 @@ class ServerInfoGet extends React.Component {
                                     <List>
                                         <Cell
                                             multiline
-                                            before={<Avatar type="image" size={64} src={this.state.response.icon ? this.state.response.icon.toString().replace(/\//g, '/') : defaultImage}/>}
+                                            before={<Avatar style={{imageRendering: "pixelated"}} type="image" size={64} src={this.state.response.icon ? this.state.response.icon.toString().replace(/\//g, '/') : defaultImage}/>}
                                             description={`Игроков: ${this.state.response.players.online} / ${this.state.response.players.max}`}
                                         >
                                             <div className='Container' dangerouslySetInnerHTML={{__html: this.state.response.motd.html[0]}} />
