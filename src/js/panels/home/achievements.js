@@ -4,7 +4,7 @@ import {bindActionCreators} from "redux";
 import axios from 'axios';
 import {fixInput} from "../../services/_functions";
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
-import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Button, Group, Cell, List, Div, Separator } from "@vkontakte/vkui";
+import {Panel, PanelHeader, PanelHeaderContent, Input, FormLayout, Button, Group, Cell, List, Div, Separator, HeaderButton, platform, IOS} from "@vkontakte/vkui";
 
 import Icon24Message from '@vkontakte/icons/dist/24/message';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
@@ -88,7 +88,7 @@ class AchievementsGet extends React.Component {
 
         return (
             <Panel id={id}>
-                <PanelHeader left={<PanelHeaderBack onClick={() => goBack()}/>}>
+                <PanelHeader transparent left={<HeaderButton onClick={() => goBack()}>{platform() === IOS ? <img className="arrow_icon" src={require('./img/arrowios.svg')} alt=""/> : <img className="arrow_icon" src={require('./img/arrowandroid.svg')} alt=""/>}</HeaderButton>}>
                     <PanelHeaderContent status="Генератор">
                         Steve
                     </PanelHeaderContent>
@@ -137,9 +137,9 @@ class AchievementsGet extends React.Component {
                         }
                         {
                             (this.state.one.length > 0 || this.state.two.length > 0) && !this.state.spinner ?
-                                <Button onClick={this.onClick.bind(this)} size='xl'>Сгенерировать достижение</Button>
+                                <Button onClick={this.onClick.bind(this)} size='xl'><b>Сгенерировать достижение</b></Button>
                                 :
-                                <Button disabled size='xl'>Сгенерировать достижение</Button>
+                                <Button disabled size='xl'><b>Сгенерировать достижение</b></Button>
                         }
 
                         { this.state.spinner ?
@@ -169,9 +169,9 @@ class AchievementsGet extends React.Component {
                                         <Separator style={{ margin: '12px 0' }} />
                                         <div className="button">
                                             { this.state.lock ?
-                                                <Button disabled stretched before={<Icon16Done width={16} height={16} />}>Сообщение отправлено!</Button>
+                                                <Button disabled stretched before={<Icon16Done width={16} height={16} />}><b>Сообщение отправлено!</b></Button>
                                                 :
-                                                <Button onClick={this.share.bind(this)} stretched before={<Icon24Message width={16} height={16} />}>Получить картинку в сообщения</Button>
+                                                <Button onClick={this.share.bind(this)} stretched before={<Icon24Message width={16} height={16} />}><b>Получить картинку в сообщения</b></Button>
                                             }
                                         </div>
                                     </Div>
