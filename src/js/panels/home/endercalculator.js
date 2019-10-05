@@ -6,7 +6,7 @@ import {fixInput} from "../../services/_functions";
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
-import {Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Group, Separator, Input, FormLayout, FormLayoutGroup, List, Cell, Button, Div, FormStatus} from "@vkontakte/vkui";
+import {Panel, PanelHeader, PanelHeaderContent, Group, Separator, Input, FormLayout, FormLayoutGroup, List, Cell, Button, Div, FormStatus, HeaderButton, platform, IOS} from "@vkontakte/vkui";
 import Icon24Copy from '@vkontakte/icons/dist/24/copy';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
 
@@ -95,7 +95,7 @@ class EnderPortalCalculator extends React.Component {
 
         return (
             <Panel id={id}>
-                <PanelHeader left={<PanelHeaderBack onClick={() => goBack()}/>}>
+                <PanelHeader transparent left={<HeaderButton onClick={() => goBack()}>{platform() === IOS ? <img className="arrow_icon" src={require('./img/arrowios.svg')} alt=""/> : <img className="arrow_icon" src={require('./img/arrowandroid.svg')} alt=""/>}</HeaderButton>}>
                     <PanelHeaderContent status="Калькулятор">
                         Steve
                     </PanelHeaderContent>
@@ -194,7 +194,7 @@ class EnderPortalCalculator extends React.Component {
                             this.state.a1 !== "-" && this.state.a2 !== "-" && this.state.x1 !== "-" && this.state.x2 !== "-" && this.state.z1 !== "-" && this.state.z2 !== "-" && this.state.a1 !== "" && this.state.x1 !== "" && this.state.z1 !== "" && this.state.a2 !== "" && this.state.x2 !== "" && this.state.z2 !== "" && a1 !== a2 && (a1 !== a2 / -1 || a1 / -1 !== a2) ?
                                 this.state.copy ?
                                     <div style={{display: 'flex'}}>
-                                        <Button disabled stretched level="primary" before={<Icon16Done />}>Координаты скопированы!</Button>
+                                        <Button disabled stretched level="primary" before={<Icon16Done />}><b>Координаты скопированы!</b></Button>
                                     </div>
                                     :
                                     <CopyToClipboard text={`${xOut.toString() === "NaN" ? 0 : a1 === a2 || (a1 === a2 / -1 || a1 / -1 === a2) ? 0 : xOut} ~ ${zOut.toString() === "NaN" ? 0 : a1 === a2 || (a1 === a2 / -1 || a1 / -1 === a2) ? 0 : zOut}`}>
@@ -204,7 +204,7 @@ class EnderPortalCalculator extends React.Component {
                                     </CopyToClipboard>
                                 :
                                 <div style={{display: 'flex'}}>
-                                    <Button disabled stretched level="primary" before={<Icon24Copy width={16} height={16}/>}>Скопировать координаты</Button>
+                                    <Button disabled stretched level="primary" before={<Icon24Copy width={16} height={16}/>}><b>Скопировать координаты</b></Button>
                                 </div>
                         }
                     </Div>
