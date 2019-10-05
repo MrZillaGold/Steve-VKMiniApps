@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="Lager_1"
+   width="20pt" height="28pt"
+   data-name="Lager 1"
+   viewBox="0 0 16 16"
+   version="1.1"
+   sodipodi:docname="arrowios.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <metadata
+     id="metadata4004">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs4002" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1280"
+     inkscape:window-height="745"
+     id="namedview4000"
+     showgrid="false"
+     inkscape:zoom="18"
+     inkscape:cx="14.186291"
+     inkscape:cy="4.6725766"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="Lager_1" />
+  <g
+     id="arrow_down"
+     data-name="arrow down"
+     transform="rotate(90,7,7)"
+     style="fill:#ffffff">
+    <rect
+       id="Rectangle"
+       x="7"
+       y="10"
+       width="2"
+       height="2"
+       style="fill:#ffffff" />
+    <rect
+       id="Rectangle-2"
+       data-name="Rectangle"
+       x="9"
+       y="8"
+       width="2"
+       height="2"
+       style="fill:#ffffff" />
+    <rect
+       id="Rectangle-3"
+       data-name="Rectangle"
+       x="5"
+       y="8"
+       width="2"
+       height="2"
+       style="fill:#ffffff" />
+    <rect
+       id="Rectangle-4"
+       data-name="Rectangle"
+       x="11"
+       y="6"
+       width="2"
+       height="2"
+       style="fill:#ffffff" />
+    <rect
+       id="Rectangle-5"
+       data-name="Rectangle"
+       x="13"
+       y="4"
+       width="2"
+       height="2"
+       style="fill:#ffffff" />
+    <rect
+       id="Rectangle-6"
+       data-name="Rectangle"
+       x="3"
+       y="6"
+       width="2"
+       height="2"
+       style="fill:#ffffff" />
+    <rect
+       id="Rectangle-7"
+       data-name="Rectangle"
+       x="1"
+       y="4"
+       width="2"
+       height="2"
+       style="fill:#ffffff" />
+  </g>
+</svg>
