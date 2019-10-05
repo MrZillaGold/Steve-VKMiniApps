@@ -13,15 +13,6 @@ class OfflineBlock extends React.Component {
                         Пропало подключение к серверу!<br /><br />Эта вкладка будет доступна как появится соединение.
                     </p>
                     <Button level='tertiary' stretched component='a' href='https://vk.com/stevebotmc'>Группа</Button>
-                    <img src="https://www.minecraft.net/content/dam/archive/77427789b44938b5eda7705fd3095d32-sticker_pig3.png"
-                         style={{
-                             backgroundSize: 'contain',
-                             height: 177.5,
-                             backgroundPosition: '50%',
-                             backgroundRepeat: 'no-repeat'
-                         }}
-                         alt=""
-                    />
                 </div>
             </div>
         );
