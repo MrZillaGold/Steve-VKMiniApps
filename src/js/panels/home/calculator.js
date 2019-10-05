@@ -19,7 +19,6 @@ class Calculator extends React.Component {
         spinner: null,
         error: null,
         rand: null,
-        copy: false,
         world: "world"
     };
 
