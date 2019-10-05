@@ -6,19 +6,17 @@ import {fixInput} from "../../services/_functions";
 
 import { Offline, Online } from 'react-detect-offline';
 import OfflineBlock from './offline';
+import "./spinner.css";
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
-import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Button, Avatar, Group, Cell, List, Gallery } from "@vkontakte/vkui";
+import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Button, Avatar, Group, Cell, List } from "@vkontakte/vkui";
 
 
 class ServerInfoGet extends React.Component {
 
     state = {
         ip: '',
-        spinner: false,
-        error: false,
-        response: false,
         titleIP: null
     };
 
@@ -89,8 +87,8 @@ class ServerInfoGet extends React.Component {
                         }
                         {
                             this.state.spinner ?
-                                <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                                    <img src={require('./img/loading.svg')} alt="Загрузка..." style={{ marginTop: 50, height: '100px', width: '100px' }} />
+                                <div className="spinner">
+                                    <img src={require('./img/loading.svg')} alt="Загрузка..." className="loading"/>
                                 </div>
                                 :
                                 ""
@@ -129,20 +127,8 @@ class ServerInfoGet extends React.Component {
                                     <List>
                                         <Cell align='center'><b>Упс...</b></Cell>
                                     </List>
-                                    <p style={{color: '#909499', textAlign: 'center'}}>{this.state.error}</p>
-                                    <Gallery
-                                        style={{ height: 200 }}
-                                    >
-                                        <div style={{
-                                            backgroundImage: 'url(https://www.minecraft.net/content/dam/archive/0ef629a3446f9a977087c578189097dd-sticker_creeper.png)',
-                                            backgroundSize: 'contain',
-                                            backgroundPosition: '50%',
-                                            height: '200px',
-                                            width: '100%',
-                                            backgroundRepeat: 'no-repeat'
-                                        }}
-                                        />
-                                    </Gallery>
+                                    <p className="error_text">{this.state.error}</p>
+                                    <div className="error_image"/>
                                 </Group>
                                 :
                                 ""
