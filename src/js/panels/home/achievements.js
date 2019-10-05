@@ -4,7 +4,7 @@ import {bindActionCreators} from "redux";
 import axios from 'axios';
 import {fixInput} from "../../services/_functions";
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
-import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Button, Group, Cell, List, Gallery, Div, Separator } from "@vkontakte/vkui";
+import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent, Input, FormLayout, Button, Group, Cell, List, Div, Separator } from "@vkontakte/vkui";
 
 import Icon24Message from '@vkontakte/icons/dist/24/message';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
@@ -16,6 +16,7 @@ import {randomInteger} from "../../services/_functions";
 import { Offline, Online } from 'react-detect-offline';
 import OfflineBlock from './offline';
 import "./spinner.css";
+import "./achievements.css";
 
 class AchievementsGet extends React.Component {
 
@@ -154,19 +155,8 @@ class AchievementsGet extends React.Component {
                                     <List>
                                         <Cell align='center'><b>Упс...</b></Cell>
                                     </List>
-                                    <p style={{ whiteSpace: 'pre-wrap', color: '#909499', textAlign: 'center' }}>{this.state.error}</p>
-                                    <Gallery
-                                        style={{ height: 200 }}
-                                    >
-                                        <div style={{
-                                            backgroundImage: 'url(https://www.minecraft.net/content/dam/archive/0ef629a3446f9a977087c578189097dd-sticker_creeper.png)',
-                                            backgroundSize: 'contain',
-                                            backgroundPosition: '50%',
-                                            height: '200px',
-                                            width: '100%',
-                                            backgroundRepeat: 'no-repeat'}}
-                                        />
-                                    </Gallery>
+                                    <p className="error_text">{this.state.error}</p>
+                                    <div className="error_image"/>
                                 </Group>
                                 :
                                 ""
@@ -175,22 +165,9 @@ class AchievementsGet extends React.Component {
                             this.state.check ?
                                 <Group>
                                     <Div>
-                                        <Gallery
-                                            style={{
-                                                height: '64px'
-                                            }}
-                                        >
-                                            <div style={{
-                                                backgroundImage: 'url(' + encodeURI(url) + ')',
-                                                backgroundSize: 'contain',
-                                                backgroundPosition: '50%',
-                                                height: '64px',
-                                                backgroundRepeat: 'no-repeat'
-                                            }}
-                                            />
-                                        </Gallery>
+                                        <img src={encodeURI(url)} className="image" alt="achievement"/>
                                         <Separator style={{ margin: '12px 0' }} />
-                                        <div style={{ display: 'flex' }}>
+                                        <div className="button">
                                             { this.state.lock ?
                                                 <Button disabled stretched before={<Icon16Done width={16} height={16} />}>Сообщение отправлено!</Button>
                                                 :
