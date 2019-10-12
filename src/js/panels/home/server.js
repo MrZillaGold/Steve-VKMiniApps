@@ -99,7 +99,7 @@ class ServerInfoGet extends React.Component {
                             <div style={{display: "flex", alignItems: "center"}} className="Input">
                                 <div style={{flexGrow: 99}}>
                                     <Input
-                                        disabled={!!this.state.spinner}
+                                        disabled={this.state.spinner}
                                         name='ip'
                                         value={this.state.ip}
                                         onChange={this.onChange.bind(this)}
