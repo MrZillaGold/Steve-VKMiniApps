@@ -100,33 +100,21 @@ class UserGet extends React.Component {
                 </PanelHeader>
                 <Online>
                     <FormLayout>
-                        { this.state.spinner ?
-                            <Input
-                                top='Никнейм'
-                                name='nickname'
-                                disabled
-                                value={this.state.nickname}
-                                bottom='Может содержать только латинские буквы, цифры и символ "_". (От 3 до 16 символов)'
-                            />
-                            :
-                            <Input
-                                top='Никнейм'
-                                name='nickname'
-                                value={this.state.nickname}
-                                onChange={this.onChange.bind(this)}
-                                status={this.state.nickname.length > 2 || this.state.nickname === "" ? 'default' : 'error'}
-                                bottom='Может содержать только латинские буквы, цифры и символ "_". (От 3 до 16 символов)'
-                                placeholder="Введите никнейм"
-                                maxLength='16'
-                                pattern='^[A-Za-z0-9_]+$'
-                            />
-                        }
-                        {
-                            this.state.nickname.length > 2 && this.state.nickname.match('^[A-Za-z0-9_]+$') && !this.state.spinner ?
-                                <Button onClick={this.onClick.bind(this)} size='xl'><b>Получить информацию</b></Button>
-                                :
-                                <Button disabled size='xl'><b>Получить информацию</b></Button>
-                        }
+                        <Input
+                            top='Никнейм'
+                            name='nickname'
+                            disabled={this.state.spinner}
+                            value={this.state.nickname}
+                            onChange={this.onChange.bind(this)}
+                            status={this.state.nickname.length > 2 || this.state.nickname === "" ? 'default' : 'error'}
+                            bottom='Может содержать только латинские буквы, цифры и символ "_". (От 3 до 16 символов)'
+                            placeholder="Введите никнейм"
+                            maxLength='16'
+                            pattern='^[A-Za-z0-9_]+$'
+                        />
+                        <Button disabled={!(this.state.nickname.length > 2 && this.state.nickname.match('^[A-Za-z0-9_]+$') && !this.state.spinner)} onClick={this.onClick.bind(this)} size='xl'>
+                            <b>Получить информацию</b>
+                        </Button>
                         {
                             this.state.spinner ?
                                 <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
@@ -148,11 +136,7 @@ class UserGet extends React.Component {
                                     </div>
                                     <Separator style={{ margin: '8px 0' }} />
                                     <Div style={{ display: 'flex' }}>
-                                        { this.state.lock ?
-                                            <Button disabled stretched before={<Icon16Done width={16} height={16} />}><b>Сообщение отправлено!</b></Button>
-                                            :
-                                            <Button onClick={this.share.bind(this)} stretched before={<Icon24Message width={16} height={16} />}><b>Получить cкин в сообщения</b></Button>
-                                        }
+                                        <Button disabled={this.state.lock} onClick={this.share.bind(this)} stretched before={this.state.lock ? <Icon16Done/> : <Icon24Message width={16} height={16} />}><b>{this.state.lock ? "Сообщение отправлено!" : "Получить cкин в сообщения"}</b></Button>
                                     </Div>
                                 </Group>
                                 :
