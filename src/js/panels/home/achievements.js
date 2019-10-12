@@ -95,59 +95,34 @@ class AchievementsGet extends React.Component {
                 </PanelHeader>
                 <Online>
                     <FormLayout>
-                        { this.state.spinner ?
-                            <Input
-                                top='Заголовок'
-                                name='one'
-                                placeholder="Достижение получено!"
-                                disabled
-                                value={this.state.one}
-                                bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , . (Не больше 20 символов)'
-                            />
-                            :
-                            <Input
-                                top='Заголовок'
-                                name='one'
-                                value={this.state.one}
-                                onChange={this.onChange.bind(this)}
-                                placeholder="Достижение получено!"
-                                bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , . (Не больше 20 символов)'
-                                maxLength='20'
-                            />
-                        }
-                        { this.state.spinner ?
-                            <Input
-                                top='Текст достижения'
-                                name='two'
-                                placeholder="Терпение и труд"
-                                disabled
-                                value={this.state.two}
-                                bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , . (Не больше 20 символов)'
-                            />
-                            :
-                            <Input
-                                top='Текст достижения'
-                                name='two'
-                                value={this.state.two}
-                                onChange={this.onChange.bind(this)}
-                                placeholder="Терпение и труд"
-                                bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , . (Не больше 20 символов)'
-                                maxLength='20'
-                            />
-                        }
+                        <Input
+                            top='Заголовок'
+                            name='one'
+                            disabled={this.state.spinner}
+                            value={this.state.one}
+                            onChange={this.onChange.bind(this)}
+                            placeholder="Достижение получено!"
+                            bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , . (Не больше 20 символов)'
+                            maxLength='20'
+                        />
+                        <Input
+                            top='Текст достижения'
+                            name='two'
+                            disabled={this.state.spinner}
+                            value={this.state.two}
+                            onChange={this.onChange.bind(this)}
+                            placeholder="Терпение и труд"
+                            bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , . (Не больше 20 символов)'
+                            maxLength='20'
+                        />
+                        <Button disabled={!((this.state.one.length > 0 || this.state.two.length > 0) && !this.state.spinner)} onClick={this.onClick.bind(this)} size='xl'><b>Сгенерировать достижение</b></Button>
                         {
-                            (this.state.one.length > 0 || this.state.two.length > 0) && !this.state.spinner ?
-                                <Button onClick={this.onClick.bind(this)} size='xl'><b>Сгенерировать достижение</b></Button>
+                            this.state.spinner ?
+                                <div className="spinner">
+                                    <img src={require('./img/loading.svg')} alt="Загрузка..." className="loading" />
+                                </div>
                                 :
-                                <Button disabled size='xl'><b>Сгенерировать достижение</b></Button>
-                        }
-
-                        { this.state.spinner ?
-                            <div className="spinner">
-                                <img src={require('./img/loading.svg')} alt="Загрузка..." className="loading" />
-                            </div>
-                            :
-                            ""
+                                ""
                         }
                         {
                             this.state.error ?
@@ -168,11 +143,7 @@ class AchievementsGet extends React.Component {
                                         <div className="image" style={{backgroundImage: 'url(' + encodeURI(url) + ')'}}/>
                                         <Separator style={{ margin: '12px 0' }} />
                                         <div className="button">
-                                            { this.state.lock ?
-                                                <Button disabled stretched before={<Icon16Done width={16} height={16} />}><b>Сообщение отправлено!</b></Button>
-                                                :
-                                                <Button onClick={this.share.bind(this)} stretched before={<Icon24Message width={16} height={16} />}><b>Получить картинку в сообщения</b></Button>
-                                            }
+                                            <Button disabled={this.state.lock} onClick={this.share.bind(this)} stretched before={this.state.lock ? <Icon16Done/> : <Icon24Message width={16} height={16} />}><b>{this.state.lock ? "Сообщение отправлено!" : "Получить картинку в сообщения"}</b></Button>
                                         </div>
                                     </Div>
                                 </Group>
