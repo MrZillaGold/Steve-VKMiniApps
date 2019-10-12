@@ -92,7 +92,7 @@ class ServerInfoGet extends React.Component {
                         Steve
                     </PanelHeaderContent>
                 </PanelHeader>
-                <Online>
+                <Online onChange={() => this.componentDidMount()}>
                     <FormLayout>
                         <div className="FormLayout__row--s-default">
                             <div className="FormLayout__row-top">IP-Адрес сервера</div>
