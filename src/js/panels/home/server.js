@@ -2,21 +2,28 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import axios from 'axios';
+import VKConnect from "@vkontakte/vk-connect";
 import {fixInput} from "../../services/_functions";
 
 import { Offline, Online } from 'react-detect-offline';
 import OfflineBlock from './offline';
+import Icon24Chevron from '@vkontakte/icons/dist/24/chevron';
+import Icon24Dropdown from '@vkontakte/icons/dist/24/dropdown';
+import Icon24FavoriteOutline from '@vkontakte/icons/dist/24/favorite_outline';
+import Icon24Write from '@vkontakte/icons/dist/24/write';
+import Icon24Done from '@vkontakte/icons/dist/24/done';
 import "./spinner.css";
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
-import {Panel, PanelHeader, PanelHeaderContent, Input, FormLayout, Button, Avatar, Group, Cell, List, HeaderButton, platform, IOS} from "@vkontakte/vkui";
+import {Panel, PanelHeader, PanelHeaderContent, Input, FormLayout, Button, Avatar, Group, Cell, Header, List, HeaderButton, platform, IOS} from "@vkontakte/vkui";
 
 class ServerInfoGet extends React.Component {
 
     state = {
         ip: '',
-        titleIP: null
+        titleIP: null,
+        favoriteList: []
     };
 
     onChange(e) {
@@ -26,14 +33,14 @@ class ServerInfoGet extends React.Component {
     }
 
     onClick() {
-        this.setState({spinner: true, error: false, response: false});
+        this.setState({spinner: true, error: false, response: false, openFavorite: false});
         axios.get(`https://stevecors.herokuapp.com/https://api.mcsrvstat.us/2/${this.state.ip}`)
             .then(res => {
                 return res.data;
             })
             .then(data => {
                 if (data.online) {
-                    this.setState({response: data, spinner: false, titleIP: this.state.ip});
+                    this.setState({response: data, spinner: false, titleIP: this.state.ip.toLowerCase()});
                 } else {
                     this.setState({error: `Сервер ${this.state.ip} оффлайн, либо информация отсутствует.`, spinner: false});
                 }
@@ -42,6 +49,36 @@ class ServerInfoGet extends React.Component {
                 this.setState({ error: `Произошла ошибка. Попробуйте позже.`, spinner: null });
                 console.log(err);
             });
+    }
+
+    componentDidMount() {
+        VKConnect.sendPromise("VKWebAppStorageGet", {"keys": ["steveFavoriteList"]})
+            .then(res => {
+                console.log(res);
+                console.log(`Избранные сервера: ${res.keys[0].value}`);
+                if (res.keys[0].value.length > 1) {
+                    this.setState({favoriteList: res.keys[0].value.split(',')});
+                }
+            });
+    }
+
+   async addFavorite(ip) {
+        const favoriteList = [...this.state.favoriteList];
+        favoriteList.unshift(ip.toLowerCase());
+        await this.setState({favoriteList});
+        await VKConnect.send("VKWebAppStorageSet", {"key": "steveFavoriteList", "value": this.state.favoriteList.join(",")});
+    }
+
+    saveFavorite() {
+        VKConnect.send("VKWebAppStorageSet", {"key": "steveFavoriteList", "value": this.state.favoriteList.join(",")});
+    }
+
+    checkFavoriteLength() {
+        const favoriteList = [...this.state.favoriteList];
+        if (favoriteList.length < 1) {
+            this.setState({editFavorite: false, openFavorite: false});
+            this.saveFavorite();
+        }
     }
 
     render() {
@@ -57,33 +94,74 @@ class ServerInfoGet extends React.Component {
                 </PanelHeader>
                 <Online>
                     <FormLayout>
-                        {
-                            this.state.spinner ?
-                                <Input
-                                    top='IP-Адрес сервера'
-                                    name='ip'
-                                    disabled
-                                    value={this.state.ip}
-                                    bottom='Например: Hypixel.net'
-                                />
-                                :
-                                <Input
-                                    top='IP-Адрес сервера'
-                                    name='ip'
-                                    value={this.state.ip}
-                                    onChange={this.onChange.bind(this)}
-                                    status={this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g) || this.state.ip === "" ? 'default' : 'error'}
-                                    bottom={this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g) || this.state.ip === "" ? 'Например: Hypixel.net' : 'Неправильный IP-Адрес.'}
-                                    placeholder="Введите IP-Адрес"
-                                    maxLength='100'
-                                />
-                        }
-                        {
-                            this.state.ip.length > 2 && !this.state.spinner && (this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g)) ?
-                                <Button onClick={this.onClick.bind(this)} size='xl'><b>Получить информацию</b></Button>
-                                :
-                                <Button disabled size='xl'><b>Получить информацию</b></Button>
-                        }
+                        <div className="FormLayout__row--s-default">
+                            <div className="FormLayout__row-top">IP-Адрес сервера</div>
+                            <div style={{display: "flex", alignItems: "center"}} className="Input">
+                                <div style={{flexGrow: 99}}>
+                                    <Input
+                                        disabled={!!this.state.spinner}
+                                        name='ip'
+                                        value={this.state.ip}
+                                        onChange={this.onChange.bind(this)}
+                                        status={this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g) || this.state.ip === "" ? 'default' : 'error'}
+                                        bottom={this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g) || this.state.ip === "" ? 'Например: Hypixel.net' : 'Неправильный IP-Адрес.'}
+                                        placeholder="Введите IP-Адрес"
+                                        maxLength='100'
+                                    />
+                                </div>
+                                <div style={{flexGrow: 1, marginRight: "5px"}}>
+                                    {
+                                        this.state.openFavorite ?
+
+                                            <Icon24Dropdown onClick={() => {this.setState({openFavorite: false}); if (this.state.editFavorite) { this.saveFavorite();}}} width={35} height={35}/>
+                                            :
+                                            <Icon24Chevron style={this.state.spinner || this.state.favoriteList.length < 1 ? {opacity: ".2"} : ""} onClick={() => this.state.spinner || this.state.favoriteList.length < 1 ? "" : this.setState({openFavorite: true, editFavorite: false})} width={35} height={35}/>
+                                    }
+                                </div>
+                            </div>
+                            <div className="FormLayout__row-bottom">Например: Hypixel.net</div>
+                            {
+                                this.state.openFavorite ?
+                                    this.state.favoriteList.length > 0 &&
+                                    <Group style={{marginTop: "20px"}}>
+                                        <Header level="secondary" aside={this.state.editFavorite ? <Icon24Done onClick={async () => {await this.setState({editFavorite: false}); await this.saveFavorite();}}/>: <Icon24Write onClick={() => this.setState({editFavorite: true})}/>}>
+                                            Избранные сервера
+                                        </Header>
+                                        <List>
+                                            {
+                                                this.state.editFavorite ?
+                                                    this.state.favoriteList.map((item, index) => (
+                                                        <Cell key={item} draggable
+                                                              removable
+                                                              onDragFinish={({from, to}) => {
+                                                                  const favoriteList = [...this.state.favoriteList];
+                                                                  favoriteList.splice(from, 1);
+                                                                  favoriteList.splice(to, 0, this.state.favoriteList[from]);
+                                                                  this.setState({favoriteList});
+                                                              }}
+                                                              onRemove={async () => {
+                                                                  await this.setState({favoriteList: [...this.state.favoriteList.slice(0, index), ...this.state.favoriteList.slice(index + 1)]});
+                                                                  await this.checkFavoriteLength();
+                                                              }}
+                                                        >{item}</Cell>
+                                                    ))
+                                                    :
+                                                    this.state.favoriteList.map((item) => (
+                                                        <Cell key={item} onClick={async () => {
+                                                            await this.setState({ip: item, openFavorite: false});
+                                                            await this.onClick();
+                                                        }}>{item}</Cell>
+                                                    ))
+                                            }
+                                        </List>
+                                    </Group>
+                                    :
+                                    ""
+                            }
+                        </div>
+                        <Button onClick={this.onClick.bind(this)} size='xl' disabled={!(this.state.ip.length > 2 && !this.state.spinner && (this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g)))}>
+                            <b>Получить информацию</b>
+                        </Button>
                         {
                             this.state.spinner ?
                                 <div className="spinner">
@@ -94,10 +172,10 @@ class ServerInfoGet extends React.Component {
                         }
                         {
                             this.state.response ?
-                                <Group
-                                    title={this.state.titleIP}
-                                    description={this.state.response.software ? `Ядро сервера: ${this.state.response.software}` : ``}
-                                >
+                                <Group description={this.state.response.software ? `Ядро сервера: ${this.state.response.software}` : ``}>
+                                    <Header level="secondary" aside={this.state.favoriteList.includes(this.state.titleIP.toLowerCase()) ? <Icon24Done style={{opacity: ".2"}}/> : <Icon24FavoriteOutline onClick={() => this.addFavorite(this.state.titleIP)}/>}>
+                                        {this.state.titleIP}
+                                    </Header>
                                     <List>
                                         <Cell
                                             multiline
