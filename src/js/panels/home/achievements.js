@@ -102,7 +102,7 @@ class AchievementsGet extends React.Component {
                             value={this.state.one}
                             onChange={this.onChange.bind(this)}
                             placeholder="Достижение получено!"
-                            bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , . (Не больше 20 символов)'
+                            bottom='Может содержать символы латиницы, кириллицы и спец. символы. (Не больше 20)'
                             maxLength='20'
                         />
                         <Input
@@ -112,7 +112,7 @@ class AchievementsGet extends React.Component {
                             value={this.state.two}
                             onChange={this.onChange.bind(this)}
                             placeholder="Терпение и труд"
-                            bottom='Доступные символы: а-я А-Я ёЁ a-z A-Z 0-9 ! ? , . (Не больше 20 символов)'
+                            bottom='Может содержать символы латиницы, кириллицы и спец. символы. (Не больше 20)'
                             maxLength='20'
                         />
                         <Button disabled={!((this.state.one.length > 0 || this.state.two.length > 0) && !this.state.spinner)} onClick={this.onClick.bind(this)} size='xl'><b>Сгенерировать достижение</b></Button>
