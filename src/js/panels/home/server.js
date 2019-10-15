@@ -46,7 +46,7 @@ class ServerInfoGet extends React.Component {
                 }
             })
             .catch(err => {
-                this.setState({ error: `Произошла ошибка. Попробуйте позже.`, spinner: null });
+                this.setState({ error: `Произошла ошибка. Попробуйте позже.`, spinner: false });
                 console.log(err);
             });
     }
