@@ -63,6 +63,7 @@ class ServerInfoGet extends React.Component {
     }
 
    async addFavorite(ip) {
+       console.log("Добавляем сервер в избранное.");
         const favoriteList = [...this.state.favoriteList];
         favoriteList.unshift(ip.toLowerCase());
         await this.setState({favoriteList});
@@ -70,6 +71,7 @@ class ServerInfoGet extends React.Component {
     }
 
     saveFavorite() {
+        console.log("Сохраняем избранное.");
         VKConnect.send("VKWebAppStorageSet", {"key": "steveFavoriteList", "value": this.state.favoriteList.join(",")});
     }
 
@@ -124,7 +126,12 @@ class ServerInfoGet extends React.Component {
                                 this.state.openFavorite ?
                                     this.state.favoriteList.length > 0 &&
                                     <Group style={{marginTop: "20px"}}>
-                                        <Header level="secondary" aside={this.state.editFavorite ? <Icon24Done onClick={async () => {await this.setState({editFavorite: false}); await this.saveFavorite();}}/>: <Icon24Write onClick={() => this.setState({editFavorite: true})}/>}>
+                                        <Header level="secondary" aside={this.state.editFavorite ? <Icon24Done onClick={async () => {
+                                            if (this.state.editFavorite) {
+                                                await this.setState({editFavorite: false});
+                                                await this.saveFavorite();
+                                            }
+                                        }}/> : <Icon24Write onClick={() => this.setState({editFavorite: true})}/>}>
                                             Избранные сервера
                                         </Header>
                                         <List>
