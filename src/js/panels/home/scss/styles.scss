@@ -140,3 +140,11 @@ $btn-border-width: 4px;
 .Header__aside {
   cursor: pointer;
 }
+
+.Header__content {
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  -o-user-select:none;
+  user-select:none;
+}
