@@ -1,0 +1,140 @@
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans:regular,bold,italic,bolditalic);
+@import "~bootstrap/scss/functions";
+@import "./colors";
+@import "./theme";
+$btn-border-width: 4px;
+
+#btn-pseudo-element {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  content: '';
+  transition: 0.7s cubic-bezier(0, 0.8, 0.26, 0.99);
+}
+
+#btn-border {
+  &::before,
+  &::after {
+    @extend #btn-pseudo-element;
+  }
+
+  &::before,
+  .grow {
+    box-shadow:
+            0 (-$btn-border-width) rgba($black, 0.25) inset,
+            0 $btn-border-width rgba($white, 0.35) inset,
+                    (-$btn-border-width) 0 rgba($white, 0.35) inset,
+            $btn-border-width 0 rgba($black, 0.25) inset;
+    z-index: -1;
+  }
+
+  &::after {
+    box-shadow: $default-box-shadow;
+  }
+}
+
+
+.Button {
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 0;
+  z-index: 1;
+  user-select: none;
+  cursor: pointer;
+  white-space: unset;
+  text-decoration: none;
+
+  .grow {
+    &::after {
+      @extend #btn-pseudo-element;
+
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  &:hover {
+    .grow::after {
+      box-shadow: $default-box-shadow;
+    }
+  }
+}
+
+.Button--lvl-primary{
+  @extend #btn-border;
+}
+
+.Button--lvl-primary {
+  color: #FFF;
+  text-shadow: $default-shadow;
+}
+
+@each $color, $value in $theme-colors {
+  .Button--lvl-primary {
+    &::before,
+    .grow {
+      background-color: $fun-green;
+    }
+  }
+}
+
+:root {
+  --font-ios: Noto Sans, -apple-system, Roboto, Helvetica Neue, Arial;
+  --font-android: Noto Sans, Roboto, Arial;
+  --font-common: Noto Sans, Roboto, Arial;
+}
+
+.PanelHeader-bg {
+  background-image: url(bg-wool-dark.png);
+  image-rendering: pixelated;
+  width: 100%;
+}
+
+.Button:disabled,
+.Button[disabled] {
+  cursor: default !important;
+  text-shadow: none;
+}
+
+.Button--ios,
+.Button--android {
+  border-radius: 0;
+}
+
+.Button[disabled] {
+  opacity: .6;
+}
+
+.Button--lvl-tertiary {
+  background-color: transparent;
+  color: #006c35;
+  -webkit-box-shadow: 0 0;
+  text-shadow: 0 0;
+  box-shadow: 0 0;
+}
+
+.PanelHeader-content,
+.PanelHeaderContent__status {
+  color: #ffffff;
+}
+
+.arrow_icon {
+  display: block;
+}
+
+.PanelHeader--ios .PanelHeader-left-in .HeaderButton>:not(.Icon) {
+  padding-left: 4px;
+}
+
+.Cell__before-in>.Icon,
+.icon_base {
+  color: #818c99;
+}
+
+.pointer {
+  cursor: pointer;
+}
