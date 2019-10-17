@@ -17,10 +17,11 @@ import {goBack, openPopout, closePopout, openModal} from "../../store/router/act
 import {Panel, PanelHeader, HeaderButton, PanelHeaderContent, Input, FormLayout, Button, Group, Cell, List, Div, Separator, platform, IOS, Header} from "@vkontakte/vkui";
 
 import Icon24Message from '@vkontakte/icons/dist/24/message';
-import Icon16Done from '@vkontakte/icons/dist/16/done';
+import Icon24DoneOutline from '@vkontakte/icons/dist/24/done_outline';
 import Icon24Chevron from '@vkontakte/icons/dist/24/chevron';
 import Icon24Dropdown from '@vkontakte/icons/dist/24/dropdown';
 import Icon24Write from '@vkontakte/icons/dist/24/write';
+import Icon24Cancel from '@vkontakte/icons/dist/24/cancel';
 import "./spinner.css";
 
 class UserGet extends React.Component {
@@ -109,7 +110,7 @@ class UserGet extends React.Component {
         const historyList = [...this.state.historyList];
         historyList.unshift(nickname);
         if (!(historyList.length <= 10)) {
-            console.log("История никнеймов больше 10, убираем последний элемент в истории.");
+            console.log("История запросов больше 10, убираем последний элемент в истории.");
             historyList.splice(-1,1);
         }
         await this.setState({historyList});
@@ -119,14 +120,6 @@ class UserGet extends React.Component {
     saveHistory() {
         console.log("Сохраняем историю.");
         VKConnect.send("VKWebAppStorageSet", {"key": "steveHistoryList", "value": this.state.historyList.join(",")});
-    }
-
-    checkHistoryLength() {
-        const historyList = [...this.state.historyList];
-        if (historyList.length < 1) {
-            this.setState({editHistory: false, openHistory: false});
-            this.saveHistory();
-        }
     }
 
     render() {
@@ -149,7 +142,7 @@ class UserGet extends React.Component {
                                 <div style={{flexGrow: 99}}>
                                     <Input
                                         name='nickname'
-                                        disabled={this.state.spinner}
+                                        disabled={this.state.spinner || this.state.editHistory}
                                         value={this.state.nickname}
                                         onChange={this.onChange.bind(this)}
                                         status={this.state.nickname.length > 2 || this.state.nickname === "" ? 'default' : 'error'}
@@ -161,23 +154,26 @@ class UserGet extends React.Component {
                                 <div style={{flexGrow: 1, marginRight: "5px"}}>
                                     {
                                         this.state.openHistory ?
-                                            <Icon24Dropdown onClick={() => {this.setState({openHistory: false}); if (this.state.editHistory) { this.saveHistory();}}} width={35} height={35}/>
+                                            <Icon24Dropdown style={this.state.editHistory ? {opacity: ".2"} : ""} onClick={() => !this.state.editHistory ? this.setState({openHistory: false}) : undefined} width={35} height={35}/>
                                             :
-                                            <Icon24Chevron style={this.state.spinner || this.state.historyList.length < 1 ? {opacity: ".2"} : ""} onClick={() => this.state.spinner || this.state.historyList.length < 1 ? "" : this.setState({openHistory: true, editHistory: false})} width={35} height={35}/>
+                                            <Icon24Chevron style={this.state.spinner || this.state.historyList.length < 1 ? {opacity: ".2"} : ""} onClick={() => this.state.spinner || this.state.historyList.length < 1 ? undefined : this.setState({openHistory: true, editHistory: false})} width={35} height={35}/>
                                     }
                                 </div>
                             </div>
                             <div className="FormLayout__row-bottom">Может содержать только латинские буквы, цифры и символ "_". (От 3 до 16 символов)</div>
                             {
                                 this.state.openHistory ?
-                                    this.state.historyList.length > 0 &&
+                                    this.state.historyList.length > 0 || this.state.editHistory ?
                                     <Group style={{marginTop: "20px"}}>
-                                        <Header level="secondary" aside={this.state.editHistory ? <Icon16Done onClick={async () => {
-                                            if (this.state.editHistory) {
-                                                await this.setState({editHistory: false});
-                                                await this.saveHistory();
-                                            }
-                                        }} width={24} height={24}/> : <Icon24Write onClick={() => this.setState({editHistory: true})}/>}>
+                                        <Header level="secondary" aside={this.state.editHistory ?
+                                            <div style={{display: "flex"}}>
+                                                <Icon24Cancel onClick={() => this.setState({historyList: this.state.backup, editHistory: false})} style={{marginRight: "5px"}}/>
+                                                <Icon24DoneOutline onClick={() => {
+                                                    this.setState({editHistory: false, openHistory: !this.state.historyList.length <= 0});
+                                                    this.saveHistory();
+                                                }}/>
+                                            </div>
+                                            : <Icon24Write onClick={() => this.setState({editHistory: true, backup: this.state.historyList})}/>}>
                                             История запросов
                                         </Header>
                                         <List>
@@ -194,7 +190,6 @@ class UserGet extends React.Component {
                                                               }}
                                                               onRemove={async () => {
                                                                   await this.setState({historyList: [...this.state.historyList.slice(0, index), ...this.state.historyList.slice(index + 1)]});
-                                                                  await this.checkHistoryLength();
                                                               }}
                                                         >{item}</Cell>
                                                     ))
@@ -208,11 +203,13 @@ class UserGet extends React.Component {
                                             }
                                         </List>
                                     </Group>
+                                        :
+                                        undefined
                                     :
-                                    ""
+                                    undefined
                             }
                         </div>
-                        <Button disabled={!(this.state.nickname.length > 2 && this.state.nickname.match('^[A-Za-z0-9_]+$') && !this.state.spinner)} onClick={this.onClick.bind(this)} size='xl'>
+                        <Button disabled={!(this.state.nickname.length > 2 && this.state.nickname.match('^[A-Za-z0-9_]+$') && !this.state.spinner && !this.state.editHistory)} onClick={this.onClick.bind(this)} size='xl'>
                             <b>Получить информацию</b>
                         </Button>
                         {
@@ -236,11 +233,11 @@ class UserGet extends React.Component {
                                     </div>
                                     <Separator style={{ margin: '8px 0' }} />
                                     <Div style={{ display: 'flex' }}>
-                                        <Button disabled={this.state.lock} onClick={this.share.bind(this)} stretched before={this.state.lock ? <Icon16Done/> : <Icon24Message width={16} height={16} />}><b>{this.state.lock ? "Сообщение отправлено!" : "Получить cкин в сообщения"}</b></Button>
+                                        <Button disabled={this.state.lock} onClick={this.share.bind(this)} stretched before={this.state.lock ? <Icon24DoneOutline width={16} height={16}/> : <Icon24Message width={16} height={16} />}><b>{this.state.lock ? "Сообщение отправлено!" : "Получить cкин в сообщения"}</b></Button>
                                     </Div>
                                 </Group>
                                 :
-                                ""
+                                undefined
                         }
                         <List top={this.state.username ? `История никнейма ${this.state.username}` : ""}>
                             {
@@ -250,7 +247,7 @@ class UserGet extends React.Component {
                                         </Cell>
                                     ).reverse()
                                     :
-                                    ""
+                                    undefined
                             }
                         </List>
                         {
@@ -263,7 +260,7 @@ class UserGet extends React.Component {
                                     <div className="error_image"/>
                                 </Group>
                                 :
-                                ""
+                                undefined
                         }
                     </FormLayout>
                 </Online>
