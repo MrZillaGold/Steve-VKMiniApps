@@ -218,7 +218,7 @@ class UserGet extends React.Component {
                                     <img src={require('./img/loading.svg')} alt="Загрузка..." style={{ marginTop: 50, height: '100px', width: '100px' }} />
                                 </div>
                                 :
-                                ""
+                                undefined
                         }
                         {
                             this.state.skin ?
