@@ -11,7 +11,8 @@ import Icon24Chevron from '@vkontakte/icons/dist/24/chevron';
 import Icon24Dropdown from '@vkontakte/icons/dist/24/dropdown';
 import Icon24FavoriteOutline from '@vkontakte/icons/dist/24/favorite_outline';
 import Icon24Write from '@vkontakte/icons/dist/24/write';
-import Icon24Done from '@vkontakte/icons/dist/24/done';
+import Icon24DoneOutline from '@vkontakte/icons/dist/24/done_outline';
+import Icon24Cancel from '@vkontakte/icons/dist/24/cancel';
 import "./spinner.css";
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
@@ -62,8 +63,8 @@ class ServerInfoGet extends React.Component {
             });
     }
 
-   async addFavorite(ip) {
-       console.log("Добавляем сервер в избранное.");
+    async addFavorite(ip) {
+        console.log("Добавляем сервер в избранное.");
         const favoriteList = [...this.state.favoriteList];
         favoriteList.unshift(ip.toLowerCase());
         await this.setState({favoriteList});
@@ -73,14 +74,6 @@ class ServerInfoGet extends React.Component {
     saveFavorite() {
         console.log("Сохраняем избранное.");
         VKConnect.send("VKWebAppStorageSet", {"key": "steveFavoriteList", "value": this.state.favoriteList.join(",")});
-    }
-
-    checkFavoriteLength() {
-        const favoriteList = [...this.state.favoriteList];
-        if (favoriteList.length < 1) {
-            this.setState({editFavorite: false, openFavorite: false});
-            this.saveFavorite();
-        }
     }
 
     render() {
@@ -101,7 +94,7 @@ class ServerInfoGet extends React.Component {
                             <div style={{display: "flex", alignItems: "center"}} className="Input">
                                 <div style={{flexGrow: 99}}>
                                     <Input
-                                        disabled={this.state.spinner}
+                                        disabled={this.state.spinner || this.state.editFavorite}
                                         name='ip'
                                         value={this.state.ip}
                                         onChange={this.onChange.bind(this)}
@@ -115,58 +108,64 @@ class ServerInfoGet extends React.Component {
                                     {
                                         this.state.openFavorite ?
 
-                                            <Icon24Dropdown onClick={() => {this.setState({openFavorite: false}); if (this.state.editFavorite) { this.saveFavorite();}}} width={35} height={35}/>
+                                            <Icon24Dropdown style={this.state.editFavorite ? {opacity: ".2"} : ""} onClick={() => !this.state.editFavorite ? this.setState({openFavorite: false}) : undefined} width={35} height={35}/>
                                             :
-                                            <Icon24Chevron style={this.state.spinner || this.state.favoriteList.length < 1 ? {opacity: ".2"} : ""} onClick={() => this.state.spinner || this.state.favoriteList.length < 1 ? "" : this.setState({openFavorite: true, editFavorite: false})} width={35} height={35}/>
+                                            <Icon24Chevron style={this.state.spinner || this.state.favoriteList.length < 1 ? {opacity: ".2"} : ""} onClick={() => this.state.spinner || this.state.favoriteList.length < 1 ? undefined : this.setState({openFavorite: true, editFavorite: false})} width={35} height={35}/>
                                     }
                                 </div>
                             </div>
                             <div className="FormLayout__row-bottom">Например: Hypixel.net</div>
                             {
                                 this.state.openFavorite ?
-                                    this.state.favoriteList.length > 0 &&
-                                    <Group style={{marginTop: "20px"}}>
-                                        <Header level="secondary" aside={this.state.editFavorite ? <Icon24Done onClick={async () => {
-                                            if (this.state.editFavorite) {
-                                                await this.setState({editFavorite: false});
-                                                await this.saveFavorite();
-                                            }
-                                        }}/> : <Icon24Write onClick={() => this.setState({editFavorite: true})}/>}>
-                                            Избранные сервера
-                                        </Header>
-                                        <List>
-                                            {
-                                                this.state.editFavorite ?
-                                                    this.state.favoriteList.map((item, index) => (
-                                                        <Cell key={item} draggable
-                                                              removable
-                                                              onDragFinish={({from, to}) => {
-                                                                  const favoriteList = [...this.state.favoriteList];
-                                                                  favoriteList.splice(from, 1);
-                                                                  favoriteList.splice(to, 0, this.state.favoriteList[from]);
-                                                                  this.setState({favoriteList});
-                                                              }}
-                                                              onRemove={async () => {
-                                                                  await this.setState({favoriteList: [...this.state.favoriteList.slice(0, index), ...this.state.favoriteList.slice(index + 1)]});
-                                                                  await this.checkFavoriteLength();
-                                                              }}
-                                                        >{item}</Cell>
-                                                    ))
-                                                    :
-                                                    this.state.favoriteList.map((item) => (
-                                                        <Cell key={item} onClick={async () => {
-                                                            await this.setState({ip: item, openFavorite: false});
-                                                            await this.onClick();
-                                                        }}>{item}</Cell>
-                                                    ))
-                                            }
-                                        </List>
-                                    </Group>
+                                    this.state.favoriteList.length > 0 || this.state.editFavorite ?
+                                        <Group style={{marginTop: "20px"}}>
+                                            <Header level="secondary" aside={this.state.editFavorite ?
+                                                <div style={{display: "flex"}}>
+                                                    <Icon24Cancel onClick={() => this.setState({favoriteList: this.state.backup, editFavorite: false})} style={{marginRight: "5px"}}/>
+                                                    <Icon24DoneOutline onClick={() => {
+                                                        this.setState({editFavorite: false, openFavorite: !this.state.favoriteList.length <= 0});
+                                                        this.saveFavorite();
+                                                    }}/>
+                                                </div>
+                                                :
+                                                <Icon24Write onClick={() => this.setState({editFavorite: true, backup: this.state.favoriteList})}/>}
+                                            >
+                                                Избранные сервера
+                                            </Header>
+                                            <List>
+                                                {
+                                                    this.state.editFavorite ?
+                                                        this.state.favoriteList.map((item, index) => (
+                                                            <Cell key={item} draggable
+                                                                  removable
+                                                                  onDragFinish={({from, to}) => {
+                                                                      const favoriteList = [...this.state.favoriteList];
+                                                                      favoriteList.splice(from, 1);
+                                                                      favoriteList.splice(to, 0, this.state.favoriteList[from]);
+                                                                      this.setState({favoriteList});
+                                                                  }}
+                                                                  onRemove={() => {
+                                                                      this.setState({favoriteList: [...this.state.favoriteList.slice(0, index), ...this.state.favoriteList.slice(index + 1)]});
+                                                                  }}
+                                                            >{item}</Cell>
+                                                        ))
+                                                        :
+                                                        this.state.favoriteList.map((item) => (
+                                                            <Cell key={item} onClick={async () => {
+                                                                await this.setState({ip: item, openFavorite: false});
+                                                                await this.onClick();
+                                                            }}>{item}</Cell>
+                                                        ))
+                                                }
+                                            </List>
+                                        </Group>
+                                        :
+                                        undefined
                                     :
-                                    ""
+                                    undefined
                             }
                         </div>
-                        <Button onClick={this.onClick.bind(this)} size='xl' disabled={!(this.state.ip.length > 2 && !this.state.spinner && (this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g)))}>
+                        <Button onClick={this.onClick.bind(this)} size='xl' disabled={!(this.state.ip.length > 2 && !this.state.editFavorite && !this.state.spinner && (this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g)))}>
                             <b>Получить информацию</b>
                         </Button>
                         {
@@ -175,12 +174,12 @@ class ServerInfoGet extends React.Component {
                                     <img src={require('./img/loading.svg')} alt="Загрузка..." className="loading"/>
                                 </div>
                                 :
-                                ""
+                                undefined
                         }
                         {
                             this.state.response ?
                                 <Group description={this.state.response.software ? `Ядро сервера: ${this.state.response.software}` : ``}>
-                                    <Header level="secondary" aside={this.state.favoriteList.includes(this.state.titleIP.toLowerCase()) ? <Icon24Done style={{opacity: ".2"}}/> : <Icon24FavoriteOutline onClick={() => this.addFavorite(this.state.titleIP)}/>}>
+                                    <Header level="secondary" aside={this.state.favoriteList.includes(this.state.titleIP.toLowerCase()) ? <Icon24DoneOutline style={{opacity: ".2"}}/> : <Icon24FavoriteOutline onClick={() => this.addFavorite(this.state.titleIP)}/>}>
                                         {this.state.titleIP}
                                     </Header>
                                     <List>
@@ -198,12 +197,12 @@ class ServerInfoGet extends React.Component {
                                                     {this.state.response.players.list.toString().replace(/,/g, ',  ')}
                                                 </Cell>
                                                 :
-                                                ""
+                                                undefined
                                         }
                                     </List>
                                 </Group>
                                 :
-                                ""
+                                undefined
                         }
                         {
                             this.state.error ?
@@ -215,7 +214,7 @@ class ServerInfoGet extends React.Component {
                                     <div className="error_image"/>
                                 </Group>
                                 :
-                                ""
+                                undefined
                         }
                     </FormLayout>
                 </Online>
