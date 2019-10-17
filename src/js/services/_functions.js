@@ -37,13 +37,16 @@ export const randomInteger = (min, max) => {
 };
 
 export const checkStatus = (status) => {
+    const green = require('../panels/home/img/green.gif');
+    const yellow = require('../panels/home/img/yellow.gif');
+    const red = require('../panels/home/img/red.gif');
     if (status === "green") {
-        return {"img" : 'https://s3.amazonaws.com/assets.mojang.com/Happy-Server.gif', "text" : "Всё в порядке"};
+        return {"img" : green, "text" : "Всё в порядке"};
     }
     if (status === "yellow") {
-        return {"img" : 'https://s3.amazonaws.com/assets.mojang.com/Mellow-Server.gif', "text" : "Небольшие неполадки"};
+        return {"img" : yellow, "text" : "Небольшие неполадки"};
     }
     if (status === "red") {
-        return {"img" : 'https://s3.amazonaws.com/assets.mojang.com/Sad-Server.gif', "text" : "Проблемы с доступностью"};
+        return {"img" : red, "text" : "Проблемы с доступностью"};
     }
 };
