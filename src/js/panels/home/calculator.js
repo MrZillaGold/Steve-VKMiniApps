@@ -2,13 +2,13 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import {fixInput} from "../../services/_functions";
-
+import {Panel, PanelHeader, PanelHeaderContent, Group, Separator, Input, FormLayout, Select, List, Cell, Button, HeaderButton} from "@vkontakte/vkui";
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
-
-import {Panel, PanelHeader, PanelHeaderContent, Group, Separator, Input, FormLayout, Select, List, Cell, Button, HeaderButton, platform, IOS} from "@vkontakte/vkui";
 import Icon24Copy from '@vkontakte/icons/dist/24/copy';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
+
+import {fixInput} from "../../services/_functions";
+import HeaderButtons from "./components/headerbuttons";
 
 class Calculator extends React.Component {
 
@@ -49,7 +49,7 @@ class Calculator extends React.Component {
 
         return (
             <Panel id={id}>
-                <PanelHeader transparent left={<HeaderButton onClick={() => goBack()}>{platform() === IOS ? <img className="arrow_icon" src={require('./img/arrowios.svg')} alt=""/> : <img className="arrow_icon" src={require('./img/arrowandroid.svg')} alt=""/>}</HeaderButton>}>
+                <PanelHeader transparent left={<HeaderButton onClick={() => goBack()}><HeaderButtons/></HeaderButton>}>
                     <PanelHeaderContent status="Калькулятор">
                         Steve
                     </PanelHeaderContent>

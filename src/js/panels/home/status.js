@@ -2,16 +2,16 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import axios from 'axios';
-
+import {Panel, PanelHeader, PanelHeaderContent, Avatar, Group, Cell, List, HeaderButton} from "@vkontakte/vkui";
 import { Offline, Online } from 'react-detect-offline';
-import OfflineBlock from './offline';
-
-import {checkStatus} from "../../services/_functions";
-import "./spinner.css";
-
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
-import {Panel, PanelHeader, PanelHeaderContent, Avatar, Group, Cell, List, HeaderButton, platform, IOS} from "@vkontakte/vkui";
+import {checkStatus} from "../../services/_functions";
+
+import OfflineBlock from './components/offline';
+import Spinner from './components/spinner';
+import Error from './components/error';
+import HeaderButtons from "./components/headerbuttons";
 
 class StatusGet extends React.Component {
 
@@ -40,18 +40,16 @@ class StatusGet extends React.Component {
 
         return (
             <Panel id={id}>
-                <PanelHeader transparent left={<HeaderButton onClick={() => goBack()}>{platform() === IOS ? <img className="arrow_icon" src={require('./img/arrowios.svg')} alt=""/> : <img className="arrow_icon" src={require('./img/arrowandroid.svg')} alt=""/>}</HeaderButton>}>
+                <PanelHeader transparent left={<HeaderButton onClick={() => goBack()}><HeaderButtons/></HeaderButton>}>
                     <PanelHeaderContent status="Состояние серверов">
                         Steve
                     </PanelHeaderContent>
                 </PanelHeader>
                 <Online>
                     { this.state.spinner ?
-                        <div className="spinner">
-                            <img src={require('./img/loading.svg')} alt="Загрузка..." className="loading" />
-                        </div>
+                        <Spinner />
                         :
-                        ""
+                        undefined
                     }
                     {
                         this.state.status ?
@@ -110,19 +108,13 @@ class StatusGet extends React.Component {
                                 </List>
                             </Group>
                             :
-                            ""
+                            undefined
                     }
                     {
                         this.state.error ?
-                            <Group>
-                                <List>
-                                    <Cell align='center'><b>Упс...</b></Cell>
-                                </List>
-                                <p className="error_text">{this.state.error}</p>
-                                    <div className="error_image"/>
-                            </Group>
+                            <Error error={this.state.error} stretch/>
                             :
-                            ""
+                            undefined
                     }
                 </Online>
                 <Offline>

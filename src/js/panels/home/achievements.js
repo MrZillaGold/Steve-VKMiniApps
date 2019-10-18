@@ -2,20 +2,20 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import axios from 'axios';
-import {fixInput} from "../../services/_functions";
+import VKConnect from "@vkontakte/vk-connect";
+import { Offline, Online } from 'react-detect-offline';
+import {Panel, PanelHeader, PanelHeaderContent, Input, FormLayout, Button, Group, Div, Separator, HeaderButton} from "@vkontakte/vkui";
+
+import {randomInteger, fixInput} from "../../services/_functions";
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
-import {Panel, PanelHeader, PanelHeaderContent, Input, FormLayout, Button, Group, Cell, List, Div, Separator, HeaderButton, platform, IOS} from "@vkontakte/vkui";
 
 import Icon24Message from '@vkontakte/icons/dist/24/message';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
 
-import VKConnect from "@vkontakte/vk-connect";
-
-import {randomInteger} from "../../services/_functions";
-
-import { Offline, Online } from 'react-detect-offline';
-import OfflineBlock from './offline';
-import "./spinner.css";
+import OfflineBlock from './components/offline';
+import Spinner from './components/spinner';
+import Error from './components/error';
+import HeaderButtons from "./components/headerbuttons";
 import "./achievements.css";
 
 class AchievementsGet extends React.Component {
@@ -88,7 +88,7 @@ class AchievementsGet extends React.Component {
 
         return (
             <Panel id={id}>
-                <PanelHeader transparent left={<HeaderButton onClick={() => goBack()}>{platform() === IOS ? <img className="arrow_icon" src={require('./img/arrowios.svg')} alt=""/> : <img className="arrow_icon" src={require('./img/arrowandroid.svg')} alt=""/>}</HeaderButton>}>
+                <PanelHeader transparent left={<HeaderButton onClick={() => goBack()}><HeaderButtons/></HeaderButton>}>
                     <PanelHeaderContent status="Генератор">
                         Steve
                     </PanelHeaderContent>
@@ -115,26 +115,21 @@ class AchievementsGet extends React.Component {
                             bottom='Может содержать символы латиницы, кириллицы и спец. символы. (Не больше 20)'
                             maxLength='20'
                         />
-                        <Button disabled={!((this.state.one.length > 0 || this.state.two.length > 0) && !this.state.spinner)} onClick={this.onClick.bind(this)} size='xl'><b>Сгенерировать достижение</b></Button>
+                        <Button disabled={!((this.state.one.length > 0 || this.state.two.length > 0) && !this.state.spinner)} onClick={this.onClick.bind(this)} size='xl'>
+                            <b>Сгенерировать достижение</b>
+                        </Button>
+                    </FormLayout>
                         {
                             this.state.spinner ?
-                                <div className="spinner">
-                                    <img src={require('./img/loading.svg')} alt="Загрузка..." className="loading" />
-                                </div>
+                                <Spinner />
                                 :
-                                ""
+                                undefined
                         }
                         {
                             this.state.error ?
-                                <Group>
-                                    <List>
-                                        <Cell align='center'><b>Упс...</b></Cell>
-                                    </List>
-                                    <p className="error_text">{this.state.error}</p>
-                                    <div className="error_image"/>
-                                </Group>
+                                <Error error={this.state.error} />
                                 :
-                                ""
+                                undefined
                         }
                         {
                             this.state.check ?
@@ -148,9 +143,8 @@ class AchievementsGet extends React.Component {
                                     </Div>
                                 </Group>
                                 :
-                                ""
+                                undefined
                         }
-                    </FormLayout>
                 </Online>
                 <Offline>
                     <OfflineBlock />

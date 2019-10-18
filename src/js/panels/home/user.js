@@ -1,20 +1,21 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
+
 import axios from 'axios';
 import Skinview3d from 'react-skinview3d'
-import {fixInput} from "../../services/_functions";
-
 import VKConnect from "@vkontakte/vk-connect";
-
-import {timeConvert} from "../../services/_functions";
-
 import { Offline, Online } from 'react-detect-offline';
-import OfflineBlock from './offline';
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
+import {timeConvert, fixInput} from "../../services/_functions";
 
-import {Panel, PanelHeader, HeaderButton, PanelHeaderContent, Input, FormLayout, Button, Group, Cell, List, Div, Separator, platform, IOS, Header} from "@vkontakte/vkui";
+import OfflineBlock from './components/offline';
+import Error from "./components/error";
+import Spinner from "./components/spinner";
+import HeaderButtons from "./components/headerbuttons";
+
+import {Panel, PanelHeader, HeaderButton, PanelHeaderContent, Input, FormLayout, Button, Group, Cell, List, Div, Separator, Header} from "@vkontakte/vkui";
 
 import Icon24Message from '@vkontakte/icons/dist/24/message';
 import Icon24DoneOutline from '@vkontakte/icons/dist/24/done_outline';
@@ -22,7 +23,6 @@ import Icon24Chevron from '@vkontakte/icons/dist/24/chevron';
 import Icon24Dropdown from '@vkontakte/icons/dist/24/dropdown';
 import Icon24Write from '@vkontakte/icons/dist/24/write';
 import Icon24Cancel from '@vkontakte/icons/dist/24/cancel';
-import "./spinner.css";
 
 class UserGet extends React.Component {
 
@@ -124,12 +124,11 @@ class UserGet extends React.Component {
 
     render() {
         const {id, goBack} = this.props;
-
         const {regDate} = this.state;
 
         return (
             <Panel id={id}>
-                <PanelHeader transparent left={<HeaderButton onClick={() => goBack()}>{platform() === IOS ? <img className="arrow_icon" src={require('./img/arrowios.svg')} alt=""/> : <img className="arrow_icon" src={require('./img/arrowandroid.svg')} alt=""/>}</HeaderButton>}>
+                <PanelHeader transparent left={<HeaderButton onClick={() => goBack()}><HeaderButtons /></HeaderButton>}>
                     <PanelHeaderContent status="Информация об игроке">
                         Steve
                     </PanelHeaderContent>
@@ -212,11 +211,10 @@ class UserGet extends React.Component {
                         <Button disabled={!(this.state.nickname.length > 2 && this.state.nickname.match('^[A-Za-z0-9_]+$') && !this.state.spinner && !this.state.editHistory)} onClick={this.onClick.bind(this)} size='xl'>
                             <b>Получить информацию</b>
                         </Button>
+                    </FormLayout>
                         {
                             this.state.spinner ?
-                                <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                                    <img src={require('./img/loading.svg')} alt="Загрузка..." style={{ marginTop: 50, height: '100px', width: '100px' }} />
-                                </div>
+                                <Spinner />
                                 :
                                 undefined
                         }
@@ -252,17 +250,10 @@ class UserGet extends React.Component {
                         </List>
                         {
                             this.state.error ?
-                                <Group>
-                                    <List>
-                                        <Cell align='center'><b>Упс...</b></Cell>
-                                    </List>
-                                    <p className="error_text">{this.state.error}</p>
-                                    <div className="error_image"/>
-                                </Group>
+                                <Error error={this.state.error}/>
                                 :
                                 undefined
                         }
-                    </FormLayout>
                 </Online>
                 <Offline>
                     <OfflineBlock />

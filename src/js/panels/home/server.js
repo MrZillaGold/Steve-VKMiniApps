@@ -3,21 +3,23 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import axios from 'axios';
 import VKConnect from "@vkontakte/vk-connect";
-import {fixInput} from "../../services/_functions";
-
 import { Offline, Online } from 'react-detect-offline';
-import OfflineBlock from './offline';
+import {Panel, PanelHeader, PanelHeaderContent, Input, FormLayout, Button, Avatar, Group, Cell, Header, List, HeaderButton} from "@vkontakte/vkui";
 import Icon24Chevron from '@vkontakte/icons/dist/24/chevron';
 import Icon24Dropdown from '@vkontakte/icons/dist/24/dropdown';
 import Icon24FavoriteOutline from '@vkontakte/icons/dist/24/favorite_outline';
 import Icon24Write from '@vkontakte/icons/dist/24/write';
 import Icon24DoneOutline from '@vkontakte/icons/dist/24/done_outline';
 import Icon24Cancel from '@vkontakte/icons/dist/24/cancel';
-import "./spinner.css";
+
+import {fixInput} from "../../services/_functions";
+
+import OfflineBlock from './components/offline';
+import Spinner from './components/spinner';
+import Error from './components/error';
+import HeaderButtons from "./components/headerbuttons";
 
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
-
-import {Panel, PanelHeader, PanelHeaderContent, Input, FormLayout, Button, Avatar, Group, Cell, Header, List, HeaderButton, platform, IOS} from "@vkontakte/vkui";
 
 class ServerInfoGet extends React.Component {
 
@@ -82,7 +84,7 @@ class ServerInfoGet extends React.Component {
 
         return (
             <Panel id={id}>
-                <PanelHeader transparent left={<HeaderButton onClick={() => goBack()}>{platform() === IOS ? <img className="arrow_icon" src={require('./img/arrowios.svg')} alt=""/> : <img className="arrow_icon" src={require('./img/arrowandroid.svg')} alt=""/>}</HeaderButton>}>
+                <PanelHeader transparent left={<HeaderButton onClick={() => goBack()}><HeaderButtons/></HeaderButton>}>
                     <PanelHeaderContent status="Информация по IP">
                         Steve
                     </PanelHeaderContent>
@@ -170,9 +172,7 @@ class ServerInfoGet extends React.Component {
                         </Button>
                         {
                             this.state.spinner ?
-                                <div className="spinner">
-                                    <img src={require('./img/loading.svg')} alt="Загрузка..." className="loading"/>
-                                </div>
+                                <Spinner />
                                 :
                                 undefined
                         }
@@ -206,13 +206,7 @@ class ServerInfoGet extends React.Component {
                         }
                         {
                             this.state.error ?
-                                <Group>
-                                    <List>
-                                        <Cell align='center'><b>Упс...</b></Cell>
-                                    </List>
-                                    <p className="error_text">{this.state.error}</p>
-                                    <div className="error_image"/>
-                                </Group>
+                                <Error error={this.state.error}/>
                                 :
                                 undefined
                         }

@@ -47,12 +47,6 @@ class HomePanelBase extends React.Component {
 
 }
 
-const mapDispatchToProps = {
-    setPage,
-    goBack,
-    openPopout,
-    closePopout,
-    openModal
-};
+const mapDispatchToProps = {setPage, goBack, openPopout, closePopout, openModal};
 
 export default connect(null, mapDispatchToProps)(HomePanelBase);

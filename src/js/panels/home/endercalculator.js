@@ -2,13 +2,13 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from "redux";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import {fixInput} from "../../services/_functions";
-
 import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
-
-import {Panel, PanelHeader, PanelHeaderContent, Group, Separator, Input, FormLayout, FormLayoutGroup, List, Cell, Button, Div, FormStatus, HeaderButton, platform, IOS} from "@vkontakte/vkui";
+import {Panel, PanelHeader, PanelHeaderContent, Group, Separator, Input, FormLayout, FormLayoutGroup, List, Cell, Button, Div, FormStatus, HeaderButton} from "@vkontakte/vkui";
 import Icon24Copy from '@vkontakte/icons/dist/24/copy';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
+
+import {fixInput} from "../../services/_functions";
+import HeaderButtons from "./components/headerbuttons";
 
 class EnderPortalCalculator extends React.Component {
 
@@ -95,7 +95,7 @@ class EnderPortalCalculator extends React.Component {
 
         return (
             <Panel id={id}>
-                <PanelHeader transparent left={<HeaderButton onClick={() => goBack()}>{platform() === IOS ? <img className="arrow_icon" src={require('./img/arrowios.svg')} alt=""/> : <img className="arrow_icon" src={require('./img/arrowandroid.svg')} alt=""/>}</HeaderButton>}>
+                <PanelHeader transparent left={<HeaderButton onClick={() => goBack()}><HeaderButtons/></HeaderButton>}>
                     <PanelHeaderContent status="Калькулятор">
                         Steve
                     </PanelHeaderContent>
@@ -112,7 +112,7 @@ class EnderPortalCalculator extends React.Component {
                             }
                         </FormStatus>
                         :
-                        ""
+                        undefined
                     }
                     <FormLayoutGroup top="Бросок #1">
                         <div style={{display: "flex"}}>
