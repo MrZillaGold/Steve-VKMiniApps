@@ -5,7 +5,7 @@ import Skinview3d from 'react-skinview3d'
 import VKConnect from "@vkontakte/vk-connect";
 import { Offline, Online } from 'react-detect-offline';
 
-import {timeConvert, fixInput} from "../../services/_functions";
+import {timeConvert, fixInput, resizeWindow} from "../../services/_functions";
 
 import OfflineBlock from './components/offline';
 import Error from "./components/error";
