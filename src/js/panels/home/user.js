@@ -1,13 +1,10 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from "redux";
 
 import axios from 'axios';
 import Skinview3d from 'react-skinview3d'
 import VKConnect from "@vkontakte/vk-connect";
 import { Offline, Online } from 'react-detect-offline';
 
-import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 import {timeConvert, fixInput} from "../../services/_functions";
 
 import OfflineBlock from './components/offline';
@@ -123,12 +120,12 @@ class UserGet extends React.Component {
     }
 
     render() {
-        const {id, goBack} = this.props;
+        const {id, navigator} = this.props;
         const {regDate} = this.state;
 
         return (
             <Panel id={id}>
-                <PanelHeader transparent left={<HeaderButton onClick={() => goBack()}><HeaderButtons /></HeaderButton>}>
+                <PanelHeader transparent left={<HeaderButton onClick={() => navigator.goBack()}><HeaderButtons /></HeaderButton>}>
                     <PanelHeaderContent status="Информация об игроке">
                         Steve
                     </PanelHeaderContent>
@@ -264,11 +261,4 @@ class UserGet extends React.Component {
 
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        dispatch,
-        ...bindActionCreators({goBack, openPopout, closePopout, openModal}, dispatch)
-    }
-}
-
-export default connect(null, mapDispatchToProps)(UserGet);
+export default UserGet;

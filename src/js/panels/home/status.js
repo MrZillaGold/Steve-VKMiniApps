@@ -1,10 +1,7 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from "redux";
 import axios from 'axios';
 import {Panel, PanelHeader, PanelHeaderContent, Avatar, Group, Cell, List, HeaderButton} from "@vkontakte/vkui";
 import { Offline, Online } from 'react-detect-offline';
-import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
 import {checkStatus} from "../../services/_functions";
 
@@ -36,11 +33,11 @@ class StatusGet extends React.Component {
     }
 
     render() {
-        const {id, goBack} = this.props;
+        const {id, navigator} = this.props;
 
         return (
             <Panel id={id}>
-                <PanelHeader transparent left={<HeaderButton onClick={() => goBack()}><HeaderButtons/></HeaderButton>}>
+                <PanelHeader transparent left={<HeaderButton onClick={() => navigator.goBack()}><HeaderButtons/></HeaderButton>}>
                     <PanelHeaderContent status="Состояние серверов">
                         Steve
                     </PanelHeaderContent>
@@ -126,11 +123,4 @@ class StatusGet extends React.Component {
 
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        dispatch,
-        ...bindActionCreators({goBack, openPopout, closePopout, openModal}, dispatch)
-    }
-}
-
-export default connect(null, mapDispatchToProps)(StatusGet);
+export default StatusGet;

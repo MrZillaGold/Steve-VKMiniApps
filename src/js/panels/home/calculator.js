@@ -1,9 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from "redux";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import {Panel, PanelHeader, PanelHeaderContent, Group, Separator, Input, FormLayout, Select, List, Cell, Button, HeaderButton} from "@vkontakte/vkui";
-import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 import Icon24Copy from '@vkontakte/icons/dist/24/copy';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
 
@@ -41,7 +38,7 @@ class Calculator extends React.Component {
 
     render() {
 
-        const {world, id, goBack} = this.props;
+        const {world, id, navigator} = this.props;
 
         const x = this.state.x === '' ? '0' : this.state.x.match('^-?[0-9]') ? this.state.world === 'nether' ? Math.floor(this.state.x / 8) : Math.floor(this.state.x * 8) : '0';
         const y = this.state.y === '' ? '0' : this.state.y.match('^[0-9]') ? this.state.y / 1 : '0';
@@ -49,7 +46,7 @@ class Calculator extends React.Component {
 
         return (
             <Panel id={id}>
-                <PanelHeader transparent left={<HeaderButton onClick={() => goBack()}><HeaderButtons/></HeaderButton>}>
+                <PanelHeader transparent left={<HeaderButton onClick={() => navigator.goBack()}><HeaderButtons/></HeaderButton>}>
                     <PanelHeaderContent status="Калькулятор">
                         Steve
                     </PanelHeaderContent>
@@ -144,11 +141,4 @@ class Calculator extends React.Component {
 
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        dispatch,
-        ...bindActionCreators({goBack, openPopout, closePopout, openModal}, dispatch)
-    }
-}
-
-export default connect(null, mapDispatchToProps)(Calculator);
+export default Calculator;

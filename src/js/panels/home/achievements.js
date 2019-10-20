@@ -1,13 +1,10 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from "redux";
 import axios from 'axios';
 import VKConnect from "@vkontakte/vk-connect";
 import { Offline, Online } from 'react-detect-offline';
 import {Panel, PanelHeader, PanelHeaderContent, Input, FormLayout, Button, Group, Div, Separator, HeaderButton} from "@vkontakte/vkui";
 
 import {randomInteger, fixInput} from "../../services/_functions";
-import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 
 import Icon24Message from '@vkontakte/icons/dist/24/message';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
@@ -83,12 +80,12 @@ class AchievementsGet extends React.Component {
 
     render() {
 
-        const {id, goBack} = this.props;
+        const {id, navigator} = this.props;
         const url = 'https://vkfreeviews.000webhostapp.com/a.php?h=' + this.state.lineOne +'&t=' + this.state.lineTwo + '&i=' + this.state.rand;
 
         return (
             <Panel id={id}>
-                <PanelHeader transparent left={<HeaderButton onClick={() => goBack()}><HeaderButtons/></HeaderButton>}>
+                <PanelHeader transparent left={<HeaderButton onClick={() => navigator.goBack()}><HeaderButtons/></HeaderButton>}>
                     <PanelHeaderContent status="Генератор">
                         Steve
                     </PanelHeaderContent>
@@ -155,11 +152,4 @@ class AchievementsGet extends React.Component {
 
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        dispatch,
-        ...bindActionCreators({goBack, openPopout, closePopout, openModal}, dispatch)
-    }
-}
-
-export default connect(null, mapDispatchToProps)(AchievementsGet);
+export default AchievementsGet;

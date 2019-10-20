@@ -1,8 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from "redux";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import {goBack, openPopout, closePopout, openModal} from "../../store/router/actions";
 import {Panel, PanelHeader, PanelHeaderContent, Group, Separator, Input, FormLayout, FormLayoutGroup, List, Cell, Button, Div, FormStatus, HeaderButton} from "@vkontakte/vkui";
 import Icon24Copy from '@vkontakte/icons/dist/24/copy';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
@@ -41,7 +38,8 @@ class EnderPortalCalculator extends React.Component {
     }
 
     render() {
-        const {id, goBack} = this.props;
+        const {id, navigator} = this.props;
+
         const p = Math.PI/180;
         const a1 = parseFloat(this.state.a1);
         const a2 = parseFloat(this.state.a2);
@@ -95,7 +93,7 @@ class EnderPortalCalculator extends React.Component {
 
         return (
             <Panel id={id}>
-                <PanelHeader transparent left={<HeaderButton onClick={() => goBack()}><HeaderButtons/></HeaderButton>}>
+                <PanelHeader transparent left={<HeaderButton onClick={() => navigator.goBack()}><HeaderButtons/></HeaderButton>}>
                     <PanelHeaderContent status="Калькулятор">
                         Steve
                     </PanelHeaderContent>
@@ -216,11 +214,4 @@ class EnderPortalCalculator extends React.Component {
 
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        dispatch,
-        ...bindActionCreators({goBack, openPopout, closePopout, openModal}, dispatch)
-    }
-}
-
-export default connect(null, mapDispatchToProps)(EnderPortalCalculator);
+export default EnderPortalCalculator;
