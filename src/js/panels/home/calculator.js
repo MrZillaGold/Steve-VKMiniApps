@@ -4,7 +4,7 @@ import {Panel, PanelHeader, PanelHeaderContent, Group, Separator, Input, FormLay
 import Icon24Copy from '@vkontakte/icons/dist/24/copy';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
 
-import {fixInput} from "../../services/_functions";
+import {fixInput, resizeWindow} from "../../services/_functions";
 import HeaderButtons from "./components/headerbuttons";
 
 class Calculator extends React.Component {
@@ -18,6 +18,10 @@ class Calculator extends React.Component {
         rand: null,
         world: "world"
     };
+
+    componentWillMount() {
+        resizeWindow(1000)
+    }
 
     onChange(e) {
         fixInput();
