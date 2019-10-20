@@ -37,12 +37,12 @@ class UserGet extends React.Component {
         this.setState({[name]: value.replace(/[^A-Za-z0-9_]/g, "").slice(0, 16)});
     }
 
-    onClick () {
+    async onClick () {
         if (this.state.nickname.length === 0){
             return this.setState({ value: 'error' });
         }
         this.setState({ spinner: true, list: false, username: false, error: false, value: false, skin: false, cape: false, regDate: false, lock: false, openHistory: false});
-        axios.get(`https://stevecors.herokuapp.com/https://api.ashcon.app/mojang/v2/user/${this.state.nickname}`)
+        await axios.get(`https://stevecors.herokuapp.com/https://api.ashcon.app/mojang/v2/user/${this.state.nickname}`)
             .then(res => {
                 return res.data;
             })
@@ -76,6 +76,7 @@ class UserGet extends React.Component {
                     return console.log(err);
                 }
             });
+        await resizeWindow(650 + (61 * this.state.list.length));
     }
 
     share () {
