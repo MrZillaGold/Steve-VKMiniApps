@@ -3,26 +3,21 @@ import 'core-js/es6/set';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import {applyMiddleware, createStore} from "redux";
-import thunk from 'redux-thunk';
-import {Provider} from 'react-redux';
-import rootReducer from './js/store/reducers';
-import {composeWithDevTools} from 'redux-devtools-extension';
-
-import {setStory} from "./js/store/router/actions";
-
+import VKConnect from "@vkontakte/vk-connect";
 import mVKMiniAppsScrollHelper from '@vkontakte/mvk-mini-apps-scroll-helper';
 import {platform, IOS} from "@vkontakte/vkui/dist/lib/platform";
 import '@vkontakte/vkui/dist/vkui.css';
-
 import App from './App';
 
-export const store = createStore(rootReducer, composeWithDevTools(
-    applyMiddleware(thunk),
-));
-
-store.dispatch(setStory('home', 'base'));
+VKConnect.send("VKWebAppInit");
+VKConnect.subscribe(({ detail: { type, data }}) => {
+    if (type === "VKWebAppUpdateConfig") {
+        const schemeAttribute = document.createAttribute("scheme");
+        schemeAttribute.value = data.scheme ? data.scheme : "bright_light";
+        document.body.attributes.setNamedItem(schemeAttribute);
+    }
+});
+VKConnect.send("VKWebAppSetViewSettings", {"status_bar_style": "light", "action_bar_color": "#1c1c1c"});
 
 const OsName = platform();
 const root = document.getElementById('root');
@@ -30,8 +25,4 @@ if (OsName === IOS) {
     mVKMiniAppsScrollHelper(root);
 }
 
-ReactDOM.render(
-    <Provider store={store}>
-        <App/>
-    </Provider>, root
-);
+ReactDOM.render(<App/>, root);
