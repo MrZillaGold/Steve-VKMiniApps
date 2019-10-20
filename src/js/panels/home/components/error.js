@@ -3,14 +3,22 @@ import {randomInteger} from "../../../services/_functions";
 import {Placeholder} from "@vkontakte/vkui";
 
 class Error extends React.Component {
+
+    state = {
+      image: null
+    };
+
+    componentWillMount() {
+        this.setState({image: randomInteger(1, 3)})
+    }
+
     render() {
         const {error, stretch} = this.props;
-        //const random = randomInteger(1, 3);
         return (
             <Placeholder
                 stretched={stretch}
                 title="Упс..."
-                icon={<img src={require(`../img/error2.svg`)} alt="Ошибка" />}
+                icon={<img src={require(`../img/error${this.state.image}.svg`)} alt="Ошибка" />}
             >
                 {error}
             </Placeholder>
