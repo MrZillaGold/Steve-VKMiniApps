@@ -1,3 +1,5 @@
+import VKConnect from "@vkontakte/vk-connect";
+
 export const smoothScrollToTop = () => {
     const c = document.documentElement.scrollTop || document.body.scrollTop;
 
@@ -49,4 +51,9 @@ export const checkStatus = (status) => {
     if (status === "red") {
         return {"img" : red, "text" : "Проблемы с доступностью"};
     }
+};
+
+
+export const resizeWindow = (height) => {
+    VKConnect.send("VKWebAppResizeWindow", {"width": 700, "height": height});
 };
