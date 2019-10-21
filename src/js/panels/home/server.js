@@ -10,7 +10,7 @@ import Icon24Write from '@vkontakte/icons/dist/24/write';
 import Icon24DoneOutline from '@vkontakte/icons/dist/24/done_outline';
 import Icon24Cancel from '@vkontakte/icons/dist/24/cancel';
 
-import {fixInput} from "../../services/_functions";
+import {fixInput, resizeWindow} from "../../services/_functions";
 
 import OfflineBlock from './components/offline';
 import Spinner from './components/spinner';
@@ -51,6 +51,7 @@ class ServerInfoGet extends React.Component {
     }
 
     componentDidMount() {
+        resizeWindow(1500);
         VKConnect.sendPromise("VKWebAppStorageGet", {"keys": ["steveFavoriteList"]})
             .then(res => {
                 console.log(res);
