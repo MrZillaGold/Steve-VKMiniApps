@@ -207,7 +207,7 @@ class EnderPortalCalculator extends React.Component {
                         }
                     </Div>
                 </Group>
-                <Button level='tertiary' stretched component='a' target="_blank" href='https://youtu.be/U6pEgIKAuJI'>Как находить координаты и угол?</Button>
+                <Button level='tertiary' stretched component='a' target="_blank" href='https://youtu.be/U6pEgIKAuJI'><b>Как находить координаты и угол?</b></Button>
             </Panel>
         );
     }
