@@ -118,7 +118,7 @@ class Calculator extends React.Component {
                                     :
                                     <CopyToClipboard text={`${x} ${y} ${z}`}>
                                         <div style={{display: 'flex'}}>
-                                            <Button onClick={() => this.setState({ copy: true })} stretched level="primary" before={<Icon24Copy width={16} height={16}/>}>Скопировать координаты</Button>
+                                            <Button onClick={() => this.setState({ copy: true })} stretched level="primary" before={<Icon24Copy width={16} height={16}/>}><b>Скопировать координаты</b></Button>
                                         </div>
                                     </CopyToClipboard>
                                 :
