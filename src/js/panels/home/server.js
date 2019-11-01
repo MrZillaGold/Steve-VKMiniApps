@@ -10,7 +10,7 @@ import Icon24Write from '@vkontakte/icons/dist/24/write';
 import Icon24DoneOutline from '@vkontakte/icons/dist/24/done_outline';
 import Icon24Cancel from '@vkontakte/icons/dist/24/cancel';
 
-import {fixInput, resizeWindow} from "../../services/_functions";
+import {fixInput, resizeWindow, ipRegExp1, ipRegExp2, ipRegExp3, ipRegExp4} from "../../services/_functions";
 
 import OfflineBlock from './components/offline';
 import Spinner from './components/spinner';
@@ -97,8 +97,8 @@ class ServerInfoGet extends React.Component {
                                         name='ip'
                                         value={this.state.ip}
                                         onChange={this.onChange.bind(this)}
-                                        status={this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g) || this.state.ip === "" ? 'default' : 'error'}
-                                        bottom={this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g) || this.state.ip === "" ? 'Например: Hypixel.net' : 'Неправильный IP-Адрес.'}
+                                        status={this.state.ip.match(ipRegExp1) || this.state.ip.match(ipRegExp2) || this.state.ip.match(ipRegExp3) || this.state.ip.match(ipRegExp4) || this.state.ip === "" ? 'default' : 'error'}
+                                        bottom={this.state.ip.match(ipRegExp1) || this.state.ip.match(ipRegExp2) || this.state.ip.match(ipRegExp3) || this.state.ip.match(ipRegExp4) || this.state.ip === "" ? 'Например: Hypixel.net' : 'Неправильный IP-Адрес.'}
                                         placeholder="Введите IP-Адрес"
                                         maxLength='100'
                                     />
@@ -164,7 +164,7 @@ class ServerInfoGet extends React.Component {
                                     undefined
                             }
                         </div>
-                        <Button onClick={this.onClick.bind(this)} size='xl' disabled={!(this.state.ip.length > 2 && !this.state.editFavorite && !this.state.spinner && (this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g) || this.state.ip.match(/^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}:([123456789])([0-9]{1,4})$/g) || this.state.ip.match(/^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g)))}>
+                        <Button onClick={this.onClick.bind(this)} size='xl' disabled={!(this.state.ip.length > 2 && !this.state.editFavorite && !this.state.spinner && (this.state.ip.match(ipRegExp1) || this.state.ip.match(ipRegExp2) || this.state.ip.match(ipRegExp3) || this.state.ip.match(ipRegExp4)))}>
                             <b>Получить информацию</b>
                         </Button>
                         {
