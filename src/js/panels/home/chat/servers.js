@@ -62,7 +62,7 @@ class Servers extends React.Component {
         return (
             !this.state.loading ?
                 <div>
-                    <Group>
+                    <Group style={{marginBottom: "70px"}}>
                         {
                             this.state.servers.length > 0 ?
                                 this.state.servers.map((server, index) => (
