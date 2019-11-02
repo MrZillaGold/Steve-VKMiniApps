@@ -8,7 +8,7 @@ import OfflineBlock from '../components/offline';
 import HeaderButtons from "../components/headerbuttons";
 import Servers from "./servers";
 import Accounts from "./accounts";
-const socket = io("http://stevesocket.herokuapp.com");
+const socket = io("https://stevesocket.herokuapp.com");
 
 class MinecraftChat extends React.Component {
 
