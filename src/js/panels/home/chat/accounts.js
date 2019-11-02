@@ -72,7 +72,7 @@ class Accounts extends React.Component {
         return (
             !this.state.loading ?
                 <div>
-                    <Group>
+                    <Group style={{marginBottom: "70px"}}>
                         {
                         this.state.accounts.length > 0 ?
                             this.state.accounts.map((account, index) => (
