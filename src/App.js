@@ -9,6 +9,11 @@ import Achievements from './js/panels/home/achievements';
 import Calculator from './js/panels/home/calculator';
 import EnderCalculator from './js/panels/home/endercalculator';
 
+import MinecraftChat from './js/panels/home/chat/index';
+import AddServer from "./js/panels/home/chat/components/addserver";
+import AddAccount from "./js/panels/home/chat/components/addaccount";
+import ServerChat from './js/panels/home/chat/chatpanel';
+
 class App extends React.Component {
 
     state = {
@@ -20,10 +25,20 @@ class App extends React.Component {
         this.state.eruda ? window.eruda.init() : window.eruda.destroy()
     };
 
-
     render() {
         return (
-            <Stack activePage="main">
+            <Stack
+                activePage="main"
+                modals={[
+                    <AddServer
+                        id="add-server"
+                        title="Добавление сервера"
+                    />,
+                        <AddAccount
+                            id="add-account"
+                            title="Добавление аккаута"
+                        />
+                ]}>
                 <Page id="main" activePanel="base">
                     <Base id="base" eruda={this.eruda}/>
                     <Server id="server"/>
@@ -32,6 +47,9 @@ class App extends React.Component {
                     <Achievements id="achievements"/>
                     <Calculator id="calculator"/>
                     <EnderCalculator id="endercalculator"/>
+
+                    <MinecraftChat id="chat"/>
+                    <ServerChat id="server-chat"/>
                 </Page>
             </Stack>
         );
