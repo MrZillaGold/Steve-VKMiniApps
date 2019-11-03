@@ -137,7 +137,7 @@ class Accounts extends React.Component {
                                         }} height={35} width={35}/>
                                     </div>
                                     <div className="footer-icon">
-                                        <Icon24Cancel onClick={() => this.setState({editList: false, accounts: this.state.accountsBackup})} className="footer-icon__icon" height={35} width={35}/>
+                                        <Icon24Cancel onClick={() => {this.setState({editList: false, accounts: this.state.accountsBackup}); this.selectAccount(this.state.selectedAccountBackup)}} className="footer-icon__icon" height={35} width={35}/>
                                     </div>
                                 </div>
                                 :
@@ -148,7 +148,7 @@ class Accounts extends React.Component {
                                     {
                                         this.state.accounts.length > 0 ?
                                             <div className="footer-icon">
-                                                <Icon28EditOutline onClick={() => this.setState({editList: true, accountsBackup: this.state.accounts})} className="footer-icon__icon" height={35} width={35}/>
+                                                <Icon28EditOutline onClick={() => this.setState({editList: true, accountsBackup: this.state.accounts, selectedAccountBackup: this.state.selectedAccount})} className="footer-icon__icon" height={35} width={35}/>
                                             </div>
                                             :
                                             undefined
