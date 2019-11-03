@@ -93,11 +93,11 @@ class Servers extends React.Component {
                                 ))
                                 :
                                 !this.state.editList ?
-                                <Cell multiline before={<Icon24Add height={44} width={44}/>} size="m"
-                                      description="Нажмите сюда, чтобы добавить сервер."
-                                      onClick={() => navigator.showModal("add-server", {addServer})}>
-                                    Вы не добавили ни одного сервера!
-                                </Cell>
+                                    <Cell multiline before={<Icon24Add height={44} width={44}/>} size="m"
+                                          description="Нажмите сюда, чтобы добавить сервер."
+                                          onClick={() => navigator.showModal("add-server", {addServer})}>
+                                        Вы не добавили ни одного сервера!
+                                    </Cell>
                                     :
                                     undefined
                         }
@@ -106,12 +106,17 @@ class Servers extends React.Component {
                         {
                             this.state.editList ?
                                 <div style={{display: "flex", marginBottom: "10px"}}>
-                                    <div className="footer-icon">
-                                        <Icon24Done className="footer-icon__icon" onClick={() => {
-                                            this.setState({editList: false});
-                                            this.saveServersEdits()
-                                        }} height={35} width={35}/>
-                                    </div>
+                                    {
+                                        this.state.servers !== this.state.serversBackup ?
+                                            <div className="footer-icon">
+                                                <Icon24Done className="footer-icon__icon" onClick={() => {
+                                                    this.setState({editList: false});
+                                                    this.saveServersEdits()
+                                                }} height={35} width={35}/>
+                                            </div>
+                                            :
+                                            undefined
+                                    }
                                     <div className="footer-icon">
                                         <Icon24Cancel onClick={() => this.setState({editList: false, servers: this.state.serversBackup})} className="footer-icon__icon" height={35} width={35}/>
                                     </div>
