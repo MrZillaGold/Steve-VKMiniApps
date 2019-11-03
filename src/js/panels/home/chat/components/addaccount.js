@@ -131,7 +131,7 @@ class AddAccount extends React.Component {
                                 :
                                 undefined
                         }
-                        <Button onClick={() => this.login.bind(this)} disabled={this.state.type === "license" ? this.state.email === "" || !this.state.email.match(emailRegExp) || this.state.password === "" || this.state.loading : this.state.nickname === "" || !this.state.nickname.match(nicknameRegExp) || this.state.nickname.length < 3} style={{marginBottom: "80px"}} size='xl'>
+                        <Button onClick={this.login.bind(this)} disabled={this.state.type === "license" ? this.state.email === "" || !this.state.email.match(emailRegExp) || this.state.password === "" || this.state.loading : this.state.nickname === "" || !this.state.nickname.match(nicknameRegExp) || this.state.nickname.length < 3} style={{marginBottom: "80px"}} size='xl'>
                             <b>{this.state.loading ? "Авторизация...": "Добавить аккаунт"}</b>
                         </Button>
                     </FormLayout>
