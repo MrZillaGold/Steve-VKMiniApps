@@ -4,6 +4,7 @@ import { Offline, Online } from 'react-detect-offline';
 import {Panel, PanelHeader, PanelHeaderContent, HeaderButton, Tabs, TabsItem, Group, Snackbar, Avatar} from "@vkontakte/vkui";
 import Icon16Cancel from '@vkontakte/icons/dist/16/cancel';
 
+import {resizeWindow} from "../../../services/_functions";
 import OfflineBlock from '../components/offline';
 import HeaderButtons from "../components/headerbuttons";
 import Servers from "./servers";
@@ -25,6 +26,7 @@ class MinecraftChat extends React.Component {
             socket.emit('server:disconnect');
             this.setState({connect: true});
         }
+        resizeWindow(600);
     }
 
     login(serverData, accountData, navigator) {
