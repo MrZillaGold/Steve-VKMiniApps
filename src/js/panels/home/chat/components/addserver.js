@@ -1,4 +1,5 @@
 import React from 'react';
+import {Online} from 'react-detect-offline';
 import {Button, FormLayout, Input, ModalPage, Select} from "@vkontakte/vkui";
 import {ipRegExp1, ipRegExp2, ipRegExp3, ipRegExp4} from "../../../../services/_functions";
 
@@ -50,41 +51,43 @@ class AddServer extends React.Component {
         const {id, navigator, header, onClose} = this.props;
 
         return (
-            <ModalPage id={id} header={header} onClose={onClose}>
-                <FormLayout>
-                    <div className="FormLayout__row--s-default">
-                        <div style={{display: "flex"}}>
-                            <div style={{flexGrow: 1}}>
-                                <Input
-                                    top="Данные сервера"
-                                    name="ip"
-                                    autoComplete="off"
-                                    status={this.state.ip.match(ipRegExp1) || this.state.ip.match(ipRegExp2) || this.state.ip.match(ipRegExp3) || this.state.ip.match(ipRegExp4) || this.state.ip === "" ? 'default' : 'error'}
-                                    disabled={this.state.spinner}
-                                    value={this.state.ip}
-                                    placeholder="IP-Адрес"
-                                    onChange={this.onChange.bind(this)}
-                                />
+            <Online polling={{interval: 1000}} onChange={() => navigator.hideModal()}>
+                <ModalPage id={id} header={header} onClose={onClose}>
+                    <FormLayout>
+                        <div className="FormLayout__row--s-default">
+                            <div style={{display: "flex"}}>
+                                <div style={{flexGrow: 1}}>
+                                    <Input
+                                        top="Данные сервера"
+                                        name="ip"
+                                        autoComplete="off"
+                                        status={this.state.ip.match(ipRegExp1) || this.state.ip.match(ipRegExp2) || this.state.ip.match(ipRegExp3) || this.state.ip.match(ipRegExp4) || this.state.ip === "" ? 'default' : 'error'}
+                                        disabled={this.state.spinner}
+                                        value={this.state.ip}
+                                        placeholder="IP-Адрес"
+                                        onChange={this.onChange.bind(this)}
+                                    />
+                                </div>
+                                <div>
+                                    <Select name="version" value={this.state.version} onChange={this.onChange.bind(this)}>
+                                        {
+                                            supportedVersions.map((version) =>
+                                                <option key={version} value={version}>{version}</option>
+                                            ).reverse()
+                                        }
+                                    </Select>
+                                </div>
                             </div>
-                            <div>
-                                <Select name="version" value={this.state.version} onChange={this.onChange.bind(this)}>
-                                    {
-                                        supportedVersions.map((version) =>
-                                            <option key={version} value={version}>{version}</option>
-                                        ).reverse()
-                                    }
-                                </Select>
+                            <div style={{color: "#e64646", height: "24px"}} className="FormLayout__row-bottom">
+                                {this.state.ip.match(ipRegExp1) || this.state.ip.match(ipRegExp2) || this.state.ip.match(ipRegExp3) || this.state.ip.match(ipRegExp4) || this.state.ip === "" ? undefined : "Неверный IP-Адрес!"}
                             </div>
+                            <Button onClick={() => {navigator.params.addServer(this.getServerData()); navigator.hideModal()}} disabled={this.state.ip === "" || !(this.state.ip.match(ipRegExp1) || this.state.ip.match(ipRegExp2) || this.state.ip.match(ipRegExp3) || this.state.ip.match(ipRegExp4))} size='xl'>
+                                <b>Добавить сервер</b>
+                            </Button>
                         </div>
-                        <div style={{color: "#e64646", height: "24px"}} className="FormLayout__row-bottom">
-                            {this.state.ip.match(ipRegExp1) || this.state.ip.match(ipRegExp2) || this.state.ip.match(ipRegExp3) || this.state.ip.match(ipRegExp4) || this.state.ip === "" ? undefined : "Неверный IP-Адрес!"}
-                        </div>
-                        <Button onClick={() => {navigator.params.addServer(this.getServerData()); navigator.hideModal()}} disabled={this.state.ip === "" || !(this.state.ip.match(ipRegExp1) || this.state.ip.match(ipRegExp2) || this.state.ip.match(ipRegExp3) || this.state.ip.match(ipRegExp4))} size='xl'>
-                            <b>Добавить сервер</b>
-                        </Button>
-                    </div>
-                </FormLayout>
-            </ModalPage>
+                    </FormLayout>
+                </ModalPage>
+            </Online>
         );
     }
 
