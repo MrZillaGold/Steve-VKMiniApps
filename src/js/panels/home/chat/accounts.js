@@ -130,12 +130,17 @@ class Accounts extends React.Component {
                         {
                             this.state.editList ?
                                 <div style={{display: "flex", marginBottom: "10px"}}>
-                                    <div className="footer-icon">
-                                        <Icon24Done className="footer-icon__icon" onClick={() => {
-                                            this.setState({editList: false});
-                                            this.saveAccountsEdits()
-                                        }} height={35} width={35}/>
-                                    </div>
+                                    {
+                                        this.state.accounts !== this.state.accountsBackup ?
+                                            <div className="footer-icon">
+                                                <Icon24Done className="footer-icon__icon" onClick={() => {
+                                                    this.setState({editList: false});
+                                                    this.saveAccountsEdits()
+                                                }} height={35} width={35}/>
+                                            </div>
+                                            :
+                                            undefined
+                                    }
                                     <div className="footer-icon">
                                         <Icon24Cancel onClick={() => {this.setState({editList: false, accounts: this.state.accountsBackup}); this.selectAccount(this.state.selectedAccountBackup)}} className="footer-icon__icon" height={35} width={35}/>
                                     </div>
