@@ -29,20 +29,18 @@ class Accounts extends React.Component {
         if (selectedAccount.length > 1) {
             this.setState({selectedAccount: JSON.parse(selectedAccount), loading: false});
         }
-        if (!accountsStorage) {
-            VKConnect.sendPromise("VKWebAppStorageGet", {"keys": ["steveChatAccountsList", "steveChatSelectedAccount"]})
-                .then(res => {
-                    if (res.keys[0].value.length > 1) {
-                        this.setState({accounts: JSON.parse(res.keys[0].value)});
-                        sessionStorage.setItem('chatAccounts', res.keys[0].value);
-                    }
-                    if (res.keys[1].value.length > 1) {
-                        this.setState({selectedAccount: JSON.parse(res.keys[1].value)});
-                        sessionStorage.setItem('chatSelectedAccount', res.keys[1].value);
-                    }
-                    this.setState({loading: false})
-                });
-        }
+        VKConnect.sendPromise("VKWebAppStorageGet", {"keys": ["steveChatAccountsList", "steveChatSelectedAccount"]})
+            .then(res => {
+                if (res.keys[0].value.length > 1) {
+                    this.setState({accounts: JSON.parse(res.keys[0].value)});
+                    sessionStorage.setItem('chatAccounts', res.keys[0].value);
+                }
+                if (res.keys[1].value.length > 1) {
+                    this.setState({selectedAccount: JSON.parse(res.keys[1].value)});
+                    sessionStorage.setItem('chatSelectedAccount', res.keys[1].value);
+                }
+                this.setState({loading: false})
+            });
     }
 
     selectAccount(account) {
@@ -57,12 +55,12 @@ class Accounts extends React.Component {
     }
 
     addAccount = async (data) => {
-        const accountslist = [...this.state.accounts];
+        let accountslist = [...this.state.accounts];
         accountslist.unshift(data);
         sessionStorage.setItem('chatAccounts', JSON.stringify(accountslist));
         this.selectAccount(data);
-        await this.setState({accounts: accountslist});
-        await VKConnect.send("VKWebAppStorageSet", {"key": "steveChatAccountsList", "value": this.state.accounts});
+        this.setState({accounts: accountslist});
+        VKConnect.send("VKWebAppStorageSet", {"key": "steveChatAccountsList", "value": accountslist});
     };
 
     render() {
@@ -74,57 +72,57 @@ class Accounts extends React.Component {
                 <div>
                     <Group style={{marginBottom: "70px"}}>
                         {
-                        this.state.accounts.length > 0 ?
-                            this.state.accounts.map((account, index) => (
-                                this.state.editList ?
-                                    <Cell key={Math.random()} draggable
-                                          removable
-                                          onDragFinish={({from, to}) => {
-                                              const accountsList = [...this.state.accounts];
-                                              accountsList.splice(from, 1);
-                                              accountsList.splice(to, 0, this.state.accounts[from]);
-                                              this.setState({accounts: accountsList});
-                                          }}
-                                          before={<Avatar style={{imageRendering: "pixelated"}} type="image" size={64} src={`https://mc-heads.net/avatar/${account.type === "license" ? account.session.selectedProfile.name : "steve"}/64`}/>}
-                                          onRemove={() => {
-                                              this.setState({accounts: [...this.state.accounts.slice(0, index), ...this.state.accounts.slice(index + 1)]});
-                                              if (JSON.stringify(account) === JSON.stringify(this.state.selectedAccount)) {
-                                                  this.selectAccount("");
-                                              }
-                                          }}
-                                          description={account.type === "license" ? "Лицензионный" : "Пиратский"}>
-                                        {account.type === "license" ? account.session.selectedProfile.name : account.username}
+                            this.state.accounts.length > 0 ?
+                                this.state.accounts.map((account, index) => (
+                                    this.state.editList ?
+                                        <Cell key={Math.random()} draggable
+                                              removable
+                                              onDragFinish={({from, to}) => {
+                                                  const accountsList = [...this.state.accounts];
+                                                  accountsList.splice(from, 1);
+                                                  accountsList.splice(to, 0, this.state.accounts[from]);
+                                                  this.setState({accounts: accountsList});
+                                              }}
+                                              before={<Avatar style={{imageRendering: "pixelated"}} type="image" size={64} src={`https://mc-heads.net/avatar/${account.type === "license" ? account.session.selectedProfile.name : "steve"}/64`}/>}
+                                              onRemove={() => {
+                                                  this.setState({accounts: [...this.state.accounts.slice(0, index), ...this.state.accounts.slice(index + 1)]});
+                                                  if (JSON.stringify(account) === JSON.stringify(this.state.selectedAccount)) {
+                                                      this.selectAccount("");
+                                                  }
+                                              }}
+                                              description={account.type === "license" ? "Лицензионный" : "Пиратский"}>
+                                            {account.type === "license" ? account.session.selectedProfile.name : account.username}
+                                        </Cell>
+                                        :
+                                        <Cell key={index}
+                                              before={<Avatar style={{imageRendering: "pixelated"}} type="image" size={64} src={`https://mc-heads.net/avatar/${account.type === "license" ? account.session.selectedProfile.name : "steve"}/64`}/>}
+                                              size="m"
+                                              description={account.type === "license" ? "Лицензионный" : "Пиратский"}
+                                              asideContent={
+                                                  JSON.stringify(account) === JSON.stringify(this.state.selectedAccount) ?
+                                                      <div style={{display: "flex", opacity: ".6"}}>
+                                                          <Icon24UserAdded style={{marginRight: "5px"}}/>
+                                                          Активирован
+                                                      </div>
+                                                      :
+                                                      <div onClick={() => this.selectAccount(account)} style={{display: "flex"}}>
+                                                          <Icon24User style={{marginRight: "5px"}}/>
+                                                          Активировать
+                                                      </div>
+                                              }>
+                                            {account.type === "license" ? account.session.selectedProfile.name : account.username}
+                                        </Cell>
+                                ))
+                                :
+                                !this.state.editList ?
+                                    <Cell multiline before={<Icon28UserAddOutline height={44} width={44}/>} size="m"
+                                          description="Нажмите сюда, чтобы добавить аккаунт."
+                                          onClick={() => navigator.showModal("add-account", {addAccount, socket})}>
+                                        Вы не добавили ни одного аккаунта!
                                     </Cell>
                                     :
-                                    <Cell key={index}
-                                          before={<Avatar style={{imageRendering: "pixelated"}} type="image" size={64} src={`https://mc-heads.net/avatar/${account.type === "license" ? account.session.selectedProfile.name : "steve"}/64`}/>}
-                                          size="m"
-                                          description={account.type === "license" ? "Лицензионный" : "Пиратский"}
-                                          asideContent={
-                                              JSON.stringify(account) === JSON.stringify(this.state.selectedAccount) ?
-                                                  <div style={{display: "flex", opacity: ".6"}}>
-                                                      <Icon24UserAdded style={{marginRight: "5px"}}/>
-                                                      Активирован
-                                                  </div>
-                                                  :
-                                                  <div onClick={() => this.selectAccount(account)} style={{display: "flex"}}>
-                                                      <Icon24User style={{marginRight: "5px"}}/>
-                                                      Активировать
-                                                  </div>
-                                          }>
-                                        {account.type === "license" ? account.session.selectedProfile.name : account.username}
-                                    </Cell>
-                            ))
-                            :
-                            !this.state.editList ?
-                                <Cell multiline before={<Icon28UserAddOutline height={44} width={44}/>} size="m"
-                                      description="Нажмите сюда, чтобы добавить аккаунт."
-                                      onClick={() => navigator.showModal("add-account", {addAccount, socket})}>
-                                    Вы не добавили ни одного аккаунта!
-                                </Cell>
-                                :
-                                undefined
-                    }
+                                    undefined
+                        }
                     </Group>
                     <FixedLayout vertical="bottom" style={{display: "flex", direction: "rtl"}}>
                         {
