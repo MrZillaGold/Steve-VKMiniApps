@@ -88,52 +88,53 @@ class MinecraftChat extends React.Component {
                         Steve
                     </PanelHeaderContent>
                 </PanelHeader>
-                {
-                    this.state.connect ?
-                        <Online>
-                            <Group>
-                                <Tabs type="buttons">
-                                    <TabsItem
-                                        onClick={() => this.setState({tab: 'servers'})}
-                                        selected={this.state.tab === 'servers'}
-                                    >
-                                        Сервера
-                                    </TabsItem>
-                                    <TabsItem
-                                        onClick={() => this.setState({tab: 'accounts'})}
-                                        selected={this.state.tab === 'accounts'}
-                                    >
-                                        Аккаунты
-                                    </TabsItem>
-                                </Tabs>
-                            </Group>
+                <Online>
+                    {
+                        this.state.connect ?
                             <div>
-                                {
-                                    this.state.tab === "servers" ?
-                                        <Servers socket={this.state.socket} navigator={navigator} error={this.error}
-                                                 connect={this.login} editTab={this.editTab}/>
-                                        :
-                                        undefined
-                                }
-                                {
-                                    this.state.tab === "accounts" ?
-                                        <Accounts socket={this.state.socket} navigator={navigator} error={this.error}/>
-                                        :
-                                        undefined
-                                }
+                                <Group>
+                                    <Tabs type="buttons">
+                                        <TabsItem
+                                            onClick={() => this.setState({tab: 'servers'})}
+                                            selected={this.state.tab === 'servers'}
+                                        >
+                                            Сервера
+                                        </TabsItem>
+                                        <TabsItem
+                                            onClick={() => this.setState({tab: 'accounts'})}
+                                            selected={this.state.tab === 'accounts'}
+                                        >
+                                            Аккаунты
+                                        </TabsItem>
+                                    </Tabs>
+                                </Group>
+                                <div>
+                                    {
+                                        this.state.tab === "servers" ?
+                                            <Servers socket={this.state.socket} navigator={navigator} error={this.error}
+                                                     connect={this.login} editTab={this.editTab}/>
+                                            :
+                                            undefined
+                                    }
+                                    {
+                                        this.state.tab === "accounts" ?
+                                            <Accounts socket={this.state.socket} navigator={navigator} error={this.error}/>
+                                            :
+                                            undefined
+                                    }
+                                </div>
+                                {this.state.error}
                             </div>
-                            {this.state.error}
-                        </Online>
-                        :
-                        <OfflineBlock/>
-                }
+                            :
+                            <OfflineBlock/>
+                    }
+                </Online>
                 <Offline>
                     <OfflineBlock/>
                 </Offline>
             </Panel>
         );
     }
-
 }
 
 export default MinecraftChat;
