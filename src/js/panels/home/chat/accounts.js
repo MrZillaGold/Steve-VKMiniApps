@@ -117,7 +117,7 @@ class Accounts extends React.Component {
                                 !this.state.editList ?
                                     <Cell multiline before={<Icon28UserAddOutline height={44} width={44}/>} size="m"
                                           description="Нажмите сюда, чтобы добавить аккаунт."
-                                          onClick={() => navigator.showModal("add-account", {addAccount, socket})}>
+                                          onClick={() => navigator.showModal("add-account", {addAccount, accounts: this.state.accounts, socket})}>
                                         Вы не добавили ни одного аккаунта!
                                     </Cell>
                                     :
@@ -146,7 +146,7 @@ class Accounts extends React.Component {
                                 :
                                 <div style={{display: "flex", marginBottom: "10px"}}>
                                     <div className="footer-icon">
-                                        <Icon28UserAddOutline className="footer-icon__icon" onClick={() => this.state.accounts.length < 16 ? navigator.showModal("add-account", {addAccount, socket}) : this.props.error("Нельзя добавить больше 15 аккаунтов!")} height={35} width={35}/>
+                                        <Icon28UserAddOutline className="footer-icon__icon" onClick={() => this.state.accounts.length < 16 ? navigator.showModal("add-account", {addAccount, accounts: this.state.accounts, socket}) : this.props.error("Нельзя добавить больше 15 аккаунтов!")} height={35} width={35}/>
                                     </div>
                                     {
                                         this.state.accounts.length > 0 ?
