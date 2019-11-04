@@ -1,6 +1,7 @@
 import React from 'react';
 import {Online} from 'react-detect-offline';
 import {Button, FormLayout, Group, Input, ModalPage, Tabs, TabsItem} from "@vkontakte/vkui";
+import {escapeHtml} from "../../../../services/_functions";
 
 class AddAccount extends React.Component {
 
@@ -24,8 +25,8 @@ class AddAccount extends React.Component {
             this.setState({loading: true});
             this.props.navigator.params.socket.emit('server:connect', {
                 method: 'password',
-                username: this.state.email,
-                password: this.state.password,
+                username: escapeHtml(this.state.email),
+                password: escapeHtml(this.state.password),
                 host: "steve.mrzillagold.me",
                 port: "25565",
                 version: "1.12"
@@ -33,7 +34,7 @@ class AddAccount extends React.Component {
             this.props.navigator.params.socket.once('bot:data', (data) => {
                 this.props.navigator.params.socket.emit('server:disconnect');
                 if (data === "Неверный логин или пароль от аккаунта.") {
-                    this.setState({password: "", error: true, loading: false})
+                    this.setState({password: "", error: "Неверный логин или пароль!", loading: false})
                 } else {
                     const accountData = {
                         type: this.state.type,
@@ -49,8 +50,12 @@ class AddAccount extends React.Component {
                 type: this.state.type,
                 username: this.state.nickname
             };
-            this.props.navigator.hideModal();
-            return this.props.navigator.params.addAccount(accountData);
+            if (JSON.stringify(this.props.navigator.params.accounts).includes(JSON.stringify(accountData))) {
+                this.setState({error: "Аккаунт с таким никнеймом уже добавлен!"});
+            } else {
+                this.props.navigator.hideModal();
+                return this.props.navigator.params.addAccount(accountData);
+            }
         }
     }
 
@@ -65,13 +70,13 @@ class AddAccount extends React.Component {
                     <Group title="Тип аккаунта">
                         <Tabs type="buttons">
                             <TabsItem
-                                onClick={() => this.setState({type: 'license'})}
+                                onClick={() => this.setState({type: 'license', error: false})}
                                 selected={this.state.type === 'license'}
                             >
                                 Лицензионный
                             </TabsItem>
                             <TabsItem
-                                onClick={() => this.setState({type: 'pirate'})}
+                                onClick={() => this.setState({type: 'pirate', error: false})}
                                 selected={this.state.type === 'pirate'}
                             >
                                 Пиратский
@@ -124,9 +129,9 @@ class AddAccount extends React.Component {
                                 undefined
                         }
                         {
-                            this.state.error && this.state.type === "license" ?
+                            this.state.error ?
                                 <div style={{color: "#e64646", height: "24px"}} className="FormLayout__row-bottom">
-                                    Неверный логин или пароль!
+                                    {this.state.error}
                                 </div>
                                 :
                                 undefined
