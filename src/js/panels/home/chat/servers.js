@@ -26,18 +26,20 @@ class Servers extends React.Component {
         if (selectedAccount.length > 1) {
             this.setState({selectedAccount: JSON.parse(selectedAccount), loading: false});
         }
-        VKConnect.sendPromise("VKWebAppStorageGet", {"keys": ["steveChatServersList", "steveChatSelectedAccount"]})
-            .then(res => {
-                if (res.keys[0].value.length > 1) {
-                    this.setState({servers: JSON.parse(res.keys[0].value)});
-                    sessionStorage.setItem('chatServers', res.keys[0].value);
-                }
-                if (res.keys[1].value.length > 1) {
-                    this.setState({selectedAccount: JSON.parse(res.keys[1].value)});
-                    sessionStorage.setItem('chatSelectedAccount', res.keys[1].value);
-                }
-                this.setState({loading: false})
-            });
+        if (!serversStorage || !selectedAccount) {
+            VKConnect.sendPromise("VKWebAppStorageGet", {"keys": ["steveChatServersList", "steveChatSelectedAccount"]})
+                .then(res => {
+                    if (res.keys[0].value.length > 1) {
+                        this.setState({servers: JSON.parse(res.keys[0].value)});
+                        sessionStorage.setItem('chatServers', res.keys[0].value);
+                    }
+                    if (res.keys[1].value.length > 1) {
+                        this.setState({selectedAccount: JSON.parse(res.keys[1].value)});
+                        sessionStorage.setItem('chatSelectedAccount', res.keys[1].value);
+                    }
+                    this.setState({loading: false})
+                });
+        }
     }
 
     saveServersEdits() {
@@ -93,7 +95,7 @@ class Servers extends React.Component {
                                 !this.state.editList ?
                                     <Cell multiline before={<Icon24Add height={44} width={44}/>} size="m"
                                           description="Нажмите сюда, чтобы добавить сервер."
-                                          onClick={() => navigator.showModal("add-server", {addServer})}>
+                                          onClick={() => navigator.showModal("add-server", {addServer, servers: this.state.servers })}>
                                         Вы не добавили ни одного сервера!
                                     </Cell>
                                     :
@@ -122,7 +124,7 @@ class Servers extends React.Component {
                                 :
                                 <div style={{display: "flex", marginBottom: "10px"}}>
                                     <div className="footer-icon">
-                                        <Icon24Add className="footer-icon__icon" onClick={() => this.state.servers.length < 21 ? navigator.showModal("add-server", {addServer}) : this.props.error("Нельзя добавить больше 20 серверов!")} height={35} width={35}/>
+                                        <Icon24Add className="footer-icon__icon" onClick={() => this.state.servers.length < 21 ? navigator.showModal("add-server", {addServer, servers: this.state.servers }) : this.props.error("Нельзя добавить больше 20 серверов!")} height={35} width={35}/>
                                     </div>
                                     {
                                         this.state.servers.length > 0 ?
