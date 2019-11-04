@@ -20,7 +20,7 @@ class AddServer extends React.Component {
         if (name === "port") {
             value = value.replace(/[^0-9]/g, "").slice(0, 6);
         }
-        this.setState({[name]: value});
+        this.setState({[name]: value, error: false});
     }
 
     getServerData() {
@@ -30,20 +30,25 @@ class AddServer extends React.Component {
             version: this.state.version,
         };
         if (this.state.ip.match(ipRegExp1) || this.state.ip.match(ipRegExp2)) {
-            serverData.ip = this.state.ip;
+            serverData.ip = this.state.ip.toLowerCase();
             serverData.port = "25565";
         }
         if (this.state.ip.match(ipRegExp3)) {
             const ip = ipRegExp3.exec(this.state.ip);
-            serverData.ip = ip[1];
+            serverData.ip = ip[1].toLowerCase();
             serverData.port = ip[2];
         }
         if (this.state.ip.match(ipRegExp4)) {
             const ip = ipRegExp4.exec(this.state.ip);
-            serverData.ip = ip[1];
+            serverData.ip = ip[1].toLowerCase();
             serverData.port = ip[2];
         }
-        return serverData;
+        if (JSON.stringify(this.props.navigator.params.servers).includes(JSON.stringify(serverData))) {
+            this.setState({error: true})
+        } else {
+            this.props.navigator.params.addServer(serverData);
+            return this.props.navigator.hideModal();
+        }
     }
 
 
@@ -80,8 +85,9 @@ class AddServer extends React.Component {
                             </div>
                             <div style={{color: "#e64646", height: "24px"}} className="FormLayout__row-bottom">
                                 {this.state.ip.match(ipRegExp1) || this.state.ip.match(ipRegExp2) || this.state.ip.match(ipRegExp3) || this.state.ip.match(ipRegExp4) || this.state.ip === "" ? undefined : "Неверный IP-Адрес!"}
+                                {this.state.error ? "Этот сервер уже добавлен!" : undefined}
                             </div>
-                            <Button onClick={() => {navigator.params.addServer(this.getServerData()); navigator.hideModal()}} disabled={this.state.ip === "" || !(this.state.ip.match(ipRegExp1) || this.state.ip.match(ipRegExp2) || this.state.ip.match(ipRegExp3) || this.state.ip.match(ipRegExp4))} size='xl'>
+                            <Button onClick={() => this.getServerData()} disabled={this.state.ip === "" || !(this.state.ip.match(ipRegExp1) || this.state.ip.match(ipRegExp2) || this.state.ip.match(ipRegExp3) || this.state.ip.match(ipRegExp4))} size='xl'>
                                 <b>Добавить сервер</b>
                             </Button>
                         </div>
