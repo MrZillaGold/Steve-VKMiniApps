@@ -1,7 +1,6 @@
 import React from 'react';
 import {Online} from 'react-detect-offline';
 import {Button, FormLayout, Group, Input, ModalPage, Tabs, TabsItem} from "@vkontakte/vkui";
-import {escapeHtml} from "../../../../services/_functions";
 
 class AddAccount extends React.Component {
 
@@ -25,8 +24,8 @@ class AddAccount extends React.Component {
             this.setState({loading: true});
             this.props.navigator.params.socket.emit('server:connect', {
                 method: 'password',
-                username: escapeHtml(this.state.email),
-                password: escapeHtml(this.state.password),
+                username: this.state.email,
+                password: this.state.password,
                 host: "steve.mrzillagold.me",
                 port: "25565",
                 version: "1.12"
