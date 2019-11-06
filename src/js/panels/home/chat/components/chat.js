@@ -48,28 +48,40 @@ const Chat = (props) => {
     return (
         <div>
             <Div>
-        <ScrollToBottom className={platform() === IOS ? "chat-box_ios" : "chat-box_android"}>
-            {displayMessages.map((message, index) => (
-                <div key={index} dangerouslySetInnerHTML={{ __html: message }}/>
-            ))}
-        </ScrollToBottom>
+                <ScrollToBottom className={platform() === IOS ? "chat-box_ios" : "chat-box_android"}>
+                    {displayMessages.map((message, index) => (
+                        <div key={index} dangerouslySetInnerHTML={{ __html: message }}/>
+                    ))}
+                </ScrollToBottom>
             </Div>
             <Separator/>
-            <FormLayout onSubmit={handleSubmit}>
-                <div style={{display: "flex", alignItems: "center"}}>
-                    <Tappable disabled={!IsLogin} onClick={tab} style={{marginLeft: "10px"}}>
-                        TAB
-                    </Tappable>
-                    <div style={{flexGrow: 999}}>
-                        <Input disabled={!IsLogin} id="message-input" name="message" autoComplete="off" type="text" value={values.message} onChange={handleChange}/>
-                    </div>
-                    <div style={{marginRight: "10px"}}>
-                        <Tappable style={!IsLogin ? {opacity: ".6"} : undefined} disabled={!IsLogin} onClick={handleSubmit}>
-                            <Icon24Send width={30} height={30}/>
-                        </Tappable>
-                    </div>
-                </div>
-            </FormLayout>
+            {
+                IsLogin ?
+                    <FormLayout onSubmit={handleSubmit}>
+                        <div style={{display: "flex", alignItems: "center"}}>
+                            <Tappable onClick={() => tab()} style={{marginLeft: "10px"}}>
+                                TAB
+                            </Tappable>
+                            <div style={{flexGrow: 999}}>
+                                <Input
+                                    id="message-input"
+                                    name="message"
+                                    autoComplete="off"
+                                    type="text"
+                                    value={values.message}
+                                    placeholder="Сообщение"
+                                    onChange={handleChange}/>
+                            </div>
+                            <div style={{marginRight: "10px"}}>
+                                <Tappable  onClick={handleSubmit}>
+                                    <Icon24Send width={30} height={30}/>
+                                </Tappable>
+                            </div>
+                        </div>
+                    </FormLayout>
+                    :
+                    <div style={{height: "50px", lineHeight: "50px", textAlign: "center"}}>Вы не подключены к серверу!</div>
+            }
         </div>
     );
 };
