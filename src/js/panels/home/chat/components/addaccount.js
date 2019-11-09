@@ -16,6 +16,9 @@ class AddAccount extends React.Component {
         if (name === "nickname") {
             value = value.replace(/[^A-Za-z0-9_]/g, "").slice(0, 16);
         }
+        if (name === "email") {
+            value = value.trim();
+        }
         this.setState({[name]: value, error: false});
     }
 
