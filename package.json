@@ -16,7 +16,7 @@
     "@vkontakte/icons": "^1.10.4",
     "@vkontakte/mvk-mini-apps-scroll-helper": "^1.2.0",
     "@vkontakte/vk-connect": "^1.6.9",
-    "@vkontakte/vkui": "^2.33.0",
+    "@vkontakte/vkui": "^2.32.4",
     "chalk": "^2.4.2",
     "core-js": "^2.6.9",
     "prop-types": "^15.7.2",
