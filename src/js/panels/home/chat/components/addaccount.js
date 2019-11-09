@@ -22,7 +22,7 @@ class AddAccount extends React.Component {
         this.setState({[name]: value, error: false});
     }
 
-    login() {
+    login = () => {
         if (this.state.type === "license") {
             this.setState({loading: true});
             this.props.navigator.params.socket.emit('server:connect', {
@@ -59,16 +59,16 @@ class AddAccount extends React.Component {
                 return this.props.navigator.params.addAccount(accountData);
             }
         }
-    }
+    };
 
     render() {
-        const {id, header, onClose, navigator} = this.props;
+        const {id, header, onClose} = this.props;
         const emailRegExp = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
         const nicknameRegExp = /^[A-Za-z0-9_]/g;
 
         return (
-            <Online polling={{interval: 1000}} onChange={() => navigator.hideModal()}>
-                <ModalPage id={id} header={header} onClose={onClose}>
+            <ModalPage id={id} header={header} onClose={onClose}>
+                <Online polling={{interval: 1000}} onChange={onClose}>
                     <Group title="Тип аккаунта">
                         <Tabs type="buttons">
                             <TabsItem
@@ -138,12 +138,12 @@ class AddAccount extends React.Component {
                                 :
                                 undefined
                         }
-                        <Button onClick={this.login.bind(this)} disabled={this.state.type === "license" ? this.state.email === "" || !this.state.email.match(emailRegExp) || this.state.password === "" || this.state.loading : this.state.nickname === "" || !this.state.nickname.match(nicknameRegExp) || this.state.nickname.length < 3} style={{marginBottom: "80px"}} size='xl'>
+                        <Button onClick={() => this.login()} disabled={this.state.type === "license" ? this.state.email === "" || !this.state.email.match(emailRegExp) || this.state.password === "" || this.state.loading : this.state.nickname === "" || !this.state.nickname.match(nicknameRegExp) || this.state.nickname.length < 3} style={{marginBottom: "80px"}} size='xl'>
                             <b>{this.state.loading ? "Авторизация...": "Добавить аккаунт"}</b>
                         </Button>
                     </FormLayout>
-                </ModalPage>
-            </Online>
+                </Online>
+            </ModalPage>
         );
     }
 
