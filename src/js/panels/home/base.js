@@ -13,13 +13,8 @@ import Icon24Message from '@vkontakte/icons/dist/24/message';
 
 class HomePanelBase extends React.Component {
 
-    state = {
-        chat: false
-    };
-
     activateTestersFeatures() {
         this.props.eruda();
-        this.setState({chat: true})
     }
 
     render() {
@@ -33,12 +28,7 @@ class HomePanelBase extends React.Component {
                     <Cell before={<div style={{height: '24px', width: '40px'}}><IconServer className="icon_base"/></div>} onClick={() => navigator.go('server')} className="pointer">Информация о сервере по IP</Cell>
                     <Separator />
                     <Cell before={<Icon24Write />} onClick={() => navigator.go('achievements')} className="pointer">Генератор достижений</Cell>
-                    {
-                        this.state.chat ?
-                            <Cell before={<Icon24Message />} onClick={() => navigator.go('chat')} className="pointer">Minecraft чат БЕТА</Cell>
-                            :
-                            undefined
-                    }
+                    <Cell before={<Icon24Message />} onClick={() => navigator.go('chat')} className="pointer">Minecraft чат</Cell>
                     <Cell before={<div style={{height: '24px', width: '40px'}}><IconCalculator className="icon_base"/></div>} onClick={() => navigator.go('calculator')} className="pointer">Калькулятор координат</Cell>
                     <Cell before={<Icon24Search />} onClick={() => navigator.go('endercalculator')} className="pointer">Получение координат крепости</Cell>
                     <Separator />
