@@ -15,13 +15,13 @@
   "dependencies": {
     "@vkontakte/icons": "^1.10.4",
     "@vkontakte/mvk-mini-apps-scroll-helper": "^1.2.0",
-    "@vkontakte/vk-connect": "^1.6.5",
-    "@vkontakte/vkui": "^2.32.2",
+    "@vkontakte/vk-connect": "^1.6.9",
+    "@vkontakte/vkui": "^2.33.0",
     "chalk": "^2.4.2",
     "core-js": "^2.6.9",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
-    "react-copy-to-clipboard": "^5.0.1",
+    "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.10.2",
     "react-skinview3d": "https://github.com/MrZillaGold/react-skinview3d.git",
     "cross-env": "^5.2.0",
@@ -33,7 +33,7 @@
     "node-sass": "^4.12.0",
     "socket.io-client": "^2.3.0",
     "serve": "^11.2.0",
-    "vkui-navigator": "^1.4.0"
+    "vkui-navigator": "^1.4.6"
   },
   "browserslist": [
     ">0.2%",
