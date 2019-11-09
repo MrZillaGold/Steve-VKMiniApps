@@ -75,14 +75,6 @@ class MinecraftChat extends React.Component {
     render() {
         const {id, navigator} = this.props;
 
-        socket.on('disconnect', () => {
-            this.setState({connect: false});
-        });
-
-        socket.on('connect', () => {
-            this.setState({connect: true});
-        });
-
         return (
             <Panel id={id}>
                 <PanelHeader transparent left={<HeaderButton onClick={() => navigator.goBack()}><HeaderButtons/></HeaderButton>}>
