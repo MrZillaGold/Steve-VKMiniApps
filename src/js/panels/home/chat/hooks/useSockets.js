@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 
 function useSockets(socket, channels) {
+  const abortController = new AbortController();
+
   useEffect(() => {
     if (socket && socket.connected) {
       channels.forEach(channel => {
@@ -16,6 +18,7 @@ function useSockets(socket, channels) {
           socket.off(channel.name, channel.handler);
         });
       }
+      abortController.abort();
     }
   });
 }
