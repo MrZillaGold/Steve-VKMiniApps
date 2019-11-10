@@ -60,6 +60,7 @@ class UserGet extends React.Component {
                 }
             })
             .catch(err => {
+                console.log(err);
                 this.setState({ spinner: null });
                 if (err.response.status) {
                     if (err.response.status === 404) {
