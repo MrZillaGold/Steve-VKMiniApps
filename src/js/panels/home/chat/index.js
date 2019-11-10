@@ -4,11 +4,11 @@ import { Offline, Online } from 'react-detect-offline';
 import {Panel, PanelHeader, PanelHeaderContent, HeaderButton, Tabs, TabsItem, Group, Snackbar, Avatar} from "@vkontakte/vkui";
 import Icon16Cancel from '@vkontakte/icons/dist/16/cancel';
 
-import {resizeWindow} from "../../../services/_functions";
 import OfflineBlock from '../components/offline';
 import HeaderButtons from "../components/headerbuttons";
 import Servers from "./servers";
 import Accounts from "./accounts";
+import {resizeWindow} from "../../../services/_functions";
 const socket = io("https://stevesocket.herokuapp.com");
 
 class MinecraftChat extends React.Component {
@@ -24,7 +24,6 @@ class MinecraftChat extends React.Component {
         this.setState({ socket });
         if (socket && socket.connected) {
             socket.emit('server:disconnect');
-            this.setState({connect: true});
         }
         resizeWindow(600);
     }
@@ -83,47 +82,42 @@ class MinecraftChat extends React.Component {
                     </PanelHeaderContent>
                 </PanelHeader>
                 <Online>
-                    {
-                        this.state.connect ?
-                            <div>
-                                <Group>
-                                    <Tabs type="buttons">
-                                        <TabsItem
-                                            onClick={() => this.setState({tab: 'servers'})}
-                                            selected={this.state.tab === 'servers'}
-                                        >
-                                            Сервера
-                                        </TabsItem>
-                                        <TabsItem
-                                            onClick={() => this.setState({tab: 'accounts'})}
-                                            selected={this.state.tab === 'accounts'}
-                                        >
-                                            Аккаунты
-                                        </TabsItem>
-                                    </Tabs>
-                                </Group>
-                                <div>
-                                    {
-                                        this.state.tab === "servers" ?
-                                            <Servers socket={this.state.socket} navigator={navigator} error={this.error}
-                                                     connect={this.login} editTab={this.editTab}/>
-                                            :
-                                            undefined
-                                    }
-                                    {
-                                        this.state.tab === "accounts" ?
-                                            <Accounts socket={this.state.socket} navigator={navigator} error={this.error}/>
-                                            :
-                                            undefined
-                                    }
-                                </div>
-                                {this.state.error}
-                            </div>
-                            :
-                            <OfflineBlock/>
-                    }
+                    <div>
+                        <Group>
+                            <Tabs type="buttons">
+                                <TabsItem
+                                    onClick={() => this.setState({tab: 'servers'})}
+                                    selected={this.state.tab === 'servers'}
+                                >
+                                    Сервера
+                                </TabsItem>
+                                <TabsItem
+                                    onClick={() => this.setState({tab: 'accounts'})}
+                                    selected={this.state.tab === 'accounts'}
+                                >
+                                    Аккаунты
+                                </TabsItem>
+                            </Tabs>
+                        </Group>
+                        <div>
+                            {
+                                this.state.tab === "servers" ?
+                                    <Servers socket={this.state.socket} navigator={navigator} error={this.error}
+                                             connect={this.login} editTab={this.editTab}/>
+                                    :
+                                    undefined
+                            }
+                            {
+                                this.state.tab === "accounts" ?
+                                    <Accounts socket={this.state.socket} navigator={navigator} error={this.error}/>
+                                    :
+                                    undefined
+                            }
+                        </div>
+                        {this.state.error}
+                    </div>
                 </Online>
-                <Offline>
+                <Offline onChange={() => this.componentDidMount()}>
                     <OfflineBlock/>
                 </Offline>
             </Panel>
