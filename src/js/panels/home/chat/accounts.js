@@ -52,6 +52,9 @@ class Accounts extends React.Component {
     saveAccountsEdits() {
         sessionStorage.setItem('chatAccounts', JSON.stringify(this.state.accounts));
         VKConnect.send("VKWebAppStorageSet", {"key": "steveChatAccountsList", "value": this.state.accounts});
+        if (this.state.accounts.length === 1) {
+            this.selectAccount(this.state.accounts[0])
+        }
     }
 
     addAccount = async (data) => {
