@@ -71,7 +71,7 @@ class Accounts extends React.Component {
         const {addAccount} = this;
 
         return (
-            !this.state.loading ?
+            !this.state.loading && socket.connected ?
                 <div>
                     <Group style={{marginBottom: "70px"}}>
                         {
