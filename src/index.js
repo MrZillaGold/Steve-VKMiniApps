@@ -16,8 +16,12 @@ VKConnect.subscribe(({ detail: { type, data }}) => {
         schemeAttribute.value = data.scheme ? data.scheme : "bright_light";
         document.body.attributes.setNamedItem(schemeAttribute);
     }
+    if (type === "VKWebAppViewRestore") {
+        changeStatusBarColor();
+    }
 });
-VKConnect.send("VKWebAppSetViewSettings", {"status_bar_style": "light", "action_bar_color": "#1c1c1c"});
+
+changeStatusBarColor();
 
 const OsName = platform();
 const root = document.getElementById('root');
@@ -26,3 +30,7 @@ if (OsName === IOS) {
 }
 
 ReactDOM.render(<App/>, root);
+
+function changeStatusBarColor() {
+    VKConnect.send("VKWebAppSetViewSettings", {"status_bar_style": "light", "action_bar_color": "#1c1c1c"});
+}
