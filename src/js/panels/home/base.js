@@ -11,10 +11,16 @@ import Icon24Write from '@vkontakte/icons/dist/24/write';
 import Icon24Search from '@vkontakte/icons/dist/24/search';
 import Icon24Message from '@vkontakte/icons/dist/24/message';
 
+import {resizeWindow} from "../../services/_functions";
+
 class HomePanelBase extends React.Component {
 
     activateTestersFeatures() {
         this.props.eruda();
+    }
+
+    componentDidMount() {
+        resizeWindow(700);
     }
 
     render() {
@@ -26,15 +32,14 @@ class HomePanelBase extends React.Component {
                 <Group>
                     <Cell before={<div style={{height: '24px', width: '40px'}}><IconUser className="icon_base"/></div>} onClick={() => navigator.go('user')} className="pointer">Информация об игроке</Cell>
                     <Cell before={<div style={{height: '24px', width: '40px'}}><IconServer className="icon_base"/></div>} onClick={() => navigator.go('server')} className="pointer">Информация о сервере по IP</Cell>
-                    <Separator />
+                    <Separator/>
                     <Cell before={<Icon24Write />} onClick={() => navigator.go('achievements')} className="pointer">Генератор достижений</Cell>
                     <Cell before={<Icon24Message />} onClick={() => navigator.go('chat')} className="pointer">Minecraft чат</Cell>
                     <Cell before={<div style={{height: '24px', width: '40px'}}><IconCalculator className="icon_base"/></div>} onClick={() => navigator.go('calculator')} className="pointer">Калькулятор координат</Cell>
                     <Cell before={<Icon24Search />} onClick={() => navigator.go('endercalculator')} className="pointer">Получение координат крепости</Cell>
-                    <Separator />
+                    <Separator/>
                     <Cell before={<Icon24Globe />} onClick={() => navigator.go('status')} className="pointer">Состояние серверов Minecraft</Cell>
-                </Group>
-                <Group>
+                    <Separator/>
                     <Cell
                         multiline
                         before={<Avatar type='image' onDoubleClick={() => this.activateTestersFeatures()} size={64} src={require('./img/Steve.png')} style={{backgroundColor: 'transparent'}}/>}
