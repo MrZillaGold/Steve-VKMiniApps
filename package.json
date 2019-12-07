@@ -13,10 +13,10 @@
   "author": "MrZillaGold",
   "license": "ISC",
   "dependencies": {
-    "@vkontakte/icons": "^1.10.4",
+    "@vkontakte/icons": "^1.12.0",
     "@vkontakte/mvk-mini-apps-scroll-helper": "^1.2.0",
-    "@vkontakte/vk-connect": "^1.6.9",
-    "@vkontakte/vkui": "^2.32.4",
+    "@vkontakte/vk-connect": "^1.6.11",
+    "@vkontakte/vkui": "^2.34.0",
     "chalk": "^2.4.2",
     "core-js": "^2.6.9",
     "prop-types": "^15.7.2",
@@ -33,7 +33,7 @@
     "node-sass": "^4.12.0",
     "socket.io-client": "^2.3.0",
     "serve": "^11.2.0",
-    "vkui-navigator": "^1.4.6"
+    "vkui-navigator": "^1.4.8"
   },
   "browserslist": [
     ">0.2%",
