@@ -23,7 +23,7 @@
     "react": "^16.8.6",
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.10.2",
-    "react-skinview3d": "https://github.com/MrZillaGold/react-skinview3d.git",
+    "react-skinview3d": "^1.3.3",
     "cross-env": "^5.2.0",
     "react-detect-offline": "^2.4.0",
     "react-scripts": "^3.2.0",
