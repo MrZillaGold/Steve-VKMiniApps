@@ -65,7 +65,7 @@ class AchievementsGet extends React.Component {
             attachment: {
                 text: "open",
                 type: "url",
-                url: "https://vk.com/minetools#achievement"
+                url: "https://vk.com/minetools#achievements"
             }
         })
     }
