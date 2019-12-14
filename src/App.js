@@ -25,6 +25,25 @@ class App extends React.Component {
         this.state.eruda ? window.eruda.init() : window.eruda.destroy()
     };
 
+    hash() {
+        if (window.location.hash) {
+            const hash = window.location.hash.match(/#(.+?)(?:=([^]+)|$)/);
+            const panels = ["user", "server", "status", "achievements", "calculator", "endercalculator", "chat", "base"];
+            if (hash[1] && panels.includes(hash[1])) {
+                if (hash[1] === "user" && hash[2] && hash[2].match(/^[A-Za-z0-9_]{3,16}$/g)) {
+                    return {panel: "user", data: hash[2]};
+                } else {
+                    return {panel: hash[1]};
+                }
+            } else {
+                return {panel: "base"};
+            }
+        } else {
+            return {panel: "base"};
+        }
+    }
+
+
     render() {
         return (
             <Stack
@@ -39,7 +58,7 @@ class App extends React.Component {
                             title="Добавление аккаута"
                         />
                 ]}>
-                <Page id="main" activePanel="base">
+                <Page id="main" activePanel={this.hash().panel}>
                     <Base id="base" eruda={this.eruda}/>
                     <Server id="server"/>
                     <User id="user"/>
