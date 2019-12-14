@@ -8,6 +8,7 @@ import {randomInteger, fixInput} from "../../services/_functions";
 
 import Icon24Message from '@vkontakte/icons/dist/24/message';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
+import Icon24CameraOutline from '@vkontakte/icons/dist/24/camera_outline';
 
 import OfflineBlock from './components/offline';
 import Spinner from './components/spinner';
@@ -24,6 +25,7 @@ class AchievementsGet extends React.Component {
         lineTwo: null,
         rand: null,
         url: null,
+        storySupport: false
     };
 
     onChange(e) {
@@ -32,12 +34,12 @@ class AchievementsGet extends React.Component {
         this.setState({[name]: value.replace(/[^а-яА-ЯёЁA-Za-z0-9!?., ]/g, "").slice(0, 20)});
     }
 
-    share () {
+    share() {
         console.log("Начинаем отправку сообщения.");
         VKConnect.sendPromise("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098})
             .then(data => {
                 console.log(data);
-                if(data.result) {
+                if (data.result) {
                     this.setState({ lock: true });
                     VKConnect.send("VKWebAppSendPayload",
                         {"group_id": 175914098, "payload": {"type":"photo", "url": this.state.url}}
@@ -47,8 +49,28 @@ class AchievementsGet extends React.Component {
             .catch(error => console.log(error));
     }
 
-    onClick () {
+    openStoryEditor(url) {
+        VKConnect.send("VKWebAppShowStoryBox", {
+            background_type: "none",
+            stickers: [{
+                sticker_type: "renderable",
+                sticker: {
+                    content_type: "image",
+                    url: url,
+                    transform: {
+                        relation_width: 0.8
+                    }
+                }
+            }],
+            attachment: {
+                text: "open",
+                type: "url",
+                url: "https://vk.com/minetools#achievement"
+            }
+        })
+    }
 
+    onClick () {
         this.setState({
             spinner: true,
             check: false,
@@ -56,8 +78,7 @@ class AchievementsGet extends React.Component {
             url: null,
             lock: false
         });
-
-        axios.get(`https://stevecors.herokuapp.com/https://vkfreeviews.000webhostapp.com/a.php?h=&t=`)
+        axios.get(`https://vkfreeviews.000webhostapp.com/a.php?h=&t=`)
             .then(() => {
                 const random = randomInteger(1, 39);
                 this.setState({
@@ -79,7 +100,6 @@ class AchievementsGet extends React.Component {
     }
 
     render() {
-
         const {id, navigator} = this.props;
         const url = 'https://vkfreeviews.000webhostapp.com/a.php?h=' + this.state.lineOne +'&t=' + this.state.lineTwo + '&i=' + this.state.rand;
 
@@ -116,32 +136,33 @@ class AchievementsGet extends React.Component {
                             <b>Сгенерировать достижение</b>
                         </Button>
                     </FormLayout>
-                        {
-                            this.state.spinner ?
-                                <Spinner />
-                                :
-                                undefined
-                        }
-                        {
-                            this.state.error ?
-                                <Error error={this.state.error} />
-                                :
-                                undefined
-                        }
-                        {
-                            this.state.check ?
-                                <Group>
-                                    <Div>
-                                        <div className="image" style={{backgroundImage: 'url(' + encodeURI(url) + ')'}}/>
-                                        <Separator style={{ margin: '12px 0' }} />
-                                        <div className="button">
-                                            <Button disabled={this.state.lock} onClick={this.share.bind(this)} stretched before={this.state.lock ? <Icon16Done/> : <Icon24Message width={16} height={16} />}><b>{this.state.lock ? "Сообщение отправлено!" : "Получить картинку в сообщения"}</b></Button>
-                                        </div>
-                                    </Div>
-                                </Group>
-                                :
-                                undefined
-                        }
+                    {
+                        this.state.spinner ?
+                            <Spinner />
+                            :
+                            undefined
+                    }
+                    {
+                        this.state.error ?
+                            <Error error={this.state.error} />
+                            :
+                            undefined
+                    }
+                    {
+                        this.state.check ?
+                            <Group>
+                                <Div>
+                                    <div className="image" style={{backgroundImage: 'url(' + encodeURI(url) + ')'}}/>
+                                    <Separator style={{ margin: '12px 0' }} />
+                                    <div className="button">
+                                        <Button disabled={this.state.lock} onClick={this.share.bind(this)} style={{flexGrow: 10}} stretched before={this.state.lock ? <Icon16Done/> : <Icon24Message width={16} height={16} />}><b>{this.state.lock ? "Сообщение отправлено!" : "Получить картинку в сообщения"}</b></Button>
+                                        <Button disabled={!VKConnect.supports("VKWebAppShowStoryBox")} onClick={() => this.openStoryEditor(url)} style={{marginLeft: "10px", weight: "10px", flexGrow: 1}} stretched><Icon24CameraOutline width={16} height={16}/></Button>
+                                    </div>
+                                </Div>
+                            </Group>
+                            :
+                            undefined
+                    }
                 </Online>
                 <Offline>
                     <OfflineBlock />
