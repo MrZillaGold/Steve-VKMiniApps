@@ -8,7 +8,7 @@ import OfflineBlock from '../components/offline';
 import HeaderButtons from "../components/headerbuttons";
 import Servers from "./servers";
 import Accounts from "./accounts";
-import {resizeWindow} from "../../../services/_functions";
+import {resizeWindow} from "../../services/_functions";
 const socket = io("https://stevesocket.herokuapp.com");
 
 class MinecraftChat extends React.Component {
@@ -101,17 +101,13 @@ class MinecraftChat extends React.Component {
                         </Group>
                         <div>
                             {
-                                this.state.tab === "servers" ?
+                                this.state.tab === "servers" &&
                                     <Servers socket={this.state.socket} navigator={navigator} error={this.error}
                                              connect={this.login} editTab={this.editTab}/>
-                                    :
-                                    undefined
                             }
                             {
-                                this.state.tab === "accounts" ?
+                                this.state.tab === "accounts" &&
                                     <Accounts socket={this.state.socket} navigator={navigator} error={this.error}/>
-                                    :
-                                    undefined
                             }
                         </div>
                         {this.state.error}

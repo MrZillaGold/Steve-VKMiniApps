@@ -39,9 +39,9 @@ export const randomInteger = (min, max) => {
 };
 
 export const checkStatus = (status) => {
-    const green = require('../panels/home/img/green.gif');
-    const yellow = require('../panels/home/img/yellow.gif');
-    const red = require('../panels/home/img/red.gif');
+    const green = require('../panels/assets/green.gif');
+    const yellow = require('../panels/assets/yellow.gif');
+    const red = require('../panels/assets/red.gif');
     if (status === "green") {
         return {"img" : green, "text" : "Всё в порядке"};
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {randomInteger} from "../../../services/_functions";
+import {randomInteger} from "../../services/_functions";
 import {Placeholder} from "@vkontakte/vkui";
 
 class Error extends React.Component {
@@ -18,7 +18,7 @@ class Error extends React.Component {
             <Placeholder
                 stretched={stretch}
                 title="Упс..."
-                icon={<img src={require(`../img/error${this.state.image}.svg`)} alt="Ошибка" />}
+                icon={<img src={require(`../assets/error${this.state.image}.svg`)} alt="Ошибка" />}
             >
                 {error}
             </Placeholder>

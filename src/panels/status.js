@@ -3,20 +3,19 @@ import axios from 'axios';
 import {Panel, PanelHeader, PanelHeaderContent, Avatar, Group, Cell, List, HeaderButton} from "@vkontakte/vkui";
 import { Offline, Online } from 'react-detect-offline';
 
-import {checkStatus} from "../../services/_functions";
+import {checkStatus} from "../services/_functions";
 
 import OfflineBlock from './components/offline';
 import Spinner from './components/spinner';
 import Error from './components/error';
 import HeaderButtons from "./components/headerbuttons";
 
-class StatusGet extends React.Component {
+class MojangStatus extends React.Component {
 
     state = {
         spinner: true,
         status: null
     };
-
 
     componentDidMount() {
         axios.get(`https://stevecors.herokuapp.com/https://status.mojang.com/check`)
@@ -43,14 +42,12 @@ class StatusGet extends React.Component {
                     </PanelHeaderContent>
                 </PanelHeader>
                 <Online>
-                    { this.state.spinner ?
-                        <Spinner />
-                        :
-                        undefined
+                    {
+                        this.state.spinner && <Spinner/>
                     }
                     {
-                        this.state.status ?
-                            <Group title="Список серверов">
+                        this.state.status &&
+                        <Group title="Список серверов">
                                 <List>
                                     <Cell
                                         before={<Avatar src={checkStatus(this.state.status[0]['minecraft.net']).img}/>}
@@ -89,29 +86,22 @@ class StatusGet extends React.Component {
                                         API Mojang
                                     </Cell>
                                     <Cell
-                                        before={
-                                            <Avatar src={checkStatus(this.state.status[6]['textures.minecraft.net']).img}/>}
+                                        before={<Avatar src={checkStatus(this.state.status[6]['textures.minecraft.net']).img}/>}
                                         description={checkStatus(this.state.status[6]['textures.minecraft.net']).text}
                                     >
                                         Текстуры/Скины Minecraft
                                     </Cell>
                                     <Cell
-                                        before={
-                                            <Avatar src={checkStatus(this.state.status[7]['mojang.com']).img}/>}
+                                        before={<Avatar src={checkStatus(this.state.status[7]['mojang.com']).img}/>}
                                         description={checkStatus(this.state.status[7]['mojang.com']).text}
                                     >
                                         Mojang.com
                                     </Cell>
                                 </List>
                             </Group>
-                            :
-                            undefined
                     }
                     {
-                        this.state.error ?
-                            <Error error={this.state.error} stretch/>
-                            :
-                            undefined
+                        this.state.error && <Error error={this.state.error} stretch/>
                     }
                 </Online>
                 <Offline>
@@ -123,4 +113,4 @@ class StatusGet extends React.Component {
 
 }
 
-export default StatusGet;
+export default MojangStatus;

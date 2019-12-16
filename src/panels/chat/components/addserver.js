@@ -1,7 +1,7 @@
 import React from 'react';
 import {Online} from 'react-detect-offline';
 import {Button, FormLayout, Input, ModalPage, Select} from "@vkontakte/vkui";
-import {ipRegExp1, ipRegExp2, ipRegExp3, ipRegExp4} from "../../../../services/_functions";
+import {ipRegExp1, ipRegExp2, ipRegExp3, ipRegExp4} from "../../../services/_functions";
 
 const supportedVersions = ["1.8.8", "1.9", "1.9.2", "1.9.4", "1.10", "1.10.1", "1.10.2", "1.11", "1.11.2", "1.12", "1.12.1", "1.12.2"];
 

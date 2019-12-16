@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import VKConnect from "@vkontakte/vk-connect";
 import { Offline, Online } from 'react-detect-offline';
-import {Panel, PanelHeader, PanelHeaderContent, Input, FormLayout, Button, Avatar, Group, Cell, Header, List, HeaderButton} from "@vkontakte/vkui";
+import {Panel, PanelHeader, PanelHeaderContent, Input, FormLayout, Button, Avatar, Group, Cell, Header, List, HeaderButton, FormLayoutGroup} from "@vkontakte/vkui";
 import Icon24Chevron from '@vkontakte/icons/dist/24/chevron';
 import Icon24Dropdown from '@vkontakte/icons/dist/24/dropdown';
 import Icon24FavoriteOutline from '@vkontakte/icons/dist/24/favorite_outline';
@@ -10,14 +10,14 @@ import Icon24Write from '@vkontakte/icons/dist/24/write';
 import Icon24DoneOutline from '@vkontakte/icons/dist/24/done_outline';
 import Icon24Cancel from '@vkontakte/icons/dist/24/cancel';
 
-import {fixInput, resizeWindow, ipRegExp1, ipRegExp2, ipRegExp3, ipRegExp4} from "../../services/_functions";
+import {fixInput, resizeWindow, ipRegExp1, ipRegExp2, ipRegExp3, ipRegExp4} from "../services/_functions";
 
 import OfflineBlock from './components/offline';
 import Spinner from './components/spinner';
 import Error from './components/error';
 import HeaderButtons from "./components/headerbuttons";
 
-class ServerInfoGet extends React.Component {
+class ServerInfo extends React.Component {
 
     state = {
         ip: '',
@@ -88,8 +88,7 @@ class ServerInfoGet extends React.Component {
                 </PanelHeader>
                 <Online onChange={() => this.componentDidMount()}>
                     <FormLayout>
-                        <div className="FormLayout__row--s-default">
-                            <div className="FormLayout__row-top">IP-Адрес сервера</div>
+                        <FormLayoutGroup top="IP-Адрес сервера" bottom="Например: Hypixel.net">
                             <div style={{display: "flex", alignItems: "center"}} className="Input">
                                 <div style={{flexGrow: 99}}>
                                     <Input
@@ -113,7 +112,6 @@ class ServerInfoGet extends React.Component {
                                     }
                                 </div>
                             </div>
-                            <div className="FormLayout__row-bottom">Например: Hypixel.net</div>
                             {
                                 this.state.openFavorite ?
                                     this.state.favoriteList.length > 0 || this.state.editFavorite ?
@@ -163,18 +161,15 @@ class ServerInfoGet extends React.Component {
                                     :
                                     undefined
                             }
-                        </div>
+                        </FormLayoutGroup>
                         <Button onClick={this.onClick.bind(this)} size='xl' disabled={!(this.state.ip.length > 2 && !this.state.editFavorite && !this.state.spinner && (this.state.ip.match(ipRegExp1) || this.state.ip.match(ipRegExp2) || this.state.ip.match(ipRegExp3) || this.state.ip.match(ipRegExp4)))}>
                             <b>Получить информацию</b>
                         </Button>
                         {
-                            this.state.spinner ?
-                                <Spinner />
-                                :
-                                undefined
+                            this.state.spinner && <Spinner/>
                         }
                         {
-                            this.state.response ?
+                            this.state.response &&
                                 <Group description={this.state.response.software ? `Ядро сервера: ${this.state.response.software}` : ``}>
                                     <Header level="secondary" aside={this.state.favoriteList.includes(this.state.titleIP.toLowerCase()) ? <Icon24DoneOutline style={{opacity: ".2"}}/> : <Icon24FavoriteOutline onClick={() => this.addFavorite(this.state.titleIP)}/>}>
                                         {this.state.titleIP}
@@ -185,32 +180,25 @@ class ServerInfoGet extends React.Component {
                                             before={<Avatar style={{imageRendering: "pixelated"}} type="image" size={64} src={this.state.response.icon ? this.state.response.icon.toString().replace(/\//g, '/') : defaultImage}/>}
                                             description={`Игроков: ${this.state.response.players.online} / ${this.state.response.players.max}`}
                                         >
-                                            <div className='Container' dangerouslySetInnerHTML={{__html: this.state.response.motd.html[0]}} />
-                                            <div className='Container' dangerouslySetInnerHTML={{__html: this.state.response.motd.html[1]}} />
+                                            <span className='Container' dangerouslySetInnerHTML={{__html: this.state.response.motd.html[0]}} />
+                                            <span className='Container' dangerouslySetInnerHTML={{__html: this.state.response.motd.html[1]}} />
                                         </Cell>
                                         {
-                                            this.state.response.players.list ?
+                                            this.state.response.players.list &&
                                                 <Cell multiline style={{whiteSpace: 'pre-wrap'}}>
                                                     {this.state.response.players.list.toString().replace(/,/g, ',  ')}
                                                 </Cell>
-                                                :
-                                                undefined
                                         }
                                     </List>
                                 </Group>
-                                :
-                                undefined
                         }
                         {
-                            this.state.error ?
-                                <Error error={this.state.error}/>
-                                :
-                                undefined
+                            this.state.error && <Error error={this.state.error}/>
                         }
                     </FormLayout>
                 </Online>
                 <Offline>
-                    <OfflineBlock />
+                    <OfflineBlock/>
                 </Offline>
             </Panel>
         );
@@ -218,4 +206,4 @@ class ServerInfoGet extends React.Component {
 
 }
 
-export default ServerInfoGet;
+export default ServerInfo;

@@ -1,12 +1,13 @@
 import React from 'react';
 import {Group, Avatar, Cell, FixedLayout} from "@vkontakte/vkui";
+import VKConnect from "@vkontakte/vk-connect";
+
 import Icon28EditOutline from '@vkontakte/icons/dist/28/edit_outline';
 import Icon24UserAdded from '@vkontakte/icons/dist/24/user_added';
 import Icon24User from '@vkontakte/icons/dist/24/user';
 import Icon28UserAddOutline from '@vkontakte/icons/dist/28/user_add_outline';
 import Icon24Done from '@vkontakte/icons/dist/24/done';
 import Icon24Cancel from '@vkontakte/icons/dist/24/cancel';
-import VKConnect from "@vkontakte/vk-connect";
 
 import "./chat.scss";
 import Spinner from "../components/spinner";
@@ -29,7 +30,7 @@ class Accounts extends React.Component {
         if (selectedAccount.length > 1) {
             this.setState({selectedAccount: JSON.parse(selectedAccount), loading: false});
         }
-        VKConnect.sendPromise("VKWebAppStorageGet", {"keys": ["steveChatAccountsList", "steveChatSelectedAccount"]})
+        VKConnect.sendPromise("VKWebAppStorageGet", {keys: ["steveChatAccountsList", "steveChatSelectedAccount"]})
             .then(res => {
                 if (res.keys[0].value.length > 1) {
                     this.setState({accounts: JSON.parse(res.keys[0].value)});
@@ -46,12 +47,12 @@ class Accounts extends React.Component {
     selectAccount(account) {
         this.setState({selectedAccount: account});
         sessionStorage.setItem('chatSelectedAccount', JSON.stringify(account));
-        VKConnect.send("VKWebAppStorageSet", {"key": "steveChatSelectedAccount", "value": account});
+        VKConnect.send("VKWebAppStorageSet", {key: "steveChatSelectedAccount", value: account});
     }
 
     saveAccountsEdits() {
         sessionStorage.setItem('chatAccounts', JSON.stringify(this.state.accounts));
-        VKConnect.send("VKWebAppStorageSet", {"key": "steveChatAccountsList", "value": this.state.accounts});
+        VKConnect.send("VKWebAppStorageSet", {key: "steveChatAccountsList", value: this.state.accounts});
         if (this.state.accounts.length === 1) {
             this.selectAccount(this.state.accounts[0])
         }
@@ -63,7 +64,7 @@ class Accounts extends React.Component {
         sessionStorage.setItem('chatAccounts', JSON.stringify(accountslist));
         this.selectAccount(data);
         this.setState({accounts: accountslist});
-        VKConnect.send("VKWebAppStorageSet", {"key": "steveChatAccountsList", "value": accountslist});
+        VKConnect.send("VKWebAppStorageSet", {key: "steveChatAccountsList", value: accountslist.toString()});
     };
 
     render() {
@@ -117,14 +118,12 @@ class Accounts extends React.Component {
                                         </Cell>
                                 ))
                                 :
-                                !this.state.editList ?
+                                !this.state.editList &&
                                     <Cell multiline before={<Icon28UserAddOutline height={44} width={44}/>} size="m"
                                           description="Нажмите сюда, чтобы добавить аккаунт."
                                           onClick={() => navigator.showModal("add-account", {addAccount, accounts: this.state.accounts, socket})}>
                                         Вы не добавили ни одного аккаунта!
                                     </Cell>
-                                    :
-                                    undefined
                         }
                     </Group>
                     <FixedLayout vertical="bottom" style={{display: "flex", direction: "rtl"}}>
@@ -132,15 +131,13 @@ class Accounts extends React.Component {
                             this.state.editList ?
                                 <div style={{display: "flex", marginBottom: "10px"}}>
                                     {
-                                        this.state.accounts !== this.state.accountsBackup ?
+                                        this.state.accounts !== this.state.accountsBackup &&
                                             <div className="footer-icon">
                                                 <Icon24Done className="footer-icon__icon" onClick={() => {
                                                     this.setState({editList: false});
                                                     this.saveAccountsEdits()
                                                 }} height={35} width={35}/>
                                             </div>
-                                            :
-                                            undefined
                                     }
                                     <div className="footer-icon">
                                         <Icon24Cancel onClick={() => {this.setState({editList: false, accounts: this.state.accountsBackup}); this.selectAccount(this.state.selectedAccountBackup)}} className="footer-icon__icon" height={35} width={35}/>
@@ -152,12 +149,10 @@ class Accounts extends React.Component {
                                         <Icon28UserAddOutline className="footer-icon__icon" onClick={() => this.state.accounts.length < 16 ? navigator.showModal("add-account", {addAccount, accounts: this.state.accounts, socket}) : this.props.error("Нельзя добавить больше 15 аккаунтов!")} height={35} width={35}/>
                                     </div>
                                     {
-                                        this.state.accounts.length > 0 ?
+                                        this.state.accounts.length > 0 &&
                                             <div className="footer-icon">
                                                 <Icon28EditOutline onClick={() => this.setState({editList: true, accountsBackup: this.state.accounts, selectedAccountBackup: this.state.selectedAccount})} className="footer-icon__icon" height={35} width={35}/>
                                             </div>
-                                            :
-                                            undefined
                                     }
                                 </div>
                         }

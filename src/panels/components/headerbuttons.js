@@ -5,9 +5,9 @@ class HeaderButtons extends React.Component {
     render() {
         return (
             platform() === IOS ?
-                <img className="arrow_icon" src={require('../img/arrowios.svg')} alt=""/>
+                <img className="arrow_icon" src={require('../assets/arrowios.svg')} alt=""/>
                 :
-                <img className="arrow_icon" src={require('../img/arrowandroid.svg')} alt=""/>
+                <img className="arrow_icon" src={require('../assets/arrowandroid.svg')} alt=""/>
         );
     }
 }

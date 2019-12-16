@@ -4,7 +4,7 @@ import VKConnect from "@vkontakte/vk-connect";
 import { Offline, Online } from 'react-detect-offline';
 import {Panel, PanelHeader, PanelHeaderContent, Input, FormLayout, Button, Group, Div, Separator, HeaderButton} from "@vkontakte/vkui";
 
-import {randomInteger, fixInput} from "../../services/_functions";
+import {randomInteger, fixInput} from "../services/_functions";
 
 import Icon24Message from '@vkontakte/icons/dist/24/message';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
@@ -137,19 +137,13 @@ class AchievementsGet extends React.Component {
                         </Button>
                     </FormLayout>
                     {
-                        this.state.spinner ?
-                            <Spinner />
-                            :
-                            undefined
+                        this.state.spinner && <Spinner/>
                     }
                     {
-                        this.state.error ?
-                            <Error error={this.state.error} />
-                            :
-                            undefined
+                        this.state.error && <Error error={this.state.error}/>
                     }
                     {
-                        this.state.check ?
+                        this.state.check &&
                             <Group>
                                 <Div>
                                     <div className="image" style={{backgroundImage: 'url(' + encodeURI(url) + ')'}}/>
@@ -160,12 +154,10 @@ class AchievementsGet extends React.Component {
                                     </div>
                                 </Div>
                             </Group>
-                            :
-                            undefined
                     }
                 </Online>
                 <Offline>
-                    <OfflineBlock />
+                    <OfflineBlock/>
                 </Offline>
             </Panel>
         );

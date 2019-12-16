@@ -3,15 +3,15 @@ import React from 'react';
 import { Panel, Group, Button, PanelHeader, Cell, Avatar, Separator } from '@vkontakte/vkui';
 import "./scss/styles.scss"
 
-import { ReactComponent as IconUser } from './img/usericon.svg';
-import { ReactComponent as IconServer } from './img/servericon.svg';
-import { ReactComponent as IconCalculator } from './img/calculatoricon.svg';
+import { ReactComponent as IconUser } from './assets/usericon.svg';
+import { ReactComponent as IconServer } from './assets/servericon.svg';
+import { ReactComponent as IconCalculator } from './assets/calculatoricon.svg';
 import Icon24Globe from '@vkontakte/icons/dist/24/globe';
 import Icon24Write from '@vkontakte/icons/dist/24/write';
 import Icon24Search from '@vkontakte/icons/dist/24/search';
 import Icon24Message from '@vkontakte/icons/dist/24/message';
 
-import {resizeWindow} from "../../services/_functions";
+import {resizeWindow} from "../services/_functions";
 
 class HomePanelBase extends React.Component {
 
@@ -42,7 +42,7 @@ class HomePanelBase extends React.Component {
                     <Separator/>
                     <Cell
                         multiline
-                        before={<Avatar type='image' onDoubleClick={() => this.activateTestersFeatures()} size={64} src={require('./img/Steve.png')} style={{backgroundColor: 'transparent'}}/>}
+                        before={<Avatar type='image' onDoubleClick={() => this.activateTestersFeatures()} size={64} src={require('./assets/Steve.png')} style={{backgroundColor: 'transparent'}}/>}
                         size="l"
                         description="Получите быстрый доступ ко всем функциям в сообщениях ВК!"
                         bottomContent={

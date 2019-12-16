@@ -125,18 +125,14 @@ class AddAccount extends React.Component {
                                 undefined
                         }
                         {
-                            this.state.type === "pirate" ?
+                            this.state.type === "pirate" &&
                                 <div className="FormLayout__row-bottom">При использовании данного типа аккаунта, вы не сможете подключаться к лицензионным серверам.</div>
-                                :
-                                undefined
                         }
                         {
-                            this.state.error ?
+                            this.state.error &&
                                 <div style={{color: "#e64646", height: "24px"}} className="FormLayout__row-bottom">
                                     {this.state.error}
                                 </div>
-                                :
-                                undefined
                         }
                         <Button onClick={() => this.login()} disabled={this.state.type === "license" ? this.state.email === "" || !this.state.email.match(emailRegExp) || this.state.password === "" || this.state.loading : this.state.nickname === "" || !this.state.nickname.match(nicknameRegExp) || this.state.nickname.length < 3} style={{marginBottom: "80px"}} size='xl'>
                             <b>{this.state.loading ? "Авторизация...": "Добавить аккаунт"}</b>

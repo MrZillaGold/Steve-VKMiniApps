@@ -27,7 +27,7 @@ class Servers extends React.Component {
             this.setState({selectedAccount: JSON.parse(selectedAccount), loading: false});
         }
         if (!serversStorage || !selectedAccount) {
-            VKConnect.sendPromise("VKWebAppStorageGet", {"keys": ["steveChatServersList", "steveChatSelectedAccount"]})
+            VKConnect.sendPromise("VKWebAppStorageGet", {keys: ["steveChatServersList", "steveChatSelectedAccount"]})
                 .then(res => {
                     if (res.keys[0].value.length > 1) {
                         this.setState({servers: JSON.parse(res.keys[0].value)});
@@ -44,7 +44,7 @@ class Servers extends React.Component {
 
     saveServersEdits() {
         sessionStorage.setItem('chatServers', JSON.stringify(this.state.servers));
-        VKConnect.send("VKWebAppStorageSet", {"key": "steveChatServersList", "value": this.state.servers});
+        VKConnect.send("VKWebAppStorageSet", {key: "steveChatServersList", value: this.state.servers});
     }
 
     render() {
@@ -56,7 +56,7 @@ class Servers extends React.Component {
             serverslist.unshift(data);
             sessionStorage.setItem('chatServers', JSON.stringify(serverslist));
             this.setState({servers: serverslist});
-            VKConnect.send("VKWebAppStorageSet", {"key": "steveChatServersList", "value": serverslist});
+            VKConnect.send("VKWebAppStorageSet", {key: "steveChatServersList", "value": serverslist.toString()});
         };
 
         return (
@@ -92,14 +92,12 @@ class Servers extends React.Component {
                                         </Cell>
                                 ))
                                 :
-                                !this.state.editList ?
+                                !this.state.editList &&
                                     <Cell multiline before={<Icon24Add height={44} width={44}/>} size="m"
                                           description="Нажмите сюда, чтобы добавить сервер."
                                           onClick={() => navigator.showModal("add-server", {addServer, servers: this.state.servers })}>
                                         Вы не добавили ни одного сервера!
                                     </Cell>
-                                    :
-                                    undefined
                         }
                     </Group>
                     <FixedLayout vertical="bottom" style={{display: "flex", direction: "rtl"}}>
@@ -107,15 +105,13 @@ class Servers extends React.Component {
                             this.state.editList ?
                                 <div style={{display: "flex", marginBottom: "10px"}}>
                                     {
-                                        this.state.servers !== this.state.serversBackup ?
+                                        this.state.servers !== this.state.serversBackup &&
                                             <div className="footer-icon">
                                                 <Icon24Done className="footer-icon__icon" onClick={() => {
                                                     this.setState({editList: false});
                                                     this.saveServersEdits()
                                                 }} height={35} width={35}/>
                                             </div>
-                                            :
-                                            undefined
                                     }
                                     <div className="footer-icon">
                                         <Icon24Cancel onClick={() => this.setState({editList: false, servers: this.state.serversBackup})} className="footer-icon__icon" height={35} width={35}/>
@@ -127,12 +123,10 @@ class Servers extends React.Component {
                                         <Icon24Add className="footer-icon__icon" onClick={() => this.state.servers.length < 21 ? navigator.showModal("add-server", {addServer, servers: this.state.servers }) : this.props.error("Нельзя добавить больше 20 серверов!")} height={35} width={35}/>
                                     </div>
                                     {
-                                        this.state.servers.length > 0 ?
+                                        this.state.servers.length > 0 &&
                                             <div className="footer-icon">
                                                 <Icon28EditOutline onClick={() => this.setState({editList: true, serversBackup: this.state.servers})} className="footer-icon__icon" height={35} width={35}/>
                                             </div>
-                                            :
-                                            undefined
                                     }
                                 </div>
                         }

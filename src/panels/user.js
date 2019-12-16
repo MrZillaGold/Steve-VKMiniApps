@@ -5,14 +5,14 @@ import Skinview3d from 'react-skinview3d'
 import VKConnect from "@vkontakte/vk-connect";
 import { Offline, Online } from 'react-detect-offline';
 
-import {timeConvert, fixInput, resizeWindow} from "../../services/_functions";
+import {timeConvert, fixInput, resizeWindow} from "../services/_functions";
 
 import OfflineBlock from './components/offline';
 import Error from "./components/error";
 import Spinner from "./components/spinner";
 import HeaderButtons from "./components/headerbuttons";
 
-import {Panel, PanelHeader, HeaderButton, PanelHeaderContent, Input, FormLayout, Button, Group, Cell, List, Div, Separator, Header} from "@vkontakte/vkui";
+import {Panel, PanelHeader, HeaderButton, PanelHeaderContent, Input, FormLayout, Button, Group, Cell, List, Div, Separator, Header, FormLayoutGroup} from "@vkontakte/vkui";
 
 import Icon24Message from '@vkontakte/icons/dist/24/message';
 import Icon24DoneOutline from '@vkontakte/icons/dist/24/done_outline';
@@ -21,7 +21,7 @@ import Icon24Dropdown from '@vkontakte/icons/dist/24/dropdown';
 import Icon24Write from '@vkontakte/icons/dist/24/write';
 import Icon24Cancel from '@vkontakte/icons/dist/24/cancel';
 
-class UserGet extends React.Component {
+class UserInfo extends React.Component {
 
     state = {
         nickname: '',
@@ -134,8 +134,7 @@ class UserGet extends React.Component {
                 </PanelHeader>
                 <Online>
                     <FormLayout>
-                        <div className="FormLayout__row--s-default">
-                            <div className="FormLayout__row-top">Никнейм</div>
+                        <FormLayoutGroup top="Никнейм" bottom={"Может содержать только латинские буквы, цифры и символ \"_\". (От 3 до 16 символов)"}>
                             <div style={{display: "flex", alignItems: "center"}} className="Input">
                                 <div style={{flexGrow: 99}}>
                                     <Input
@@ -158,7 +157,6 @@ class UserGet extends React.Component {
                                     }
                                 </div>
                             </div>
-                            <div className="FormLayout__row-bottom">Может содержать только латинские буквы, цифры и символ "_". (От 3 до 16 символов)</div>
                             {
                                 this.state.openHistory ?
                                     this.state.historyList.length > 0 || this.state.editHistory ?
@@ -206,18 +204,15 @@ class UserGet extends React.Component {
                                     :
                                     undefined
                             }
-                        </div>
+                        </FormLayoutGroup>
                         <Button disabled={!(this.state.nickname.length > 2 && this.state.nickname.match('^[A-Za-z0-9_]+$') && !this.state.spinner && !this.state.editHistory)} onClick={this.onClick.bind(this)} size='xl'>
                             <b>Получить информацию</b>
                         </Button>
                         {
-                            this.state.spinner ?
-                                <Spinner />
-                                :
-                                undefined
+                            this.state.spinner && <Spinner/>
                         }
                         {
-                            this.state.skin ?
+                            this.state.skin &&
                                 <Group top={`Скин игрока ${this.state.username}`}>
                                     <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
                                         <Skinview3d
@@ -232,30 +227,23 @@ class UserGet extends React.Component {
                                         <Button disabled={this.state.lock} onClick={this.share.bind(this)} stretched before={this.state.lock ? <Icon24DoneOutline width={16} height={16}/> : <Icon24Message width={16} height={16} />}><b>{this.state.lock ? "Сообщение отправлено!" : "Получить cкин в сообщения"}</b></Button>
                                     </Div>
                                 </Group>
-                                :
-                                undefined
                         }
                         <List top={this.state.username ? `История никнейма ${this.state.username}` : ""}>
                             {
-                                this.state.list ? this.state.list.map(({username, changed_at}, i) =>
+                                this.state.list && this.state.list.map(({username, changed_at}, i) =>
                                         <Cell key={i} description={changed_at !== undefined ? timeConvert(changed_at) : regDate ? regDate : 'Первый'}>
                                             {username}
                                         </Cell>
                                     ).reverse()
-                                    :
-                                    undefined
                             }
                         </List>
                         {
-                            this.state.error ?
-                                <Error error={this.state.error}/>
-                                :
-                                undefined
+                            this.state.error && <Error error={this.state.error}/>
                         }
                     </FormLayout>
                 </Online>
                 <Offline>
-                    <OfflineBlock />
+                    <OfflineBlock/>
                 </Offline>
             </Panel>
         );
@@ -263,4 +251,4 @@ class UserGet extends React.Component {
 
 }
 
-export default UserGet;
+export default UserInfo;
