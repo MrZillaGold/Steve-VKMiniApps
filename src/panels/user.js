@@ -157,54 +157,54 @@ class UserInfo extends React.Component {
                                     }
                                 </div>
                             </div>
-                            {
-                                this.state.openHistory ?
-                                    this.state.historyList.length > 0 || this.state.editHistory ?
-                                        <Group style={{marginTop: "20px"}}>
-                                            <Header level="secondary" aside={this.state.editHistory ?
-                                                <div style={{display: "flex"}}>
-                                                    <Icon24Cancel onClick={() => this.setState({historyList: this.state.backup, editHistory: false})} style={{marginRight: "5px"}}/>
-                                                    <Icon24DoneOutline onClick={() => {
-                                                        this.setState({editHistory: false, openHistory: !this.state.historyList.length <= 0});
-                                                        this.saveHistory();
-                                                    }}/>
-                                                </div>
-                                                : <Icon24Write onClick={() => this.setState({editHistory: true, backup: this.state.historyList})}/>}>
-                                                История запросов
-                                            </Header>
-                                            <List>
-                                                {
-                                                    this.state.editHistory ?
-                                                        this.state.historyList.map((item, index) => (
-                                                            <Cell key={item} draggable
-                                                                  removable
-                                                                  onDragFinish={({from, to}) => {
-                                                                      const historyList = [...this.state.historyList];
-                                                                      historyList.splice(from, 1);
-                                                                      historyList.splice(to, 0, this.state.historyList[from]);
-                                                                      this.setState({historyList});
-                                                                  }}
-                                                                  onRemove={async () => {
-                                                                      await this.setState({historyList: [...this.state.historyList.slice(0, index), ...this.state.historyList.slice(index + 1)]});
-                                                                  }}
-                                                            >{item}</Cell>
-                                                        ))
-                                                        :
-                                                        this.state.historyList.map((item) => (
-                                                            <Cell key={item} onClick={async () => {
-                                                                await this.setState({nickname: item, openHistory: false});
-                                                                await this.onClick();
-                                                            }}>{item}</Cell>
-                                                        ))
-                                                }
-                                            </List>
-                                        </Group>
-                                        :
-                                        undefined
+                        </FormLayoutGroup>
+                        {
+                            this.state.openHistory ?
+                                this.state.historyList.length > 0 || this.state.editHistory ?
+                                    <Group style={{marginTop: "20px"}}>
+                                        <Header level="secondary" aside={this.state.editHistory ?
+                                            <div style={{display: "flex"}}>
+                                                <Icon24Cancel onClick={() => this.setState({historyList: this.state.backup, editHistory: false})} style={{marginRight: "5px"}}/>
+                                                <Icon24DoneOutline onClick={() => {
+                                                    this.setState({editHistory: false, openHistory: !this.state.historyList.length <= 0});
+                                                    this.saveHistory();
+                                                }}/>
+                                            </div>
+                                            : <Icon24Write onClick={() => this.setState({editHistory: true, backup: this.state.historyList})}/>}>
+                                            История запросов
+                                        </Header>
+                                        <List>
+                                            {
+                                                this.state.editHistory ?
+                                                    this.state.historyList.map((item, index) => (
+                                                        <Cell key={item} draggable
+                                                              removable
+                                                              onDragFinish={({from, to}) => {
+                                                                  const historyList = [...this.state.historyList];
+                                                                  historyList.splice(from, 1);
+                                                                  historyList.splice(to, 0, this.state.historyList[from]);
+                                                                  this.setState({historyList});
+                                                              }}
+                                                              onRemove={async () => {
+                                                                  await this.setState({historyList: [...this.state.historyList.slice(0, index), ...this.state.historyList.slice(index + 1)]});
+                                                              }}
+                                                        >{item}</Cell>
+                                                    ))
+                                                    :
+                                                    this.state.historyList.map((item) => (
+                                                        <Cell key={item} onClick={async () => {
+                                                            await this.setState({nickname: item, openHistory: false});
+                                                            await this.onClick();
+                                                        }}>{item}</Cell>
+                                                    ))
+                                            }
+                                        </List>
+                                    </Group>
                                     :
                                     undefined
-                            }
-                        </FormLayoutGroup>
+                                :
+                                undefined
+                        }
                         <Button disabled={!(this.state.nickname.length > 2 && this.state.nickname.match('^[A-Za-z0-9_]+$') && !this.state.spinner && !this.state.editHistory)} onClick={this.onClick.bind(this)} size='xl'>
                             <b>Получить информацию</b>
                         </Button>
