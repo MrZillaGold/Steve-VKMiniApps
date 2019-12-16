@@ -5,9 +5,8 @@
   "main": "index.js",
   "scripts": {    
     "start": "serve -s build",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "postbuild": "rimraf build/**/*.map",
     "eject": "react-scripts eject"
   },
   "author": "MrZillaGold",
