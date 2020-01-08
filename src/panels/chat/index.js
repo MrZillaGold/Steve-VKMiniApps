@@ -24,6 +24,8 @@ class MinecraftChat extends React.Component {
         this.setState({ socket });
         if (socket && socket.connected) {
             socket.emit('server:disconnect');
+        } else {
+            socket.emit('connect');
         }
         resizeWindow(600);
     }

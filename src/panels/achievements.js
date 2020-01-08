@@ -119,7 +119,6 @@ class AchievementsGet extends React.Component {
                             value={this.state.one}
                             onChange={this.onChange.bind(this)}
                             placeholder="Достижение получено!"
-                            bottom='Может содержать символы латиницы, кириллицы и спец. символы. (Не больше 20)'
                             maxLength='20'
                         />
                         <Input
@@ -145,6 +144,7 @@ class AchievementsGet extends React.Component {
                     {
                         this.state.check &&
                             <Group>
+                                <Separator/>
                                 <Div>
                                     <div className="image" style={{backgroundImage: 'url(' + encodeURI(url) + ')'}}/>
                                     <Separator style={{ margin: '12px 0' }} />

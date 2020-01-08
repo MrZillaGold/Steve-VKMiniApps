@@ -5,11 +5,11 @@ import {ipRegExp1, ipRegExp2, ipRegExp3, ipRegExp4, serverData} from "../../../s
 
 const supportedVersions = ["1.8.8", "1.9", "1.9.2", "1.9.4", "1.10", "1.10.1", "1.10.2", "1.11", "1.11.2", "1.12", "1.12.1", "1.12.2"];
 
-class AddServer extends React.Component {
+class EditServer extends React.Component {
 
     state = {
-        ip: "",
-        version: "1.12.2"
+        ip: `${this.props.navigator.params.server.ip}:${this.props.navigator.params.server.port}`,
+        version: `${this.props.navigator.params.server.version}`
     };
 
     onChange(e) {
@@ -28,7 +28,7 @@ class AddServer extends React.Component {
         if (JSON.stringify(this.props.navigator.params.servers).includes(JSON.stringify(serverInfo))) {
             this.setState({error: true})
         } else {
-            this.props.navigator.params.addServer(serverInfo);
+            this.props.navigator.params.editServer(serverInfo, this.props.navigator.params.index);
             return this.props.navigator.hideModal();
         }
     }
@@ -70,7 +70,7 @@ class AddServer extends React.Component {
                                 {this.state.error ? "Этот сервер уже добавлен!" : undefined}
                             </div>
                             <Button onClick={() => this.getServerData()} disabled={this.state.ip === "" || !(this.state.ip.match(ipRegExp1) || this.state.ip.match(ipRegExp2) || this.state.ip.match(ipRegExp3) || this.state.ip.match(ipRegExp4))} size='xl'>
-                                <b>Добавить сервер</b>
+                                <b>Сохранить</b>
                             </Button>
                         </div>
                     </FormLayout>
@@ -81,4 +81,4 @@ class AddServer extends React.Component {
 
 }
 
-export default AddServer;
+export default EditServer;

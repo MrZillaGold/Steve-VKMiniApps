@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import VKConnect from "@vkontakte/vk-connect";
 import { Offline, Online } from 'react-detect-offline';
-import {Panel, PanelHeader, PanelHeaderContent, Input, FormLayout, Button, Avatar, Group, Cell, Header, List, HeaderButton, FormLayoutGroup} from "@vkontakte/vkui";
+import {Panel, PanelHeader, PanelHeaderContent, Input, FormLayout, Button, Avatar, Group, Cell, Header, List, HeaderButton, FormLayoutGroup, Separator} from "@vkontakte/vkui";
 import Icon24Chevron from '@vkontakte/icons/dist/24/chevron';
 import Icon24Dropdown from '@vkontakte/icons/dist/24/dropdown';
 import Icon24FavoriteOutline from '@vkontakte/icons/dist/24/favorite_outline';
@@ -112,56 +112,58 @@ class ServerInfo extends React.Component {
                                     }
                                 </div>
                             </div>
-                        </FormLayoutGroup>
-                        {
-                            this.state.openFavorite ?
-                                this.state.favoriteList.length > 0 || this.state.editFavorite ?
-                                    <Group style={{marginTop: "20px"}}>
-                                        <Header level="secondary" aside={this.state.editFavorite ?
-                                            <div style={{display: "flex"}}>
-                                                <Icon24Cancel onClick={() => this.setState({favoriteList: this.state.backup, editFavorite: false})} style={{marginRight: "5px"}}/>
-                                                <Icon24DoneOutline onClick={() => {
-                                                    this.setState({editFavorite: false, openFavorite: !this.state.favoriteList.length <= 0});
-                                                    this.saveFavorite();
-                                                }}/>
-                                            </div>
-                                            :
-                                            <Icon24Write onClick={() => this.setState({editFavorite: true, backup: this.state.favoriteList})}/>}
-                                        >
-                                            Избранные сервера
-                                        </Header>
-                                        <List>
-                                            {
-                                                this.state.editFavorite ?
-                                                    this.state.favoriteList.map((item, index) => (
-                                                        <Cell key={item} draggable
-                                                              removable
-                                                              onDragFinish={({from, to}) => {
-                                                                  const favoriteList = [...this.state.favoriteList];
-                                                                  favoriteList.splice(from, 1);
-                                                                  favoriteList.splice(to, 0, this.state.favoriteList[from]);
-                                                                  this.setState({favoriteList});
-                                                              }}
-                                                              onRemove={() => {
-                                                                  this.setState({favoriteList: [...this.state.favoriteList.slice(0, index), ...this.state.favoriteList.slice(index + 1)]});
-                                                              }}
-                                                        >{item}</Cell>
-                                                    ))
-                                                    :
-                                                    this.state.favoriteList.map((item) => (
-                                                        <Cell key={item} onClick={async () => {
-                                                            await this.setState({ip: item, openFavorite: false});
-                                                            await this.onClick();
-                                                        }}>{item}</Cell>
-                                                    ))
-                                            }
-                                        </List>
-                                    </Group>
+                            {
+                                this.state.openFavorite ?
+                                    this.state.favoriteList.length > 0 || this.state.editFavorite ?
+                                        <Group style={{marginTop: "20px"}}>
+                                            <Separator/>
+                                            <Header level="secondary" aside={this.state.editFavorite ?
+                                                <div style={{display: "flex"}}>
+                                                    <Icon24Cancel onClick={() => this.setState({favoriteList: this.state.backup, editFavorite: false})} style={{marginRight: "5px"}}/>
+                                                    <Icon24DoneOutline onClick={() => {
+                                                        this.setState({editFavorite: false, openFavorite: !this.state.favoriteList.length <= 0});
+                                                        this.saveFavorite();
+                                                    }}/>
+                                                </div>
+                                                :
+                                                <Icon24Write onClick={() => this.setState({editFavorite: true, backup: this.state.favoriteList})}/>}
+                                            >
+                                                Избранные сервера
+                                            </Header>
+                                            <List>
+                                                {
+                                                    this.state.editFavorite ?
+                                                        this.state.favoriteList.map((item, index) => (
+                                                            <Cell key={item} draggable
+                                                                  removable
+                                                                  onDragFinish={({from, to}) => {
+                                                                      const favoriteList = [...this.state.favoriteList];
+                                                                      favoriteList.splice(from, 1);
+                                                                      favoriteList.splice(to, 0, this.state.favoriteList[from]);
+                                                                      this.setState({favoriteList});
+                                                                  }}
+                                                                  onRemove={() => {
+                                                                      this.setState({favoriteList: [...this.state.favoriteList.slice(0, index), ...this.state.favoriteList.slice(index + 1)]});
+                                                                  }}
+                                                            >{item}</Cell>
+                                                        ))
+                                                        :
+                                                        this.state.favoriteList.map((item) => (
+                                                            <Cell key={item} onClick={async () => {
+                                                                await this.setState({ip: item, openFavorite: false});
+                                                                await this.onClick();
+                                                            }}>{item}</Cell>
+                                                        ))
+                                                }
+                                            </List>
+                                            <Separator/>
+                                        </Group>
+                                        :
+                                        undefined
                                     :
                                     undefined
-                                :
-                                undefined
-                        }
+                            }
+                        </FormLayoutGroup>
                         <Button onClick={this.onClick.bind(this)} size='xl' disabled={!(this.state.ip.length > 2 && !this.state.editFavorite && !this.state.spinner && (this.state.ip.match(ipRegExp1) || this.state.ip.match(ipRegExp2) || this.state.ip.match(ipRegExp3) || this.state.ip.match(ipRegExp4)))}>
                             <b>Получить информацию</b>
                         </Button>
@@ -171,6 +173,7 @@ class ServerInfo extends React.Component {
                         {
                             this.state.response &&
                                 <Group description={this.state.response.software ? `Ядро сервера: ${this.state.response.software}` : ``}>
+                                    <Separator/>
                                     <Header level="secondary" aside={this.state.favoriteList.includes(this.state.titleIP.toLowerCase()) ? <Icon24DoneOutline style={{opacity: ".2"}}/> : <Icon24FavoriteOutline onClick={() => this.addFavorite(this.state.titleIP)}/>}>
                                         {this.state.titleIP}
                                     </Header>

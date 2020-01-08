@@ -1,5 +1,5 @@
 import React from 'react';
-import {Group, Avatar, Cell, FixedLayout} from "@vkontakte/vkui";
+import {Group, Avatar, Cell, FixedLayout, Tappable} from "@vkontakte/vkui";
 import VKConnect from "@vkontakte/vk-connect";
 
 import Icon28EditOutline from '@vkontakte/icons/dist/28/edit_outline';
@@ -21,7 +21,7 @@ class Accounts extends React.Component {
         loading: true
     };
 
-    componentDidMount() {
+    componentWillMount() {
         const accountsStorage = sessionStorage.getItem('chatAccounts') || 0;
         const selectedAccount = sessionStorage.getItem('chatSelectedAccount') || 0;
         if (accountsStorage.length > 1) {
@@ -33,6 +33,7 @@ class Accounts extends React.Component {
         VKConnect.sendPromise("VKWebAppStorageGet", {keys: ["steveChatAccountsList", "steveChatSelectedAccount"]})
             .then(res => {
                 if (res.keys[0].value.length > 1) {
+
                     this.setState({accounts: JSON.parse(res.keys[0].value)});
                     sessionStorage.setItem('chatAccounts', res.keys[0].value);
                 }
@@ -47,25 +48,26 @@ class Accounts extends React.Component {
     selectAccount(account) {
         this.setState({selectedAccount: account});
         sessionStorage.setItem('chatSelectedAccount', JSON.stringify(account));
-        VKConnect.send("VKWebAppStorageSet", {key: "steveChatSelectedAccount", value: account});
+        VKConnect.send("VKWebAppStorageSet", {key: "steveChatSelectedAccount", value: JSON.stringify(account)});
     }
 
     saveAccountsEdits() {
         sessionStorage.setItem('chatAccounts', JSON.stringify(this.state.accounts));
-        VKConnect.send("VKWebAppStorageSet", {key: "steveChatAccountsList", value: this.state.accounts});
+        VKConnect.send("VKWebAppStorageSet", {key: "steveChatAccountsList", value: JSON.stringify(this.state.accounts)});
         if (this.state.accounts.length === 1) {
             this.selectAccount(this.state.accounts[0])
         }
     }
 
-    addAccount = async (data) => {
-        let accountslist = [...this.state.accounts];
+    addAccount = (data) => {
+        const accountslist = [...this.state.accounts];
         accountslist.unshift(data);
         sessionStorage.setItem('chatAccounts', JSON.stringify(accountslist));
         this.selectAccount(data);
         this.setState({accounts: accountslist});
-        VKConnect.send("VKWebAppStorageSet", {key: "steveChatAccountsList", value: accountslist.toString()});
+        VKConnect.send("VKWebAppStorageSet", {key: "steveChatAccountsList", value: JSON.stringify(accountslist)});
     };
+
 
     render() {
         const {navigator, socket} = this.props;
@@ -109,10 +111,10 @@ class Accounts extends React.Component {
                                                           Активирован
                                                       </div>
                                                       :
-                                                      <div onClick={() => this.selectAccount(account)} style={{display: "flex"}}>
+                                                      <Tappable onClick={() => this.selectAccount(account)} style={{display: "flex"}}>
                                                           <Icon24User style={{marginRight: "5px"}}/>
                                                           Активировать
-                                                      </div>
+                                                      </Tappable>
                                               }>
                                             {account.type === "license" ? account.session.selectedProfile.name : account.username}
                                         </Cell>
@@ -120,7 +122,7 @@ class Accounts extends React.Component {
                                 :
                                 !this.state.editList &&
                                     <Cell multiline before={<Icon28UserAddOutline height={44} width={44}/>} size="m"
-                                          description="Нажмите сюда, чтобы добавить аккаунт."
+                                          description="Нажмите, чтобы добавить аккаунт."
                                           onClick={() => navigator.showModal("add-account", {addAccount, accounts: this.state.accounts, socket})}>
                                         Вы не добавили ни одного аккаунта!
                                     </Cell>

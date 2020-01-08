@@ -62,3 +62,26 @@ export const ipRegExp1 = /^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[
 export const ipRegExp2 = /^([а-яА-ЯёЁa-zA-Z0-9]+(-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}$/g;
 export const ipRegExp3 = /^((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)):((?:[123456789])(?:[0-9]{1,4}))$/g;
 export const ipRegExp4 = /^((?:[а-яА-ЯёЁa-zA-Z0-9]+(?:-[а-яА-ЯёЁa-zA-Z0-9]+)*\.)+[а-яА-ЯёЁa-zA-Z]{2,}):((?:[123456789])(?:[0-9]{1,4}))$/g;
+
+export const serverData = (server_ip, server_ver) => {
+    let serverData = {
+        ip: null,
+        port: null,
+        version: server_ver,
+    };
+    if (server_ip.match(ipRegExp1) || server_ip.match(ipRegExp2)) {
+        serverData.ip = server_ip.toLowerCase();
+        serverData.port = "25565";
+    }
+    if (server_ip.match(ipRegExp3)) {
+        const ip = ipRegExp3.exec(server_ip);
+        serverData.ip = ip[1].toLowerCase();
+        serverData.port = ip[2];
+    }
+    if (server_ip.match(ipRegExp4)) {
+        const ip = ipRegExp4.exec(server_ip);
+        serverData.ip = ip[1].toLowerCase();
+        serverData.port = ip[2];
+    }
+    return serverData;
+};

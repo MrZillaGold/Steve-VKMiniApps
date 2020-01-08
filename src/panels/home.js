@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Panel, Group, Button, PanelHeader, Cell, Avatar, Separator } from '@vkontakte/vkui';
+import {Panel, Group, Button, PanelHeader, Cell, Avatar, Separator, PanelHeaderContent, ANDROID, platform} from '@vkontakte/vkui';
 import "./scss/styles.scss"
 
 import { ReactComponent as IconUser } from './assets/usericon.svg';
@@ -28,7 +28,11 @@ class HomePanelBase extends React.Component {
 
         return (
             <Panel id={id}>
-                <PanelHeader transparent>Steve</PanelHeader>
+                <PanelHeader transparent left={platform() === ANDROID && <img style={{padding: "12px"}} src={require('./assets/steve-icon.png')} alt="Steve"/>}>
+                    <PanelHeaderContent status="Minecraft помощник">
+                        Steve
+                    </PanelHeaderContent>
+                </PanelHeader>
                 <Group>
                     <Cell before={<div style={{height: '24px', width: '40px'}}><IconUser className="icon_base"/></div>} onClick={() => navigator.go('user')} className="pointer">Информация об игроке</Cell>
                     <Cell before={<div style={{height: '24px', width: '40px'}}><IconServer className="icon_base"/></div>} onClick={() => navigator.go('server')} className="pointer">Информация о сервере по IP</Cell>
