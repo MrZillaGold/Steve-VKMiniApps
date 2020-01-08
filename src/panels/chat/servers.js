@@ -103,7 +103,7 @@ class Servers extends React.Component {
                                                   </Tappable>
                                               }
                                               description={server.version}>
-                                            {`${server.ip}:${server.port}`}
+                                            {`${server.ip}${server.port === "25565" ? "" : `:${server.port}`}`}
                                         </Cell>
                                 ))
                                 :
