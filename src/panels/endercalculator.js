@@ -192,23 +192,23 @@ class EnderPortalCalculator extends React.Component {
                             this.state.a1 !== "-" && this.state.a2 !== "-" && this.state.x1 !== "-" && this.state.x2 !== "-" && this.state.z1 !== "-" && this.state.z2 !== "-" && this.state.a1 !== "" && this.state.x1 !== "" && this.state.z1 !== "" && this.state.a2 !== "" && this.state.x2 !== "" && this.state.z2 !== "" && a1 !== a2 && (a1 !== a2 / -1 || a1 / -1 !== a2) ?
                                 this.state.copy ?
                                     <div style={{display: 'flex'}}>
-                                        <Button disabled stretched level="primary" before={<Icon16Done />}><b>Координаты скопированы!</b></Button>
+                                        <Button disabled stretched before={<Icon16Done />}><b>Координаты скопированы!</b></Button>
                                     </div>
                                     :
                                     <CopyToClipboard text={`${xOut.toString() === "NaN" ? 0 : a1 === a2 || (a1 === a2 / -1 || a1 / -1 === a2) ? 0 : xOut} ~ ${zOut.toString() === "NaN" ? 0 : a1 === a2 || (a1 === a2 / -1 || a1 / -1 === a2) ? 0 : zOut}`}>
                                         <div style={{display: 'flex'}}>
-                                            <Button onClick={() => this.setState({ copy: true })} stretched level="primary" before={<Icon24Copy width={16} height={16}/>}><b>Скопировать координаты</b></Button>
+                                            <Button onClick={() => this.setState({ copy: true })} stretched before={<Icon24Copy width={16} height={16}/>}><b>Скопировать координаты</b></Button>
                                         </div>
                                     </CopyToClipboard>
                                 :
                                 <div style={{display: 'flex'}}>
-                                    <Button disabled stretched level="primary" before={<Icon24Copy width={16} height={16}/>}><b>Скопировать координаты</b></Button>
+                                    <Button disabled stretched before={<Icon24Copy width={16} height={16}/>}><b>Скопировать координаты</b></Button>
                                 </div>
                         }
                     </Div>
                 </Group>
                 <div style={{display: 'flex'}}>
-                    <Button onClick={() => window.open("https://youtu.be/U6pEgIKAuJI", "_blank")} level="tertiary" stretched component='a' target="_blank" href='https://youtu.be/U6pEgIKAuJI'><b>Как находить координаты и угол?</b></Button>
+                    <Button onClick={() => window.open("https://youtu.be/U6pEgIKAuJI", "_blank")} mode="tertiary" stretched component='a' target="_blank" href='https://youtu.be/U6pEgIKAuJI'><b>Как находить координаты и угол?</b></Button>
                 </div>
             </Panel>
         );
