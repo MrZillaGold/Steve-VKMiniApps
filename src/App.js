@@ -13,7 +13,6 @@ import MinecraftChat from './panels/chat/index';
 import AddServer from "./panels/chat/components/addserver";
 import AddAccount from "./panels/chat/components/addaccount";
 import ServerChat from './panels/chat/chatpanel';
-import EditServer from "./panels/chat/components/editserver";
 
 class App extends React.Component {
 
@@ -25,6 +24,25 @@ class App extends React.Component {
         await this.setState({eruda: !this.state.eruda});
         this.state.eruda ? window.eruda.init() : window.eruda.destroy()
     };
+
+    hash() {
+        if (window.location.hash) {
+            const hash = window.location.hash.match(/#(.+?)(?:=([^]+)|$)/);
+            const panels = ["user", "server", "status", "achievements", "calculator", "endercalculator", "chat"];
+            if (hash[1] && panels.includes(hash[1])) {
+                if (hash[1] === "user" && hash[2] && hash[2].match(/^[A-Za-z0-9_]{3,16}$/g)) {
+                    return {panel: "user", data: hash[2]};
+                } else {
+                    return {panel: hash[1]};
+                }
+            } else {
+                return {panel: "home"};
+            }
+        } else {
+            return {panel: "home"};
+        }
+    }
+
 
     render() {
         return (
@@ -44,7 +62,7 @@ class App extends React.Component {
                             title="Добавление аккаута"
                         />
                 ]}>
-                <Page id="main" activePanel="home">
+                <Page id="main" activePanel={this.hash().panel}>
                     <Home id="home" eruda={this.eruda}/>
                     <Server id="server"/>
                     <User id="user"/>
