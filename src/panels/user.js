@@ -162,7 +162,7 @@ class UserInfo extends React.Component {
                                     this.state.historyList.length > 0 || this.state.editHistory ?
                                         <Group style={{marginTop: "20px"}}>
                                             <Separator/>
-                                            <Header level="secondary" aside={this.state.editHistory ?
+                                            <Header mode="secondary" aside={this.state.editHistory ?
                                                 <div style={{display: "flex"}}>
                                                     <Icon24Cancel onClick={() => this.setState({historyList: this.state.backup, editHistory: false})} style={{marginRight: "5px"}}/>
                                                     <Icon24DoneOutline onClick={() => {

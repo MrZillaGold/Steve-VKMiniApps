@@ -38,7 +38,7 @@ class ServerChat extends React.Component {
                     </PanelHeaderContent>
                 </PanelHeader>
                 <Online onChange={() => navigator.goBack()}>
-                    <Header level="secondary">
+                    <Header mode="secondary">
                         Чат
                     </Header>
                     <FixedLayout vertical="bottom">
