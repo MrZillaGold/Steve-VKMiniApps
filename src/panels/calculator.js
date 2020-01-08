@@ -114,17 +114,17 @@ class Calculator extends React.Component {
                             this.state.x !== "-" && this.state.z !== "-" && (this.state.x !== "" || this.state.y !== "" || this.state.z !== "") ?
                                 this.state.copy ?
                                     <div style={{display: 'flex'}}>
-                                        <Button disabled stretched level="primary" before={<Icon16Done />}><b>Координаты скопированы!</b></Button>
+                                        <Button disabled stretched before={<Icon16Done />}><b>Координаты скопированы!</b></Button>
                                     </div>
                                     :
                                     <CopyToClipboard text={`${x} ${y} ${z}`}>
                                         <div style={{display: 'flex'}}>
-                                            <Button onClick={() => this.setState({ copy: true })} stretched level="primary" before={<Icon24Copy width={16} height={16}/>}><b>Скопировать координаты</b></Button>
+                                            <Button onClick={() => this.setState({ copy: true })} stretched before={<Icon24Copy width={16} height={16}/>}><b>Скопировать координаты</b></Button>
                                         </div>
                                     </CopyToClipboard>
                                 :
                                 <div style={{display: 'flex'}}>
-                                    <Button disabled stretched level="primary" before={<Icon24Copy width={16} height={16}/>}><b>Скопировать координаты</b></Button>
+                                    <Button disabled stretched before={<Icon24Copy width={16} height={16}/>}><b>Скопировать координаты</b></Button>
                                 </div>
                         }
                         <Separator style={{ margin: '12px 0' }} />
