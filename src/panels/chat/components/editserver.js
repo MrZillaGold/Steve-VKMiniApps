@@ -8,7 +8,7 @@ const supportedVersions = ["1.8.8", "1.9", "1.9.2", "1.9.4", "1.10", "1.10.1", "
 class EditServer extends React.Component {
 
     state = {
-        ip: `${this.props.navigator.params.server.ip}:${this.props.navigator.params.server.port}`,
+        ip: `${this.props.navigator.params.server.ip}${this.props.navigator.params.server.port === "25565" ? "" : `:${this.props.navigator.params.server.port}`}`,
         version: `${this.props.navigator.params.server.version}`
     };
 
