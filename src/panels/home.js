@@ -50,7 +50,7 @@ class HomePanelBase extends React.Component {
                         size="l"
                         description="Получите быстрый доступ ко всем функциям в сообщениях ВК!"
                         bottomContent={
-                            <Button component="a" target="_blank" href="https://vk.com/public175914098"><b>Перейти в группу с ботом</b></Button>
+                            <Button onClick={() => window.open("https://vk.com/public175914098", "_blank")} component="a" target="_blank" href="https://vk.com/public175914098"><b>Перейти в группу с ботом</b></Button>
                         }
                     >
                         Steve Бот
