@@ -13,6 +13,7 @@ import MinecraftChat from './panels/chat/index';
 import AddServer from "./panels/chat/components/addserver";
 import AddAccount from "./panels/chat/components/addaccount";
 import ServerChat from './panels/chat/chatpanel';
+import EditServer from "./panels/chat/components/editserver";
 
 class App extends React.Component {
 
