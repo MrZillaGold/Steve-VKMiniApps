@@ -117,7 +117,7 @@ class ServerInfo extends React.Component {
                                     this.state.favoriteList.length > 0 || this.state.editFavorite ?
                                         <Group style={{marginTop: "20px"}}>
                                             <Separator/>
-                                            <Header level="secondary" aside={this.state.editFavorite ?
+                                            <Header mode="secondary" aside={this.state.editFavorite ?
                                                 <div style={{display: "flex"}}>
                                                     <Icon24Cancel onClick={() => this.setState({favoriteList: this.state.backup, editFavorite: false})} style={{marginRight: "5px"}}/>
                                                     <Icon24DoneOutline onClick={() => {
@@ -174,7 +174,7 @@ class ServerInfo extends React.Component {
                             this.state.response &&
                                 <Group description={this.state.response.software ? `Ядро сервера: ${this.state.response.software}` : ``}>
                                     <Separator/>
-                                    <Header level="secondary" aside={this.state.favoriteList.includes(this.state.titleIP.toLowerCase()) ? <Icon24DoneOutline style={{opacity: ".2"}}/> : <Icon24FavoriteOutline onClick={() => this.addFavorite(this.state.titleIP)}/>}>
+                                    <Header mode="secondary" aside={this.state.favoriteList.includes(this.state.titleIP.toLowerCase()) ? <Icon24DoneOutline style={{opacity: ".2"}}/> : <Icon24FavoriteOutline onClick={() => this.addFavorite(this.state.titleIP)}/>}>
                                         {this.state.titleIP}
                                     </Header>
                                     <List>
