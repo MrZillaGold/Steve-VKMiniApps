@@ -30,7 +30,7 @@ class MinecraftChat extends React.Component {
                 } else {
                     socket.emit('connect');
                 }
-                this.setState({ socket });
+                this.setState({ socket: socket });
             })
             .catch((err) => {
                 console.log(err);
@@ -39,14 +39,14 @@ class MinecraftChat extends React.Component {
         resizeWindow(600);
     }
 
-    login(serverData, accountData, navigator) {
+    login(serverData, accountData, navigator, socket) {
         let server = {
             host: serverData.ip,
             port: serverData.port,
             version: serverData.version
         };
         let account;
-        if (this.state.socket && this.state.socket.connected) {
+        if (socket && socket.connected) {
             if (accountData.type === "license") {
                 account = {
                     method: 'session',
@@ -58,8 +58,8 @@ class MinecraftChat extends React.Component {
                     username: accountData.username
                 }
             }
-            this.state.socket.emit('server:connect', Object.assign(server, account));
-            navigator.go("server-chat", {socket: this.state.socket})
+            socket.emit('server:connect', Object.assign(server, account));
+            navigator.go("server-chat", {socket: socket})
         }
     }
 
