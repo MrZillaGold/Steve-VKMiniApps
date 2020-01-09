@@ -1,7 +1,7 @@
 import React from 'react';
 import {Online} from 'react-detect-offline';
 import {Button, FormLayout, Input, ModalPage, Select} from "@vkontakte/vkui";
-import {ipRegExp1, ipRegExp2, ipRegExp3, ipRegExp4, serverData} from "../../../services/_functions";
+import {fixInput, ipRegExp1, ipRegExp2, ipRegExp3, ipRegExp4, serverData} from "../../../services/_functions";
 
 const supportedVersions = ["1.8.8", "1.9", "1.9.2", "1.9.4", "1.10", "1.10.1", "1.10.2", "1.11", "1.11.2", "1.12", "1.12.1", "1.12.2"];
 
@@ -13,9 +13,10 @@ class AddServer extends React.Component {
     };
 
     onChange(e) {
+        fixInput();
         let {name, value} = e.currentTarget;
         if (name === "ip") {
-            value = value.replace(/[^а-яА-ЯёЁa-zA-Z0-9.:]/g, "").slice(0, 100);
+            value = value.replace(/[^а-яА-ЯёЁa-zA-Z0-9.:-]/g, "").slice(0, 100);
         }
         if (name === "port") {
             value = value.replace(/[^0-9]/g, "").slice(0, 6);

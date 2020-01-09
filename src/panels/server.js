@@ -28,7 +28,7 @@ class ServerInfo extends React.Component {
     onChange(e) {
         fixInput();
         const {name, value} = e.currentTarget;
-        this.setState({[name]: value.replace(/[^а-яА-ЯёЁa-zA-Z0-9.:]/g, "").slice(0, 100)});
+        this.setState({[name]: value.replace(/[^а-яА-ЯёЁa-zA-Z0-9.:-]/g, "").slice(0, 100)});
     }
 
     onClick() {

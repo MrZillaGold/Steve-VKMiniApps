@@ -21,19 +21,18 @@ class Accounts extends React.Component {
         loading: true
     };
 
-    componentWillMount() {
+    async componentDidMount() {
         const accountsStorage = sessionStorage.getItem('chatAccounts') || 0;
         const selectedAccount = sessionStorage.getItem('chatSelectedAccount') || 0;
         if (accountsStorage.length > 1) {
-            this.setState({accounts: JSON.parse(accountsStorage), loading: false});
+            await this.setState({accounts: JSON.parse(accountsStorage)});
         }
         if (selectedAccount.length > 1) {
-            this.setState({selectedAccount: JSON.parse(selectedAccount), loading: false});
+            await this.setState({selectedAccount: JSON.parse(selectedAccount)});
         }
-        VKConnect.sendPromise("VKWebAppStorageGet", {keys: ["steveChatAccountsList", "steveChatSelectedAccount"]})
+        await VKConnect.sendPromise("VKWebAppStorageGet", {keys: ["steveChatAccountsList", "steveChatSelectedAccount"]})
             .then(res => {
                 if (res.keys[0].value.length > 1) {
-
                     this.setState({accounts: JSON.parse(res.keys[0].value)});
                     sessionStorage.setItem('chatAccounts', res.keys[0].value);
                 }
@@ -41,8 +40,8 @@ class Accounts extends React.Component {
                     this.setState({selectedAccount: JSON.parse(res.keys[1].value)});
                     sessionStorage.setItem('chatSelectedAccount', res.keys[1].value);
                 }
-                this.setState({loading: false})
             });
+        await this.setState({loading: false})
     }
 
     selectAccount(account) {
@@ -70,11 +69,11 @@ class Accounts extends React.Component {
 
 
     render() {
-        const {navigator, socket} = this.props;
+        const {navigator, socket, visible} = this.props;
         const {addAccount} = this;
 
         return (
-            !this.state.loading && socket.connected ?
+            !this.state.loading && visible ?
                 <div>
                     <Group style={{marginBottom: "70px"}}>
                         {
@@ -89,7 +88,7 @@ class Accounts extends React.Component {
                                                   accountsList.splice(to, 0, this.state.accounts[from]);
                                                   this.setState({accounts: accountsList});
                                               }}
-                                              before={<Avatar style={{imageRendering: "pixelated"}} type="image" size={64} src={`https://mc-heads.net/avatar/${account.type === "license" ? account.session.selectedProfile.name : "steve"}/64`}/>}
+                                              before={<Avatar style={{imageRendering: "pixelated"}} type="image" size={64} src={`https://api.ashcon.app/mojang/v2/avatar/${account.type === "license" ? account.session.selectedProfile.name : "steve"}/64`}/>}
                                               onRemove={() => {
                                                   this.setState({accounts: [...this.state.accounts.slice(0, index), ...this.state.accounts.slice(index + 1)]});
                                                   if (JSON.stringify(account) === JSON.stringify(this.state.selectedAccount)) {
@@ -101,7 +100,7 @@ class Accounts extends React.Component {
                                         </Cell>
                                         :
                                         <Cell key={index}
-                                              before={<Avatar style={{imageRendering: "pixelated"}} type="image" size={64} src={`https://mc-heads.net/avatar/${account.type === "license" ? account.session.selectedProfile.name : "steve"}/64`}/>}
+                                              before={<Avatar type="image" size={64} src={`https://api.ashcon.app/mojang/v2/avatar/${account.type === "license" ? account.session.selectedProfile.name : "steve"}/64`}/>}
                                               size="m"
                                               description={account.type === "license" ? "Лицензионный" : "Пиратский"}
                                               asideContent={
