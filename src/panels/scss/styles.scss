@@ -12,7 +12,7 @@ $btn-border-width: 4px;
   width: 100%;
   height: 100%;
   content: '';
-  transition: 0.5s cubic-bezier(0, 0.8, 0.26, 0.99);
+  transition: 0.3s cubic-bezier(0, 0.8, 0.26, 0.99);
 }
 
 #btn-border {
@@ -47,9 +47,11 @@ $btn-border-width: 4px;
   .grow {
     background-color: $primary-hover;
     box-shadow:
-            0 $btn-border-width rgba($white, 0.25) inset,
-                    (-$btn-border-width) 0 rgba($white, 0.25) inset,
-            $btn-border-width 0 rgba($black, 0.35) inset;
+            0 (-$btn-border-width) rgba($black, 0.25) inset,
+            0 $btn-border-width rgba($black, 0.35) inset,
+                    (-$btn-border-width) 0 rgba($black, 0.35) inset,
+            $btn-border-width 0 rgba($black, 0.25) inset,
+            $btn-border-width 0 rgba($black, 0) inset;
   }
 
   &::after {
