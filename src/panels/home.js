@@ -15,7 +15,12 @@ import {resizeWindow} from "../services/_functions";
 
 class HomePanelBase extends React.Component {
 
+    state = {
+        testersFeatures: false
+    };
+
     activateTestersFeatures() {
+        this.setState({testersFeatures: !this.state.testersFeatures});
         this.props.eruda();
     }
 
@@ -25,10 +30,11 @@ class HomePanelBase extends React.Component {
 
     render() {
         const {id, navigator} = this.props;
+        const {testersFeatures} = this.state;
 
         return (
             <Panel id={id}>
-                <PanelHeader transparent left={platform() === ANDROID && <img style={{padding: "12px"}} src={require('./assets/steve-icon.png')} alt="Steve"/>}>
+                <PanelHeader transparent left={platform() === ANDROID && <img style={{padding: "12px"}} src={!testersFeatures ? require('./assets/steve-icon.png') : require('./assets/herobrine-icon.png')} alt="Steve"/>}>
                     <PanelHeaderContent status="Minecraft помощник">
                         Steve
                     </PanelHeaderContent>
@@ -50,7 +56,7 @@ class HomePanelBase extends React.Component {
                         size="l"
                         description="Получите быстрый доступ ко всем функциям в сообщениях ВК!"
                         bottomContent={
-                            <Button onClick={() => window.open("https://vk.com/public175914098", "_blank")} component="a" target="_blank" href="https://vk.com/public175914098"><b>Перейти в группу с ботом</b></Button>
+                            <Button target="_blank" href="https://vk.com/public175914098"><b>Перейти в группу с ботом</b></Button>
                         }
                     >
                         Steve Бот
