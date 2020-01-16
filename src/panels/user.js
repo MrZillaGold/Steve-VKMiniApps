@@ -230,7 +230,7 @@ class UserInfo extends React.Component {
                                 <Separator/>
                                     <div className={`skin skin-${scheme} ${this.state.paused && "skin-animation_paused"} skin-bg_animation`}>
                                         <div className="skin-icons skin-block">
-                                        <Button className="skin-button" onClick={() => this.changeSkinAnimation()}>{this.state.walk ? <IconWalk className="skin-button_icon"/> : <IconRun className="skin-button_icon"/>}</Button>
+                                        <Button className="skin-button" onClick={() => this.changeSkinAnimation()}>{!this.state.walk ? <IconWalk className="skin-button_icon"/> : <IconRun className="skin-button_icon"/>}</Button>
                                         <Button className="skin-button" onClick={() => this.setState({paused: !this.state.paused})}>{!this.state.paused ? <Icon24Pause width={16} height={16}/> : <Icon16Play/>}</Button>
                                         </div>
                                         <div className="skin-block skin-center">
