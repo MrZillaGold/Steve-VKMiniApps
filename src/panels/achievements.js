@@ -50,7 +50,8 @@ class AchievementsGet extends React.Component {
     }
 
     openStoryEditor(url) {
-        VKConnect.send("VKWebAppShowStoryBox", {
+        console.log(`URL Достижения: ${url}`);
+        VKConnect.sendPromise("VKWebAppShowStoryBox", {
             background_type: "none",
             stickers: [{
                 sticker_type: "renderable",
@@ -68,6 +69,8 @@ class AchievementsGet extends React.Component {
                 url: "https://vk.com/minetools#achievements"
             }
         })
+            .then(r => console.log(r))
+            .catch(err => console.log(err))
     }
 
     onClick () {
