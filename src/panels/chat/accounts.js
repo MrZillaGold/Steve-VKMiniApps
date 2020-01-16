@@ -69,17 +69,18 @@ class Accounts extends React.Component {
 
 
     render() {
+        const {loading, accounts, selectedAccount, editList, accountsBackup, selectedAccountBackup} = this.state;
         const {navigator, socket, visible} = this.props;
         const {addAccount} = this;
 
         return (
-            !this.state.loading && visible ?
+            !loading && visible ?
                 <div>
                     <Group style={{marginBottom: "70px"}}>
                         {
-                            this.state.accounts.length > 0 ?
-                                this.state.accounts.map((account, index) => (
-                                    this.state.editList ?
+                            accounts.length > 0 ?
+                                accounts.map((account, index) => (
+                                    editList ?
                                         <Cell key={Math.random()} draggable
                                               removable
                                               onDragFinish={({from, to}) => {
@@ -90,8 +91,8 @@ class Accounts extends React.Component {
                                               }}
                                               before={<Avatar style={{imageRendering: "pixelated"}} type="image" size={64} src={`https://api.ashcon.app/mojang/v2/avatar/${account.type === "license" ? account.session.selectedProfile.name : "steve"}/64`}/>}
                                               onRemove={() => {
-                                                  this.setState({accounts: [...this.state.accounts.slice(0, index), ...this.state.accounts.slice(index + 1)]});
-                                                  if (JSON.stringify(account) === JSON.stringify(this.state.selectedAccount)) {
+                                                  this.setState({accounts: [...accounts.slice(0, index), ...accounts.slice(index + 1)]});
+                                                  if (JSON.stringify(account) === JSON.stringify(selectedAccount)) {
                                                       this.selectAccount("");
                                                   }
                                               }}
@@ -104,7 +105,7 @@ class Accounts extends React.Component {
                                               size="m"
                                               description={account.type === "license" ? "Лицензионный" : "Пиратский"}
                                               asideContent={
-                                                  JSON.stringify(account) === JSON.stringify(this.state.selectedAccount) ?
+                                                  JSON.stringify(account) === JSON.stringify(selectedAccount) ?
                                                       <div style={{display: "flex", opacity: ".6"}}>
                                                           <Icon24UserAdded style={{marginRight: "5px"}}/>
                                                           Активирован
@@ -119,20 +120,20 @@ class Accounts extends React.Component {
                                         </Cell>
                                 ))
                                 :
-                                !this.state.editList &&
+                                !editList &&
                                     <Cell multiline before={<Icon28UserAddOutline height={44} width={44}/>} size="m"
                                           description="Нажмите, чтобы добавить аккаунт."
-                                          onClick={() => navigator.showModal("add-account", {addAccount, accounts: this.state.accounts, socket})}>
+                                          onClick={() => navigator.showModal("add-account", {addAccount, accounts: accounts, socket})}>
                                         Вы не добавили ни одного аккаунта!
                                     </Cell>
                         }
                     </Group>
                     <FixedLayout vertical="bottom" style={{display: "flex", direction: "rtl"}}>
                         {
-                            this.state.editList ?
+                            editList ?
                                 <div style={{display: "flex", marginBottom: "10px"}}>
                                     {
-                                        this.state.accounts !== this.state.accountsBackup &&
+                                        accounts !== accountsBackup &&
                                             <div className="footer-icon">
                                                 <Icon24Done className="footer-icon__icon" onClick={() => {
                                                     this.setState({editList: false});
@@ -141,18 +142,18 @@ class Accounts extends React.Component {
                                             </div>
                                     }
                                     <div className="footer-icon">
-                                        <Icon24Cancel onClick={() => {this.setState({editList: false, accounts: this.state.accountsBackup}); this.selectAccount(this.state.selectedAccountBackup)}} className="footer-icon__icon" height={35} width={35}/>
+                                        <Icon24Cancel onClick={() => {this.setState({editList: false, accounts: accountsBackup}); this.selectAccount(selectedAccountBackup)}} className="footer-icon__icon" height={35} width={35}/>
                                     </div>
                                 </div>
                                 :
                                 <div style={{display: "flex", marginBottom: "10px"}}>
                                     <div className="footer-icon">
-                                        <Icon28UserAddOutline className="footer-icon__icon" onClick={() => this.state.accounts.length < 16 ? navigator.showModal("add-account", {addAccount, accounts: this.state.accounts, socket}) : this.props.error("Нельзя добавить больше 15 аккаунтов!")} height={35} width={35}/>
+                                        <Icon28UserAddOutline className="footer-icon__icon" onClick={() => accounts.length < 16 ? navigator.showModal("add-account", {addAccount, accounts: this.state.accounts, socket}) : this.props.error("Нельзя добавить больше 15 аккаунтов!")} height={35} width={35}/>
                                     </div>
                                     {
                                         this.state.accounts.length > 0 &&
                                             <div className="footer-icon">
-                                                <Icon28EditOutline onClick={() => this.setState({editList: true, accountsBackup: this.state.accounts, selectedAccountBackup: this.state.selectedAccount})} className="footer-icon__icon" height={35} width={35}/>
+                                                <Icon28EditOutline onClick={() => this.setState({editList: true, accountsBackup: accounts, selectedAccountBackup: selectedAccount})} className="footer-icon__icon" height={35} width={35}/>
                                             </div>
                                     }
                                 </div>
