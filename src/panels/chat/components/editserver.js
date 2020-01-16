@@ -36,6 +36,7 @@ class EditServer extends React.Component {
 
     render() {
         const {id, navigator, header, onClose} = this.props;
+        const {ip, version, error, spinner} = this.state;
 
         return (
             <Online polling={{interval: 1000}} onChange={() => navigator.hideModal()}>
@@ -48,15 +49,15 @@ class EditServer extends React.Component {
                                         top="Данные сервера"
                                         name="ip"
                                         autoComplete="off"
-                                        status={this.state.ip.match(ipRegExp1) || this.state.ip.match(ipRegExp2) || this.state.ip.match(ipRegExp3) || this.state.ip.match(ipRegExp4) || this.state.ip === "" ? 'default' : 'error'}
-                                        disabled={this.state.spinner}
-                                        value={this.state.ip}
+                                        status={ip.match(ipRegExp1) || ip.match(ipRegExp2) || ip.match(ipRegExp3) || ip.match(ipRegExp4) || ip === "" ? 'default' : 'error'}
+                                        disabled={spinner}
+                                        value={ip}
                                         placeholder="IP-Адрес"
                                         onChange={this.onChange.bind(this)}
                                     />
                                 </div>
                                 <div>
-                                    <Select name="version" value={this.state.version} onChange={this.onChange.bind(this)}>
+                                    <Select name="version" value={version} onChange={this.onChange.bind(this)}>
                                         {
                                             supportedVersions.map((version) =>
                                                 <option key={version} value={version}>{version}</option>
@@ -66,10 +67,10 @@ class EditServer extends React.Component {
                                 </div>
                             </div>
                             <div style={{color: "#e64646", height: "24px"}} className="FormLayout__row-bottom">
-                                {this.state.ip.match(ipRegExp1) || this.state.ip.match(ipRegExp2) || this.state.ip.match(ipRegExp3) || this.state.ip.match(ipRegExp4) || this.state.ip === "" ? undefined : "Неверный IP-Адрес!"}
-                                {this.state.error ? "Этот сервер уже добавлен!" : undefined}
+                                {!(ip.match(ipRegExp1) || ip.match(ipRegExp2) || ip.match(ipRegExp3) || ip.match(ipRegExp4) || ip === "") && "Неверный IP-Адрес!"}
+                                {error && "Этот сервер уже добавлен!"}
                             </div>
-                            <Button onClick={() => this.getServerData()} disabled={this.state.ip === "" || !(this.state.ip.match(ipRegExp1) || this.state.ip.match(ipRegExp2) || this.state.ip.match(ipRegExp3) || this.state.ip.match(ipRegExp4))} size='xl'>
+                            <Button onClick={() => this.getServerData()} disabled={ip === "" || !(ip.match(ipRegExp1) || ip.match(ipRegExp2) || ip.match(ipRegExp3) || ip.match(ipRegExp4))} size='xl'>
                                 <b>Сохранить</b>
                             </Button>
                         </div>

@@ -85,6 +85,7 @@ class ServerChat extends React.Component {
     };
 
     render() {
+        const {connected, displayMessages, messageInput} = this.state;
         const {id, navigator} = this.props;
         const socket = navigator.params.socket;
 
@@ -103,14 +104,14 @@ class ServerChat extends React.Component {
                         <div>
                             <Div>
                                 <ScrollToBottom className={platform() === IOS ? "chat-box_ios" : "chat-box_android"}>
-                                    {this.state.displayMessages.map((message, index) => (
+                                    {displayMessages.map((message, index) => (
                                         <div key={index} dangerouslySetInnerHTML={{ __html: message }}/>
                                     ))}
                                 </ScrollToBottom>
                             </Div>
                             <Separator/>
                             {
-                                this.state.connected ?
+                                connected ?
                                     <FormLayout>
                                         <div style={{display: "flex", alignItems: "center"}}>
                                             <Tappable onClick={() => this.tab()} style={{marginLeft: "10px"}}>
@@ -122,7 +123,7 @@ class ServerChat extends React.Component {
                                                     name="messageInput"
                                                     autoComplete="off"
                                                     type="text"
-                                                    value={this.state.messageInput}
+                                                    value={messageInput}
                                                     placeholder="Сообщение"
                                                     onChange={this.onChange.bind(this)}/>
                                             </div>

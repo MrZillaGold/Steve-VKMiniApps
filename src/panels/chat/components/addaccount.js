@@ -1,6 +1,7 @@
 import React from 'react';
 import {Online} from 'react-detect-offline';
 import {Button, FormLayout, Group, Input, ModalPage, Tabs, TabsItem} from "@vkontakte/vkui";
+import {fixInput} from "../../../services/_functions";
 
 class AddAccount extends React.Component {
 
@@ -12,6 +13,7 @@ class AddAccount extends React.Component {
     };
 
     onChange(e) {
+        fixInput();
         let {name, value} = e.currentTarget;
         if (name === "nickname") {
             value = value.replace(/[^A-Za-z0-9_]/g, "").slice(0, 16);
@@ -62,6 +64,7 @@ class AddAccount extends React.Component {
     };
 
     render() {
+        const {email, type, nickname, password, error, spinner, loading} = this.state;
         const {id, header, onClose} = this.props;
         const emailRegExp = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
         const nicknameRegExp = /^[A-Za-z0-9_]/g;
@@ -73,13 +76,13 @@ class AddAccount extends React.Component {
                         <Tabs type="buttons">
                             <TabsItem
                                 onClick={() => this.setState({type: 'license', error: false})}
-                                selected={this.state.type === 'license'}
+                                selected={type === 'license'}
                             >
                                 Лицензионный
                             </TabsItem>
                             <TabsItem
                                 onClick={() => this.setState({type: 'pirate', error: false})}
-                                selected={this.state.type === 'pirate'}
+                                selected={type === 'pirate'}
                             >
                                 Пиратский
                             </TabsItem>
@@ -87,55 +90,53 @@ class AddAccount extends React.Component {
                     </Group>
                     <FormLayout>
                         {
-                            this.state.type === "license" ?
+                            type === "license" ?
                                 <Input
                                     top="Электронная почта"
                                     autoComplete="off"
                                     name="email"
-                                    disabled={this.state.spinner}
-                                    value={this.state.email}
+                                    disabled={spinner}
+                                    value={email}
                                     onChange={this.onChange.bind(this)}
-                                    status={this.state.email.match(emailRegExp) || this.state.email === "" ? 'default' : 'error'}
-                                    bottom={this.state.email.match(emailRegExp) || this.state.email === "" ? '' : 'Неверный адрес электронной почты!'}
+                                    status={email.match(emailRegExp) || email === "" ? 'default' : 'error'}
+                                    bottom={(email.match(emailRegExp) || email === "") && 'Неверный адрес электронной почты!'}
                                 />
                                 :
                                 <Input
                                     top = "Никнейм"
                                     autoComplete="off"
                                     name="nickname"
-                                    disabled={this.state.spinner}
-                                    value={this.state.nickname}
-                                    status={this.state.nickname === "" || this.state.nickname.length > 2 ? 'default' : 'error'}
+                                    disabled={spinner}
+                                    value={nickname}
+                                    status={nickname === "" || nickname.length > 2 ? 'default' : 'error'}
                                     bottom={`Может содержать только латинские буквы, цифры и символ "_". (От 3 до 16 символов)`}
                                     onChange={this.onChange.bind(this)}
                                 />
                         }
                         {
-                            this.state.type === "license" ?
+                            type === "license" &&
                                 <Input
                                     top="Пароль"
                                     autoComplete="off"
                                     name="password"
                                     type="password"
-                                    disabled={this.state.spinner}
-                                    value={this.state.password}
+                                    disabled={spinner}
+                                    value={password}
                                     onChange={this.onChange.bind(this)}
                                 />
-                                :
-                                undefined
                         }
                         {
-                            this.state.type === "pirate" &&
+                            type === "pirate" &&
                             <div className="FormLayout__row-bottom">При использовании данного типа аккаунта, вы не сможете подключаться к лицензионным серверам.</div>
                         }
                         {
-                            this.state.error &&
+                            error &&
                             <div style={{color: "#e64646", height: "24px"}} className="FormLayout__row-bottom">
-                                {this.state.error}
+                                {error}
                             </div>
                         }
-                        <Button onClick={() => this.login()} disabled={this.state.type === "license" ? this.state.email === "" || !this.state.email.match(emailRegExp) || this.state.password === "" || this.state.loading : this.state.nickname === "" || !this.state.nickname.match(nicknameRegExp) || this.state.nickname.length < 3} style={{marginBottom: "80px"}} size='xl'>
-                            <b>{this.state.loading ? "Авторизация...": "Добавить аккаунт"}</b>
+                        <Button onClick={() => this.login()} disabled={type === "license" ? email === "" || !email.match(emailRegExp) || password === "" || loading : nickname === "" || !nickname.match(nicknameRegExp) || nickname.length < 3} style={{marginBottom: "80px"}} size='xl'>
+                            <b>{loading ? "Авторизация...": "Добавить аккаунт"}</b>
                         </Button>
                     </FormLayout>
                 </Online>

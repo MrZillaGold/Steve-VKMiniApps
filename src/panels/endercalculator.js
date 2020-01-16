@@ -99,7 +99,8 @@ class EnderPortalCalculator extends React.Component {
                     </PanelHeaderContent>
                 </PanelHeader>
                 <FormLayout>
-                    { Math.abs(a1 - a2) < 1 || a1 === a2 / -1 || a1 / -1 === a2 ?
+                    {
+                        (Math.abs(a1 - a2) < 1 || a1 === a2 / -1 || a1 / -1 === a2) &&
                         <FormStatus title="Некорректные данные" state="error">
                             {
                                 a1 === a2 ?
@@ -109,8 +110,6 @@ class EnderPortalCalculator extends React.Component {
                                     "Углы не могут быть противоположными!"
                             }
                         </FormStatus>
-                        :
-                        undefined
                     }
                     <FormLayoutGroup top="Бросок #1">
                         <div style={{display: "flex"}}>
