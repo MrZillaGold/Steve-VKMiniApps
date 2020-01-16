@@ -111,8 +111,6 @@ class EnderPortalCalculator extends React.Component {
                                     "Углы не могут быть противоположными!"
                             }
                         </FormStatus>
-                        :
-                        undefined
                     }
                     <FormLayoutGroup top="Бросок #1">
                         <div style={{display: "flex"}}>
