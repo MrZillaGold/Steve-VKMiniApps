@@ -84,12 +84,13 @@ class MinecraftChat extends React.Component {
 
     render() {
         const {id, navigator} = this.props;
+        const {socket, unavaible, error, tab, connected} = this.state;
 
-        if (this.state.socket) {
-            this.state.socket.on('connect', () => {
+        if (socket) {
+            socket.on('connect', () => {
                 this.setState({connected: true});
             });
-            this.state.socket.on('disconnect', () => {
+            socket.on('disconnect', () => {
                 this.setState({connected: false});
             });
         }
@@ -102,7 +103,7 @@ class MinecraftChat extends React.Component {
                     </PanelHeaderContent>
                 </PanelHeader>
                 {
-                    !this.state.unavaible ?
+                    !unavaible ?
                         <div>
                             <Online>
                                 <div>
@@ -110,13 +111,13 @@ class MinecraftChat extends React.Component {
                                         <Tabs type="buttons">
                                             <TabsItem
                                                 onClick={() => this.setState({tab: 'servers'})}
-                                                selected={this.state.tab === 'servers'}
+                                                selected={tab === 'servers'}
                                             >
                                                 Сервера
                                             </TabsItem>
                                             <TabsItem
                                                 onClick={() => this.setState({tab: 'accounts'})}
-                                                selected={this.state.tab === 'accounts'}
+                                                selected={tab === 'accounts'}
                                             >
                                                 Аккаунты
                                             </TabsItem>
@@ -124,15 +125,15 @@ class MinecraftChat extends React.Component {
                                     </Group>
                                     <div>
                                         {
-                                            this.state.tab === "servers" &&
-                                            <Servers socket={this.state.socket} navigator={navigator} error={this.error} connect={this.login} editTab={this.editTab} visible={this.state.connected}/>
+                                            tab === "servers" &&
+                                            <Servers socket={socket} navigator={navigator} error={this.error} connect={this.login} editTab={this.editTab} visible={connected}/>
                                         }
                                         {
                                             this.state.tab === "accounts" &&
-                                            <Accounts socket={this.state.socket} navigator={navigator} error={this.error} visible={this.state.connected}/>
+                                            <Accounts socket={socket} navigator={navigator} error={this.error} visible={connected}/>
                                         }
                                     </div>
-                                    {this.state.error}
+                                    {error}
                                 </div>
                             </Online>
                             <Offline>
