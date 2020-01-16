@@ -208,7 +208,7 @@ class EnderPortalCalculator extends React.Component {
                     </Div>
                 </Group>
                 <div style={{display: 'flex'}}>
-                    <Button onClick={() => window.open("https://youtu.be/U6pEgIKAuJI", "_blank")} mode="tertiary" stretched component='a' target="_blank" href='https://youtu.be/U6pEgIKAuJI'><b>Как находить координаты и угол?</b></Button>
+                    <Button mode="tertiary" stretched target="_blank" href='https://youtu.be/U6pEgIKAuJI'><b>Как находить координаты и угол?</b></Button>
                 </div>
             </Panel>
         );
