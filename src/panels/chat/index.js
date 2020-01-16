@@ -129,7 +129,7 @@ class MinecraftChat extends React.Component {
                                             <Servers socket={socket} navigator={navigator} error={this.error} connect={this.login} editTab={this.editTab} visible={connected}/>
                                         }
                                         {
-                                            this.state.tab === "accounts" &&
+                                            tab === "accounts" &&
                                             <Accounts socket={socket} navigator={navigator} error={this.error} visible={connected}/>
                                         }
                                     </div>
