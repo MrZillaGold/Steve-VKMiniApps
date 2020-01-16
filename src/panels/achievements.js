@@ -101,7 +101,8 @@ class AchievementsGet extends React.Component {
 
     render() {
         const {id, navigator} = this.props;
-        const url = 'https://vkfreeviews.000webhostapp.com/a.php?h=' + this.state.lineOne +'&t=' + this.state.lineTwo + '&i=' + this.state.rand;
+        const {lineOne, lineTwo, rand, one, two, spinner, error, lock, check} = this.state;
+        const url = 'https://vkfreeviews.000webhostapp.com/a.php?h=' + lineOne +'&t=' + lineTwo + '&i=' + rand;
 
         return (
             <Panel id={id}>
@@ -115,8 +116,8 @@ class AchievementsGet extends React.Component {
                         <Input
                             top='Заголовок'
                             name='one'
-                            disabled={this.state.spinner}
-                            value={this.state.one}
+                            disabled={spinner}
+                            value={one}
                             onChange={this.onChange.bind(this)}
                             placeholder="Достижение получено!"
                             maxLength='20'
@@ -124,32 +125,32 @@ class AchievementsGet extends React.Component {
                         <Input
                             top='Текст достижения'
                             name='two'
-                            disabled={this.state.spinner}
-                            value={this.state.two}
+                            disabled={spinner}
+                            value={two}
                             onChange={this.onChange.bind(this)}
                             placeholder="Терпение и труд"
                             bottom='Может содержать символы латиницы, кириллицы и спец. символы. (Не больше 20)'
                             maxLength='20'
                         />
-                        <Button disabled={!((this.state.one.length > 0 || this.state.two.length > 0) && !this.state.spinner)} onClick={this.onClick.bind(this)} size='xl'>
+                        <Button disabled={!((one.length > 0 || two.length > 0) && !spinner)} onClick={this.onClick.bind(this)} size='xl'>
                             <b>Сгенерировать достижение</b>
                         </Button>
                     </FormLayout>
                     {
-                        this.state.spinner && <Spinner/>
+                        spinner && <Spinner/>
                     }
                     {
-                        this.state.error && <Error error={this.state.error}/>
+                        error && <Error error={error}/>
                     }
                     {
-                        this.state.check &&
+                        check &&
                             <Group>
                                 <Separator/>
                                 <Div>
                                     <div className="image" style={{backgroundImage: 'url(' + encodeURI(url) + ')'}}/>
                                     <Separator style={{ margin: '12px 0' }} />
                                     <div className="button">
-                                        <Button disabled={this.state.lock} onClick={this.share.bind(this)} style={{flexGrow: 10}} stretched before={this.state.lock ? <Icon16Done/> : <Icon24Message width={16} height={16} />}><b>{this.state.lock ? "Сообщение отправлено!" : "Получить картинку в сообщения"}</b></Button>
+                                        <Button disabled={lock} onClick={this.share.bind(this)} style={{flexGrow: 10}} stretched before={lock ? <Icon16Done/> : <Icon24Message width={16} height={16} />}><b>{lock ? "Сообщение отправлено!" : "Получить картинку в сообщения"}</b></Button>
                                         <Button disabled={!VKConnect.supports("VKWebAppShowStoryBox")} onClick={() => this.openStoryEditor(url)} style={{marginLeft: "10px", weight: "10px", flexGrow: 1}} stretched><Icon24CameraOutline width={16} height={16}/></Button>
                                     </div>
                                 </Div>
