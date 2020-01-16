@@ -1,7 +1,7 @@
 import React from 'react';
 
 import axios from 'axios';
-import Skinview3d from 'react-skinview3d'
+import SkinViewer from "./components/skinviewer";
 import VKConnect from "@vkontakte/vk-connect";
 import { Offline, Online } from 'react-detect-offline';
 
@@ -20,6 +20,12 @@ import Icon24Chevron from '@vkontakte/icons/dist/24/chevron';
 import Icon24Dropdown from '@vkontakte/icons/dist/24/dropdown';
 import Icon24Write from '@vkontakte/icons/dist/24/write';
 import Icon24Cancel from '@vkontakte/icons/dist/24/cancel';
+import Icon24Pause from '@vkontakte/icons/dist/24/pause';
+import Icon16Play from '@vkontakte/icons/dist/16/play';
+import { ReactComponent as IconWalk } from './assets/walk.svg';
+import { ReactComponent as IconRun } from './assets/run.svg';
+
+import "./user.css";
 
 class UserInfo extends React.Component {
 
@@ -41,7 +47,7 @@ class UserInfo extends React.Component {
         if (this.state.nickname.length === 0){
             return this.setState({ value: 'error' });
         }
-        this.setState({ spinner: true, list: false, username: false, error: false, value: false, skin: false, cape: false, regDate: false, lock: false, openHistory: false});
+        this.setState({ spinner: true, list: false, username: false, error: false, value: false, skin: false, cape: false, regDate: false, lock: false, openHistory: false, walk: true, run: false, paused: false});
         await axios.get(`https://stevecors.herokuapp.com/https://api.ashcon.app/mojang/v2/user/${this.state.nickname}`)
             .then(res => {
                 return res.data;
@@ -121,9 +127,14 @@ class UserInfo extends React.Component {
         VKConnect.send("VKWebAppStorageSet", {"key": "steveHistoryList", "value": this.state.historyList.join(",")});
     }
 
+    changeSkinAnimation() {
+        this.state.walk ? this.setState({run: true, walk: false}) : this.setState({run: false, walk: true})
+    }
+
     render() {
         const {id, navigator} = this.props;
-        const {regDate} = this.state;
+        const {regDate, spinner, editHistory, historyList, nickname, openHistory, backup, skin, username, error, list, lock, cape, walk, run, paused} = this.state;
+        const scheme = sessionStorage.getItem('scheme');
 
         return (
             <Panel id={id}>
@@ -139,10 +150,10 @@ class UserInfo extends React.Component {
                                 <div style={{flexGrow: 99}}>
                                     <Input
                                         name='nickname'
-                                        disabled={this.state.spinner || this.state.editHistory}
-                                        value={this.state.nickname}
+                                        disabled={spinner || editHistory}
+                                        value={nickname}
                                         onChange={this.onChange.bind(this)}
-                                        status={this.state.nickname.length > 1 || this.state.nickname === "" ? 'default' : 'error'}
+                                        status={nickname.length > 1 || nickname === "" ? 'default' : 'error'}
                                         placeholder="Введите никнейм"
                                         maxLength='16'
                                         pattern='^[A-Za-z0-9_]+$'
@@ -150,33 +161,33 @@ class UserInfo extends React.Component {
                                 </div>
                                 <div style={{flexGrow: 1, marginRight: "5px"}}>
                                     {
-                                        this.state.openHistory ?
-                                            <Icon24Dropdown style={this.state.editHistory ? {opacity: ".2"} : ""} onClick={() => !this.state.editHistory ? this.setState({openHistory: false}) : undefined} width={35} height={35}/>
+                                        openHistory ?
+                                            <Icon24Dropdown style={editHistory ? {opacity: ".2"} : ""} onClick={() => !editHistory ? this.setState({openHistory: false}) : undefined} width={35} height={35}/>
                                             :
-                                            <Icon24Chevron style={this.state.spinner || this.state.historyList.length < 1 ? {opacity: ".2"} : ""} onClick={() => this.state.spinner || this.state.historyList.length < 1 ? undefined : this.setState({openHistory: true, editHistory: false})} width={35} height={35}/>
+                                            <Icon24Chevron style={spinner || historyList.length < 1 ? {opacity: ".2"} : ""} onClick={() => spinner || historyList.length < 1 ? undefined : this.setState({openHistory: true, editHistory: false})} width={35} height={35}/>
                                     }
                                 </div>
                             </div>
                             {
-                                this.state.openHistory ?
-                                    this.state.historyList.length > 0 || this.state.editHistory ?
+                               openHistory ?
+                                    historyList.length > 0 || editHistory ?
                                         <Group style={{marginTop: "20px"}}>
                                             <Separator/>
-                                            <Header mode="secondary" aside={this.state.editHistory ?
+                                            <Header mode="secondary" aside={editHistory ?
                                                 <div style={{display: "flex"}}>
-                                                    <Icon24Cancel onClick={() => this.setState({historyList: this.state.backup, editHistory: false})} style={{marginRight: "5px"}}/>
+                                                    <Icon24Cancel onClick={() => this.setState({historyList: backup, editHistory: false})} style={{marginRight: "5px"}}/>
                                                     <Icon24DoneOutline onClick={() => {
-                                                        this.setState({editHistory: false, openHistory: !this.state.historyList.length <= 0});
+                                                        this.setState({editHistory: false, openHistory: !historyList.length <= 0});
                                                         this.saveHistory();
                                                     }}/>
                                                 </div>
-                                                : <Icon24Write onClick={() => this.setState({editHistory: true, backup: this.state.historyList})}/>}>
+                                                : <Icon24Write onClick={() => this.setState({editHistory: true, backup: historyList})}/>}>
                                                 История запросов
                                             </Header>
                                             <List>
                                                 {
-                                                    this.state.editHistory ?
-                                                        this.state.historyList.map((item, index) => (
+                                                    editHistory ?
+                                                        historyList.map((item, index) => (
                                                             <Cell key={item} draggable
                                                                   removable
                                                                   onDragFinish={({from, to}) => {
@@ -191,7 +202,7 @@ class UserInfo extends React.Component {
                                                             >{item}</Cell>
                                                         ))
                                                         :
-                                                        this.state.historyList.map((item) => (
+                                                        historyList.map((item) => (
                                                             <Cell key={item} onClick={async () => {
                                                                 await this.setState({nickname: item, openHistory: false});
                                                                 await this.onClick();
@@ -207,42 +218,52 @@ class UserInfo extends React.Component {
                                     undefined
                             }
                         </FormLayoutGroup>
-                        <Button disabled={!(this.state.nickname.length > 1 && this.state.nickname.match('^[A-Za-z0-9_]+$') && !this.state.spinner && !this.state.editHistory)} onClick={this.onClick.bind(this)} size='xl'>
+                        <Button disabled={!(nickname.length > 1 && nickname.match('^[A-Za-z0-9_]+$') && !spinner && !editHistory)} onClick={this.onClick.bind(this)} size='xl'>
                             <b>Получить информацию</b>
                         </Button>
                         {
-                            this.state.spinner && <Spinner/>
+                            spinner && <Spinner/>
                         }
                         {
-                            this.state.skin &&
-                                <Group top={`Скин игрока ${this.state.username}`}>
-                                    <Separator/>
-                                    <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-                                        <Skinview3d
-                                            skinUrl={`https://stevecors.herokuapp.com/${this.state.skin}`}
-                                            capeUrl={this.state.cape ? `https://stevecors.herokuapp.com/${this.state.cape}` : ""}
+                            skin &&
+                            <Group top={`Скин игрока ${username}`}>
+                                <Separator/>
+                                    <div className={`skin skin-${scheme} ${this.state.paused && "skin-animation_paused"} skin-bg_animation`}>
+                                        <div className="skin-icons skin-block">
+                                        <Button className="skin-button" onClick={() => this.changeSkinAnimation()}>{this.state.walk ? <IconWalk className="skin-button_icon"/> : <IconRun className="skin-button_icon"/>}</Button>
+                                        <Button className="skin-button" onClick={() => this.setState({paused: !this.state.paused})}>{!this.state.paused ? <Icon24Pause width={16} height={16}/> : <Icon16Play/>}</Button>
+                                        </div>
+                                        <div className="skin-block skin-center">
+                                        <SkinViewer
+                                            skinUrl={`https://stevecors.herokuapp.com/${skin}`}
+                                            capeUrl={cape && `https://stevecors.herokuapp.com/${cape}`}
+                                            className="skin-shadow"
+                                            walk={walk}
+                                            run={run}
+                                            paused={paused}
                                             height="196"
                                             width="196"
                                         />
+                                        </div>
                                     </div>
-                                    <Separator/>
-                                    <Div style={{ display: 'flex' }}>
-                                        <Button disabled={this.state.lock} onClick={this.share.bind(this)} stretched before={this.state.lock ? <Icon24DoneOutline width={16} height={16}/> : <Icon24Message width={16} height={16} />}><b>{this.state.lock ? "Сообщение отправлено!" : "Получить cкин в сообщения"}</b></Button>
-                                    </Div>
-                                    <Separator/>
-                                </Group>
+                                <Separator/>
+                                <Div style={{ display: 'flex' }}>
+                                    <Button disabled={lock} onClick={this.share.bind(this)} stretched before={lock ? <Icon24DoneOutline width={16} height={16}/> : <Icon24Message width={16} height={16} />}><b>{lock ? "Сообщение отправлено!" : "Получить cкин в сообщения"}</b></Button>
+                                </Div>
+                                <Separator/>
+                            </Group>
                         }
-                        <List top={this.state.username ? `История никнейма ${this.state.username}` : ""}>
+                        <List top={username && `История никнейма ${username}`}>
                             {
-                                this.state.list && this.state.list.map(({username, changed_at}, i) =>
-                                        <Cell key={i} description={changed_at !== undefined ? timeConvert(changed_at) : regDate ? regDate : 'Первый'}>
-                                            {username}
-                                        </Cell>
-                                    ).reverse()
+                                list && list.map(({username, changed_at}, i) =>
+                                    <Cell key={i} description={changed_at !== undefined ? timeConvert(changed_at) : regDate ? regDate : 'Первый'}>
+                                        {username}
+                                    </Cell>
+                                ).reverse()
                             }
                         </List>
                         {
-                            this.state.error && <Error error={this.state.error}/>
+                            error && <Error error={error}/>
                         }
                     </FormLayout>
                 </Online>
