@@ -39,7 +39,6 @@ class EnderPortalCalculator extends React.Component {
 
     render() {
         const {id, navigator} = this.props;
-        const {} = this.state;
 
         const p = Math.PI/180;
         const a1 = parseFloat(this.state.a1);
@@ -100,8 +99,8 @@ class EnderPortalCalculator extends React.Component {
                     </PanelHeaderContent>
                 </PanelHeader>
                 <FormLayout>
-                    { 
-                        Math.abs(a1 - a2) < 1 || a1 === a2 / -1 || a1 / -1 === a2 &&
+                    {
+                        (Math.abs(a1 - a2) < 1 || a1 === a2 / -1 || a1 / -1 === a2) &&
                         <FormStatus title="Некорректные данные" state="error">
                             {
                                 a1 === a2 ?
