@@ -1,13 +1,15 @@
 import React from 'react';
 import {IOS, platform} from "@vkontakte/vkui";
+import IconArrowAndroid from "./icons/arrowAndroid";
+import IconArrowIOS from "./icons/arrowIOS";
 
 class HeaderButtons extends React.Component {
     render() {
         return (
             platform() === IOS ?
-                <img className="arrow_icon" src={require('../assets/arrowios.svg')} alt=""/>
+                <IconArrowIOS/>
                 :
-                <img className="arrow_icon" src={require('../assets/arrowandroid.svg')} alt=""/>
+                <IconArrowAndroid/>
         );
     }
 }
