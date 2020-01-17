@@ -99,7 +99,7 @@ class AddAccount extends React.Component {
                                     value={email}
                                     onChange={this.onChange.bind(this)}
                                     status={email.match(emailRegExp) || email === "" ? 'default' : 'error'}
-                                    bottom={(email.match(emailRegExp) || email === "") && 'Неверный адрес электронной почты!'}
+                                    bottom={!(email.match(emailRegExp) || email === "") && 'Неверный адрес электронной почты!'}
                                 />
                                 :
                                 <Input
