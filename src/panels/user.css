@@ -43,12 +43,6 @@
     padding: 0 8px;
 }
 
-.skin-button_icon {
-    fill: #FFFFFF;
-    height: 16px;
-    width: 16px;
-}
-
 .skin-icons {
     flex-flow: column wrap;
     display: flex;
