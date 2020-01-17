@@ -1,10 +1,11 @@
 import React from 'react';
+import IconChest from "./icons/chest";
 
 class Spinner extends React.Component {
     render() {
         return (
-            <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-                <img src={require('../assets/loading.svg')} alt="Загрузка..." style={{ marginTop: 50, height: '100px', width: '100px' }} />
+            <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', marginTop: 50 }}>
+                <IconChest/>
             </div>
         );
     }

@@ -1,6 +1,9 @@
 import React from 'react';
 import {randomInteger} from "../../services/_functions";
 import {Placeholder} from "@vkontakte/vkui";
+import IconPug from "./icons/pug";
+import IconPig from "./icons/pig";
+import IconZombie from "./icons/zombie";
 
 class Error extends React.Component {
 
@@ -14,11 +17,12 @@ class Error extends React.Component {
 
     render() {
         const {error, stretch} = this.props;
+        const icons = [<IconPug/>, <IconPig/>, <IconZombie/>];
         return (
             <Placeholder
                 stretched={stretch}
                 title="Упс..."
-                icon={<img src={require(`../assets/error${this.state.image}.svg`)} alt="Ошибка" />}
+                icon={icons[this.state.image - 1]}
             >
                 {error}
             </Placeholder>
