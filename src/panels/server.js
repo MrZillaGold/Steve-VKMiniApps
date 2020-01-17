@@ -17,6 +17,8 @@ import Spinner from './components/spinner';
 import Error from './components/error';
 import HeaderButtons from "./components/headerbuttons";
 
+import "./server.css";
+
 class ServerInfo extends React.Component {
 
     state = {
@@ -172,28 +174,30 @@ class ServerInfo extends React.Component {
                         }
                         {
                             response &&
-                                <Group description={response.software && `Ядро сервера: ${response.software}`}>
-                                    <Separator/>
-                                    <Header mode="secondary" aside={favoriteList.includes(titleIP.toLowerCase()) ? <Icon24DoneOutline style={{opacity: ".2"}}/> : <Icon24FavoriteOutline onClick={() => this.addFavorite(titleIP)}/>}>
-                                        {titleIP}
-                                    </Header>
-                                    <List>
-                                        <Cell
-                                            multiline
-                                            before={<Avatar style={{imageRendering: "pixelated"}} type="image" size={64} src={response.icon ? response.icon.toString().replace(/\//g, '/') : defaultImage}/>}
-                                            description={`Игроков: ${response.players.online} / ${response.players.max}`}
-                                        >
-                                            <span className='Container' dangerouslySetInnerHTML={{__html: response.motd.html[0]}} />
-                                            <span className='Container' dangerouslySetInnerHTML={{__html: response.motd.html[1]}} />
+                            <Group description={response.software && `Ядро сервера: ${response.software}`}>
+                                <Separator/>
+                                <Header mode="secondary" aside={favoriteList.includes(titleIP.toLowerCase()) ? <Icon24DoneOutline style={{opacity: ".2"}}/> : <Icon24FavoriteOutline onClick={() => this.addFavorite(titleIP)}/>}>
+                                    {titleIP}
+                                </Header>
+                                <List>
+                                    <Cell
+                                        multiline
+                                        before={<Avatar style={{imageRendering: "pixelated"}} type="image" size={64} src={response.icon ? response.icon.toString().replace(/\//g, '/') : defaultImage}/>}
+                                        description={`Игроков: ${response.players.online} / ${response.players.max}`}
+                                    >
+                                        <div className="server-motd">
+                                            <span dangerouslySetInnerHTML={{__html: response.motd.html[0]}} />
+                                            <span dangerouslySetInnerHTML={{__html: response.motd.html[1]}} />
+                                        </div>
+                                    </Cell>
+                                    {
+                                        response.players.list &&
+                                        <Cell multiline style={{whiteSpace: 'pre-wrap'}}>
+                                            {response.players.list.toString().replace(/,/g, ',  ')}
                                         </Cell>
-                                        {
-                                            response.players.list &&
-                                                <Cell multiline style={{whiteSpace: 'pre-wrap'}}>
-                                                    {response.players.list.toString().replace(/,/g, ',  ')}
-                                                </Cell>
-                                        }
-                                    </List>
-                                </Group>
+                                    }
+                                </List>
+                            </Group>
                         }
                         {
                             error && <Error error={error}/>
