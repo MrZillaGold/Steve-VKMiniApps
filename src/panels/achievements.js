@@ -94,11 +94,8 @@ class AchievementsGet extends React.Component {
                 });
             })
             .catch(err => {
-                this.setState({ spinner: false });
-                if (err) {
-                    this.setState({ error: `Произошла ошибка. Попробуйте позже.` });
-                    console.log(err);
-                }
+                this.setState({ error: `Произошла ошибка. Попробуйте позже.`, spinner: false });
+                console.log(err);
             });
     }
 
