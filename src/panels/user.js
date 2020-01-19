@@ -47,7 +47,7 @@ class UserInfo extends React.Component {
         if (this.state.nickname.length === 0){
             return this.setState({ value: 'error' });
         }
-        this.setState({ spinner: true, list: false, username: false, error: false, value: false, skin: false, cape: false, regDate: false, lock: false, openHistory: false, walk: true, run: false, paused: false});
+        this.setState({ spinner: true, list: false, username: false, error: false, value: false, skin: false, cape: false, regDate: false, lock: false, openHistory: false, walk: true, run: false, paused: false, sent: false});
         await axios.get(`https://stevecors.herokuapp.com/https://api.ashcon.app/mojang/v2/user/${this.state.nickname}`)
             .then(res => {
                 return res.data;
@@ -90,11 +90,14 @@ class UserInfo extends React.Component {
             .then(data => {
                 console.log(data.result);
                 if(data.result) {
-                    this.setState({ lock: true });
+                    this.setState({ sent: true });
                     VKConnect.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"type":"document", "url": this.state.skin, "name": this.state.username}})
                 }
             })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error);
+                this.setState({ lock: false });
+            });
     }
 
     componentDidMount() {
@@ -131,7 +134,7 @@ class UserInfo extends React.Component {
 
     render() {
         const {id, navigator} = this.props;
-        const {regDate, spinner, editHistory, historyList, nickname, openHistory, backup, skin, username, error, list, lock, cape, walk, run, paused} = this.state;
+        const {regDate, spinner, editHistory, historyList, nickname, openHistory, backup, skin, username, error, list, lock, cape, walk, run, paused, sent} = this.state;
         const scheme = sessionStorage.getItem('scheme');
 
         return (
@@ -246,7 +249,12 @@ class UserInfo extends React.Component {
                                     </div>
                                 <Separator/>
                                 <Div style={{ display: 'flex' }}>
-                                    <Button disabled={lock} onClick={this.share.bind(this)} stretched before={lock ? <Icon24DoneOutline width={16} height={16}/> : <Icon24Message width={16} height={16} />}><b>{lock ? "Сообщение отправлено!" : "Получить cкин в сообщения"}</b></Button>
+                                    <Button stretched before={sent ? <Icon24DoneOutline width={16} height={16}/> : <Icon24Message width={16} height={16} />} disabled={lock} onClick={() => {
+                                        this.setState({ lock: true });
+                                        this.share()}
+                                    }>
+                                        <b>{sent ? "Сообщение отправлено!" : "Получить cкин в сообщения"}</b>
+                                    </Button>
                                 </Div>
                                 <Separator/>
                             </Group>
