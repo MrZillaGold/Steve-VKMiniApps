@@ -78,10 +78,8 @@ class UserInfo extends React.Component {
                         return console.log(`Произошла ошибка 400 (Bad Request!), проверьте вводимые данные!`);
                     }
                 }
-                if (err) {
-                    this.setState({ error: `Произошла ошибка. Попробуйте позже.` });
-                    return console.log(err);
-                }
+                this.setState({ error: `Произошла ошибка. Попробуйте позже.` });
+                return console.log(err);
             });
         await resizeWindow(650 + (61 * this.state.list.length));
     }
