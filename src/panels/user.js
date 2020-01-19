@@ -67,18 +67,17 @@ class UserInfo extends React.Component {
             })
             .catch(err => {
                 console.log(err);
-                this.setState({ spinner: null });
                 if (err.response.status) {
                     if (err.response.status === 404) {
-                        this.setState({error: `Игрока с никнеймом ${this.state.nickname} не существует!`});
+                        this.setState({error: `Игрока с никнеймом ${this.state.nickname} не существует!`, spinner: null});
                         return console.log(`Игрок с никнеймом ${this.state.nickname} не существует!`);
                     }
                     if (err.response.status === 400) {
-                        this.setState({error: `Никнейм может содержать только латинские буквы, цифры и символ "_".`});
+                        this.setState({error: `Никнейм может содержать только латинские буквы, цифры и символ "_".`, spinner: null});
                         return console.log(`Произошла ошибка 400 (Bad Request!), проверьте вводимые данные!`);
                     }
                 }
-                this.setState({ error: `Произошла ошибка. Попробуйте позже.` });
+                this.setState({ error: `Произошла ошибка. Попробуйте позже.`, spinner: null });
                 return console.log(err);
             });
         await resizeWindow(650 + (61 * this.state.list.length));
