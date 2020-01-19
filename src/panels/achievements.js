@@ -40,13 +40,16 @@ class AchievementsGet extends React.Component {
             .then(data => {
                 console.log(data);
                 if (data.result) {
-                    this.setState({ lock: true });
+                    this.setState({ sent: true });
                     VKConnect.send("VKWebAppSendPayload",
                         {"group_id": 175914098, "payload": {"type":"photo", "url": this.state.url}}
                     );
                 }
             })
-            .catch(error => console.log(error));
+            .catch(error => {
+                this.setState({ lock: false });
+                console.log(error)
+            });
     }
 
     openStoryEditor(url) {
@@ -74,13 +77,7 @@ class AchievementsGet extends React.Component {
     }
 
     onClick () {
-        this.setState({
-            spinner: true,
-            check: false,
-            error: false,
-            url: null,
-            lock: false
-        });
+        this.setState({spinner: true, check: false, error: false, url: null, lock: false, sent: false});
         axios.get(`https://vkfreeviews.000webhostapp.com/a.php?h=&t=`)
             .then(() => {
                 const random = randomInteger(1, 39);
@@ -101,7 +98,7 @@ class AchievementsGet extends React.Component {
 
     render() {
         const {id, navigator} = this.props;
-        const {lineOne, lineTwo, rand, one, two, spinner, error, lock, check} = this.state;
+        const {lineOne, lineTwo, rand, one, two, spinner, error, lock, check, sent} = this.state;
         const url = 'https://vkfreeviews.000webhostapp.com/a.php?h=' + lineOne +'&t=' + lineTwo + '&i=' + rand;
 
         return (
@@ -150,7 +147,12 @@ class AchievementsGet extends React.Component {
                                     <div className="image" style={{backgroundImage: 'url(' + encodeURI(url) + ')'}}/>
                                     <Separator style={{ margin: '12px 0' }} />
                                     <div className="button">
-                                        <Button disabled={lock} onClick={this.share.bind(this)} style={{flexGrow: 10}} stretched before={lock ? <Icon16Done/> : <Icon24Message width={16} height={16} />}><b>{lock ? "Сообщение отправлено!" : "Получить картинку в сообщения"}</b></Button>
+                                        <Button style={{flexGrow: 10}} stretched before={sent ? <Icon16Done/> : <Icon24Message width={16} height={16} />} disabled={lock} onClick={() => {
+                                            this.setState({ lock: true });
+                                            this.share()
+                                        }}>
+                                            <b>{sent ? "Сообщение отправлено!" : "Получить картинку в сообщения"}</b>
+                                        </Button>
                                         <Button disabled={!VKConnect.supports("VKWebAppShowStoryBox")} onClick={() => this.openStoryEditor(url)} style={{marginLeft: "10px", weight: "10px", flexGrow: 1}} stretched><Icon24CameraOutline width={16} height={16}/></Button>
                                     </div>
                                 </Div>
