@@ -54,7 +54,7 @@ class HomePanelBase extends React.Component {
                     <Separator/>
                     <Cell
                         multiline
-                        before={<Avatar type='image' size={64} style={{backgroundColor: 'transparent'}}>{!testersFeatures ? <IconSteve height={64} width={64}/> : <IconHerobrine height={64} width={64}/>}</Avatar>}
+                        before={<Avatar mode='image' size={64} style={{backgroundColor: 'transparent'}}>{!testersFeatures ? <IconSteve height={64} width={64}/> : <IconHerobrine height={64} width={64}/>}</Avatar>}
                         size="l"
                         description="Получите быстрый доступ ко всем функциям в сообщениях ВК!"
                         bottomContent={
