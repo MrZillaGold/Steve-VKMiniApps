@@ -5,7 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import VKConnect from "@vkontakte/vk-connect";
 import mVKMiniAppsScrollHelper from '@vkontakte/mvk-mini-apps-scroll-helper';
-import {platform, IOS} from "@vkontakte/vkui/dist/lib/platform";
+import {platform, IOS, ANDROID} from "@vkontakte/vkui/dist/lib/platform";
 import '@vkontakte/vkui/dist/vkui.css';
 import App from './App';
 
@@ -27,14 +27,16 @@ VKConnect.subscribe(({ detail: { type, data }}) => {
 
 changeStatusBarColor();
 
-const OsName = platform();
+const Os = platform();
 const root = document.getElementById('root');
-if (OsName === IOS) {
+if (Os === IOS) {
     mVKMiniAppsScrollHelper(root);
 }
 
 ReactDOM.render(<App/>, root);
 
 function changeStatusBarColor() {
-    VKConnect.send("VKWebAppSetViewSettings", {"status_bar_style": "light", "action_bar_color": "#1c1c1c"});
+    if (Os === IOS || Os === ANDROID) {
+        VKConnect.send("VKWebAppSetViewSettings", {"status_bar_style": "light", "action_bar_color": "#1c1c1c"});
+    }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {Panel, PanelHeader, PanelHeaderContent, Avatar, Group, Cell, List, HeaderButton} from "@vkontakte/vkui";
+import {Panel, PanelHeader, PanelHeaderContent, Avatar, Group, Cell, List, PanelHeaderButton} from "@vkontakte/vkui";
 import { Offline, Online } from 'react-detect-offline';
 
 import {checkStatus} from "../services/_functions";
@@ -37,7 +37,7 @@ class MojangStatus extends React.Component {
 
         return (
             <Panel id={id}>
-                <PanelHeader transparent left={<HeaderButton onClick={() => navigator.goBack()}><HeaderButtons/></HeaderButton>}>
+                <PanelHeader transparent left={<PanelHeaderButton onClick={() => navigator.goBack()}><HeaderButtons/></PanelHeaderButton>}>
                     <PanelHeaderContent status="Состояние серверов">
                         Steve
                     </PanelHeaderContent>

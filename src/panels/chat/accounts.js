@@ -30,7 +30,7 @@ class Accounts extends React.Component {
         if (selectedAccount.length > 1) {
             await this.setState({selectedAccount: JSON.parse(selectedAccount)});
         }
-        await VKConnect.sendPromise("VKWebAppStorageGet", {keys: ["steveChatAccountsList", "steveChatSelectedAccount"]})
+        await VKConnect.send("VKWebAppStorageGet", {keys: ["steveChatAccountsList", "steveChatSelectedAccount"]})
             .then(res => {
                 if (res.keys[0].value.length > 1) {
                     this.setState({accounts: JSON.parse(res.keys[0].value)});
@@ -44,15 +44,15 @@ class Accounts extends React.Component {
         await this.setState({loading: false})
     }
 
-    selectAccount(account) {
+    async selectAccount(account) {
         this.setState({selectedAccount: account});
         sessionStorage.setItem('chatSelectedAccount', JSON.stringify(account));
-        VKConnect.send("VKWebAppStorageSet", {key: "steveChatSelectedAccount", value: JSON.stringify(account)});
+        await VKConnect.send("VKWebAppStorageSet", {key: "steveChatSelectedAccount", value: JSON.stringify(account)});
     }
 
-    saveAccountsEdits() {
+    async saveAccountsEdits() {
         sessionStorage.setItem('chatAccounts', JSON.stringify(this.state.accounts));
-        VKConnect.send("VKWebAppStorageSet", {key: "steveChatAccountsList", value: JSON.stringify(this.state.accounts)});
+        await VKConnect.send("VKWebAppStorageSet", {key: "steveChatAccountsList", value: JSON.stringify(this.state.accounts)});
         if (this.state.accounts.length === 1) {
             this.selectAccount(this.state.accounts[0])
         }
@@ -80,31 +80,10 @@ class Accounts extends React.Component {
                         {
                             accounts.length > 0 ?
                                 accounts.map((account, index) => (
-                                    editList ?
-                                        <Cell key={Math.random()} draggable
-                                              removable
-                                              onDragFinish={({from, to}) => {
-                                                  const accountsList = [...this.state.accounts];
-                                                  accountsList.splice(from, 1);
-                                                  accountsList.splice(to, 0, this.state.accounts[from]);
-                                                  this.setState({accounts: accountsList});
-                                              }}
-                                              before={<Avatar style={{imageRendering: "pixelated"}} type="image" size={64} src={`https://api.ashcon.app/mojang/v2/avatar/${account.type === "license" ? account.session.selectedProfile.name : "steve"}/64`}/>}
-                                              onRemove={() => {
-                                                  this.setState({accounts: [...accounts.slice(0, index), ...accounts.slice(index + 1)]});
-                                                  if (JSON.stringify(account) === JSON.stringify(selectedAccount)) {
-                                                      this.selectAccount("");
-                                                  }
-                                              }}
-                                              description={account.type === "license" ? "Лицензионный" : "Пиратский"}>
-                                            {account.type === "license" ? account.session.selectedProfile.name : account.username}
-                                        </Cell>
-                                        :
-                                        <Cell key={index}
-                                              before={<Avatar type="image" size={64} src={`https://api.ashcon.app/mojang/v2/avatar/${account.type === "license" ? account.session.selectedProfile.name : "steve"}/64`}/>}
-                                              size="m"
-                                              description={account.type === "license" ? "Лицензионный" : "Пиратский"}
-                                              asideContent={
+                                    <Cell key={Math.random()} description={account.type === "license" ? "Лицензионный" : "Пиратский"}
+                                          before={<Avatar style={{imageRendering: "pixelated"}} mode="image" size={64} src={`https://api.ashcon.app/mojang/v2/avatar/${account.type === "license" ? account.session.selectedProfile.name : "steve"}/64`}/>}
+                                          asideContent={
+                                              !editList && (
                                                   JSON.stringify(account) === JSON.stringify(selectedAccount) ?
                                                       <div style={{display: "flex", opacity: ".6"}}>
                                                           <Icon24UserAdded style={{marginRight: "5px"}}/>
@@ -115,17 +94,31 @@ class Accounts extends React.Component {
                                                           <Icon24User style={{marginRight: "5px"}}/>
                                                           Активировать
                                                       </Tappable>
-                                              }>
-                                            {account.type === "license" ? account.session.selectedProfile.name : account.username}
-                                        </Cell>
+                                              )
+                                          }
+                                          removable={editList} draggable={editList}
+                                          onDragFinish={({from, to}) => {
+                                              const accountsList = [...this.state.accounts];
+                                              accountsList.splice(from, 1);
+                                              accountsList.splice(to, 0, this.state.accounts[from]);
+                                              this.setState({accounts: accountsList});
+                                          }}
+                                          onRemove={() => {
+                                              this.setState({accounts: [...accounts.slice(0, index), ...accounts.slice(index + 1)]});
+                                              if (JSON.stringify(account) === JSON.stringify(selectedAccount)) {
+                                                  this.selectAccount("");
+                                              }
+                                          }}>
+                                        {account.type === "license" ? account.session.selectedProfile.name : account.username}
+                                    </Cell>
                                 ))
                                 :
                                 !editList &&
-                                    <Cell multiline before={<Icon28UserAddOutline height={44} width={44}/>} size="m"
-                                          description="Нажмите, чтобы добавить аккаунт."
-                                          onClick={() => navigator.showModal("add-account", {addAccount, accounts: accounts, socket})}>
-                                        Вы не добавили ни одного аккаунта!
-                                    </Cell>
+                                <Cell multiline before={<Icon28UserAddOutline height={44} width={44}/>} size="m"
+                                      description="Нажмите, чтобы добавить аккаунт."
+                                      onClick={() => navigator.showModal("add-account", {addAccount, accounts: accounts, socket})}>
+                                    Вы не добавили ни одного аккаунта!
+                                </Cell>
                         }
                     </Group>
                     <FixedLayout vertical="bottom" style={{display: "flex", direction: "rtl"}}>
@@ -134,12 +127,12 @@ class Accounts extends React.Component {
                                 <div style={{display: "flex", marginBottom: "10px"}}>
                                     {
                                         accounts !== accountsBackup &&
-                                            <div className="footer-icon">
-                                                <Icon24Done className="footer-icon__icon" onClick={() => {
-                                                    this.setState({editList: false});
-                                                    this.saveAccountsEdits()
-                                                }} height={35} width={35}/>
-                                            </div>
+                                        <div className="footer-icon">
+                                            <Icon24Done className="footer-icon__icon" onClick={() => {
+                                                this.setState({editList: false});
+                                                this.saveAccountsEdits()
+                                            }} height={35} width={35}/>
+                                        </div>
                                     }
                                     <div className="footer-icon">
                                         <Icon24Cancel onClick={() => {this.setState({editList: false, accounts: accountsBackup}); this.selectAccount(selectedAccountBackup)}} className="footer-icon__icon" height={35} width={35}/>
@@ -152,9 +145,9 @@ class Accounts extends React.Component {
                                     </div>
                                     {
                                         this.state.accounts.length > 0 &&
-                                            <div className="footer-icon">
-                                                <Icon28EditOutline onClick={() => this.setState({editList: true, accountsBackup: accounts, selectedAccountBackup: selectedAccount})} className="footer-icon__icon" height={35} width={35}/>
-                                            </div>
+                                        <div className="footer-icon">
+                                            <Icon28EditOutline onClick={() => this.setState({editList: true, accountsBackup: accounts, selectedAccountBackup: selectedAccount})} className="footer-icon__icon" height={35} width={35}/>
+                                        </div>
                                     }
                                 </div>
                         }

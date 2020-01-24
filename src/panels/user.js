@@ -12,7 +12,7 @@ import Error from "./components/error";
 import Spinner from "./components/spinner";
 import HeaderButtons from "./components/headerbuttons";
 
-import {Panel, PanelHeader, HeaderButton, PanelHeaderContent, Input, FormLayout, Button, Group, Cell, List, Div, Separator, Header, FormLayoutGroup} from "@vkontakte/vkui";
+import {Panel, PanelHeader, PanelHeaderButton, PanelHeaderContent, Input, FormLayout, Button, Group, Cell, List, Div, Separator, Header, FormLayoutGroup} from "@vkontakte/vkui";
 
 import Icon24Message from '@vkontakte/icons/dist/24/message';
 import Icon24DoneOutline from '@vkontakte/icons/dist/24/done_outline';
@@ -85,7 +85,7 @@ class UserInfo extends React.Component {
 
     share () {
         console.log("Начинаем отправку сообщения.");
-        VKConnect.sendPromise("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098})
+        VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098})
             .then(data => {
                 console.log(data.result);
                 if(data.result) {
@@ -100,7 +100,7 @@ class UserInfo extends React.Component {
     }
 
     componentDidMount() {
-        VKConnect.sendPromise("VKWebAppStorageGet", {"keys": ["steveHistoryList"]})
+        VKConnect.send("VKWebAppStorageGet", {"keys": ["steveHistoryList"]})
             .then(res => {
                 console.log(res);
                 console.log(`История запросов: ${res.keys[0].value}`);
@@ -138,7 +138,7 @@ class UserInfo extends React.Component {
 
         return (
             <Panel id={id}>
-                <PanelHeader transparent left={<HeaderButton onClick={() => navigator.goBack()}><HeaderButtons /></HeaderButton>}>
+                <PanelHeader transparent left={<PanelHeaderButton onClick={() => navigator.goBack()}><HeaderButtons /></PanelHeaderButton>}>
                     <PanelHeaderContent status="Информация об игроке">
                         Steve
                     </PanelHeaderContent>
@@ -169,53 +169,45 @@ class UserInfo extends React.Component {
                                 </div>
                             </div>
                             {
-                               openHistory ?
-                                    historyList.length > 0 || editHistory ?
-                                        <Group style={{marginTop: "20px"}}>
-                                            <Separator/>
-                                            <Header mode="secondary" aside={editHistory ?
-                                                <div style={{display: "flex"}}>
-                                                    <Icon24Cancel onClick={() => this.setState({historyList: backup, editHistory: false})} style={{marginRight: "5px"}}/>
-                                                    <Icon24DoneOutline onClick={() => {
-                                                        this.setState({editHistory: false, openHistory: !historyList.length <= 0});
-                                                        this.saveHistory();
-                                                    }}/>
-                                                </div>
-                                                : <Icon24Write onClick={() => this.setState({editHistory: true, backup: historyList})}/>}>
-                                                История запросов
-                                            </Header>
-                                            <List>
-                                                {
-                                                    editHistory ?
-                                                        historyList.map((item, index) => (
-                                                            <Cell key={item} draggable
-                                                                  removable
-                                                                  onDragFinish={({from, to}) => {
-                                                                      const historyList = [...this.state.historyList];
-                                                                      historyList.splice(from, 1);
-                                                                      historyList.splice(to, 0, this.state.historyList[from]);
-                                                                      this.setState({historyList});
-                                                                  }}
-                                                                  onRemove={async () => {
-                                                                      await this.setState({historyList: [...this.state.historyList.slice(0, index), ...this.state.historyList.slice(index + 1)]});
-                                                                  }}
-                                                            >{item}</Cell>
-                                                        ))
-                                                        :
-                                                        historyList.map((item) => (
-                                                            <Cell key={item} onClick={async () => {
-                                                                await this.setState({nickname: item, openHistory: false});
-                                                                await this.onClick();
-                                                            }}>{item}</Cell>
-                                                        ))
-                                                }
-                                            </List>
-                                            <Separator/>
-                                        </Group>
-                                        :
-                                        undefined
-                                    :
-                                    undefined
+                                openHistory && (
+                                    (historyList.length > 0 || editHistory) &&
+                                    <Group style={{marginTop: "20px"}}>
+                                        <Separator/>
+                                        <Header mode="secondary" aside={editHistory ?
+                                            <div style={{display: "flex"}}>
+                                                <Icon24Cancel onClick={() => this.setState({historyList: backup, editHistory: false})} style={{marginRight: "5px"}}/>
+                                                <Icon24DoneOutline onClick={() => {
+                                                    this.setState({editHistory: false, openHistory: !historyList.length <= 0});
+                                                    this.saveHistory();
+                                                }}/>
+                                            </div>
+                                            : <Icon24Write onClick={() => this.setState({editHistory: true, backup: historyList})}/>}>
+                                            История запросов
+                                        </Header>
+                                        <List>
+                                            {
+                                                historyList.map((item, index) => (
+                                                    <Cell key={item} draggable={editHistory} removable={editHistory}
+                                                          onDragFinish={({from, to}) => {
+                                                              const historyList = [...this.state.historyList];
+                                                              historyList.splice(from, 1);
+                                                              historyList.splice(to, 0, this.state.historyList[from]);
+                                                              this.setState({historyList});
+                                                          }}
+                                                          onRemove={async () => {
+                                                              await this.setState({historyList: [...this.state.historyList.slice(0, index), ...this.state.historyList.slice(index + 1)]});
+                                                          }}
+                                                          onClick={async () => {
+                                                              await this.setState({nickname: item, openHistory: false});
+                                                              await this.onClick();
+                                                          }}
+                                                    >{item}</Cell>
+                                                ))
+                                            }
+                                        </List>
+                                        <Separator/>
+                                    </Group>
+                                )
                             }
                         </FormLayoutGroup>
                         <Button disabled={!(nickname.length > 1 && nickname.match('^[A-Za-z0-9_]+$') && !spinner && !editHistory)} onClick={this.onClick.bind(this)} size='xl'>
@@ -228,15 +220,15 @@ class UserInfo extends React.Component {
                             skin &&
                             <Group top={`Скин игрока ${username}`}>
                                 <Separator/>
-                                    <div className={`skin skin-${scheme} ${this.state.paused && "skin-animation_paused"} skin-bg_animation`}>
-                                        <div className="skin-icons skin-block">
+                                <div className={`skin skin-${scheme} ${this.state.paused && "skin-animation_paused"} skin-bg_animation`}>
+                                    <div className="skin-icons skin-block">
                                         <Button className="skin-button" onClick={() => this.changeSkinAnimation()}>{!this.state.walk ? <IconWalk/> : <IconRun/>}</Button>
                                         <Button className="skin-button" onClick={() => this.setState({paused: !this.state.paused})}>{!this.state.paused ? <Icon24Pause width={16} height={16}/> : <Icon16Play/>}</Button>
-                                        </div>
-                                        <div className="skin-block skin-center">
+                                    </div>
+                                    <div className="skin-block skin-center">
                                         <SkinViewer
                                             skinUrl={`https://stevecors.herokuapp.com/${skin}`}
-                                            capeUrl={cape && `https://stevecors.herokuapp.com/${cape}`}
+                                            capeUrl={cape ? `https://stevecors.herokuapp.com/${cape}` : ""}
                                             className="skin-shadow"
                                             walk={walk}
                                             run={run}
@@ -244,8 +236,8 @@ class UserInfo extends React.Component {
                                             height="196"
                                             width="196"
                                         />
-                                        </div>
                                     </div>
+                                </div>
                                 <Separator/>
                                 <Div style={{ display: 'flex' }}>
                                     <Button stretched before={sent ? <Icon24DoneOutline width={16} height={16}/> : <Icon24Message width={16} height={16} />} disabled={lock} onClick={() => {
@@ -258,7 +250,7 @@ class UserInfo extends React.Component {
                                 <Separator/>
                             </Group>
                         }
-                        <List top={username && `История никнейма ${username}`}>
+                        <List top={username ? `История никнейма ${username}` : ""}>
                             {
                                 list && list.map(({username, changed_at}, i) =>
                                     <Cell key={i} description={changed_at !== undefined ? timeConvert(changed_at) : regDate ? regDate : 'Первый'}>

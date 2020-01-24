@@ -1,6 +1,6 @@
 import React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import {Panel, PanelHeader, PanelHeaderContent, Group, Separator, Input, FormLayout, Select, List, Cell, Button, HeaderButton} from "@vkontakte/vkui";
+import {Panel, PanelHeader, PanelHeaderContent, Group, Separator, Input, FormLayout, Select, List, Cell, Button, PanelHeaderButton} from "@vkontakte/vkui";
 import Icon24Copy from '@vkontakte/icons/dist/24/copy';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
 
@@ -50,7 +50,7 @@ class Calculator extends React.Component {
 
         return (
             <Panel id={id}>
-                <PanelHeader transparent left={<HeaderButton onClick={() => navigator.goBack()}><HeaderButtons/></HeaderButton>}>
+                <PanelHeader transparent left={<PanelHeaderButton onClick={() => navigator.goBack()}><HeaderButtons/></PanelHeaderButton>}>
                     <PanelHeaderContent status="Калькулятор">
                         Steve
                     </PanelHeaderContent>

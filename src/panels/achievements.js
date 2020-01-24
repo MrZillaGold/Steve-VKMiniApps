@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import VKConnect from "@vkontakte/vk-connect";
 import { Offline, Online } from 'react-detect-offline';
-import {Panel, PanelHeader, PanelHeaderContent, Input, FormLayout, Button, Group, Div, Separator, HeaderButton} from "@vkontakte/vkui";
+import {Panel, PanelHeader, PanelHeaderContent, Input, FormLayout, Button, Group, Div, Separator, PanelHeaderButton} from "@vkontakte/vkui";
 
 import {randomInteger, fixInput} from "../services/_functions";
 
@@ -36,7 +36,7 @@ class AchievementsGet extends React.Component {
 
     share() {
         console.log("Начинаем отправку сообщения.");
-        VKConnect.sendPromise("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098})
+        VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098})
             .then(data => {
                 console.log(data);
                 if (data.result) {
@@ -54,7 +54,7 @@ class AchievementsGet extends React.Component {
 
     openStoryEditor(url) {
         console.log(`URL Достижения: ${url}`);
-        VKConnect.sendPromise("VKWebAppShowStoryBox", {
+        VKConnect.send("VKWebAppShowStoryBox", {
             background_type: "none",
             stickers: [{
                 sticker_type: "renderable",
@@ -71,9 +71,7 @@ class AchievementsGet extends React.Component {
                 type: "url",
                 url: "https://vk.com/minetools#achievements"
             }
-        })
-            .then(r => console.log(r))
-            .catch(err => console.log(err))
+        });
     }
 
     onClick () {
@@ -103,7 +101,7 @@ class AchievementsGet extends React.Component {
 
         return (
             <Panel id={id}>
-                <PanelHeader transparent left={<HeaderButton onClick={() => navigator.goBack()}><HeaderButtons/></HeaderButton>}>
+                <PanelHeader transparent left={<PanelHeaderButton onClick={() => navigator.goBack()}><HeaderButtons/></PanelHeaderButton>}>
                     <PanelHeaderContent status="Генератор">
                         Steve
                     </PanelHeaderContent>

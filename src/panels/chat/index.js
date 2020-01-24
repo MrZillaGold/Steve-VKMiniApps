@@ -2,7 +2,7 @@ import React from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
 import { Offline, Online } from 'react-detect-offline';
-import {Panel, PanelHeader, PanelHeaderContent, HeaderButton, Tabs, TabsItem, Group, Snackbar, Avatar} from "@vkontakte/vkui";
+import {Panel, PanelHeader, PanelHeaderContent, PanelHeaderButton, Tabs, TabsItem, Group, Snackbar, Avatar} from "@vkontakte/vkui";
 import Icon16Cancel from '@vkontakte/icons/dist/16/cancel';
 
 import OfflineBlock from '../components/offline';
@@ -97,7 +97,7 @@ class MinecraftChat extends React.Component {
 
         return (
             <Panel id={id}>
-                <PanelHeader transparent left={<HeaderButton onClick={() => navigator.goBack()}><HeaderButtons/></HeaderButton>}>
+                <PanelHeader transparent left={<PanelHeaderButton onClick={() => navigator.goBack()}><HeaderButtons/></PanelHeaderButton>}>
                     <PanelHeaderContent status="Чат">
                         Steve
                     </PanelHeaderContent>

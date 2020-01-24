@@ -28,7 +28,7 @@ class Servers extends React.Component {
             await this.setState({selectedAccount: JSON.parse(selectedAccount)});
         }
         if (!serversStorage || !selectedAccount) {
-            await VKConnect.sendPromise("VKWebAppStorageGet", {keys: ["steveChatServersList", "steveChatSelectedAccount"]})
+            await VKConnect.send("VKWebAppStorageGet", {keys: ["steveChatServersList", "steveChatSelectedAccount"]})
                 .then(res => {
                     if (res.keys[0].value.length > 1) {
                         this.setState({servers: JSON.parse(res.keys[0].value)});
@@ -74,39 +74,34 @@ class Servers extends React.Component {
                         {
                             servers.length > 0 ?
                                 servers.map((server, index) => (
-                                    editList ?
-                                        <Cell key={Math.random()} draggable
-                                              removable
-                                              description={server.version}
-                                              onDragFinish={({from, to}) => {
-                                                  const serversList = [...servers];
-                                                  serversList.splice(from, 1);
-                                                  serversList.splice(to, 0, servers[from]);
-                                                  this.setState({servers: serversList});
-                                              }}
-                                              before={<Avatar onError={e => e.target.src = defaultImage} style={{imageRendering: "pixelated"}} mode="image" size={64} src={`https://eu.mc-api.net/v3/server/favicon/${server.ip}:${server.port}`}/>}
-                                              onRemove={() => {
-                                                  this.setState({servers: [...servers.slice(0, index), ...servers.slice(index + 1)]});
-                                              }}>
-                                            {`${server.ip}:${server.port}`}
-                                        </Cell>
-                                        :
-                                        <Cell key={index}
-                                              before={<Avatar onError={e => e.target.src = defaultImage} style={{imageRendering: "pixelated"}} mode="image" size={64} src={`https://eu.mc-api.net/v3/server/favicon/${server.ip}:${server.port}`}/>}
-                                              size="l"
-                                              asideContent={
+                                    <Cell key={Math.random()} size={!editList && "l"} description={server.version}
+                                          before={<Avatar onError={e => e.target.src = defaultImage} style={{imageRendering: "pixelated"}} mode="image" size={64} src={`https://eu.mc-api.net/v3/server/favicon/${server.ip}:${server.port}`}/>}
+                                          asideContent={
+                                              !editList && (
                                                   <Tappable onClick={() => navigator.showModal("edit-server", {server: server, index: index, servers: servers, editServer})}>
                                                       <Icon28EditOutline height={24} width={24} />
                                                   </Tappable>
-                                              }
-                                              bottomContent={
+                                              )
+                                          }
+                                          bottomContent={
+                                              !editList && (
                                                   <Tappable onClick={() => selectedAccount ? connect(server, selectedAccount, navigator, socket) : editTab("accounts")}>
                                                       Зайти на сервер
                                                   </Tappable>
-                                              }
-                                              description={server.version}>
-                                            {`${server.ip}${server.port === "25565" ? "" : `:${server.port}`}`}
-                                        </Cell>
+                                              )
+                                          }
+                                          draggable={editList} removable={editList}
+                                          onRemove={() => {
+                                              this.setState({servers: [...servers.slice(0, index), ...servers.slice(index + 1)]});
+                                          }}
+                                          onDragFinish={({from, to}) => {
+                                              const serversList = [...servers];
+                                              serversList.splice(from, 1);
+                                              serversList.splice(to, 0, servers[from]);
+                                              this.setState({servers: serversList});
+                                          }}>
+                                        {`${server.ip}${server.port === "25565" ? "" : `:${server.port}`}`}
+                                    </Cell>
                                 ))
                                 :
                                 !editList &&

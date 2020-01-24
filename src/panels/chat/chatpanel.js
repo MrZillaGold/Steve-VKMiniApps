@@ -1,7 +1,7 @@
 import React from 'react';
 import VKConnect from "@vkontakte/vk-connect";
 import { Offline, Online } from 'react-detect-offline';
-import {Panel, PanelHeader, PanelHeaderContent, HeaderButton, FixedLayout, Header, Div, platform, IOS, Separator, FormLayout, Tappable, Input} from "@vkontakte/vkui";
+import {Panel, PanelHeader, PanelHeaderContent, PanelHeaderButton, FixedLayout, Header, Div, platform, IOS, Separator, FormLayout, Tappable, Input} from "@vkontakte/vkui";
 
 import OfflineBlock from '../components/offline';
 import HeaderButtons from "../components/headerbuttons";
@@ -91,7 +91,7 @@ class ServerChat extends React.Component {
 
         return (
             <Panel id={id} theme="white">
-                <PanelHeader transparent left={<HeaderButton onClick={() => navigator.goBack()}><HeaderButtons/></HeaderButton>}>
+                <PanelHeader transparent left={<PanelHeaderButton onClick={() => navigator.goBack()}><HeaderButtons/></PanelHeaderButton>}>
                     <PanelHeaderContent status="Чат">
                         Steve
                     </PanelHeaderContent>

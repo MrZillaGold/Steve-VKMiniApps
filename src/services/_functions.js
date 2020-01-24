@@ -55,7 +55,8 @@ export const checkStatus = (status) => {
 
 
 export const resizeWindow = (height) => {
-    VKConnect.send("VKWebAppResizeWindow", {"width": 700, "height": height});
+    VKConnect.send("VKWebAppResizeWindow", {"width": 700, "height": height})
+        .catch(() => {});
 };
 
 export const ipRegExp1 = /^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g;
