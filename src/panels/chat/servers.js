@@ -84,7 +84,7 @@ class Servers extends React.Component {
                                                   serversList.splice(to, 0, servers[from]);
                                                   this.setState({servers: serversList});
                                               }}
-                                              before={<Avatar onError={e => e.target.src = defaultImage} style={{imageRendering: "pixelated"}} type="image" size={64} src={`https://eu.mc-api.net/v3/server/favicon/${server.ip}:${server.port}`}/>}
+                                              before={<Avatar onError={e => e.target.src = defaultImage} style={{imageRendering: "pixelated"}} mode="image" size={64} src={`https://eu.mc-api.net/v3/server/favicon/${server.ip}:${server.port}`}/>}
                                               onRemove={() => {
                                                   this.setState({servers: [...servers.slice(0, index), ...servers.slice(index + 1)]});
                                               }}>
@@ -92,7 +92,7 @@ class Servers extends React.Component {
                                         </Cell>
                                         :
                                         <Cell key={index}
-                                              before={<Avatar onError={e => e.target.src = defaultImage} style={{imageRendering: "pixelated"}} type="image" size={64} src={`https://eu.mc-api.net/v3/server/favicon/${server.ip}:${server.port}`}/>}
+                                              before={<Avatar onError={e => e.target.src = defaultImage} style={{imageRendering: "pixelated"}} mode="image" size={64} src={`https://eu.mc-api.net/v3/server/favicon/${server.ip}:${server.port}`}/>}
                                               size="l"
                                               asideContent={
                                                   <Tappable onClick={() => navigator.showModal("edit-server", {server: server, index: index, servers: servers, editServer})}>
