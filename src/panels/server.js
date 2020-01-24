@@ -182,7 +182,7 @@ class ServerInfo extends React.Component {
                                 <List>
                                     <Cell
                                         multiline
-                                        before={<Avatar style={{imageRendering: "pixelated"}} type="image" size={64} src={response.icon ? response.icon.toString().replace(/\//g, '/') : defaultImage}/>}
+                                        before={<Avatar style={{imageRendering: "pixelated"}} mode="image" size={64} src={response.icon ? response.icon.toString().replace(/\//g, '/') : defaultImage}/>}
                                         description={`Игроков: ${response.players.online} / ${response.players.max}`}
                                     >
                                         <div className="server-motd">
