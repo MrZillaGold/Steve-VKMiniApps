@@ -7,7 +7,6 @@
     "start": "serve -s build",
     "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "postbuild": "rimraf build/**/*.map",
     "eject": "react-scripts eject"
   },
   "author": "MrZillaGold",
@@ -20,7 +19,7 @@
     "@vkontakte/icons": "^1.12.0",
     "@vkontakte/mvk-mini-apps-scroll-helper": "^1.2.0",
     "@vkontakte/vk-connect": "^1.8.5",
-    "@vkontakte/vkui": "^3.0.0",
+    "@vkontakte/vkui": "^3.0.2",
     "chalk": "^2.4.2",
     "core-js": "^2.6.9",
     "prop-types": "^15.7.2",
