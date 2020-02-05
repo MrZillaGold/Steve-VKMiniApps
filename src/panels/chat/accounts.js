@@ -30,7 +30,7 @@ class Accounts extends React.Component {
         if (selectedAccount.length > 1) {
             await this.setState({selectedAccount: JSON.parse(selectedAccount)});
         }
-        await VKConnect.send("VKWebAppStorageGet", {keys: ["steveChatAccountsList", "steveChatSelectedAccount"]})
+        await VKConnect.send("VKWebAppStorageGet", {keys: ["сhatAccountsList", "сhatSelectedAccount"]})
             .then(res => {
                 if (res.keys[0].value.length > 1) {
                     this.setState({accounts: JSON.parse(res.keys[0].value)});
@@ -47,12 +47,12 @@ class Accounts extends React.Component {
     async selectAccount(account) {
         this.setState({selectedAccount: account});
         sessionStorage.setItem('chatSelectedAccount', JSON.stringify(account));
-        await VKConnect.send("VKWebAppStorageSet", {key: "steveChatSelectedAccount", value: JSON.stringify(account)});
+        await VKConnect.send("VKWebAppStorageSet", {key: "сhatSelectedAccount", value: JSON.stringify(account)});
     }
 
     async saveAccountsEdits() {
         sessionStorage.setItem('chatAccounts', JSON.stringify(this.state.accounts));
-        await VKConnect.send("VKWebAppStorageSet", {key: "steveChatAccountsList", value: JSON.stringify(this.state.accounts)});
+        await VKConnect.send("VKWebAppStorageSet", {key: "сhatAccountsList", value: JSON.stringify(this.state.accounts)});
         if (this.state.accounts.length === 1) {
             this.selectAccount(this.state.accounts[0])
         }
@@ -64,7 +64,7 @@ class Accounts extends React.Component {
         sessionStorage.setItem('chatAccounts', JSON.stringify(accountslist));
         this.selectAccount(data);
         this.setState({accounts: accountslist});
-        VKConnect.send("VKWebAppStorageSet", {key: "steveChatAccountsList", value: JSON.stringify(accountslist)});
+        VKConnect.send("VKWebAppStorageSet", {key: "сhatAccountsList", value: JSON.stringify(accountslist)});
     };
 
 
