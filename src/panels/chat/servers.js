@@ -28,7 +28,7 @@ class Servers extends React.Component {
             await this.setState({selectedAccount: JSON.parse(selectedAccount)});
         }
         if (!serversStorage || !selectedAccount) {
-            await VKConnect.send("VKWebAppStorageGet", {keys: ["steveChatServersList", "steveChatSelectedAccount"]})
+            await VKConnect.send("VKWebAppStorageGet", {keys: ["chatServersList", "chatSelectedAccount"]})
                 .then(res => {
                     if (res.keys[0].value.length > 1) {
                         this.setState({servers: JSON.parse(res.keys[0].value)});
@@ -45,7 +45,7 @@ class Servers extends React.Component {
 
     saveServersEdits() {
         sessionStorage.setItem('chatServers', JSON.stringify(this.state.servers));
-        VKConnect.send("VKWebAppStorageSet", {key: "steveChatServersList", value: JSON.stringify(this.state.servers)});
+        VKConnect.send("VKWebAppStorageSet", {key: "chatServersList", value: JSON.stringify(this.state.servers)});
     }
 
     render() {
