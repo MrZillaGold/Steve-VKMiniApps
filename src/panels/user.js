@@ -59,10 +59,10 @@ class UserInfo extends React.Component {
             .catch(err => {
                 if (err.response && err.response.status) {
                     if (err.response.status === 404) {
-                        this.setState({error: `Игрока с никнеймом ${this.state.nickname} не существует!`, spinner: null});
+                        return this.setState({error: `Игрока с никнеймом ${this.state.nickname} не существует!`, spinner: null});
                     }
                     if (err.response.status === 400) {
-                        this.setState({error: `Никнейм может содержать только латинские буквы, цифры и символ "_".`, spinner: null});
+                        return this.setState({error: `Никнейм может содержать только латинские буквы, цифры и символ "_".`, spinner: null});
                     }
                 }
                 this.setState({ error: `Произошла ошибка. Попробуйте позже.`, spinner: null });
