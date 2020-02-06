@@ -4,7 +4,7 @@ import VKConnect from "@vkontakte/vk-connect";
 import { Offline, Online } from 'react-detect-offline';
 import {Panel, PanelHeader, PanelHeaderContent, Input, FormLayout, Button, Group, Div, Separator, PanelHeaderButton} from "@vkontakte/vkui";
 
-import {randomInteger, fixInput} from "../services/_functions";
+import {randomInteger} from "../services/_functions";
 
 import Icon24Message from '@vkontakte/icons/dist/24/message';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
@@ -29,13 +29,11 @@ class AchievementsGet extends React.Component {
     };
 
     onChange(e) {
-        fixInput();
         const {name, value} = e.currentTarget;
         this.setState({[name]: value.replace(/[^а-яА-ЯёЁA-Za-z0-9!?., ]/g, "").slice(0, 20)});
     }
 
     share() {
-        console.log("Начинаем отправку сообщения.");
         VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098})
             .then(data => {
                 console.log(data);
@@ -53,7 +51,6 @@ class AchievementsGet extends React.Component {
     }
 
     openStoryEditor(url) {
-        console.log(`URL Достижения: ${url}`);
         VKConnect.send("VKWebAppShowStoryBox", {
             background_type: "none",
             stickers: [{

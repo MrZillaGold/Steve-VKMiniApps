@@ -1,7 +1,6 @@
 import React from 'react';
 import {Online} from 'react-detect-offline';
 import {Button, FormLayout, Group, Input, ModalPage, Tabs, TabsItem} from "@vkontakte/vkui";
-import {fixInput} from "../../../services/_functions";
 
 class AddAccount extends React.Component {
 
@@ -13,7 +12,6 @@ class AddAccount extends React.Component {
     };
 
     onChange(e) {
-        fixInput();
         let {name, value} = e.currentTarget;
         if (name === "nickname") {
             value = value.replace(/[^A-Za-z0-9_]/g, "").slice(0, 16);

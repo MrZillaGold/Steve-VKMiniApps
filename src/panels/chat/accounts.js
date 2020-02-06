@@ -9,7 +9,7 @@ import Icon28UserAddOutline from '@vkontakte/icons/dist/28/user_add_outline';
 import Icon24Done from '@vkontakte/icons/dist/24/done';
 import Icon24Cancel from '@vkontakte/icons/dist/24/cancel';
 
-import "./chat.scss";
+import "./chat.css";
 import Spinner from "../components/spinner";
 
 class Accounts extends React.Component {
@@ -24,18 +24,22 @@ class Accounts extends React.Component {
     async componentDidMount() {
         const accountsStorage = sessionStorage.getItem('chatAccounts') || 0;
         const selectedAccount = sessionStorage.getItem('chatSelectedAccount') || 0;
+
         if (accountsStorage.length > 1) {
             await this.setState({accounts: JSON.parse(accountsStorage)});
         }
+
         if (selectedAccount.length > 1) {
             await this.setState({selectedAccount: JSON.parse(selectedAccount)});
         }
+
         await VKConnect.send("VKWebAppStorageGet", {keys: ["сhatAccountsList", "сhatSelectedAccount"]})
             .then(res => {
                 if (res.keys[0].value.length > 1) {
                     this.setState({accounts: JSON.parse(res.keys[0].value)});
                     sessionStorage.setItem('chatAccounts', res.keys[0].value);
                 }
+
                 if (res.keys[1].value.length > 1) {
                     this.setState({selectedAccount: JSON.parse(res.keys[1].value)});
                     sessionStorage.setItem('chatSelectedAccount', res.keys[1].value);
@@ -46,24 +50,30 @@ class Accounts extends React.Component {
 
     async selectAccount(account) {
         this.setState({selectedAccount: account});
+
         sessionStorage.setItem('chatSelectedAccount', JSON.stringify(account));
+
         await VKConnect.send("VKWebAppStorageSet", {key: "сhatSelectedAccount", value: JSON.stringify(account)});
     }
 
     async saveAccountsEdits() {
         sessionStorage.setItem('chatAccounts', JSON.stringify(this.state.accounts));
+
         await VKConnect.send("VKWebAppStorageSet", {key: "сhatAccountsList", value: JSON.stringify(this.state.accounts)});
-        if (this.state.accounts.length === 1) {
-            this.selectAccount(this.state.accounts[0])
-        }
+
+        if (this.state.accounts.length === 1) this.selectAccount(this.state.accounts[0]);
     }
 
     addAccount = (data) => {
         const accountslist = [...this.state.accounts];
+
         accountslist.unshift(data);
+
         sessionStorage.setItem('chatAccounts', JSON.stringify(accountslist));
+
         this.selectAccount(data);
         this.setState({accounts: accountslist});
+
         VKConnect.send("VKWebAppStorageSet", {key: "сhatAccountsList", value: JSON.stringify(accountslist)});
     };
 

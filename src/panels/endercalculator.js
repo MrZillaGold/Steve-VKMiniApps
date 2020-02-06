@@ -4,7 +4,6 @@ import {Panel, PanelHeader, PanelHeaderContent, Group, Separator, Input, FormLay
 import Icon24Copy from '@vkontakte/icons/dist/24/copy';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
 
-import {fixInput} from "../services/_functions";
 import HeaderButtons from "./components/headerbuttons";
 
 class EnderPortalCalculator extends React.Component {
@@ -19,7 +18,6 @@ class EnderPortalCalculator extends React.Component {
     };
 
     onChange(e) {
-        fixInput();
         this.setState({ copy: false });
 
         const {name, value} = e.currentTarget;

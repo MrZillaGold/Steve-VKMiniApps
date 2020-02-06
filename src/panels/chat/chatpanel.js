@@ -1,5 +1,4 @@
 import React from 'react';
-import VKConnect from "@vkontakte/vk-connect";
 import { Offline, Online } from 'react-detect-offline';
 import {Panel, PanelHeader, PanelHeaderContent, PanelHeaderButton, FixedLayout, Header, Div, platform, IOS, Separator, FormLayout, Tappable, Input} from "@vkontakte/vkui";
 
@@ -7,9 +6,8 @@ import OfflineBlock from '../components/offline';
 import HeaderButtons from "../components/headerbuttons";
 import Icon24Send from '@vkontakte/icons/dist/24/send';
 
-import "./chat.scss";
+import "./chat.css";
 import ScrollToBottom from "react-scroll-to-bottom";
-import {fixInput} from "../../services/_functions";
 
 class ServerChat extends React.Component {
 
@@ -22,7 +20,6 @@ class ServerChat extends React.Component {
 
     componentDidMount() {
         this.useSockets(true);
-        VKConnect.send("VKWebAppDisableSwipeBack", {});
     }
 
     componentWillUnmount() {
@@ -31,7 +28,6 @@ class ServerChat extends React.Component {
             this.useSockets(false);
             socket.emit("disconnect");
         }
-        VKConnect.send("VKWebAppEnableSwipeBack", {});
     }
 
     useSockets(value) {
@@ -44,6 +40,7 @@ class ServerChat extends React.Component {
             { name: 'bot:connect', handler: () => this.setState({connected: true}) },
             { name: 'bot:disconnect', handler: () => this.setState({connected: false}) }
         ];
+
         if (socket && socket.connected) {
             channels.forEach(channel => {
                 if (value) {
@@ -56,33 +53,32 @@ class ServerChat extends React.Component {
     }
 
     onChange(e) {
-        fixInput();
         const {name, value} = e.currentTarget;
         this.setState({[name]: value});
     }
 
-    newMessage = (message) => {
+    newMessage(message) {
         const historyMessages = this.state.historyMessages;
         const messages = historyMessages.concat(message);
         this.setState({displayMessages: messages.slice(Math.max(historyMessages.length - 200, 0)), historyMessages: messages});
-    };
+    }
 
-    tab = () => {
+    tab() {
         this.props.navigator.params.socket.emit('bot:tabComplete', this.state.messageInput, (_, matches) => {
             if (matches.length !== 0) {
                 this.newMessage(matches.join(' '));
             }
         });
-    };
+    }
 
-    send = (socket) => {
+    send(socket) {
         if (socket && socket.connected) {
             socket.emit('bot:chat', {
                 message: this.state.messageInput
             });
             return this.setState({messageInput: ""});
         }
-    };
+    }
 
     render() {
         const {connected, displayMessages, messageInput} = this.state;

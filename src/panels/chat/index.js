@@ -78,7 +78,7 @@ class MinecraftChat extends React.Component {
     };
 
     editTab = (tab) => {
-        this.setState({tab: tab});
+        this.setState({tab});
         this.error("Активируйте аккаунт, либо добавьте новый!")
     };
 

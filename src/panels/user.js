@@ -5,7 +5,7 @@ import SkinViewer from "./components/skinviewer";
 import VKConnect from "@vkontakte/vk-connect";
 import { Offline, Online } from 'react-detect-offline';
 
-import {timeConvert, fixInput, resizeWindow} from "../services/_functions";
+import {timeConvert, resizeWindow} from "../services/_functions";
 
 import OfflineBlock from './components/offline';
 import Error from "./components/error";
@@ -38,43 +38,31 @@ class UserInfo extends React.Component {
     };
 
     onChange(e) {
-        fixInput();
         const {name, value} = e.currentTarget;
         this.setState({[name]: value.replace(/[^A-Za-z0-9_]/g, "").slice(0, 16)});
     }
 
     async onClick () {
-        if (this.state.nickname.length === 0){
-            return this.setState({ value: 'error' });
-        }
         this.setState({ spinner: true, list: false, username: false, error: false, value: false, skin: false, cape: false, regDate: false, lock: false, openHistory: false, walk: true, run: false, paused: false, sent: false});
+
         await axios.get(`https://stevecors.herokuapp.com/https://api.ashcon.app/mojang/v2/user/${this.state.nickname}`)
             .then(res => {
                 return res.data;
             })
             .then(data => {
-                if (data.textures.cape) {
-                    this.setState({ cape: data.textures.cape.url });
-                }
                 this.setState({ list: data.username_history, username: data.username, skin: data.textures.skin.url, spinner: null });
-                if (!this.state.historyList.includes(data.username)) {
-                    this.addHistory(data.username);
-                }
-                console.log(`URL Скина: ${data.textures.skin.url}`);
-                if (data.created_at) {
-                    this.setState({ regDate: timeConvert(data.created_at) });
-                }
+                if (data.textures.cape) this.setState({ cape: data.textures.cape.url });
+
+                if (!this.state.historyList.includes(data.username)) this.addHistory(data.username);
+                if (data.created_at) this.setState({ regDate: timeConvert(data.created_at) });
             })
             .catch(err => {
-                console.log(err);
-                if (err.response.status) {
+                if (err.response && err.response.status) {
                     if (err.response.status === 404) {
                         this.setState({error: `Игрока с никнеймом ${this.state.nickname} не существует!`, spinner: null});
-                        return console.log(`Игрок с никнеймом ${this.state.nickname} не существует!`);
                     }
                     if (err.response.status === 400) {
                         this.setState({error: `Никнейм может содержать только латинские буквы, цифры и символ "_".`, spinner: null});
-                        return console.log(`Произошла ошибка 400 (Bad Request!), проверьте вводимые данные!`);
                     }
                 }
                 this.setState({ error: `Произошла ошибка. Попробуйте позже.`, spinner: null });
@@ -84,11 +72,9 @@ class UserInfo extends React.Component {
     }
 
     share () {
-        console.log("Начинаем отправку сообщения.");
         VKConnect.send("VKWebAppAllowMessagesFromGroup", {"group_id": 175914098})
             .then(data => {
-                console.log(data.result);
-                if(data.result) {
+                if (data.result) {
                     this.setState({ sent: true });
                     VKConnect.send("VKWebAppSendPayload", {"group_id": 175914098, "payload": {"type":"document", "url": this.state.skin, "name": this.state.username}})
                 }
@@ -102,33 +88,23 @@ class UserInfo extends React.Component {
     componentDidMount() {
         VKConnect.send("VKWebAppStorageGet", {"keys": ["steveHistoryList"]})
             .then(res => {
-                console.log(res);
-                console.log(`История запросов: ${res.keys[0].value}`);
-                if (res.keys[0].value.length > 1) {
-                    this.setState({historyList: res.keys[0].value.split(',')});
-                }
+                if (res.keys[0].value.length > 1) this.setState({historyList: res.keys[0].value.split(",")});
             });
     }
 
     async addHistory(nickname) {
-        console.log("Добавляем никнейм в историю.");
         const historyList = [...this.state.historyList];
+
         historyList.unshift(nickname);
-        if (!(historyList.length <= 10)) {
-            console.log("История запросов больше 10, убираем последний элемент в истории.");
-            historyList.splice(-1,1);
-        }
+
+        if (!(historyList.length <= 10)) historyList.splice(-1,1);
+
         await this.setState({historyList});
         await VKConnect.send("VKWebAppStorageSet", {"key": "steveHistoryList", "value": this.state.historyList.join(",")});
     }
 
     saveHistory() {
-        console.log("Сохраняем историю.");
         VKConnect.send("VKWebAppStorageSet", {"key": "steveHistoryList", "value": this.state.historyList.join(",")});
-    }
-
-    changeSkinAnimation() {
-        this.state.walk ? this.setState({run: true, walk: false}) : this.setState({run: false, walk: true})
     }
 
     render() {
@@ -222,7 +198,7 @@ class UserInfo extends React.Component {
                                 <Separator/>
                                 <div className={`skin skin-${scheme} ${this.state.paused && "skin-animation_paused"} skin-bg_animation`}>
                                     <div className="skin-icons skin-block">
-                                        <Button className="skin-button" onClick={() => this.changeSkinAnimation()}>{!this.state.walk ? <IconWalk/> : <IconRun/>}</Button>
+                                        <Button className="skin-button" onClick={() => this.setState({run: this.state.walk, walk: !this.state.walk})}>{!this.state.walk ? <IconWalk/> : <IconRun/>}</Button>
                                         <Button className="skin-button" onClick={() => this.setState({paused: !this.state.paused})}>{!this.state.paused ? <Icon24Pause width={16} height={16}/> : <Icon16Play/>}</Button>
                                     </div>
                                     <div className="skin-block skin-center">
