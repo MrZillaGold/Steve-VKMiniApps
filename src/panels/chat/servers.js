@@ -42,7 +42,8 @@ class Servers extends React.Component {
                         this.setState({selectedAccount: JSON.parse(res.keys[1].value)});
                         sessionStorage.setItem('chatSelectedAccount', res.keys[1].value);
                     }
-                });
+                })
+                .catch(() => this.setState({ selectedAccount: null, servers: []}));;
         }
         await this.setState({loading: false});
     }
