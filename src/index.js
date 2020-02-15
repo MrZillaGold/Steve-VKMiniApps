@@ -14,7 +14,7 @@ sessionStorage.setItem('scheme', "bright_light");
 VKConnect.send("VKWebAppInit");
 VKConnect.subscribe(({ detail: { type, data }}) => {
     if (type === "VKWebAppUpdateConfig") {
-        const scheme = data.scheme ? data.scheme : "bright_light";
+        const scheme = data.scheme ? data.scheme === "client_light" ? "bright_light" : data.scheme === "client_dark" ? "space_gray" :  data.scheme : "bright_light";
         const schemeAttribute = document.createAttribute("scheme");
         schemeAttribute.value = scheme;
         document.body.attributes.setNamedItem(schemeAttribute);
