@@ -5,8 +5,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import VKBridge from "@vkontakte/vk-bridge";
 
-import { platform, IOS, ANDROID } from "@vkontakte/vkui";
+import { platform, IOS } from "@vkontakte/vkui";
 import mVKMiniAppsScrollHelper from '@vkontakte/mvk-mini-apps-scroll-helper';
+
+import { changeStatusBarColor } from "./services/_functions";
 
 import registerServiceWorker from './sw';
 
@@ -33,6 +35,7 @@ VKBridge.subscribe(({ detail: { type, data }}) => {
         schemeAttribute.value = scheme;
         document.body.attributes.setNamedItem(schemeAttribute);
         sessionStorage.setItem("scheme", scheme);
+        changeStatusBarColor();
     }
     if (type === "VKWebAppViewRestore") {
         changeStatusBarColor();
@@ -41,8 +44,6 @@ VKBridge.subscribe(({ detail: { type, data }}) => {
 
 registerServiceWorker();
 
-changeStatusBarColor();
-
 const Os = platform();
 const root = document.getElementById('root');
 if (Os === IOS) {
@@ -50,11 +51,3 @@ if (Os === IOS) {
 }
 
 ReactDOM.render(<App/>, root);
-
-function changeStatusBarColor() {
-    if (Os === IOS || Os === ANDROID) {
-        VKBridge.send("VKWebAppSetViewSettings", {
-            status_bar_style: "light", action_bar_color: "#1c1c1c"
-        });
-    }
-}

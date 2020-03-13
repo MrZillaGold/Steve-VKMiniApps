@@ -1,4 +1,5 @@
 import VKBridge from "@vkontakte/vk-bridge";
+import {ANDROID, IOS, platform} from "@vkontakte/vkui";
 
 function timeConvert(time) {
     const currentDate = new Date(time);
@@ -54,4 +55,14 @@ function serverData(server_ip, server_ver) {
     return serverData;
 }
 
-export {timeConvert, randomInteger, resizeWindow, ipRegExp1, ipRegExp2, ipRegExp3, ipRegExp4, serverData};
+function changeStatusBarColor() {
+    const Os = platform();
+
+    if (Os === IOS || Os === ANDROID) {
+        VKBridge.send("VKWebAppSetViewSettings", {
+            status_bar_style: "light", action_bar_color: "#1c1c1c"
+        });
+    }
+}
+
+export {timeConvert, randomInteger, resizeWindow, ipRegExp1, ipRegExp2, ipRegExp3, ipRegExp4, serverData, changeStatusBarColor};
