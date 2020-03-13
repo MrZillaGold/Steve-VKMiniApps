@@ -6,7 +6,7 @@ import Server from './panels/server';
 import User from './panels/user';
 import Status from './panels/status';
 import Achievements from './panels/achievements/achievements';
-import SelectIcon from "./panels/achievements/selectIcon";
+/*import SelectIcon from "./panels/achievements/selectIcon";*/
 
 import Calculator from './panels/calculator';
 import EnderCalculator from './panels/endercalculator';
