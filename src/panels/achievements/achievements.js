@@ -12,7 +12,7 @@ import Icon16Done from '@vkontakte/icons/dist/16/done';
 import Icon24CameraOutline from '@vkontakte/icons/dist/24/camera_outline';
 
 import "./achievements.css";
-import "./itemSprites.css";
+/*import "./itemSprites.css";*/
 import {randomInteger} from "../../services/_functions";
 
 class AchievementsGet extends React.Component {
