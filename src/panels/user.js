@@ -133,7 +133,7 @@ class UserInfo extends React.Component {
                 >
                     <PanelHeaderContent status="Информация об игроке"
                                         before={
-                                            <Avatar className="steve-head"
+                                            <Avatar id="steve-head"
                                                     size={36}
                                             >
                                                 <IconSteve/>

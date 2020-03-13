@@ -102,7 +102,7 @@ class EnderPortalCalculator extends React.Component {
                 >
                     <PanelHeaderContent status="Координаты крепости"
                                         before={
-                                            <Avatar className="steve-head"
+                                            <Avatar id="steve-head"
                                                     size={36}
                                             >
                                                 <IconSteve/>

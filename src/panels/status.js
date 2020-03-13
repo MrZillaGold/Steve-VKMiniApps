@@ -78,7 +78,7 @@ class MojangStatus extends React.Component {
                 >
                     <PanelHeaderContent status="Состояние серверов"
                                         before={
-                                            <Avatar className="steve-head"
+                                            <Avatar id="steve-head"
                                                     size={36}
                                             >
                                                 <IconSteve/>

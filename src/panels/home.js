@@ -100,7 +100,7 @@ class HomePanelBase extends React.Component {
                     <Cell multiline
                           before={
                               <Avatar mode="image"
-                                      className="steve-head"
+                                      id="steve-head"
                                       size={64}
                               >
                                   <IconSteve height={64} width={64}/>

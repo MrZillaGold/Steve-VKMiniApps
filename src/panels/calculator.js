@@ -64,7 +64,7 @@ class Calculator extends React.Component {
                 >
                     <PanelHeaderContent status="Калькулятор координат"
                                         before={
-                                            <Avatar className="steve-head"
+                                            <Avatar id="steve-head"
                                                     size={36}
                                             >
                                                 <IconSteve/>

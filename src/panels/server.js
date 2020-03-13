@@ -96,7 +96,7 @@ class ServerInfo extends React.Component {
                 >
                     <PanelHeaderContent status="Информация по IP"
                                         before={
-                                            <Avatar className="steve-head"
+                                            <Avatar id="steve-head"
                                                     size={36}
                                             >
                                                 <IconSteve/>
