@@ -8,7 +8,7 @@ import VKBridge from "@vkontakte/vk-bridge";
 import { platform, IOS, ANDROID } from "@vkontakte/vkui";
 import mVKMiniAppsScrollHelper from '@vkontakte/mvk-mini-apps-scroll-helper';
 
-/*import registerServiceWorker from './sw';*/
+import registerServiceWorker from './sw';
 
 import '@vkontakte/vkui/dist/vkui.css';
 
@@ -39,7 +39,7 @@ VKBridge.subscribe(({ detail: { type, data }}) => {
     }
 });
 
-/*registerServiceWorker();*/
+registerServiceWorker();
 
 changeStatusBarColor();
 
