@@ -35,10 +35,6 @@ class App extends React.Component {
                     <AddAccount
                         id="add-account"
                         title="Добавление аккаута"
-                    />,
-                    <SelectIcon
-                        id="select-icon"
-                        title="Выбор иконки"
                     />
                 ]}>
                 <Page header={false} id="main" activePanel="home">
