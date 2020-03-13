@@ -20,7 +20,7 @@
     "@vkontakte/mvk-mini-apps-scroll-helper": "^1.2.0",
     "@vkontakte/vk-bridge": "^2.0.6",
     "@vkontakte/vk-connect": "^1.8.5",
-    "@vkontakte/vkui": "^3.3.0",
+    "@vkontakte/vkui": "^3.4.2",
     "chalk": "^2.4.2",
     "core-js": "^2.6.9",
     "prop-types": "^15.7.2",
