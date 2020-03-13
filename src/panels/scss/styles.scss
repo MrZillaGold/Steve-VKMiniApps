@@ -1,6 +1,6 @@
-@import url(https://fonts.googleapis.com/css?family=Noto+Sans:regular,bold,italic,bolditalic);
 @import "./colors";
 @import "./theme";
+
 $btn-border-width: 4px;
 
 #btn-pseudo-element {
@@ -108,13 +108,7 @@ $btn-border-width: 4px;
   }
 }
 
-:root {
-  --font-ios: Noto Sans, -apple-system, Roboto, Helvetica Neue, Arial;
-  --font-android: Noto Sans, Roboto, Arial;
-  --font-common: Noto Sans, Roboto, Arial;
-}
-
-.PanelHeader__in {
+.PanelHeaderSimple__in {
   background-image: url(bg-wool-dark.png);
   image-rendering: pixelated;
   width: 100%;
@@ -173,4 +167,8 @@ $btn-border-width: 4px;
   -ms-user-select:none;
   -o-user-select:none;
   user-select:none;
+}
+
+#steve-head {
+  background-color: transparent;
 }

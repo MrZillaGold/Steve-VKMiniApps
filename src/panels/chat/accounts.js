@@ -1,6 +1,8 @@
 import React from 'react';
+import VKBridge from "@vkontakte/vk-bridge";
+
 import {Group, Avatar, Cell, FixedLayout, Tappable} from "@vkontakte/vkui";
-import VKConnect from "@vkontakte/vk-connect";
+import { Spinner } from "../components/components"
 
 import Icon28EditOutline from '@vkontakte/icons/dist/28/edit_outline';
 import Icon24UserAdded from '@vkontakte/icons/dist/24/user_added';
@@ -10,7 +12,6 @@ import Icon24Done from '@vkontakte/icons/dist/24/done';
 import Icon24Cancel from '@vkontakte/icons/dist/24/cancel';
 
 import "./chat.css";
-import Spinner from "../components/spinner";
 
 class Accounts extends React.Component {
 
@@ -22,8 +23,8 @@ class Accounts extends React.Component {
     };
 
     async componentDidMount() {
-        const accountsStorage = sessionStorage.getItem('chatAccounts') || 0;
-        const selectedAccount = sessionStorage.getItem('chatSelectedAccount') || 0;
+        const accountsStorage = sessionStorage.getItem("chatAccounts") || 0;
+        const selectedAccount = sessionStorage.getItem("chatSelectedAccount") || 0;
 
         if (accountsStorage.length > 1) {
             await this.setState({accounts: JSON.parse(accountsStorage)});
@@ -33,16 +34,19 @@ class Accounts extends React.Component {
             await this.setState({selectedAccount: JSON.parse(selectedAccount)});
         }
 
-        await VKConnect.send("VKWebAppStorageGet", {keys: ["сhatAccountsList", "сhatSelectedAccount"]})
+        await VKBridge.send("VKWebAppStorageGet", {keys: ["chatAccounts", "chatAccount"]})
             .then(res => {
                 if (res.keys[0].value.length > 1) {
+                    console.log(res.keys[0].value)
+                    console.log(JSON.parse(res.keys[0].value))
+
                     this.setState({accounts: JSON.parse(res.keys[0].value)});
-                    sessionStorage.setItem('chatAccounts', res.keys[0].value);
+                    sessionStorage.setItem("chatAccounts", res.keys[0].value);
                 }
 
                 if (res.keys[1].value.length > 1) {
                     this.setState({selectedAccount: JSON.parse(res.keys[1].value)});
-                    sessionStorage.setItem('chatSelectedAccount', res.keys[1].value);
+                    sessionStorage.setItem("chatSelectedAccount", res.keys[1].value);
                 }
             })
             .catch(() => this.setState({ selectedAccount: null, accounts: []}));
@@ -52,15 +56,15 @@ class Accounts extends React.Component {
     async selectAccount(account) {
         this.setState({selectedAccount: account});
 
-        sessionStorage.setItem('chatSelectedAccount', JSON.stringify(account));
+        sessionStorage.setItem("chatSelectedAccount", JSON.stringify(account));
 
-        await VKConnect.send("VKWebAppStorageSet", {key: "сhatSelectedAccount", value: JSON.stringify(account)});
+        await VKBridge.send("VKWebAppStorageSet", {key: "chatAccount", value: JSON.stringify(account)});
     }
 
     async saveAccountsEdits() {
-        sessionStorage.setItem('chatAccounts', JSON.stringify(this.state.accounts));
+        sessionStorage.setItem("chatAccounts", JSON.stringify(this.state.accounts));
 
-        await VKConnect.send("VKWebAppStorageSet", {key: "сhatAccountsList", value: JSON.stringify(this.state.accounts)});
+        await VKBridge.send("VKWebAppStorageSet", {key: "chatAccounts", value: JSON.stringify(this.state.accounts)});
 
         if (this.state.accounts.length === 1) this.selectAccount(this.state.accounts[0]);
     }
@@ -70,19 +74,19 @@ class Accounts extends React.Component {
 
         accountslist.unshift(data);
 
-        sessionStorage.setItem('chatAccounts', JSON.stringify(accountslist));
+        sessionStorage.setItem("chatAccounts", JSON.stringify(accountslist));
 
         this.selectAccount(data);
         this.setState({accounts: accountslist});
 
-        VKConnect.send("VKWebAppStorageSet", {key: "сhatAccountsList", value: JSON.stringify(accountslist)});
+        VKBridge.send("VKWebAppStorageSet", {key: "chatAccounts", value: JSON.stringify(accountslist)});
     };
 
 
     render() {
-        const {loading, accounts, selectedAccount, editList, accountsBackup, selectedAccountBackup} = this.state;
-        const {navigator, socket, visible} = this.props;
-        const {addAccount} = this;
+        const { loading, accounts, selectedAccount, editList, accountsBackup, selectedAccountBackup } = this.state;
+        const { navigator, socket, visible } = this.props;
+        const { addAccount } = this;
 
         return (
             !loading && visible ?
@@ -91,8 +95,15 @@ class Accounts extends React.Component {
                         {
                             accounts.length > 0 ?
                                 accounts.map((account, index) => (
-                                    <Cell key={Math.random()} description={account.type === "license" ? "Лицензионный" : "Пиратский"}
-                                          before={<Avatar style={{imageRendering: "pixelated"}} mode="image" size={64} src={`https://api.ashcon.app/mojang/v2/avatar/${account.type === "license" ? account.session.selectedProfile.name : "steve"}/64`}/>}
+                                    <Cell key={Math.random()}
+                                          description={account.type === "license" ? "Лицензионный" : "Пиратский"}
+                                          before={
+                                              <Avatar style={{imageRendering: "pixelated"}}
+                                                      mode="image"
+                                                      size={64}
+                                                      src={`https://api.ashcon.app/mojang/v2/avatar/${account.type === "license" ? account.session.selectedProfile.name : "steve"}/64`}
+                                              />
+                                          }
                                           asideContent={
                                               !editList && (
                                                   JSON.stringify(account) === JSON.stringify(selectedAccount) ?
@@ -107,32 +118,42 @@ class Accounts extends React.Component {
                                                       </Tappable>
                                               )
                                           }
-                                          removable={editList} draggable={editList}
+                                          removable={editList}
+                                          draggable={editList}
                                           onDragFinish={({from, to}) => {
-                                              const accountsList = [...this.state.accounts];
+                                              const accountsList = [...accounts];
+
                                               accountsList.splice(from, 1);
-                                              accountsList.splice(to, 0, this.state.accounts[from]);
+                                              accountsList.splice(to, 0, accounts[from]);
+
                                               this.setState({accounts: accountsList});
                                           }}
                                           onRemove={() => {
                                               this.setState({accounts: [...accounts.slice(0, index), ...accounts.slice(index + 1)]});
-                                              if (JSON.stringify(account) === JSON.stringify(selectedAccount)) {
-                                                  this.selectAccount("");
-                                              }
-                                          }}>
+
+                                              if (JSON.stringify(account) === JSON.stringify(selectedAccount)) this.selectAccount("");
+                                          }}
+                                    >
                                         {account.type === "license" ? account.session.selectedProfile.name : account.username}
                                     </Cell>
                                 ))
                                 :
                                 !editList &&
-                                <Cell multiline before={<Icon28UserAddOutline height={44} width={44}/>} size="m"
+                                <Cell multiline
+                                      before={
+                                          <Icon28UserAddOutline height={44} width={44}/>
+                                      }
+                                      size="m"
                                       description="Нажмите, чтобы добавить аккаунт."
-                                      onClick={() => navigator.showModal("add-account", {addAccount, accounts: accounts, socket})}>
+                                      onClick={() => navigator.showModal("add-account", {addAccount, accounts: accounts, socket})}
+                                >
                                     Вы не добавили ни одного аккаунта!
                                 </Cell>
                         }
                     </Group>
-                    <FixedLayout vertical="bottom" style={{display: "flex", direction: "rtl"}}>
+                    <FixedLayout vertical="bottom"
+                                 style={{display: "flex", direction: "rtl"}}
+                    >
                         {
                             editList ?
                                 <div style={{display: "flex", marginBottom: "10px"}}>
@@ -152,12 +173,18 @@ class Accounts extends React.Component {
                                 :
                                 <div style={{display: "flex", marginBottom: "10px"}}>
                                     <div className="footer-icon">
-                                        <Icon28UserAddOutline className="footer-icon__icon" onClick={() => accounts.length < 16 ? navigator.showModal("add-account", {addAccount, accounts: this.state.accounts, socket}) : this.props.error("Нельзя добавить больше 15 аккаунтов!")} height={35} width={35}/>
+                                        <Icon28UserAddOutline className="footer-icon__icon"
+                                                              onClick={() => accounts.length < 16 ? navigator.showModal("add-account", {addAccount, accounts: this.state.accounts, socket}) : this.props.error("Нельзя добавить больше 15 аккаунтов!")} height={35} width={35}
+                                        />
                                     </div>
                                     {
                                         this.state.accounts.length > 0 &&
                                         <div className="footer-icon">
-                                            <Icon28EditOutline onClick={() => this.setState({editList: true, accountsBackup: accounts, selectedAccountBackup: selectedAccount})} className="footer-icon__icon" height={35} width={35}/>
+                                            <Icon28EditOutline onClick={() => this.setState({editList: true, accountsBackup: accounts, selectedAccountBackup: selectedAccount})}
+                                                               className="footer-icon__icon"
+                                                               height={35}
+                                                               width={35}
+                                            />
                                         </div>
                                     }
                                 </div>

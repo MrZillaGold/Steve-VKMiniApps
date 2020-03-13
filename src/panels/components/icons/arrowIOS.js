@@ -4,7 +4,7 @@ class IconArrowIOS extends React.Component {
     static defaultProps = {
         width: 30,
         height: 30,
-        fill: '#FFF'
+        fill: "#FFF"
     };
 
     render() {

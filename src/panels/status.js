@@ -1,14 +1,15 @@
-import React from 'react';
-import axios from 'axios';
-import {Panel, PanelHeader, PanelHeaderContent, Avatar, Group, Cell, List, PanelHeaderButton} from "@vkontakte/vkui";
-import { Offline, Online } from 'react-detect-offline';
+import React from "react";
+import axios from "axios";
+import { Offline, Online } from "react-detect-offline";
 
-import {checkStatus} from "../services/_functions";
+import { Panel, PanelHeaderContent, Avatar, Group, Cell, List, PanelHeaderButton, PanelHeaderSimple, Header } from "@vkontakte/vkui";
+import { OfflineBlock, Error, HeaderButtons, Spinner } from "./components/components";
 
-import OfflineBlock from './components/offline';
-import Spinner from './components/spinner';
-import Error from './components/error';
-import HeaderButtons from "./components/headerbuttons";
+import { IconSteve } from "./components/icons";
+
+import green from "./assets/green.gif";
+import yellow from "./assets/yellow.gif";
+import red from "./assets/red.gif";
 
 class MojangStatus extends React.Component {
 
@@ -18,95 +19,115 @@ class MojangStatus extends React.Component {
     };
 
     componentDidMount() {
-        axios.get(`https://stevecors.herokuapp.com/https://status.mojang.com/check`)
+        axios.get("https://stevecors.herokuapp.com/https://status.mojang.com/check")
             .then(res => {
-                return res.data;
+                this.setState({ status: res.data, spinner: false });
             })
-            .then(data => {
-                this.setState({ status: data, spinner: false });
-            })
-            .catch(err => {
-                this.setState({ error: `Произошла ошибка. Попробуйте позже.`, spinner: false });
-                return console.log(err);
+            .catch(() => {
+                this.setState({ error: "Произошла ошибка. Попробуйте позже.", spinner: false });
             });
     }
 
     render() {
-        const {id, navigator} = this.props;
-        const {status, error, spinner} = this.state;
+        const { id, navigator } = this.props;
+        const { status, error, spinner } = this.state;
+
+        const servers = [
+            {
+                name: "minecraft.net",
+                title: "Minecraft.net"
+            },
+            {
+                name: "session.minecraft.net",
+                title: "Сессии Minecraft"
+            },
+            {
+                name: "account.mojang.com",
+                title: "Аккаунты Mojang"
+            },
+            {
+                name: "authserver.mojang.com",
+                title: "Авторизация Mojang"
+            },
+            {
+                name: "sessionserver.mojang.com",
+                title: "Сессии Mojang"
+            },
+            {
+                name: "api.mojang.com",
+                title: "API Mojang"
+            },
+            {
+                name: "textures.minecraft.net",
+                title: "Текстуры/Скины Minecraft"
+            },
+            {
+                name: "mojang.com",
+                title: "Mojang.com"
+            },
+        ];
 
         return (
-            <Panel id={id}>
-                <PanelHeader transparent left={<PanelHeaderButton onClick={() => navigator.goBack()}><HeaderButtons/></PanelHeaderButton>}>
-                    <PanelHeaderContent status="Состояние серверов">
+            <Panel separator={false} id={id}>
+                <PanelHeaderSimple separator={false}
+                                   left={
+                                       <PanelHeaderButton onClick={() => navigator.goBack()}>
+                                           <HeaderButtons/>
+                                       </PanelHeaderButton>
+                                   }
+                >
+                    <PanelHeaderContent status="Состояние серверов"
+                                        before={
+                                            <Avatar className="steve-head"
+                                                    size={36}
+                                            >
+                                                <IconSteve/>
+                                            </Avatar>
+                                        }
+                    >
                         Steve
                     </PanelHeaderContent>
-                </PanelHeader>
+                </PanelHeaderSimple>
                 <Online>
                     {
                         spinner && <Spinner/>
                     }
                     {
                         status &&
-                        <Group title="Список серверов">
-                                <List>
-                                    <Cell
-                                        before={<Avatar src={checkStatus(status[0]['minecraft.net']).img}/>}
-                                        description={checkStatus(status[0]['minecraft.net']).text}
-                                    >
-                                        Minecraft.net
-                                    </Cell>
-                                    <Cell
-                                        before={<Avatar src={checkStatus(status[1]['session.minecraft.net']).img}/>}
-                                        description={checkStatus(status[1]['session.minecraft.net']).text}
-                                    >
-                                        Сессии Minecraft
-                                    </Cell>
-                                    <Cell
-                                        before={<Avatar src={checkStatus(status[2]['account.mojang.com']).img}/>}
-                                        description={checkStatus(status[2]['account.mojang.com']).text}
-                                    >
-                                        Аккаунты Mojang
-                                    </Cell>
-                                    <Cell
-                                        before={<Avatar src={checkStatus(status[3]['authserver.mojang.com']).img}/>}
-                                        description={checkStatus(status[3]['authserver.mojang.com']).text}
-                                    >
-                                        Авторизация Mojang
-                                    </Cell>
-                                    <Cell
-                                        before={<Avatar src={checkStatus(status[4]['sessionserver.mojang.com']).img}/>}
-                                        description={checkStatus(status[4]['sessionserver.mojang.com']).text}
-                                    >
-                                        Сессии Mojang
-                                    </Cell>
-                                    <Cell
-                                        before={<Avatar src={checkStatus(status[5]['api.mojang.com']).img}/>}
-                                        description={checkStatus(status[5]['api.mojang.com']).text}
-                                    >
-                                        API Mojang
-                                    </Cell>
-                                    <Cell
-                                        before={<Avatar src={checkStatus(status[6]['textures.minecraft.net']).img}/>}
-                                        description={checkStatus(status[6]['textures.minecraft.net']).text}
-                                    >
-                                        Текстуры/Скины Minecraft
-                                    </Cell>
-                                    <Cell
-                                        before={<Avatar src={checkStatus(status[7]['mojang.com']).img}/>}
-                                        description={checkStatus(status[7]['mojang.com']).text}
-                                    >
-                                        Mojang.com
-                                    </Cell>
-                                </List>
-                            </Group>
+                        <Group header={
+                            <Header mode="secondary">Список серверов</Header>
+                        }>
+                            <List>
+                                {
+                                    servers.map((server, index) => {
+                                        const data = this.state.status;
+
+                                        const status = data[index][server.name] === "green" ?
+                                            {image: green, text: "Всё в порядке"}
+                                            :
+                                            data[index][server.name] === "yellow" ?
+                                                {image: yellow, text: "Небольшие неполадки"}
+                                                :
+                                                {image: red, text: "Проблемы с доступностью"};
+
+                                        return <Cell key={index}
+                                                     before={<Avatar src={status.image}/>}
+                                                     description={status.text}
+                                        >
+                                            {server.title}
+                                        </Cell>
+
+                                    })
+                                }
+                            </List>
+                        </Group>
                     }
                     {
                         error && <Error error={error} stretch/>
                     }
                 </Online>
                 <Offline>
-                    <OfflineBlock />
+                    <OfflineBlock/>
                 </Offline>
             </Panel>
         );

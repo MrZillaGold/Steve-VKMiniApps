@@ -1,13 +1,14 @@
 import React from 'react';
 import { Offline, Online } from 'react-detect-offline';
-import {Panel, PanelHeader, PanelHeaderContent, PanelHeaderButton, FixedLayout, Header, Div, platform, IOS, Separator, FormLayout, Tappable, Input} from "@vkontakte/vkui";
+import ScrollToBottom from "react-scroll-to-bottom";
 
-import OfflineBlock from '../components/offline';
-import HeaderButtons from "../components/headerbuttons";
+import { Panel, PanelHeaderContent, PanelHeaderButton, FixedLayout, Header, Div, platform, IOS, Separator, FormLayout, Tappable, Input, PanelHeaderSimple, Avatar } from "@vkontakte/vkui";
+import { OfflineBlock, HeaderButtons } from '../components/components';
+
+import {IconSteve} from "../components/icons";
 import Icon24Send from '@vkontakte/icons/dist/24/send';
 
 import "./chat.css";
-import ScrollToBottom from "react-scroll-to-bottom";
 
 class ServerChat extends React.Component {
 
@@ -33,10 +34,10 @@ class ServerChat extends React.Component {
     useSockets(value) {
         const socket = this.props.navigator.params.socket;
         const channels = [
-            { name: 'message:chat', handler: this.newMessage },
-            { name: 'message:info', handler: this.newMessage },
-            { name: 'message:error', handler: this.newMessage },
-            { name: 'message:success', handler: this.newMessage },
+            { name: 'message:chat', handler: this.newMessage.bind(this) },
+            { name: 'message:info', handler: this.newMessage.bind(this) },
+            { name: 'message:error', handler: this.newMessage.bind(this) },
+            { name: 'message:success', handler: this.newMessage.bind(this) },
             { name: 'bot:connect', handler: () => this.setState({connected: true}) },
             { name: 'bot:disconnect', handler: () => this.setState({connected: false}) }
         ];
@@ -86,12 +87,26 @@ class ServerChat extends React.Component {
         const socket = navigator.params.socket;
 
         return (
-            <Panel id={id} theme="white">
-                <PanelHeader transparent left={<PanelHeaderButton onClick={() => navigator.goBack()}><HeaderButtons/></PanelHeaderButton>}>
-                    <PanelHeaderContent status="Чат">
+            <Panel separator={false} id={id}>
+                <PanelHeaderSimple separator={false}
+                                   left={
+                                       <PanelHeaderButton onClick={() => navigator.goBack()}>
+                                           <HeaderButtons/>
+                                       </PanelHeaderButton>
+                                   }
+                >
+                    <PanelHeaderContent status="Minecraft чат"
+                                        before={
+                                            <Avatar className="steve-head"
+                                                    size={36}
+                                            >
+                                                <IconSteve/>
+                                            </Avatar>
+                                        }
+                    >
                         Steve
                     </PanelHeaderContent>
-                </PanelHeader>
+                </PanelHeaderSimple>
                 <Online onChange={() => this.setState({connected: false})}>
                     <Header mode="secondary">
                         Чат
@@ -114,14 +129,14 @@ class ServerChat extends React.Component {
                                                 TAB
                                             </Tappable>
                                             <div style={{flexGrow: 999}}>
-                                                <Input
-                                                    id="message-input"
+                                                <Input id="message-input"
                                                     name="messageInput"
                                                     autoComplete="off"
                                                     type="text"
                                                     value={messageInput}
                                                     placeholder="Сообщение"
-                                                    onChange={this.onChange.bind(this)}/>
+                                                    onChange={this.onChange.bind(this)}
+                                                />
                                             </div>
                                             <div style={{marginRight: "10px"}}>
                                                 <Tappable onClick={() => this.send(socket)}>
@@ -137,7 +152,7 @@ class ServerChat extends React.Component {
                     </FixedLayout>
                 </Online>
                 <Offline>
-                    <OfflineBlock />
+                    <OfflineBlock/>
                 </Offline>
             </Panel>
         );

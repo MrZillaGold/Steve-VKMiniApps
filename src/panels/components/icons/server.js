@@ -4,7 +4,7 @@ export class IconServer extends React.Component {
     static defaultProps = {
         width: 24,
         height: 24,
-        fill: '#818c99'
+        fill: "#818c99"
     };
 
     render() {

@@ -2,15 +2,17 @@ import React from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
 import { Offline, Online } from 'react-detect-offline';
-import {Panel, PanelHeader, PanelHeaderContent, PanelHeaderButton, Tabs, TabsItem, Group, Snackbar, Avatar} from "@vkontakte/vkui";
-import Icon16Cancel from '@vkontakte/icons/dist/16/cancel';
 
-import OfflineBlock from '../components/offline';
-import Error from "../components/error";
-import HeaderButtons from "../components/headerbuttons";
+import { Panel, PanelHeaderContent, PanelHeaderButton, Tabs, TabsItem, Group, Snackbar, Avatar, PanelHeaderSimple } from "@vkontakte/vkui";
+import { OfflineBlock, Error, HeaderButtons } from '../components/components';
+
 import Servers from "./servers";
 import Accounts from "./accounts";
+
 import {resizeWindow} from "../../services/_functions";
+
+import Icon16Cancel from '@vkontakte/icons/dist/16/cancel';
+import {IconSteve} from "../components/icons";
 
 class MinecraftChat extends React.Component {
 
@@ -25,10 +27,11 @@ class MinecraftChat extends React.Component {
         await axios.get("https://stevecors.herokuapp.com/https://stevesocket.herokuapp.com")
             .then(() => {
                 const socket = io("https://stevesocket.herokuapp.com");
+
                 if (socket && socket.connected) {
-                    socket.emit('server:disconnect');
+                    socket.emit("server:disconnect");
                 } else {
-                    socket.emit('connect');
+                    socket.emit("connect");
                 }
                 this.setState({ socket: socket });
             })
@@ -66,11 +69,19 @@ class MinecraftChat extends React.Component {
     error = (text) => {
         if (this.state.error) return;
         this.setState({ error:
-                <Snackbar
-                    duration={2000}
-                    layout="vertical"
-                    onClose={() => this.setState({ error: null })}
-                    before={<Avatar size={24} style={{backgroundColor: "#e64646"}}><Icon16Cancel fill="#fff" width={14} height={14} /></Avatar>}
+                <Snackbar duration={2000}
+                          layout="vertical"
+                          onClose={() => this.setState({ error: null })}
+                          before={
+                              <Avatar size={24}
+                                      style={{backgroundColor: "#e64646"}}
+                              >
+                                  <Icon16Cancel fill="#fff"
+                                                width={14}
+                                                height={14}
+                                  />
+                              </Avatar>
+                          }
                 >
                     {text}
                 </Snackbar>
@@ -83,8 +94,8 @@ class MinecraftChat extends React.Component {
     };
 
     render() {
-        const {id, navigator} = this.props;
-        const {socket, unavaible, error, tab, connected} = this.state;
+        const { id, navigator } = this.props;
+        const { socket, unavaible, error, tab, connected } = this.state;
 
         if (socket) {
             socket.on('connect', () => {
@@ -96,12 +107,26 @@ class MinecraftChat extends React.Component {
         }
 
         return (
-            <Panel id={id}>
-                <PanelHeader transparent left={<PanelHeaderButton onClick={() => navigator.goBack()}><HeaderButtons/></PanelHeaderButton>}>
-                    <PanelHeaderContent status="Чат">
+            <Panel separator={false} id={id}>
+                <PanelHeaderSimple separator={false}
+                                   left={
+                                       <PanelHeaderButton onClick={() => navigator.goBack()}>
+                                           <HeaderButtons/>
+                                       </PanelHeaderButton>
+                                   }
+                >
+                    <PanelHeaderContent status="Minecraft чат"
+                                        before={
+                                            <Avatar className="steve-head"
+                                                    size={36}
+                                            >
+                                                <IconSteve/>
+                                            </Avatar>
+                                        }
+                    >
                         Steve
                     </PanelHeaderContent>
-                </PanelHeader>
+                </PanelHeaderSimple>
                 {
                     !unavaible ?
                         <div>
@@ -109,15 +134,13 @@ class MinecraftChat extends React.Component {
                                 <div>
                                     <Group>
                                         <Tabs type="buttons">
-                                            <TabsItem
-                                                onClick={() => this.setState({tab: 'servers'})}
-                                                selected={tab === 'servers'}
+                                            <TabsItem onClick={() => this.setState({tab: "servers"})}
+                                                      selected={tab === "servers"}
                                             >
                                                 Сервера
                                             </TabsItem>
-                                            <TabsItem
-                                                onClick={() => this.setState({tab: 'accounts'})}
-                                                selected={tab === 'accounts'}
+                                            <TabsItem onClick={() => this.setState({tab: "accounts"})}
+                                                      selected={tab === "accounts"}
                                             >
                                                 Аккаунты
                                             </TabsItem>
@@ -126,11 +149,21 @@ class MinecraftChat extends React.Component {
                                     <div>
                                         {
                                             tab === "servers" &&
-                                            <Servers socket={socket} navigator={navigator} error={this.error} connect={this.login} editTab={this.editTab} visible={connected}/>
+                                            <Servers socket={socket}
+                                                     navigator={navigator}
+                                                     error={this.error}
+                                                     connect={this.login}
+                                                     editTab={this.editTab}
+                                                     visible={connected}
+                                            />
                                         }
                                         {
                                             tab === "accounts" &&
-                                            <Accounts socket={socket} navigator={navigator} error={this.error} visible={connected}/>
+                                            <Accounts socket={socket}
+                                                      navigator={navigator}
+                                                      error={this.error}
+                                                      visible={connected}
+                                            />
                                         }
                                     </div>
                                     {error}

@@ -5,7 +5,9 @@ import Home from './panels/home';
 import Server from './panels/server';
 import User from './panels/user';
 import Status from './panels/status';
-import Achievements from './panels/achievements';
+import Achievements from './panels/achievements/achievements';
+import SelectIcon from "./panels/achievements/selectIcon";
+
 import Calculator from './panels/calculator';
 import EnderCalculator from './panels/endercalculator';
 
@@ -17,18 +19,9 @@ import EditServer from "./panels/chat/components/editserver";
 
 class App extends React.Component {
 
-    state = {
-        eruda: false
-    };
-
-    eruda = async () => {
-        await this.setState({eruda: !this.state.eruda});
-        this.state.eruda ? window.eruda.init() : window.eruda.destroy()
-    };
-
     render() {
         return (
-            <Stack
+            <Stack webviewType="vkapps"
                 activePage="main"
                 modals={[
                     <AddServer
@@ -39,13 +32,17 @@ class App extends React.Component {
                         id="edit-server"
                         title="Редактирование"
                     />,
-                        <AddAccount
-                            id="add-account"
-                            title="Добавление аккаута"
-                        />
+                    <AddAccount
+                        id="add-account"
+                        title="Добавление аккаута"
+                    />,
+                    <SelectIcon
+                        id="select-icon"
+                        title="Выбор иконки"
+                    />
                 ]}>
-                <Page id="main" activePanel="home">
-                    <Home id="home" eruda={this.eruda}/>
+                <Page header={false} id="main" activePanel="home">
+                    <Home id="home"/>
                     <Server id="server"/>
                     <User id="user"/>
                     <Status id="status"/>

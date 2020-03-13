@@ -89,8 +89,7 @@ class AddAccount extends React.Component {
                     <FormLayout>
                         {
                             type === "license" ?
-                                <Input
-                                    top="Электронная почта"
+                                <Input top="Электронная почта"
                                     autoComplete="off"
                                     name="email"
                                     disabled={spinner}
@@ -100,8 +99,7 @@ class AddAccount extends React.Component {
                                     bottom={!(email.match(emailRegExp) || email === "") && 'Неверный адрес электронной почты!'}
                                 />
                                 :
-                                <Input
-                                    top = "Никнейм"
+                                <Input top="Никнейм"
                                     autoComplete="off"
                                     name="nickname"
                                     disabled={spinner}
@@ -113,15 +111,15 @@ class AddAccount extends React.Component {
                         }
                         {
                             type === "license" &&
-                                <Input
-                                    top="Пароль"
-                                    autoComplete="off"
-                                    name="password"
-                                    type="password"
-                                    disabled={spinner}
-                                    value={password}
-                                    onChange={this.onChange.bind(this)}
-                                />
+                            <Input
+                                top="Пароль"
+                                autoComplete="off"
+                                name="password"
+                                type="password"
+                                disabled={spinner}
+                                value={password}
+                                onChange={this.onChange.bind(this)}
+                            />
                         }
                         {
                             type === "pirate" &&

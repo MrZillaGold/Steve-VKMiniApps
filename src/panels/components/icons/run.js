@@ -4,7 +4,7 @@ export class IconRun extends React.Component {
     static defaultProps = {
         width: 16,
         height: 16,
-        fill: '#FFF'
+        fill: "#FFF"
     };
 
     render() {

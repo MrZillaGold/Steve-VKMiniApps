@@ -1,7 +1,8 @@
 import React from 'react';
-import {IOS, platform} from "@vkontakte/vkui";
-import IconArrowAndroid from "./icons/arrowAndroid";
-import IconArrowIOS from "./icons/arrowIOS";
+
+import { IOS, platform } from "@vkontakte/vkui";
+
+import {IconArrowAndroid, IconArrowIOS} from "./icons";
 
 class HeaderButtons extends React.Component {
     render() {
@@ -9,7 +10,9 @@ class HeaderButtons extends React.Component {
             platform() === IOS ?
                 <IconArrowIOS/>
                 :
-                <IconArrowAndroid/>
+                <div style={{height: "48px", padding: "12px"}}>
+                    <IconArrowAndroid/>
+                </div>
         );
     }
 }
