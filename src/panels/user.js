@@ -3,12 +3,12 @@ import axios from "axios";
 import VKBridge from "@vkontakte/vk-bridge";
 import { Offline, Online } from "react-detect-offline";
 
-import { Panel, PanelHeaderSimple, PanelHeaderButton, PanelHeaderContent, Input, FormLayout, Button, Group, Cell, List, Div, Separator, Header, FormLayoutGroup, Avatar } from "@vkontakte/vkui";
-import { OfflineBlock, Spinner, HeaderButtons, Error, SkinViewer } from "./components/components";
+import { Panel, Input, FormLayout, Button, Group, Cell, List, Div, Separator, Header, FormLayoutGroup } from "@vkontakte/vkui";
+import { OfflineBlock, Spinner, PanelHeader, Error, SkinViewer } from "./components/components";
 
 import { timeConvert, resizeWindow } from "../services/_functions";
 
-import { IconRun, IconWalk, IconSteve } from "./components/icons";
+import { IconRun, IconWalk } from "./components/icons";
 import Icon24Message from "@vkontakte/icons/dist/24/message";
 import Icon24DoneOutline from "@vkontakte/icons/dist/24/done_outline";
 import Icon24Chevron from "@vkontakte/icons/dist/24/chevron";
@@ -124,25 +124,10 @@ class UserInfo extends React.Component {
 
         return (
             <Panel separator={false} id={id}>
-                <PanelHeaderSimple separator={false}
-                                   left={
-                                       <PanelHeaderButton onClick={() => navigator.goBack()}>
-                                           <HeaderButtons/>
-                                       </PanelHeaderButton>
-                                   }
-                >
-                    <PanelHeaderContent status="Информация об игроке"
-                                        before={
-                                            <Avatar id="steve-head"
-                                                    size={36}
-                                            >
-                                                <IconSteve/>
-                                            </Avatar>
-                                        }
-                    >
-                        Steve
-                    </PanelHeaderContent>
-                </PanelHeaderSimple>
+                <PanelHeader status="Информация об игроке"
+                        navigator={navigator}
+                        left
+                />
                 <Online>
                     <FormLayout>
                         <FormLayoutGroup top="Никнейм"

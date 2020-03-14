@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
-import * as skinview3d from 'skinview3d';
+import * as skinview3d from "skinview3d";
 
 export default class SkinViewer extends Component {
 

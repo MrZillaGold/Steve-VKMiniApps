@@ -1,10 +1,9 @@
 import React from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-import { Panel, PanelHeaderContent, Group, Separator, Input, FormLayout, FormLayoutGroup, List, Cell, Button, Div, FormStatus, PanelHeaderButton, PanelHeaderSimple, Avatar } from "@vkontakte/vkui";
-import HeaderButtons from "./components/headerbuttons";
+import { Panel, Group, Separator, Input, FormLayout, FormLayoutGroup, List, Cell, Button, Div, FormStatus } from "@vkontakte/vkui";
+import { PanelHeader } from "./components/components";
 
-import { IconSteve } from "./components/icons";
 import Icon24Copy from "@vkontakte/icons/dist/24/copy";
 import Icon16Done from "@vkontakte/icons/dist/16/done";
 
@@ -93,25 +92,10 @@ class EnderPortalCalculator extends React.Component {
 
         return (
             <Panel separator={false} id={id}>
-                <PanelHeaderSimple separator={false}
-                                   left={
-                                       <PanelHeaderButton onClick={() => navigator.goBack()}>
-                                           <HeaderButtons/>
-                                       </PanelHeaderButton>
-                                   }
-                >
-                    <PanelHeaderContent status="Координаты крепости"
-                                        before={
-                                            <Avatar id="steve-head"
-                                                    size={36}
-                                            >
-                                                <IconSteve/>
-                                            </Avatar>
-                                        }
-                    >
-                        Steve
-                    </PanelHeaderContent>
-                </PanelHeaderSimple>
+                <PanelHeader status="Координаты крепости"
+                             navigator={navigator}
+                             left
+                />
                 <FormLayout>
                     {
                         (Math.abs(a1 - a2) < 1 || a1 === a2 / -1 || a1 / -1 === a2) &&

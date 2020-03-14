@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { randomInteger } from "../../services/_functions";
 import { Placeholder } from "@vkontakte/vkui";
 import { IconPug, IconPig, IconZombie } from "./icons";

@@ -2,10 +2,8 @@ import React from "react";
 import axios from "axios";
 import { Offline, Online } from "react-detect-offline";
 
-import { Panel, PanelHeaderContent, Avatar, Group, Cell, List, PanelHeaderButton, PanelHeaderSimple, Header } from "@vkontakte/vkui";
-import { OfflineBlock, Error, HeaderButtons, Spinner } from "./components/components";
-
-import { IconSteve } from "./components/icons";
+import { Panel, Avatar, Group, Cell, List, Header } from "@vkontakte/vkui";
+import {OfflineBlock, Error, Spinner, PanelHeader} from "./components/components";
 
 import green from "./assets/green.gif";
 import yellow from "./assets/yellow.gif";
@@ -69,25 +67,10 @@ class MojangStatus extends React.Component {
 
         return (
             <Panel separator={false} id={id}>
-                <PanelHeaderSimple separator={false}
-                                   left={
-                                       <PanelHeaderButton onClick={() => navigator.goBack()}>
-                                           <HeaderButtons/>
-                                       </PanelHeaderButton>
-                                   }
-                >
-                    <PanelHeaderContent status="Состояние серверов"
-                                        before={
-                                            <Avatar id="steve-head"
-                                                    size={36}
-                                            >
-                                                <IconSteve/>
-                                            </Avatar>
-                                        }
-                    >
-                        Steve
-                    </PanelHeaderContent>
-                </PanelHeaderSimple>
+                <PanelHeader status="Состояние серверов"
+                             navigator={navigator}
+                             left
+                />
                 <Online>
                     {
                         spinner && <Spinner/>

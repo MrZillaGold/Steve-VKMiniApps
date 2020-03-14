@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Panel, Group, Button, PanelHeaderSimple, Cell, Avatar, Separator, PanelHeaderContent } from "@vkontakte/vkui";
+import { Panel, Group, Button, Cell, Avatar, Separator } from "@vkontakte/vkui";
 
 import { resizeWindow } from "../services/_functions";
 
@@ -11,6 +11,7 @@ import Icon24Search from "@vkontakte/icons/dist/24/search";
 import { IconCalculator, IconServer, IconUser, IconSteve } from "./components/icons";
 
 import "./scss/styles.scss"
+import {PanelHeader} from "./components/components";
 
 class HomePanelBase extends React.Component {
 
@@ -23,20 +24,7 @@ class HomePanelBase extends React.Component {
 
         return (
             <Panel separator={false} id={id}>
-                <PanelHeaderSimple separator={false}>
-                    <PanelHeaderContent
-                        before={
-                            <Avatar id="steve-head"
-                                    size={36}
-                            >
-                                <IconSteve/>
-                            </Avatar>
-                        }
-                        status="Minecraft помощник"
-                    >
-                        Steve
-                    </PanelHeaderContent>
-                </PanelHeaderSimple>
+                <PanelHeader status="Minecraft помощник"/>
                 <Group>
                     <Cell before={
                         <IconUser/>

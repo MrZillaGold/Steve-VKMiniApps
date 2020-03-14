@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 import { Button, Placeholder } from "@vkontakte/vkui";
 import { randomInteger } from "../../services/_functions";

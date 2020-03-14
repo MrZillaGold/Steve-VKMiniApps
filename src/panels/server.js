@@ -3,12 +3,11 @@ import axios from "axios";
 import VKBridge from "@vkontakte/vk-bridge";
 import { Offline, Online } from "react-detect-offline";
 
-import { Panel, PanelHeaderContent, Input, FormLayout, Button, PanelHeaderButton, Avatar, Group, Cell, Header, List, FormLayoutGroup, Separator, PanelHeaderSimple, Div } from "@vkontakte/vkui";
-import { OfflineBlock, Spinner, HeaderButtons, Error } from "./components/components";
+import { Panel,Input, FormLayout, Button, Avatar, Group, Cell, Header, List, FormLayoutGroup, Separator, Div } from "@vkontakte/vkui";
+import {OfflineBlock, Spinner, Error, PanelHeader} from "./components/components";
 
 import { resizeWindow, ipRegExp1, ipRegExp2, ipRegExp3, ipRegExp4 } from "../services/_functions";
 
-import { IconSteve } from "./components/icons";
 import Icon24Chevron from "@vkontakte/icons/dist/24/chevron";
 import Icon24Dropdown from "@vkontakte/icons/dist/24/dropdown";
 import Icon24FavoriteOutline from "@vkontakte/icons/dist/24/favorite_outline";
@@ -87,25 +86,10 @@ class ServerInfo extends React.Component {
 
         return (
             <Panel separator={false} id={id}>
-                <PanelHeaderSimple separator={false}
-                                   left={
-                                       <PanelHeaderButton onClick={() => navigator.goBack()}>
-                                           <HeaderButtons/>
-                                       </PanelHeaderButton>
-                                   }
-                >
-                    <PanelHeaderContent status="Информация по IP"
-                                        before={
-                                            <Avatar id="steve-head"
-                                                    size={36}
-                                            >
-                                                <IconSteve/>
-                                            </Avatar>
-                                        }
-                    >
-                        Steve
-                    </PanelHeaderContent>
-                </PanelHeaderSimple>
+                <PanelHeader status="Информация по IP"
+                             navigator={navigator}
+                             left
+                />
                 <Online onChange={() => this.componentDidMount()}>
                     <FormLayout>
                         <FormLayoutGroup top="IP-Адрес сервера" bottom="Например: Hypixel.net">

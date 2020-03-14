@@ -1,5 +1,5 @@
-import React from 'react';
-import {IconChest} from "./icons";
+import React from "react";
+import { IconChest } from "./icons";
 
 class Spinner extends React.Component {
     render() {

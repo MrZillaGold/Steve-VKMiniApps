@@ -9,7 +9,7 @@ import Achievements from './panels/achievements/achievements';
 /*import SelectIcon from "./panels/achievements/selectIcon";*/
 
 import Calculator from './panels/calculator';
-import EnderCalculator from './panels/endercalculator';
+import EnderCalculator from './panels/enderCalculator';
 
 import MinecraftChat from './panels/chat/index';
 import AddServer from "./panels/chat/components/addserver";
