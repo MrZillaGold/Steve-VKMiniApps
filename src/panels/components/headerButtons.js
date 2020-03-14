@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
 import { IOS, platform } from "@vkontakte/vkui";
 
-import {IconArrowAndroid, IconArrowIOS} from "./icons";
+import { IconArrowAndroid, IconArrowIOS } from "./icons";
 
 class HeaderButtons extends React.Component {
     render() {
