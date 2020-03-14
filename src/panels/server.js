@@ -4,7 +4,7 @@ import VKBridge from "@vkontakte/vk-bridge";
 import { Offline, Online } from "react-detect-offline";
 
 import { Panel,Input, FormLayout, Button, Avatar, Group, Cell, Header, List, FormLayoutGroup, Separator, Div } from "@vkontakte/vkui";
-import {OfflineBlock, Spinner, Error, PanelHeader} from "./components/components";
+import { OfflineBlock, Spinner, Error, PanelHeader } from "./components/components";
 
 import { resizeWindow, ipRegExp1, ipRegExp2, ipRegExp3, ipRegExp4 } from "../services/_functions";
 
