@@ -29,12 +29,7 @@ class AchievementsGet extends React.Component {
 
     onChange(e) {
         const {name, value} = e.currentTarget;
-
-        if (value.match(/^[а-яА-ЯёЁA-Za-z0-9!?,]+$/g)) {
-            this.setState({[name]: value.slice(0,20)});
-        } else {
-
-        }
+        this.setState({[name]: value.replace(/[^а-яА-ЯёЁA-Za-z0-9!?., ]/g, "").slice(0, 20)});
     }
 
     share() {
