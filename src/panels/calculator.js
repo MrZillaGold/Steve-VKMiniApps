@@ -50,7 +50,7 @@ class Calculator extends React.Component {
         const Z = z === "" || isNaN(z) ? 0 : z;
 
         const dimensionX = world === "nether" ? X / 8 : X * 8;
-        const dimensionZ = world === "nether" ? Z / 8 : X * 8;
+        const dimensionZ = world === "nether" ? Z / 8 : Z * 8;
 
         return (
             <Panel separator={false} id={id}>
@@ -87,7 +87,7 @@ class Calculator extends React.Component {
                            onChange={this.onChange.bind(this)}
                            placeholder="64"
                            autoComplete="off"
-                           pattern='^[0-9]+$'
+                           pattern="^[0-9]+$"
                     />
                     <Input top="Координата Z"
                            bottom="Целое число. (-29999999 — 29999999)"
