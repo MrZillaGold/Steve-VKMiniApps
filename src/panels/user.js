@@ -51,12 +51,12 @@ class UserInfo extends React.Component {
             .then(res => {
                 return res.data;
             })
-            .then(data => {
+            .then(async data => {
                 const usernameHistory = data.username_history;
                 const username =  data.username;
                 const skin = data.textures.skin.url;
-                const cape = data.textures.cape || null;
-                const createdAt = data.created_at || null ;
+                const cape = (data.textures.cape && data.textures.cape.url) || null;
+                const createdAt = data.created_at || null;
 
                 this.setState({ list: usernameHistory, username: username, skin: skin, cape: cape, spinner: false });
 
