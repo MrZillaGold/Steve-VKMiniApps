@@ -1,8 +1,8 @@
-import 'core-js/es6/map';
-import 'core-js/es6/set';
+import "core-js/es6/map";
+import "core-js/es6/set";
 
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 import VKBridge from "@vkontakte/vk-bridge";
 
 import { platform, IOS } from "@vkontakte/vkui";
@@ -10,9 +10,9 @@ import mVKMiniAppsScrollHelper from '@vkontakte/mvk-mini-apps-scroll-helper';
 
 import { changeStatusBarColor } from "./services/_functions";
 
-import registerServiceWorker from './sw';
+import registerServiceWorker from "./sw";
 
-import '@vkontakte/vkui/dist/vkui.css';
+import "@vkontakte/vkui/dist/vkui.css";
 
 import App from './App';
 
@@ -30,7 +30,7 @@ VKBridge.subscribe(({ detail: { type, data }}) => {
                     :
                     data.scheme
             : "bright_light";
-        const schemeAttribute = document.createAttribute("scheme");
+        const schemeAttribute = document.createAttribute("scheme"); // TODO Разобраться с ConfigProviderContext
         
         schemeAttribute.value = scheme;
         document.body.attributes.setNamedItem(schemeAttribute);

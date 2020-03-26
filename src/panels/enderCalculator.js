@@ -229,6 +229,7 @@ class EnderPortalCalculator extends React.Component {
                             stretched
                             target="_blank"
                             href="https://youtu.be/U6pEgIKAuJI"
+                            rel="noreferrer"
                     >
                         <b>Как находить координаты и угол?</b>
                     </Button>

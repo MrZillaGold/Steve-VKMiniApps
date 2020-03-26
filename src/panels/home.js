@@ -42,7 +42,7 @@ class HomePanelBase extends React.Component {
                     >
                         Информация о сервере по IP
                     </Cell>
-                    <Separator/>
+                    <Separator style={{ margin: "6px 0" }}/>
                     <Cell before={
                         <Icon24Write/>
                     }
@@ -75,7 +75,7 @@ class HomePanelBase extends React.Component {
                     >
                         Получение координат крепости
                     </Cell>
-                    <Separator/>
+                    <Separator style={{ margin: "6px 0" }}/>
                     <Cell before={
                         <Icon24Globe/>
                     }
@@ -84,7 +84,7 @@ class HomePanelBase extends React.Component {
                     >
                         Состояние серверов Minecraft
                     </Cell>
-                    <Separator/>
+                    <Separator style={{ margin: "6px 0" }}/>
                     <Cell multiline
                           before={
                               <Avatar mode="image"
@@ -99,6 +99,7 @@ class HomePanelBase extends React.Component {
                           bottomContent={
                               <Button target="_blank"
                                       href="https://vk.com/public175914098"
+                                      rel="noreferrer"
                               >
                                   <b>Перейти в группу с ботом</b>
                               </Button>

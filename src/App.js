@@ -11,20 +11,20 @@ import Achievements from './panels/achievements/achievements';
 import Calculator from './panels/calculator';
 import EnderCalculator from './panels/enderCalculator';
 
-import MinecraftChat from './panels/chat/index';
+/*import MinecraftChat from './panels/chat/index';
 import AddServer from "./panels/chat/components/addserver";
 import AddAccount from "./panels/chat/components/addaccount";
 import ServerChat from './panels/chat/chatpanel';
-import EditServer from "./panels/chat/components/editserver";
+import EditServer from "./panels/chat/components/editserver";*/
 
 class App extends React.Component {
 
     render() {
         return (
-            <Stack webviewType="vkapps"
+            <Stack webviewType="vkapps" // TODO https://github.com/VKCOM/VKUI/releases/tag/v3.5.2
                 activePage="main"
                 modals={[
-                    <AddServer
+                    /*<AddServer
                         id="add-server"
                         title="Добавление сервера"
                     />,
@@ -35,7 +35,7 @@ class App extends React.Component {
                     <AddAccount
                         id="add-account"
                         title="Добавление аккаута"
-                    />
+                    />*/
                 ]}>
                 <Page header={false} id="main" activePanel="home">
                     <Home id="home"/>
@@ -45,9 +45,6 @@ class App extends React.Component {
                     <Achievements id="achievements"/>
                     <Calculator id="calculator"/>
                     <EnderCalculator id="endercalculator"/>
-
-                    <MinecraftChat id="chat"/>
-                    <ServerChat id="server-chat"/>
                 </Page>
             </Stack>
         );

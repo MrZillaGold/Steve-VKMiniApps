@@ -24,7 +24,7 @@ export default class SkinViewer extends Component {
             })
         }, () => {
             const { viewer } = this.state;
-            const { run, walk } = this.props;
+            const { run, walk, slim } = this.props;
 
             let control = skinview3d.createOrbitControls(this.state.viewer);
             control.enableRotate = true;
@@ -42,6 +42,9 @@ export default class SkinViewer extends Component {
                 }
             }
 
+            viewer.detectModel = !slim;
+            viewer.playerObject.skin.slim = slim;
+
             // let's call ready here
             this.props.onReady(this.state.viewer);
         });
@@ -57,17 +60,18 @@ export default class SkinViewer extends Component {
 
     componentDidUpdate(prevProps) {
         const { viewer, run, walk } = this.state;
+        const { skinUrl, capeUrl, width, height, runSpeed, walkSpeed, runPaused, walkPaused, paused, slim } = this.props;
 
-        if (prevProps.skinUrl !== this.props.skinUrl) {
-            viewer.skinUrl = this.props.skinUrl;
+        if (prevProps.skinUrl !== skinUrl) {
+            viewer.skinUrl = skinUrl;
         }
 
-        if (prevProps.capeUrl !== this.props.capeUrl) {
-            viewer.capeUrl = this.props.capeUrl;
+        if (prevProps.capeUrl !== capeUrl) {
+            viewer.capeUrl = capeUrl;
         }
 
-        if (prevProps.width !== this.props.width || prevProps.height !== this.props.height) {
-            viewer.setSize(this.props.width, this.props.height);
+        if (prevProps.width !== width || prevProps.height !== height) {
+            viewer.setSize(width, height);
         }
 
         // animation
@@ -88,35 +92,40 @@ export default class SkinViewer extends Component {
             }
         }
 
-        if (prevProps.runSpeed !== this.props.runSpeed) {
+        if (prevProps.runSpeed !== runSpeed) {
             if (run) {
-                run.speed = this.props.runSpeed;
+                run.speed = runSpeed;
                 this.setState({run});
             }
         }
-        if (prevProps.walkSpeed !== this.props.walkSpeed) {
+        if (prevProps.walkSpeed !== walkSpeed) {
             if (walk) {
-                walk.speed = this.props.walkSpeed;
+                walk.speed = walkSpeed;
                 this.setState({walk});
             }
         }
 
-        if (prevProps.runPaused !== this.props.runPaused) {
+        if (prevProps.runPaused !== runPaused) {
             if (run) {
-                run.paused = this.props.runPaused;
+                run.paused = runPaused;
                 this.setState({run});
             }
         }
-        if (prevProps.walkPaused !== this.props.walkPaused) {
+        if (prevProps.walkPaused !== walkPaused) {
             if (walk) {
-                walk.paused = this.props.walkPaused;
+                walk.paused = walkPaused;
                 this.setState({walk});
             }
         }
 
-        if (prevProps.paused !== this.props.paused) {
-            viewer.animationPaused = this.props.paused;
+        if (prevProps.paused !== paused) {
+            viewer.animationPaused = paused;
             this.setState({viewer});
+        }
+
+        if (prevProps.slim !== slim) {
+            viewer.detectModel = !slim;
+            viewer.playerObject.skin.slim = slim;
         }
     }
 
@@ -162,6 +171,7 @@ SkinViewer.propTypes = {
         PropTypes.string,
     ]),
     walkPaused: PropTypes.bool,
+    slim: PropTypes.bool,
     paused: PropTypes.bool,
     className: PropTypes.string,
     onReady: PropTypes.func,

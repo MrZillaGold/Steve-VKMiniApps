@@ -1,7 +1,7 @@
 import React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { Panel, Group, Separator, Input, FormLayout, Select, List, Cell, Button  } from "@vkontakte/vkui";
+import { Panel, Group, Separator, Input, FormLayout, Select, List, Cell, Button } from "@vkontakte/vkui";
 import { PanelHeader } from "./components/components";
 
 import { resizeWindow } from "../services/_functions";
@@ -116,7 +116,7 @@ class Calculator extends React.Component {
                         }
                         <Separator style={{ margin: "12px 0" }} />
                         {
-                            X !== "-" && Z !== "-" && (Z !== "" || Y !== "" || Z !== "") ?
+                            x !== "-" && z !== "-" && (x !== "" || y !== "" || z !== "") ?
                                 copy ?
                                     <div style={{display: "flex"}}>
                                         <Button disabled
