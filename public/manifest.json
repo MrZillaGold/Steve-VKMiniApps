@@ -23,9 +23,10 @@
   "theme": {
     "colors": {
       "frame": "#1C1C1C",
-      "tab_background_text": "#000"
+      "tab_background_text": "#FFF"
     }
   },
+  "background_color": "#FFF",
   "display": "standalone",
   "scope": "/",
   "default_locale": "ru",
