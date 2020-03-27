@@ -2,6 +2,11 @@
   "short_name": "Steve",
   "name": "Steve - Minecraft помощник",
   "description": "Помощник для Minecraft с различными инструментами для упрощения игры",
+  "author": "MrZillaGold",
+  "developer": {
+    "name": "Pronin Egor",
+    "url": "https://github.com/MrZillaGold"
+  },
   "icons": [
     {
       "src": "/icons/192.png",
@@ -15,8 +20,9 @@
     }
   ],
   "start_url": "/index.html",
-  "background_color": "#3367D6",
+  "background_color": "#1c1c1c",
   "display": "standalone",
   "scope": "/",
+  "default_locale": "ru",
   "theme_color": "#3367D6"
 }

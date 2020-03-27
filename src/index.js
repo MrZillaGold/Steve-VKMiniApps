@@ -30,10 +30,7 @@ VKBridge.subscribe(({ detail: { type, data }}) => {
                     :
                     data.scheme
             : "bright_light";
-        const schemeAttribute = document.createAttribute("scheme"); // TODO Разобраться с ConfigProviderContext
-        
-        schemeAttribute.value = scheme;
-        document.body.attributes.setNamedItem(schemeAttribute);
+
         sessionStorage.setItem("scheme", scheme);
         changeStatusBarColor();
     }

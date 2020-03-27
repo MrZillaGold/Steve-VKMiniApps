@@ -1,4 +1,5 @@
 import React from "react";
+import VKBridge from "@vkontakte/vk-bridge";
 
 import { Panel, Group, Button, Cell, Avatar, Separator } from "@vkontakte/vkui";
 
@@ -7,6 +8,7 @@ import { resizeWindow } from "../services/_functions";
 import Icon24Globe from "@vkontakte/icons/dist/24/globe";
 import Icon24Write from "@vkontakte/icons/dist/24/write";
 import Icon24Search from "@vkontakte/icons/dist/24/search";
+import Icon24AddOutline from '@vkontakte/icons/dist/24/add_outline';
 /*import Icon24Message from "@vkontakte/icons/dist/24/message";*/
 import { IconCalculator, IconServer, IconUser, IconSteve } from "./components/icons";
 
@@ -83,6 +85,15 @@ class HomePanelBase extends React.Component {
                           className="pointer"
                     >
                         Состояние серверов Minecraft
+                    </Cell>
+                    <Separator style={{ margin: "6px 0" }}/>
+                    <Cell before={
+                        <Icon24AddOutline/>
+                    }
+                          onClick={() => VKBridge.send("VKWebAppAddToCommunity", {})}
+                          className="pointer"
+                    >
+                        Установить в своё сообщество
                     </Cell>
                     <Separator style={{ margin: "6px 0" }}/>
                     <Cell multiline

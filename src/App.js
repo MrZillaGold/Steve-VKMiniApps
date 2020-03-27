@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Page } from "vkui-navigator/dist";
+import { Stack, Page } from "vkui-navigator/dist"
 
 import Home from './panels/home';
 import Server from './panels/server';
@@ -21,7 +21,7 @@ class App extends React.Component {
 
     render() {
         return (
-            <Stack webviewType="vkapps" // TODO https://github.com/VKCOM/VKUI/releases/tag/v3.5.2
+            <Stack webviewType="vkapps"
                 activePage="main"
                 modals={[
                     /*<AddServer
@@ -36,7 +36,9 @@ class App extends React.Component {
                         id="add-account"
                         title="Добавление аккаута"
                     />*/
-                ]}>
+                ]}
+                   scheme={sessionStorage.getItem("scheme")}
+            >
                 <Page header={false} id="main" activePanel="home">
                     <Home id="home"/>
                     <Server id="server"/>
