@@ -37,7 +37,6 @@ class App extends React.Component {
                         title="Добавление аккаута"
                     />*/
                 ]}
-                   scheme={sessionStorage.getItem("scheme")}
             >
                 <Page header={false} id="main" activePanel="home">
                     <Home id="home"/>
