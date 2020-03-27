@@ -20,7 +20,12 @@
     }
   ],
   "start_url": "/index.html",
-  "background_color": "#1c1c1c",
+  "theme": {
+    "colors": {
+      "frame": "#1C1C1C",
+      "tab_background_text": "#000"
+    }
+  },
   "display": "standalone",
   "scope": "/",
   "default_locale": "ru",
