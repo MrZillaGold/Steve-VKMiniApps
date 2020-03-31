@@ -50,7 +50,7 @@ class ServerInfo extends React.Component {
 
         this.setState({ spinner: true, error: false, data: null, openFavorite: false });
 
-        axios.get(`https://stevecors.herokuapp.com/https://api.mcsrvstat.us/2/${ip}`)
+        axios.get(`https://api.mcsrvstat.us/2/${ip}`)
             .then(res => {
                 return res.data;
             })
