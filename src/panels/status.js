@@ -3,7 +3,7 @@ import axios from "axios";
 import { Offline, Online } from "react-detect-offline";
 
 import { Panel, Avatar, Group, Cell, List, Header } from "@vkontakte/vkui";
-import {OfflineBlock, Error, Spinner, PanelHeader} from "./components/components";
+import { OfflineBlock, Error, Spinner, PanelHeader } from "./components/components";
 
 import green from "./assets/green.gif";
 import yellow from "./assets/yellow.gif";
@@ -53,7 +53,7 @@ class MojangStatus extends React.Component {
             },
             {
                 name: "api.mojang.com",
-                title: "API Mojang"
+                title: "server Mojang"
             },
             {
                 name: "textures.minecraft.net",

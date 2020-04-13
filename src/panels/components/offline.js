@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Button, Placeholder } from "@vkontakte/vkui";
-import { randomInteger } from "../../services/_functions";
+import { randomInteger } from "../../services/functions";
 import { IconPug, IconPig, IconZombie } from "./icons";
 
 
@@ -12,7 +12,7 @@ class OfflineBlock extends React.Component {
     };
 
     componentDidMount() {
-        this.setState({image: randomInteger(1, 3)})
+        this.setState({image: randomInteger(1, 3)});
     }
 
     render() {

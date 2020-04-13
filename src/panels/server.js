@@ -6,7 +6,8 @@ import { Offline, Online } from "react-detect-offline";
 import { Panel,Input, FormLayout, Button, Avatar, Group, Cell, Header, List, FormLayoutGroup, Separator, Div } from "@vkontakte/vkui";
 import { OfflineBlock, Spinner, Error, PanelHeader } from "./components/components";
 
-import { resizeWindow, declOfNum, ipRegExp1, ipRegExp2, ipRegExp3, ipRegExp4 } from "../services/_functions";
+import { declOfNum, ipRegExp1, ipRegExp2, ipRegExp3, ipRegExp4 } from "../services/functions";
+import { resizeWindow } from "../services/bridge";
 
 import Icon24Chevron from "@vkontakte/icons/dist/24/chevron";
 import Icon24Dropdown from "@vkontakte/icons/dist/24/dropdown";
@@ -50,7 +51,7 @@ class ServerInfo extends React.Component {
 
         this.setState({ spinner: true, error: false, data: null, openFavorite: false });
 
-        axios.get(`https://stevecors.herokuapp.com/https://api.mcsrvstat.us/2/${ip}`)
+        axios.get(`https://api.mcsrvstat.us/2/${ip}`)
             .then(res => {
                 return res.data;
             })

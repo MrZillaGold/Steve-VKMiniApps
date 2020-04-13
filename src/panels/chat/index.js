@@ -9,7 +9,7 @@ import { OfflineBlock, Error, HeaderButtons } from '../components/components';
 import Servers from "./servers";
 import Accounts from "./accounts";
 
-import {resizeWindow} from "../../services/_functions";
+import { resizeWindow } from "../../services/bridge";
 
 import Icon16Cancel from '@vkontakte/icons/dist/16/cancel';
 import {IconSteve} from "../components/icons";

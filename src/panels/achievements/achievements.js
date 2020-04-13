@@ -6,6 +6,8 @@ import { Offline, Online } from 'react-detect-offline';
 import { Panel, PanelHeaderContent, Input, FormLayout, Button, Group, Div, Separator, PanelHeaderButton, PanelHeaderSimple, Avatar, SelectMimicry, FormLayoutGroup } from "@vkontakte/vkui";
 import { OfflineBlock, Spinner, Error, HeaderButtons } from '../components/components';
 
+import { randomInteger } from "../../services/functions";
+
 import {IconSteve} from "../components/icons";
 import Icon24Message from '@vkontakte/icons/dist/24/message';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
@@ -13,7 +15,6 @@ import Icon24CameraOutline from '@vkontakte/icons/dist/24/camera_outline';
 
 import "./achievements.css";
 /*import "./itemSprites.css";*/
-import {randomInteger} from "../../services/_functions";
 
 class AchievementsGet extends React.Component {
 

@@ -2,19 +2,16 @@
   "name": "steve-vkminiapps",
   "version": "1.0.2",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "start": "serve -s build",
     "dev": "react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "build": "GENERATE_SOURCEMAP=false react-scripts build"
   },
   "author": "MrZillaGold",
   "license": "CC",
   "devDependencies": {
     "cross-env": "^5.2.1",
-    "react-scripts": "^3.2.0"
+    "react-scripts": "^3.4.1"
   },
   "dependencies": {
     "@vkontakte/icons": "^1.18.2",

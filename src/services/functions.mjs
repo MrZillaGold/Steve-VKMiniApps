@@ -1,6 +1,3 @@
-import VKBridge from "@vkontakte/vk-bridge";
-import {ANDROID, IOS, platform} from "@vkontakte/vkui";
-
 function timeConvert(time) {
     const currentDate = new Date(time);
 
@@ -11,20 +8,11 @@ function timeConvert(time) {
     const month = getMonth > 9 ? getMonth : `0` + getMonth;
     const date = getDate > 9 ? getDate : `0` + getDate;
 
-    return date + '.' + month + '.' + getYear;
+    return `${date}.${month}.${getYear}`;
 }
 
 function randomInteger(min, max) {
     return Math.floor(min + Math.random() * (max + 1 - min));
-}
-
-
-function resizeWindow(height) {
-    VKBridge.send("VKWebAppResizeWindow", {
-        width: 700,
-        height: height
-    })
-        .catch(() => {});
 }
 
 const ipRegExp1 = /^(?:(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/g;
@@ -55,16 +43,6 @@ function serverData(server_ip, server_ver) {
     return serverData;
 }
 
-function changeStatusBarColor() {
-    const Os = platform();
-
-    if (Os === IOS || Os === ANDROID) {
-        VKBridge.send("VKWebAppSetViewSettings", {
-            status_bar_style: "light", action_bar_color: "#1c1c1c"
-        });
-    }
-}
-
 function declOfNum(n, titles) {
     return titles[(n % 10 === 1 && n % 100 !== 11) ? 0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2]
 }
@@ -72,9 +50,7 @@ function declOfNum(n, titles) {
 export {
     timeConvert,
     randomInteger,
-    resizeWindow,
     serverData,
-    changeStatusBarColor,
     declOfNum,
     ipRegExp1,
     ipRegExp2,

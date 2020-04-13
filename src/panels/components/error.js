@@ -2,7 +2,7 @@ import React from "react";
 
 import { Placeholder } from "@vkontakte/vkui";
 
-import { randomInteger } from "../../services/_functions";
+import { randomInteger } from "../../services/functions";
 
 import { IconPug, IconPig, IconZombie } from "./icons";
 
@@ -13,7 +13,7 @@ class Error extends React.Component {
     };
 
     componentWillMount() {
-        this.setState({image: randomInteger(1, 3)})
+        this.setState({image: randomInteger(1, 3)});
     }
 
     render() {
@@ -23,7 +23,9 @@ class Error extends React.Component {
         return (
             <Placeholder
                 stretched={stretch}
-                icon={icons[this.state.image - 1]}
+                icon={
+                    icons[this.state.image - 1]
+                }
             >
                 {error}
             </Placeholder>

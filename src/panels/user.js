@@ -6,7 +6,8 @@ import { Offline, Online } from "react-detect-offline";
 import { Panel, Input, FormLayout, Button, Group, Cell, List, Div, Separator, Header, FormLayoutGroup } from "@vkontakte/vkui";
 import { OfflineBlock, Spinner, PanelHeader, Error, SkinViewer } from "./components/components";
 
-import { timeConvert, resizeWindow } from "../services/_functions";
+import { timeConvert } from "../services/functions";
+import { resizeWindow } from "../services/bridge";
 
 import { IconRun, IconWalk } from "./components/icons";
 import Icon24Message from "@vkontakte/icons/dist/24/message";

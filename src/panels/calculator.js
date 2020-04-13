@@ -4,7 +4,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Panel, Group, Separator, Input, FormLayout, Select, List, Cell, Button } from "@vkontakte/vkui";
 import { PanelHeader } from "./components/components";
 
-import { resizeWindow } from "../services/_functions";
+import { resizeWindow } from "../services/bridge";
 
 import Icon24Copy from '@vkontakte/icons/dist/24/copy';
 import Icon16Done from '@vkontakte/icons/dist/16/done';

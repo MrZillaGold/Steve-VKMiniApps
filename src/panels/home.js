@@ -3,7 +3,7 @@ import VKBridge from "@vkontakte/vk-bridge";
 
 import { Panel, Group, Button, Cell, Avatar, Separator } from "@vkontakte/vkui";
 
-import { resizeWindow } from "../services/_functions";
+import { resizeWindow } from "../services/bridge";
 
 import Icon24Globe from "@vkontakte/icons/dist/24/globe";
 import Icon24Write from "@vkontakte/icons/dist/24/write";

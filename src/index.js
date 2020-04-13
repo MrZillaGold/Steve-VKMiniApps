@@ -8,7 +8,7 @@ import VKBridge from "@vkontakte/vk-bridge";
 import { platform, IOS } from "@vkontakte/vkui";
 import mVKMiniAppsScrollHelper from '@vkontakte/mvk-mini-apps-scroll-helper';
 
-import { changeStatusBarColor } from "./services/_functions";
+import { changeStatusBarColor } from "./services/bridge";
 
 import registerServiceWorker from "./sw";
 
