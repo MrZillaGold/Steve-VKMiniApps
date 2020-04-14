@@ -2,6 +2,7 @@
   "name": "steve-vkminiapps",
   "version": "1.0.2",
   "description": "",
+  "homepage": "https://steve-vkminiapps.herokuapp.com/",
   "scripts": {
     "start": "serve -s build",
     "dev": "react-scripts start",
