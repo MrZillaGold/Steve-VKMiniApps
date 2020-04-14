@@ -24,7 +24,7 @@ export default class SkinViewer extends Component {
             })
         }, () => {
             const { viewer } = this.state;
-            const { run, walk, slim } = this.props;
+            const { run, walk, slim, paused } = this.props;
 
             let control = skinview3d.createOrbitControls(this.state.viewer);
             control.enableRotate = true;
@@ -40,6 +40,11 @@ export default class SkinViewer extends Component {
                 if (walk) {
                     this.createAnimation(viewer.animation, false);
                 }
+            }
+
+            if (paused) {
+                viewer.animationPaused = paused;
+                this.setState({viewer});
             }
 
             viewer.detectModel = !slim;
@@ -183,10 +188,7 @@ SkinViewer.defaultProps = {
     height: 600,
     walk: false,
     walkSpeed: 1,
-    walkPaused: false,
     run: false,
     runSpeed: 1,
-    runPaused: false,
-    paused: false,
     onReady: () => {}
 };

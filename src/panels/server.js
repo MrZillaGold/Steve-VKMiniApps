@@ -143,23 +143,24 @@ class ServerInfo extends React.Component {
                         openFavorite && (
                             <div>
                                 <Separator/>
-                                <Header mode="secondary" aside={
-                                    (favoriteList.length > 0 || editFavorite) &&
-                                    (editFavorite ?
-                                            <div style={{display: "flex"}}>
-                                                <Icon24Cancel onClick={() => this.setState({ favoriteList: this.state.backup, editFavorite: false })}
-                                                              style={{marginRight: "5px"}}
-                                                />
-                                                <Icon24DoneOutline onClick={() => {
-                                                    this.setState({ editFavorite: false });
-                                                    this.saveFavorite();
-                                                }}
-                                                />
-                                            </div>
-                                            :
-                                            <Icon24Write onClick={() => this.setState({ editFavorite: true, backup: favoriteList })}/>
-                                    )
-                                }
+                                <Header mode="secondary"
+                                        aside={
+                                            (favoriteList.length > 0 || editFavorite) &&
+                                            (editFavorite ?
+                                                    <div style={{display: "flex"}}>
+                                                        <Icon24Cancel onClick={() => this.setState({ favoriteList: this.state.backup, editFavorite: false })}
+                                                                      style={{marginRight: "5px"}}
+                                                        />
+                                                        <Icon24DoneOutline onClick={() => {
+                                                            this.setState({ editFavorite: false });
+                                                            this.saveFavorite();
+                                                        }}
+                                                        />
+                                                    </div>
+                                                    :
+                                                    <Icon24Write onClick={() => this.setState({ editFavorite: true, backup: favoriteList })}/>
+                                            )
+                                        }
                                 >
                                     Избранные сервера
                                 </Header>
@@ -213,9 +214,7 @@ class ServerInfo extends React.Component {
                         data &&
                         <Group description={data.software && `Ядро сервера: ${data.software}`}>
                             <Separator/>
-                            <Header mode="secondary"
-                                    aside={favoriteList.includes(titleIP.toLowerCase()) ? <Icon24DoneOutline style={{opacity: ".2"}}/> : <Icon24FavoriteOutline onClick={() => this.addFavorite(titleIP)}/>}
-                            >
+                            <Header aside={favoriteList.includes(titleIP.toLowerCase()) ? <Icon24DoneOutline style={{opacity: ".2"}}/> : <Icon24FavoriteOutline onClick={() => this.addFavorite(titleIP)}/>}>
                                 {titleIP}
                             </Header>
                             <List>

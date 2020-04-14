@@ -3,7 +3,7 @@ import axios from "axios";
 import VKBridge from "@vkontakte/vk-bridge";
 import { Offline, Online } from "react-detect-offline";
 
-import { Panel, Input, FormLayout, Button, Group, Cell, List, Div, Separator, Header, FormLayoutGroup } from "@vkontakte/vkui";
+import { Panel, Input, FormLayout, Button, Group, Cell, List, Div, Separator, Header, FormLayoutGroup, TabsItem, Tabs } from "@vkontakte/vkui";
 import { OfflineBlock, Spinner, PanelHeader, Error, SkinViewer } from "./components/components";
 
 import { timeConvert } from "../services/functions";
@@ -25,9 +25,10 @@ class UserInfo extends React.Component {
 
     state = {
         nickname: "",
+        activeTab: "skin",
+        selectedSkin: 1,
         historyList: [],
-        data: {},
-        skin: {}
+        data: {}
     };
 
     componentDidMount() {
@@ -49,7 +50,7 @@ class UserInfo extends React.Component {
     async getInfo() {
         const { nickname, historyList } = this.state;
 
-        this.setState({ spinner: true, error: null, lock: false, data: {}, openHistory: false, walk: true, run: false, paused: false, sent: false});
+        this.setState({ spinner: true, error: null, lock: false, data: {}, openHistory: false, walk: true, activeTab: "skin", run: false, paused: false, sent: false});
 
         await axios.get(`https://stevecors.herokuapp.com/https://api.ashcon.app/mojang/v2/user/${nickname}`)
             .then(res => {
@@ -64,10 +65,28 @@ class UserInfo extends React.Component {
                     createdAt: created_at ? timeConvert(created_at) : null,
                     skin: {
                         url: textures.skin.url,
+                        history: [],
                         isSlim: textures.slim || false,
                         cape: (textures.cape && textures.cape.url) || null
                     }
                 };
+
+                await axios.get(`https://stevecors.herokuapp.com/https://ru.namemc.com/profile/${nickname}`)
+                    .then(response => {
+                        response.data.match(/<\s*canvas class="skin-2d align-top (?:skin-button|skin-button skin-button-selected) title-time" width="32" height="32" title="([^]+?)" data-skin-hash="([^]+?)" data-model="([^]+?)"[^>]*>(?:.*?)<\s*\/\s*canvas>/g)
+                            .forEach(skin => {
+                                const regExp = /title="([^]+?)" data-skin-hash="([^]+?)" data-model="([^]+?)"/;
+
+                                const exec = regExp.exec(skin).slice(1, 4);
+
+                                userData.skin.history.push([
+                                    exec[0],
+                                    exec[1],
+                                    (exec[2] !== "classic")
+                                ]);
+                            })
+                    })
+                    .catch(() => null);
 
                 this.setState({ data: userData, spinner: false });
 
@@ -129,7 +148,7 @@ class UserInfo extends React.Component {
 
     render() {
         const { id, navigator } = this.props;
-        const { regDate, spinner, editHistory, historyList, nickname, openHistory, backup, error, lock, walk, run, paused, sent, data, historyLoaded } = this.state;
+        const { regDate, spinner, editHistory, historyList, nickname, openHistory, backup, error, lock, walk, run, paused, sent, data, historyLoaded, activeTab, selectedSkin } = this.state;
         const scheme = sessionStorage.getItem("scheme");
 
         return (
@@ -248,62 +267,121 @@ class UserInfo extends React.Component {
                         spinner && <Spinner/>
                     }
                     {
-                        data.skin && data.skin.url &&
-                        <Group top={`Скин игрока ${data.username}`}>
-                            <Separator/>
-                            <div className={`skin skin-${scheme} ${paused && "skin-animation_paused"} skin-bg_animation`}>
-                                <Div className="skin-icons skin-block">
-                                    <Button className="skin-button"
-                                            onClick={() => this.setState({run: walk, walk: !walk})}
-                                    >
-                                        {!walk ? <IconWalk/> : <IconRun/>}
-                                    </Button>
-                                    <Button className="skin-button"
-                                            onClick={() => this.setState({paused: !paused})}
-                                    >
-                                        {!paused ? <Icon24Pause width={16} height={16}/> : <Icon16Play/>}
-                                    </Button>
-                                </Div>
-                                <div className="skin-block skin-center">
-                                    <SkinViewer skinUrl={`https://stevecors.herokuapp.com/${data.skin.url}`}
-                                                capeUrl={data.skin.cape ? `https://stevecors.herokuapp.com/${data.skin.cape}` : ""}
-                                                className="skin-shadow"
-                                                walk={walk}
-                                                slim={data.skin.isSlim}
-                                                run={run}
-                                                paused={paused}
-                                                height="196"
-                                                width="196"
-                                    />
-                                </div>
-                            </div>
-                            <Separator/>
-                            <Div style={{ display: "flex" }}>
-                                <Button stretched
-                                        before={sent ? <Icon24DoneOutline width={16} height={16}/> : <Icon24Message width={16} height={16}/>}
-                                        disabled={lock}
-                                        onClick={() => {
-                                            this.setState({ lock: true });
-                                            this.share();
-                                        }}
+                        data.username &&
+                        <div>
+                            <Tabs>
+                                <TabsItem
+                                    onClick={() => this.setState({ activeTab: "skin" })}
+                                    selected={activeTab === "skin"}
                                 >
-                                    <b>{sent ? "Сообщение отправлено!" : "Получить cкин в сообщения"}</b>
-                                </Button>
-                            </Div>
-                            <Separator style={{ margin: "6px 0 0 0" }}/>
-                        </Group>
+                                    Скин
+                                </TabsItem>
+                                <TabsItem
+                                    onClick={() => this.setState({ activeTab: "names" })}
+                                    selected={activeTab === "names"}
+                                >
+                                    История никнейма
+                                </TabsItem>
+                            </Tabs>
+                            {
+                                activeTab === "skin" &&
+                                <Group>
+                                    <Separator/>
+                                    <div className={`skin skin-${scheme} ${paused && "skin-animation_paused"} skin-bg_animation`}>
+                                        <Div className="skin-icons skin-block">
+                                            <Button className="skin-button"
+                                                    onClick={() => this.setState({run: walk, walk: !walk})}
+                                            >
+                                                {!walk ? <IconWalk/> : <IconRun/>}
+                                            </Button>
+                                            <Button className="skin-button"
+                                                    onClick={() => this.setState({paused: !paused})}
+                                            >
+                                                {!paused ? <Icon24Pause width={16} height={16}/> : <Icon16Play/>}
+                                            </Button>
+                                        </Div>
+                                        <div className="skin-block skin-center">
+                                            <SkinViewer skinUrl={`https://stevecors.herokuapp.com/${data.skin.url}`}
+                                                        capeUrl={data.skin.cape ? `https://stevecors.herokuapp.com/${data.skin.cape}` : ""}
+                                                        className="skin-shadow"
+                                                        walk={walk}
+                                                        slim={data.skin.isSlim}
+                                                        run={run}
+                                                        paused={paused}
+                                                        height="196"
+                                                        width="196"
+                                            />
+                                        </div>
+                                    </div>
+                                    <Separator/>
+                                    <Div style={{ display: "flex" }}>
+                                        <Button stretched
+                                                before={sent ? <Icon24DoneOutline width={16} height={16}/> : <Icon24Message width={16} height={16}/>}
+                                                disabled={lock}
+                                                onClick={() => {
+                                                    this.setState({ lock: true });
+                                                    this.share();
+                                                }}
+                                        >
+                                            <b>{sent ? "Сообщение отправлено!" : "Получить cкин в сообщения"}</b>
+                                        </Button>
+                                    </Div>
+                                    <Separator style={{ margin: "6px 0 0 0" }}/>
+                                    {
+                                        data.skin.history.length > 0 &&
+                                        <div>
+                                            <Header>
+                                                Скины
+                                            </Header>
+                                            <Separator/>
+                                            <Div style={{ textAlign: "center" }}>
+                                                {
+                                                    data.skin.history.map((skin, index) =>
+                                                        <img key={index}
+                                                             className={`skin-head-button ${selectedSkin - 1 === index && "skin-head_selected"}`}
+                                                             src={`https://render.namemc.com/skin/2d/face.png?skin=${skin[1]}&overlay&scale=8`}
+                                                             onClick={() => {
+                                                                 if (selectedSkin - 1 !== index) {
+                                                                     this.setState(prevState => ({
+                                                                         selectedSkin: index + 1,
+                                                                         data: {
+                                                                             ...prevState.data,
+                                                                             skin: {
+                                                                                 ...prevState.data.skin,
+                                                                                 isSlim: skin[2],
+                                                                                 url: `https://ru.namemc.com/texture/${skin[1]}.png`
+                                                                             }
+                                                                         },
+                                                                         lock: false,
+                                                                         sent: false
+                                                                     }));
+                                                                 }
+                                                             }}
+                                                         alt={index}
+                                                        />
+                                                    )
+                                                }
+                                            </Div>
+                                        </div>
+                                    }
+                                </Group>
+                            }
+                            {
+                                activeTab === "names" &&
+                                <List top={data.username ? `История никнейма ${data.username}` : ""}>
+                                    {
+                                        data.list && data.list.map(({username, changed_at}, index) =>
+                                            <Cell key={index}
+                                                  description={changed_at ? timeConvert(changed_at) : regDate ? regDate : "Первый"}
+                                            >
+                                                {username}
+                                            </Cell>
+                                        ).reverse()
+                                    }
+                                </List>
+                            }
+                        </div>
                     }
-                    <List top={data.username ? `История никнейма ${data.username}` : ""}>
-                        {
-                            data.list && data.list.map(({username, changed_at}, index) =>
-                                <Cell key={index}
-                                      description={changed_at ? timeConvert(changed_at) : regDate ? regDate : "Первый"}
-                                >
-                                    {username}
-                                </Cell>
-                            ).reverse()
-                        }
-                    </List>
                     {
                         error && <Error error={error}/>
                     }
