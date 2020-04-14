@@ -50,7 +50,7 @@ class UserInfo extends React.Component {
     async getInfo() {
         const { nickname, historyList } = this.state;
 
-        this.setState({ spinner: true, error: null, lock: false, data: {}, openHistory: false, walk: true, activeTab: "skin", run: false, paused: false, sent: false});
+        this.setState({ spinner: true, error: null, lock: false, data: {}, openHistory: false, walk: true, activeTab: "skin", run: false, paused: false, sent: false, selectedSkin: 1});
 
         await axios.get(`https://stevecors.herokuapp.com/https://api.ashcon.app/mojang/v2/user/${nickname}`)
             .then(res => {
