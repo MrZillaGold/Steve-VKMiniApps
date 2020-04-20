@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import VKBridge from "@vkontakte/vk-bridge";
 import { Offline, Online } from "react-detect-offline";
+import { NameMC } from "namemcwrapper";
 
 import { Panel, Input, FormLayout, Button, Group, Cell, List, Div, Separator, Header, FormLayoutGroup, TabsItem, Tabs } from "@vkontakte/vkui";
 import { OfflineBlock, Spinner, PanelHeader, Error, SkinViewer } from "./components/components";
@@ -21,12 +22,15 @@ import Icon16Play from "@vkontakte/icons/dist/16/play";
 
 import "./user.css";
 
+const nameMc = new NameMC();
+
 class UserInfo extends React.Component {
 
     state = {
         nickname: "",
         activeTab: "skin",
         selectedSkin: 1,
+        selectedCape: 1,
         historyList: [],
         data: {}
     };
@@ -50,7 +54,7 @@ class UserInfo extends React.Component {
     async getInfo() {
         const { nickname, historyList } = this.state;
 
-        this.setState({ spinner: true, error: null, lock: false, data: {}, openHistory: false, walk: true, activeTab: "skin", run: false, paused: false, sent: false});
+        this.setState({ spinner: true, error: null, lock: false, data: {}, openHistory: false, walk: true, activeTab: "skin", run: false, paused: false, sent: false, selectedSkin: 1});
 
         await axios.get(`https://stevecors.herokuapp.com/https://api.ashcon.app/mojang/v2/user/${nickname}`)
             .then(res => {
@@ -71,22 +75,13 @@ class UserInfo extends React.Component {
                     }
                 };
 
-                await axios.get(`https://stevecors.herokuapp.com/https://ru.namemc.com/profile/${nickname}`)
-                    .then(response => {
-                        response.data.match(/<\s*canvas class="skin-2d align-top (?:skin-button|skin-button skin-button-selected) title-time" width="32" height="32" title="([^]+?)" data-skin-hash="([^]+?)" data-model="([^]+?)"[^>]*>(?:.*?)<\s*\/\s*canvas>/g)
-                            .forEach(skin => {
-                                const regExp = /title="([^]+?)" data-skin-hash="([^]+?)" data-model="([^]+?)"/;
+                nameMc.setOptions({
+                    proxy: "https://stevecors.herokuapp.com"
+                });
 
-                                const exec = regExp.exec(skin).slice(1, 4);
-
-                                userData.skin.history.push([
-                                    exec[0],
-                                    exec[1],
-                                    (exec[2] !== "classic")
-                                ]);
-                            })
-                    })
-                    .catch(() => null);
+                await nameMc.skinHistory(username)
+                    .then(skins => userData.skin.history = skins)
+                    .catch(error => console.log(error));
 
                 this.setState({ data: userData, spinner: false });
 
@@ -144,6 +139,26 @@ class UserInfo extends React.Component {
             key: "steveHistoryList",
             value: this.state.historyList.join(",")
         });
+    }
+
+    selectSkin(skin, index) {
+        const { selectedSkin } = this.state;
+
+        if (selectedSkin - 1 !== index) {
+            this.setState(prevState => ({
+                selectedSkin: index + 1,
+                data: {
+                    ...prevState.data,
+                    skin: {
+                        ...prevState.data.skin,
+                        isSlim: skin.isSlim,
+                        url: skin.url
+                    }
+                },
+                lock: false,
+                sent: false
+            }));
+        }
     }
 
     render() {
@@ -333,31 +348,15 @@ class UserInfo extends React.Component {
                                             <Header>
                                                 Скины
                                             </Header>
-                                            <Separator/>
                                             <Div style={{ textAlign: "center" }}>
                                                 {
                                                     data.skin.history.map((skin, index) =>
                                                         <img key={index}
                                                              className={`skin-head-button ${selectedSkin - 1 === index && "skin-head_selected"}`}
-                                                             src={`https://render.namemc.com/skin/2d/face.png?skin=${skin[1]}&overlay&scale=8`}
-                                                             onClick={() => {
-                                                                 if (selectedSkin - 1 !== index) {
-                                                                     this.setState(prevState => ({
-                                                                         selectedSkin: index + 1,
-                                                                         data: {
-                                                                             ...prevState.data,
-                                                                             skin: {
-                                                                                 ...prevState.data.skin,
-                                                                                 isSlim: skin[2],
-                                                                                 url: `https://ru.namemc.com/texture/${skin[1]}.png`
-                                                                             }
-                                                                         },
-                                                                         lock: false,
-                                                                         sent: false
-                                                                     }));
-                                                                 }
-                                                             }}
-                                                         alt={index}
+                                                             src={skin.renders.face.replace("https://stevecors.herokuapp.com/", "")}
+                                                             onClick={() => this.selectSkin(skin, index)}
+                                                             onPointerEnter={() => this.selectSkin(skin, index)}
+                                                             alt={index}
                                                         />
                                                     )
                                                 }
