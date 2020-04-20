@@ -114,7 +114,7 @@ class UserInfo extends React.Component {
                     VKBridge.send("VKWebAppSendPayload", {
                         group_id: 175914098,
                         payload: {
-                            type: "document", url: data.skin.url,
+                            type: "document", url: data.skin.url.replace("https://stevecors.herokuapp.com/", ""),
                             name: data.username
                         }
                     });
