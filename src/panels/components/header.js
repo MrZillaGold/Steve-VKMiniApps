@@ -1,23 +1,23 @@
 import React from "react";
 
-import { Avatar, PanelHeaderButton, PanelHeaderContent, PanelHeaderSimple } from "@vkontakte/vkui";
+import { Avatar, PanelHeaderButton, PanelHeaderContent, PanelHeader } from "@vkontakte/vkui";
 
 import { HeaderButtons } from "./components";
 import { IconSteve } from "./icons";
 
-class PanelHeader extends React.Component {
+class CustomPanelHeader extends React.Component {
 
     render() {
         const {navigator, status, left} = this.props;
 
         return (
-            <PanelHeaderSimple separator={false}
-                               left={
-                                   left &&
-                                   <PanelHeaderButton onClick={() => navigator.goBack()}>
-                                       <HeaderButtons/>
-                                   </PanelHeaderButton>
-                               }
+            <PanelHeader separator={false}
+                         left={
+                             left &&
+                             <PanelHeaderButton onClick={() => navigator.goBack()}>
+                                 <HeaderButtons/>
+                             </PanelHeaderButton>
+                         }
             >
                 <PanelHeaderContent status={status}
                                     before={
@@ -30,9 +30,9 @@ class PanelHeader extends React.Component {
                 >
                     Steve
                 </PanelHeaderContent>
-            </PanelHeaderSimple>
+            </PanelHeader>
         );
     }
 }
 
-export default PanelHeader;
+export default CustomPanelHeader;

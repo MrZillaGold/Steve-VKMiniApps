@@ -4,7 +4,7 @@ import VKBridge from "@vkontakte/vk-bridge";
 import { Offline, Online } from "react-detect-offline";
 import { NameMC } from "namemcwrapper";
 
-import { Panel, Input, FormLayout, Button, Group, Cell, List, Div, Separator, Header, FormLayoutGroup, TabsItem, Tabs } from "@vkontakte/vkui";
+import { Panel, Input, FormLayout, Button, Group, Cell, List, Div, Separator, Header, FormLayoutGroup, TabsItem, Tabs, PromoBanner, FixedLayout } from "@vkontakte/vkui";
 import { OfflineBlock, Spinner, PanelHeader, Error, SkinViewer } from "./components/components";
 
 import { timeConvert } from "../services/functions";
@@ -32,6 +32,7 @@ class UserInfo extends React.Component {
         selectedSkin: 1,
         selectedCape: 1,
         historyList: [],
+        showAds: true,
         data: {}
     };
 
@@ -52,7 +53,7 @@ class UserInfo extends React.Component {
     }
 
     async getInfo() {
-        const { nickname, historyList } = this.state;
+        const { nickname, historyList, showAds } = this.state;
 
         this.setState({ spinner: true, error: null, lock: false, data: {}, openHistory: false, walk: true, activeTab: "skin", run: false, paused: false, sent: false, selectedSkin: 1});
 
@@ -100,6 +101,18 @@ class UserInfo extends React.Component {
                 this.setState({ error: "Произошла ошибка. Попробуйте позже."});
                 return console.log(err);
             });
+
+        if (showAds) {
+            VKBridge.send("VKWebAppGetAds", {})
+                .then(ads => this.setState({
+                    ads: <PromoBanner bannerData={ads}
+                                      onClose={
+                                          () => this.setState({ showAds: false, ads: null })
+                                      }
+                    />
+                }))
+                .catch(error => console.log(error));
+        }
     }
 
     share () {
@@ -163,7 +176,7 @@ class UserInfo extends React.Component {
 
     render() {
         const { id, navigator } = this.props;
-        const { regDate, spinner, editHistory, historyList, nickname, openHistory, backup, error, lock, walk, run, paused, sent, data, historyLoaded, activeTab, selectedSkin } = this.state;
+        const { regDate, spinner, editHistory, historyList, nickname, openHistory, backup, error, lock, walk, run, paused, sent, data, historyLoaded, activeTab, selectedSkin, showAds, ads } = this.state;
         const scheme = sessionStorage.getItem("scheme");
 
         return (
@@ -384,10 +397,14 @@ class UserInfo extends React.Component {
                     {
                         error && <Error error={error}/>
                     }
+                    <div style={{ paddingBottom: 130 }}/>
                 </Online>
                 <Offline>
                     <OfflineBlock/>
                 </Offline>
+                <FixedLayout vertical="bottom">
+                    { showAds && ads }
+                </FixedLayout>
             </Panel>
         );
     }

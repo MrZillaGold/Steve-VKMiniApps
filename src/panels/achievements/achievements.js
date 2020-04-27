@@ -3,17 +3,18 @@ import axios from 'axios';
 import VKBridge from "@vkontakte/vk-bridge";
 import { Offline, Online } from 'react-detect-offline';
 
-import { Panel, PanelHeaderContent, Input, FormLayout, Button, Group, Div, Separator, PanelHeaderButton, PanelHeaderSimple, Avatar, SelectMimicry, FormLayoutGroup } from "@vkontakte/vkui";
+import { Panel, PanelHeaderContent, Input, FormLayout, Button, Group, Div, Separator, PanelHeaderButton, PanelHeaderSimple, Avatar, SelectMimicry, FormLayoutGroup, PromoBanner, FixedLayout } from "@vkontakte/vkui";
 import { OfflineBlock, Spinner, Error, HeaderButtons } from '../components/components';
 
 import { randomInteger } from "../../services/functions";
 
-import {IconSteve} from "../components/icons";
+import { IconSteve } from "../components/icons";
 import Icon24Message from '@vkontakte/icons/dist/24/message';
 import Icon16Done from '@vkontakte/icons/dist/16/done';
 import Icon24CameraOutline from '@vkontakte/icons/dist/24/camera_outline';
 
 import "./achievements.css";
+import {getAds} from "../../services/bridge";
 /*import "./itemSprites.css";*/
 
 class AchievementsGet extends React.Component {
@@ -25,6 +26,7 @@ class AchievementsGet extends React.Component {
         lineTwo: null,
         icon: 1,
         url: null,
+        showAds: true,
         storySupport: false
     };
 
@@ -80,9 +82,10 @@ class AchievementsGet extends React.Component {
     }
 
     getAchievement() {
-        const {one, two, icon} = this.state;
+        const { one, two, icon, showAds } = this.state;
 
         this.setState({spinner: true, check: false, error: false, url: null, lock: false, sent: false});
+
         axios.get("https://vkfreeviews.000webhostapp.com/a.php?h=&t=")
             .then(() => {
                 const random = randomInteger(1, 530);
@@ -100,6 +103,18 @@ class AchievementsGet extends React.Component {
                 this.setState({ error: "Произошла ошибка. Попробуйте позже.", spinner: false });
                 console.log(err);
             });
+
+        if (showAds) {
+            VKBridge.send("VKWebAppGetAds", {})
+                .then(ads => this.setState({
+                    ads: <PromoBanner bannerData={ads}
+                                      onClose={
+                                          () => this.setState({ showAds: false, ads: null })
+                                      }
+                    />
+                }))
+                .catch(error => console.log(error));
+        }
     }
 
     selectIcon = (number) => {
@@ -107,8 +122,8 @@ class AchievementsGet extends React.Component {
     };
 
     render() {
-        const {id, navigator} = this.props;
-        const {lineOne, lineTwo, one, two, spinner, error, lock, check, sent, icon, random} = this.state;
+        const { id, navigator } = this.props;
+        const { lineOne, lineTwo, one, two, spinner, error, lock, check, sent, icon, random, ads, showAds } = this.state;
         const url = `https://vkfreeviews.000webhostapp.com/a.php?h=${lineOne}&t=${lineTwo}&i=${random}`;
 
         const {selectIcon} = this;
@@ -214,10 +229,14 @@ class AchievementsGet extends React.Component {
                             </Div>
                         </Group>
                     }
+                    <div style={{ paddingBottom: 130 }}/>
                 </Online>
                 <Offline>
                     <OfflineBlock/>
                 </Offline>
+                <FixedLayout vertical="bottom">
+                    { showAds && ads }
+                </FixedLayout>
             </Panel>
         );
     }
