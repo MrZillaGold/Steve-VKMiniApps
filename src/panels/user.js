@@ -355,7 +355,7 @@ class UserInfo extends React.Component {
                                         </Button>
                                     </Div>
                                     <Separator style={{ margin: "6px 0 0 0" }}/>
-                                    {/*{
+                                   {
                                         data.skin.history.length > 0 &&
                                         <div>
                                             <Header>
@@ -369,13 +369,13 @@ class UserInfo extends React.Component {
                                                              src={skin.renders.face.replace("https://stevecors.herokuapp.com/", "")}
                                                              onClick={() => this.selectSkin(skin, index)}
                                                              onPointerEnter={() => this.selectSkin(skin, index)}
-                                                             alt={index}
+                                                             alt=""
                                                         />
                                                     )
                                                 }
                                             </Div>
                                         </div>
-                                    }*/}
+                                    }
                                 </Group>
                             }
                             {
