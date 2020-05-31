@@ -53,7 +53,7 @@ class MojangStatus extends React.Component {
             },
             {
                 name: "api.mojang.com",
-                title: "server Mojang"
+                title: "API Mojang"
             },
             {
                 name: "textures.minecraft.net",
