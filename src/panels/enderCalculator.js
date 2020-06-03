@@ -224,7 +224,7 @@ class EnderPortalCalculator extends React.Component {
                         }
                     </Div>
                 </Group>
-                /* <div style={{display: 'flex'}}>
+                {/* <div style={{display: 'flex'}}>
                     <Button mode="tertiary"
                             stretched
                             target="_blank"
@@ -233,7 +233,7 @@ class EnderPortalCalculator extends React.Component {
                     >
                        <b>Как находить координаты и угол?</b>
                     </Button>
-                </div>*/
+                </div>*/}
             </Panel>
         );
     }
