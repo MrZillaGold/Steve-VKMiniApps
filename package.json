@@ -29,7 +29,7 @@
     "react": "^16.8.6",
     "react-copy-to-clipboard": "^5.0.2",
     "react-detect-offline": "^2.4.0",
-    "react-dom": "^16.10.2",
+    "react-dom": "^16.13.1",
     "react-scroll-to-bottom": "^3.0.0",
     "serve": "^11.3.0",
     "skinview3d": "^1.2.1",
