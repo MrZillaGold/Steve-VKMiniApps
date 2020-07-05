@@ -21,7 +21,7 @@
     "@vkontakte/vkui": "^3.7.0",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
-    "chalk": "^3.0.0",
+    "chalk": "^4.1.0",
     "core-js": "^2.6.9",
     "namemcwrapper": "^1.0.5",
     "node-sass": "^4.12.0",
