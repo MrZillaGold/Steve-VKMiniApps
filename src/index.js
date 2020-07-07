@@ -1,24 +1,20 @@
-import "core-js/es6/map";
-import "core-js/es6/set";
-
+import "core-js";
 import React from "react";
 import ReactDOM from "react-dom";
 import VKBridge from "@vkontakte/vk-bridge";
+import mVKMiniAppsScrollHelper from "@vkontakte/mvk-mini-apps-scroll-helper";
 
 import { platform, IOS } from "@vkontakte/vkui";
-import mVKMiniAppsScrollHelper from '@vkontakte/mvk-mini-apps-scroll-helper';
 
-import { changeStatusBarColor } from "./services/bridge";
+import { App } from "./App";
 
-import registerServiceWorker from "./sw";
+import { changeStatusBarColor } from "./bridge";
 
 import "@vkontakte/vkui/dist/vkui.css";
-
-import App from './App';
+import "./panels/scss/styles.scss";
 
 sessionStorage.setItem("scheme", "bright_light");
 
-VKBridge.send("VKWebAppInit");
 VKBridge.subscribe(({ detail: { type, data }}) => {
     if (type === "VKWebAppUpdateConfig") {
         const scheme = data.scheme ?
@@ -41,8 +37,7 @@ VKBridge.subscribe(({ detail: { type, data }}) => {
         changeStatusBarColor();
     }
 });
-
-registerServiceWorker();
+VKBridge.send("VKWebAppInit");
 
 const Os = platform();
 const root = document.getElementById('root');

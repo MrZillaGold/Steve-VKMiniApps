@@ -1,0 +1,11 @@
+.server-motd {
+    text-shadow: 0.5px 0.5px 1.5px #000000;
+}
+
+.server-motd_light, .server-motd_bright_light {
+    text-shadow: 0.5px 0.5px 1.5px #000000;
+}
+
+.server-motd_dark, .server-motd_space_gray {
+    text-shadow: 0.01px 0.01px 1px #FFFFFF;
+}

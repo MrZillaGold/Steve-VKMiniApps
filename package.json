@@ -6,7 +6,7 @@
   "scripts": {
     "start": "serve -s build",
     "dev": "react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build"
+    "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build"
   },
   "author": "MrZillaGold",
   "license": "CC",
@@ -15,25 +15,28 @@
     "react-scripts": "^3.4.1"
   },
   "dependencies": {
-    "@vkontakte/icons": "^1.20.2",
+    "@vkontakte/icons": "^1.28.0",
     "@vkontakte/mvk-mini-apps-scroll-helper": "^1.2.0",
-    "@vkontakte/vk-bridge": "^2.1.8",
-    "@vkontakte/vkui": "^3.7.0",
+    "@vkontakte/vk-bridge": "^2.2.2",
+    "@vkontakte/vkui": "^3.11.5",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "chalk": "^4.1.0",
-    "core-js": "^2.6.9",
-    "namemcwrapper": "^1.0.5",
-    "node-sass": "^4.12.0",
+    "core-js": "^3.6.5",
+    "i": "^0.3.6",
+    "namemcwrapper": "^1.1.0",
+    "node-sass": "^4.14.1",
+    "npm": "^6.14.5",
     "prop-types": "^15.7.2",
-    "react": "^16.8.6",
+    "react": "^16.13.1",
     "react-copy-to-clipboard": "^5.0.2",
     "react-detect-offline": "^2.4.0",
-    "react-dom": "^16.10.2",
+    "react-dom": "^16.13.1",
     "react-scroll-to-bottom": "^3.0.0",
-    "serve": "^11.3.0",
+    "react-skinview3d": "^1.3.3",
+    "serve": "^11.3.2",
     "skinview3d": "^1.2.1",
-    "socket.io-client": "^2.3.0",
+    "vkappsutils": "github:FlyInk13/VKAppsUtils",
     "vkui-navigator": "git+https://github.com/MrZillaGold/vkui-navigator.git"
   },
   "browserslist": [

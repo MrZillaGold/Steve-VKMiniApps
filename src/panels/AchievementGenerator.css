@@ -1,0 +1,11 @@
+.achievement-image {
+    height: 64px;
+    image-rendering: pixelated;
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.achievement-send_buttons {
+    display: flex;
+}
