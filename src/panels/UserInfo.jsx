@@ -250,6 +250,9 @@ export function UserInfo({ id, navigator }) {
                     }
                 }
             })
+
+            viewer.skin.detectModel = false;
+            viewer.skin.playerObject.skin.slim = skin.isSlim;
         }
     };
 
