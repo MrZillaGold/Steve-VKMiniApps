@@ -1,7 +1,6 @@
 import React, { useReducer, useState } from "react";
 import axios from "axios";
 import VKBridge from "@vkontakte/vk-bridge";
-import getArgs from "vkappsutils/src/Args";
 import { Offline, Online } from "react-detect-offline";
 
 import { Panel,Input, FormLayout, Button, Group, Div, Separator, FormLayoutGroup, CardGrid, Card } from "@vkontakte/vkui";
@@ -100,19 +99,9 @@ export function AchievementGenerator({ id, navigator }) {
     };
 
     const openStoryEditor = () => {
-        const { platform } = getArgs();
-
-        let params = {
-            background_type: "none"
-        };
-
-        if (platform === "desktop_web") {
-            params.background_type = "image";
-            params.url = storyBackgrounds[randomInteger(0, storyBackgrounds.length - 1)];
-        }
-
         VKBridge.send("VKWebAppShowStoryBox", {
-            ...params,
+            background_type: "image",
+            url: storyBackgrounds[randomInteger(0, storyBackgrounds.length - 1)],
             stickers: [{
                 sticker_type: "renderable",
                 sticker: {
