@@ -46,8 +46,14 @@ const servers = [
 
 export function MojangStatus({ id, navigator }) {
 
-    const [error, setError] = useState(null);
     const [spinner, setSpinner] = useState(true);
+    const [error, setError] = useReducer((state, error) => {
+        if (error) {
+            setSpinner(false);
+        }
+
+        return error;
+    }, null);
 
     const [services, setServices] = useReducer((state, services) => {
         setSpinner(false);

@@ -180,7 +180,7 @@ export function AchievementGenerator({ id, navigator }) {
                                         />
                                         <IconChest className="achievement-image"/>
                                         <Separator style={{ margin: "12px 0" }} />
-                                        <div className="achievement-send_buttons">
+                                        <div style={{ display: "flex" }}>
                                             <Button style={{ flexGrow: 10 }}
                                                     stretched
                                                     before={achievement.sent ? <Icon16Done/> : <Icon24Message width={16} height={16} />}
@@ -191,7 +191,7 @@ export function AchievementGenerator({ id, navigator }) {
                                             </Button>
                                             <Button disabled={!VKBridge.supports("VKWebAppShowStoryBox")}
                                                     onClick={openStoryEditor}
-                                                    style={{ marginLeft: "10px", weight: "10px", flexGrow: "1" }}
+                                                    style={{ marginLeft: "10px", width: "8px", flexGrow: "1" }}
                                                     stretched
                                             >
                                                 <Icon24CameraOutline width={16} height={16}/>
