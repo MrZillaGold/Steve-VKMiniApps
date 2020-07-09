@@ -32,9 +32,5 @@ export {
     timeConvert,
     randomInteger,
     declOfNum,
-    isIP,
-    ipRegExp1,
-    ipRegExp2,
-    ipRegExp3,
-    ipRegExp4
+    isIP
 };
