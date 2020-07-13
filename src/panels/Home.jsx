@@ -1,7 +1,7 @@
 import React from "react";
 import VKBridge from "@vkontakte/vk-bridge";
 
-import { Panel, Group, Button, Cell, Avatar, CardGrid, Card } from "@vkontakte/vkui";
+import { Panel, Group, Button, Cell, SimpleCell, Avatar, CardGrid, Card } from "@vkontakte/vkui";
 
 import { PanelHeader } from "../components/components";
 
@@ -10,6 +10,7 @@ import Icon28SmileOutline from '@vkontakte/icons/dist/28/smile_outline';
 import Icon28Globe from "@vkontakte/icons/dist/24/globe";
 import Icon32Graffiti from '@vkontakte/icons/dist/32/graffiti';
 import Icon28AddOutline from "@vkontakte/icons/dist/24/add_outline";
+import Icon28StatisticsOutline from '@vkontakte/icons/dist/28/statistics_outline';
 
 export function Home({ id, navigator }) {
     return (
@@ -18,18 +19,19 @@ export function Home({ id, navigator }) {
             <Group>
                 <CardGrid style={{ marginBottom: "12px" }}>
                     <Card size="l">
-                        <Cell before={
+                        <SimpleCell before={
                             <Icon28SmileOutline/>
                         }
                               onClick={() => navigator.go("user")}
                               size="m"
+                              multiline
                               description="История никнейма и скин игрока"
                         >
                             Информация об игроке
-                        </Cell>
+                        </SimpleCell>
                     </Card>
                     <Card size="l">
-                        <Cell before={
+                        <SimpleCell before={
                             <IconServer/>
                         }
                               onClick={() => navigator.go("server")}
@@ -38,10 +40,22 @@ export function Home({ id, navigator }) {
                               description="Количество и список игроков, версия сервера и другая полезная информация"
                         >
                             Информация о сервере по IP
-                        </Cell>
+                        </SimpleCell>
                     </Card>
                     <Card size="l">
-                        <Cell before={
+                        <SimpleCell before={
+                            <Icon28StatisticsOutline/>
+                        }
+                              onClick={() => navigator.go("hypixel")}
+                              size="m"
+                              multiline
+                              description="Подробная статистика по всем режимам сервера"
+                        >
+                            Статистика Hypixel
+                        </SimpleCell>
+                    </Card>
+                    <Card size="l">
+                        <SimpleCell before={
                             <Icon32Graffiti height={28} width={28}/>
                         }
                               onClick={() => navigator.go("achievements")}
@@ -50,10 +64,10 @@ export function Home({ id, navigator }) {
                               description="Создайте достижение с вашим текстом и случайной иконкой"
                         >
                             Генератор достижений
-                        </Cell>
+                        </SimpleCell>
                     </Card>
                     <Card size="l">
-                        <Cell before={
+                        <SimpleCell before={
                             <IconCalculator/>
                         }
                               onClick={() => navigator.go("calculator")}
@@ -62,10 +76,10 @@ export function Home({ id, navigator }) {
                               description="Быстрый подсчёт координат в разных измерениях"
                         >
                             Калькулятор координат
-                        </Cell>
+                        </SimpleCell>
                     </Card>
                     <Card size="l">
-                        <Cell before={
+                        <SimpleCell before={
                             <Icon28Globe/>
                         }
                               onClick={() => navigator.go("status")}
@@ -74,7 +88,7 @@ export function Home({ id, navigator }) {
                               description="Информация о доступности всех сервисов Minecraft"
                         >
                             Состояние серверов Minecraft
-                        </Cell>
+                        </SimpleCell>
                     </Card>
                     <Card size="l">
                         <Cell multiline
@@ -101,7 +115,7 @@ export function Home({ id, navigator }) {
                         </Cell>
                     </Card>
                     <Card size="l">
-                        <Cell before={
+                        <SimpleCell before={
                             <Icon28AddOutline/>
                         }
                               onClick={() => VKBridge.send("VKWebAppAddToCommunity", {})}
@@ -111,7 +125,7 @@ export function Home({ id, navigator }) {
 
                         >
                             Установить приложение
-                        </Cell>
+                        </SimpleCell>
                     </Card>
                 </CardGrid>
             </Group>

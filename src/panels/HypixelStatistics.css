@@ -1,0 +1,10 @@
+.user-avatar {
+    image-rendering: pixelated;
+    image-rendering: -webkit-optimize-contrast;
+}
+
+.user-info_list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
