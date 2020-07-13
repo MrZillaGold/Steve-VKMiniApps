@@ -417,7 +417,7 @@ export function HypixelStatistics({ navigator, id }) {
                                                         { (user.data.stats.BedWars.gamemodes.solo.losses || 0).toLocaleString() }
                                                     </Cell>
                                                     <Cell description="П/П">
-                                                        { user.data.stats.BedWars.gamemodes.solo.losses ? (user.data.stats.BedWars.gamemodes.solo.wins / user.data.stats.BedWars.gamemodes.solo.losses).toFixed(2) : 0 }
+                                                        { user.data.stats.BedWars.gamemodes.solo.losses && user.data.stats.BedWars.gamemodes.solo.wins ? (user.data.stats.BedWars.gamemodes.solo.wins / user.data.stats.BedWars.gamemodes.solo.losses).toFixed(2) : 0 }
                                                     </Cell>
                                                 </div>
                                                 <div className="user-info_list">
@@ -428,7 +428,7 @@ export function HypixelStatistics({ navigator, id }) {
                                                         { (user.data.stats.BedWars.gamemodes.solo.deaths || 0).toLocaleString() }
                                                     </Cell>
                                                     <Cell description="У/С">
-                                                        { user.data.stats.BedWars.gamemodes.solo.deaths ? (user.data.stats.BedWars.gamemodes.solo.kills / user.data.stats.BedWars.gamemodes.solo.deaths).toFixed(2) : 0 }
+                                                        { user.data.stats.BedWars.gamemodes.solo.deaths && user.data.stats.BedWars.gamemodes.solo.kills ? (user.data.stats.BedWars.gamemodes.solo.kills / user.data.stats.BedWars.gamemodes.solo.deaths).toFixed(2) : 0 }
                                                     </Cell>
                                                 </div>
                                                 <Headline weight="semibold"
@@ -444,7 +444,7 @@ export function HypixelStatistics({ navigator, id }) {
                                                         { (user.data.stats.BedWars.gamemodes.doubles.losses || 0).toLocaleString() }
                                                     </Cell>
                                                     <Cell description="П/П">
-                                                        { user.data.stats.BedWars.gamemodes.doubles.losses ? (user.data.stats.BedWars.gamemodes.doubles.wins / user.data.stats.BedWars.gamemodes.doubles.losses).toFixed(2) : 0 }
+                                                        { user.data.stats.BedWars.gamemodes.doubles.losses && user.data.stats.BedWars.gamemodes.doubles.wins ? (user.data.stats.BedWars.gamemodes.doubles.wins / user.data.stats.BedWars.gamemodes.doubles.losses).toFixed(2) : 0 }
                                                     </Cell>
                                                 </div>
                                                 <div className="user-info_list">
@@ -455,7 +455,7 @@ export function HypixelStatistics({ navigator, id }) {
                                                         { (user.data.stats.BedWars.gamemodes.doubles.deaths || 0).toLocaleString() }
                                                     </Cell>
                                                     <Cell description="У/С">
-                                                        { user.data.stats.BedWars.gamemodes.doubles.deaths ? (user.data.stats.BedWars.gamemodes.doubles.kills / user.data.stats.BedWars.gamemodes.doubles.deaths).toFixed(2) : 0 }
+                                                        { user.data.stats.BedWars.gamemodes.doubles.deaths && user.data.stats.BedWars.gamemodes.doubles.kills ? (user.data.stats.BedWars.gamemodes.doubles.kills / user.data.stats.BedWars.gamemodes.doubles.deaths).toFixed(2) : 0 }
                                                     </Cell>
                                                 </div>
                                                 <Headline weight="semibold"
@@ -471,7 +471,7 @@ export function HypixelStatistics({ navigator, id }) {
                                                         { (user.data.stats.BedWars.gamemodes["3v3v3v3"].losses || 0).toLocaleString() }
                                                     </Cell>
                                                     <Cell description="П/П">
-                                                        { user.data.stats.BedWars.gamemodes["3v3v3v3"].losses ?(user.data.stats.BedWars.gamemodes["3v3v3v3"].wins / user.data.stats.BedWars.gamemodes["3v3v3v3"].losses).toFixed(2) : 0 }
+                                                        { user.data.stats.BedWars.gamemodes["3v3v3v3"].losses && user.data.stats.BedWars.gamemodes["3v3v3v3"].wins ?(user.data.stats.BedWars.gamemodes["3v3v3v3"].wins / user.data.stats.BedWars.gamemodes["3v3v3v3"].losses).toFixed(2) : 0 }
                                                     </Cell>
                                                 </div>
                                                 <div className="user-info_list">
@@ -482,7 +482,7 @@ export function HypixelStatistics({ navigator, id }) {
                                                         { (user.data.stats.BedWars.gamemodes["3v3v3v3"].deaths || 0).toLocaleString() }
                                                     </Cell>
                                                     <Cell description="У/С">
-                                                        { user.data.stats.BedWars.gamemodes["3v3v3v3"].deaths ? (user.data.stats.BedWars.gamemodes["3v3v3v3"].kills / user.data.stats.BedWars.gamemodes["3v3v3v3"].deaths).toFixed(2) : 0 }
+                                                        { user.data.stats.BedWars.gamemodes["3v3v3v3"].deaths && user.data.stats.BedWars.gamemodes["3v3v3v3"].kills ? (user.data.stats.BedWars.gamemodes["3v3v3v3"].kills / user.data.stats.BedWars.gamemodes["3v3v3v3"].deaths).toFixed(2) : 0 }
                                                     </Cell>
                                                 </div>
                                                 <Headline weight="semibold"
@@ -498,7 +498,7 @@ export function HypixelStatistics({ navigator, id }) {
                                                         { (user.data.stats.BedWars.gamemodes["4v4v4v4"].losses || 0).toLocaleString() }
                                                     </Cell>
                                                     <Cell description="П/П">
-                                                        { user.data.stats.BedWars.gamemodes["4v4v4v4"].losses ? (user.data.stats.BedWars.gamemodes["4v4v4v4"].wins / user.data.stats.BedWars.gamemodes["4v4v4v4"].losses).toFixed(2) : 0 }
+                                                        { user.data.stats.BedWars.gamemodes["4v4v4v4"].losses && user.data.stats.BedWars.gamemodes["4v4v4v4"].wins ? (user.data.stats.BedWars.gamemodes["4v4v4v4"].wins / user.data.stats.BedWars.gamemodes["4v4v4v4"].losses).toFixed(2) : 0 }
                                                     </Cell>
                                                 </div>
                                                 <div className="user-info_list">
@@ -509,7 +509,7 @@ export function HypixelStatistics({ navigator, id }) {
                                                         { (user.data.stats.BedWars.gamemodes["4v4v4v4"].deaths || 0).toLocaleString() }
                                                     </Cell>
                                                     <Cell description="У/С">
-                                                        { user.data.stats.BedWars.gamemodes["4v4v4v4"].deaths ? (user.data.stats.BedWars.gamemodes["4v4v4v4"].kills / user.data.stats.BedWars.gamemodes["4v4v4v4"].deaths).toFixed(2) : 0 }
+                                                        { user.data.stats.BedWars.gamemodes["4v4v4v4"].deaths && user.data.stats.BedWars.gamemodes["4v4v4v4"].kills ? (user.data.stats.BedWars.gamemodes["4v4v4v4"].kills / user.data.stats.BedWars.gamemodes["4v4v4v4"].deaths).toFixed(2) : 0 }
                                                     </Cell>
                                                 </div>
                                             </div>
