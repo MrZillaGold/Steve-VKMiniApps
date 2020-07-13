@@ -286,7 +286,7 @@ export function HypixelStatistics({ navigator, id }) {
                                             </Title>
                                         </Cell>
                                         <HorizontalScroll>
-                                            <Tabs>
+                                            <Tabs style={{ background: "transparent" }}>
                                                 <TabsItem
                                                     onClick={() => setUser({ tab: "main" })}
                                                     selected={user.tab === "main"}
