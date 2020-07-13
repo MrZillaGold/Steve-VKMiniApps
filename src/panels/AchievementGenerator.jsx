@@ -163,41 +163,44 @@ export function AchievementGenerator({ id, navigator }) {
                     spinner && <Spinner/>
                 }
                 {
-                    error && <Error error={error}/>
-                }
-                {
-                    achievement.url &&
+                    (achievement.url || error) &&
                     <>
                         <Separator style={{ margin: "15px 0 19px 0" }}/>
                         <Group>
                             <CardGrid style={{ margin: "0 0 27px 0" }}>
                                 <Card size="l" mode="shadow" >
-                                    <Div>
-                                        <img src={achievement.url}
-                                             className="achievement-image"
-                                             style={{ position: "absolute", right: "0", left: "0" }}
-                                             alt=""
-                                        />
-                                        <IconChest className="achievement-image"/>
-                                        <Separator style={{ margin: "12px 0" }} />
-                                        <div style={{ display: "flex" }}>
-                                            <Button style={{ flexGrow: 10 }}
-                                                    stretched
-                                                    before={achievement.sent ? <Icon16Done/> : <Icon24Message width={16} height={16} />}
-                                                    disabled={achievement.lock}
-                                                    onClick={sendToDM}
-                                            >
-                                                <b>{achievement.sent ? "Сообщение отправлено!" : "Получить картинку в сообщения"}</b>
-                                            </Button>
-                                            <Button disabled={!VKBridge.supports("VKWebAppShowStoryBox")}
-                                                    onClick={openStoryEditor}
-                                                    style={{ marginLeft: "10px", width: "8px", flexGrow: "1" }}
-                                                    stretched
-                                            >
-                                                <Icon24CameraOutline width={16} height={16}/>
-                                            </Button>
-                                        </div>
-                                    </Div>
+                                    {
+                                        achievement.url &&
+                                        <Div>
+                                            <img src={achievement.url}
+                                                 className="achievement-image"
+                                                 style={{ position: "absolute", right: "0", left: "0" }}
+                                                 alt=""
+                                            />
+                                            <IconChest className="achievement-image"/>
+                                            <Separator style={{ margin: "12px 0" }} />
+                                            <div style={{ display: "flex" }}>
+                                                <Button style={{ flexGrow: 10 }}
+                                                        stretched
+                                                        before={achievement.sent ? <Icon16Done/> : <Icon24Message width={16} height={16} />}
+                                                        disabled={achievement.lock}
+                                                        onClick={sendToDM}
+                                                >
+                                                    <b>{achievement.sent ? "Сообщение отправлено!" : "Получить картинку в сообщения"}</b>
+                                                </Button>
+                                                <Button disabled={!VKBridge.supports("VKWebAppShowStoryBox")}
+                                                        onClick={openStoryEditor}
+                                                        style={{ marginLeft: "10px", width: "8px", flexGrow: "1" }}
+                                                        stretched
+                                                >
+                                                    <Icon24CameraOutline width={16} height={16}/>
+                                                </Button>
+                                            </div>
+                                        </Div>
+                                    }
+                                    {
+                                        error && <Error error={error}/>
+                                    }
                                 </Card>
                             </CardGrid>
                         </Group>

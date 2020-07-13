@@ -517,7 +517,14 @@ export function UserInfo({ id, navigator }) {
                     </>
                 }
                 {
-                    error && <Error error={error}/>
+                    error &&
+                    <>
+                        <CardGrid style={{ margin: "0 0 27px 0" }}>
+                            <Card size="l" mode="shadow">
+                                <Error error={error}/>
+                            </Card>
+                        </CardGrid>
+                    </>
                 }
             </Online>
             <Offline>

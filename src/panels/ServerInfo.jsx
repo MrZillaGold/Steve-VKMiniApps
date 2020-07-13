@@ -185,67 +185,67 @@ export function ServerInfo({ id, navigator }) {
                 {
                     favorite.open && (
                         <>
-                        <CardGrid>
-                            <Card size="l" mode="shadow">
-                            <Header mode="secondary"
-                                    aside={
-                                        (favorite.servers.length > 0 || favorite.edit) &&
-                                        (favorite.edit ?
-                                                <div style={{ display: "flex" }}>
-                                                    <Icon24Cancel onClick={() => setFavorite({ edit: false, servers: favorite.old })}
-                                                                  style={{ marginRight: "5px" }}
-                                                    />
-                                                    <Icon24DoneOutline onClick={() => {
-                                                        setFavorite({ edit: false })
+                            <CardGrid>
+                                <Card size="l" mode="shadow">
+                                    <Header mode="secondary"
+                                            aside={
+                                                (favorite.servers.length > 0 || favorite.edit) &&
+                                                (favorite.edit ?
+                                                        <div style={{ display: "flex" }}>
+                                                            <Icon24Cancel onClick={() => setFavorite({ edit: false, servers: favorite.old })}
+                                                                          style={{ marginRight: "5px" }}
+                                                            />
+                                                            <Icon24DoneOutline onClick={() => {
+                                                                setFavorite({ edit: false })
 
-                                                        saveFavorite();
-                                                    }}
-                                                    />
-                                                </div>
-                                                :
-                                                <Icon24Write onClick={() => setFavorite({ edit: true, old: favorite.servers })}/>
-                                        )
+                                                                saveFavorite();
+                                                            }}
+                                                            />
+                                                        </div>
+                                                        :
+                                                        <Icon24Write onClick={() => setFavorite({ edit: true, old: favorite.servers })}/>
+                                                )
+                                            }
+                                    >
+                                        Избранные сервера
+                                    </Header>
+                                    {
+                                        (favorite.servers.length > 0 || favorite.edit) ?
+                                            <List>
+                                                {
+                                                    favorite.servers.map((ip, index) => (
+                                                        <Cell key={ip}
+                                                              draggable={favorite.edit}
+                                                              removable={favorite.edit}
+                                                              onDragFinish={({from, to}) => {
+                                                                  const favoriteList = [...favorite.servers];
+
+                                                                  favoriteList.splice(from, 1);
+                                                                  favoriteList.splice(to, 0, favorite.servers[from]);
+
+                                                                  setFavorite({ servers: favoriteList });
+                                                              }}
+                                                              onRemove={() => {
+                                                                  setFavorite({ servers: [...favorite.servers.slice(0, index), ...favorite.servers.slice(index + 1)] });
+                                                              }}
+                                                              onClick={async () => {
+                                                                  setIP(ip);
+
+                                                                  setFavorite({ open: false });
+
+                                                                  ping(ip);
+                                                              }}
+                                                        >
+                                                            { ip }
+                                                        </Cell>
+                                                    ))
+                                                }
+                                            </List>
+                                            :
+                                            <Error error={"В избранном нет ни одного сервера. Добавить сервер в избранное можно после получения информации о нём."}/>
                                     }
-                            >
-                                Избранные сервера
-                            </Header>
-                            {
-                                (favorite.servers.length > 0 || favorite.edit) ?
-                                    <List>
-                                        {
-                                            favorite.servers.map((ip, index) => (
-                                                <Cell key={ip}
-                                                      draggable={favorite.edit}
-                                                      removable={favorite.edit}
-                                                      onDragFinish={({from, to}) => {
-                                                          const favoriteList = [...favorite.servers];
-
-                                                          favoriteList.splice(from, 1);
-                                                          favoriteList.splice(to, 0, favorite.servers[from]);
-
-                                                          setFavorite({ servers: favoriteList });
-                                                      }}
-                                                      onRemove={() => {
-                                                          setFavorite({ servers: [...favorite.servers.slice(0, index), ...favorite.servers.slice(index + 1)] });
-                                                      }}
-                                                      onClick={async () => {
-                                                          setIP(ip);
-
-                                                          setFavorite({ open: false });
-
-                                                          ping(ip);
-                                                      }}
-                                                >
-                                                    { ip }
-                                                </Cell>
-                                            ))
-                                        }
-                                    </List>
-                                    :
-                                    <Error error={"В избранном нет ни одного сервера. Добавить сервер в избранное можно после получения информации о нём."}/>
-                            }
-                            </Card>
-                        </CardGrid>
+                                </Card>
+                            </CardGrid>
                         </>
                     )
                 }
@@ -261,73 +261,78 @@ export function ServerInfo({ id, navigator }) {
                     spinner && <Spinner/>
                 }
                 {
-                    serverData &&
+                    (serverData || error) &&
                     <>
                         <Separator style={{ margin: "15px 0 17px 0" }}/>
                         <Group>
                             <CardGrid style={{ margin: "0 0 27px 0" }}>
                                 <Card size="l" mode="shadow">
-                                    <Header aside={
-                                        favorite.servers.includes(serverData.ip) ?
-                                            <Icon24DoneOutline style={{opacity: ".2"}}/>
-                                            :
-                                            <Icon24FavoriteOutline onClick={() => addFavorite(serverData.ip)}/>
-                                    }
-                                    >
-                                        { serverData.ip }
-                                    </Header>
-                                    <List>
-                                        <Cell multiline
-                                              before={
-                                                  <Avatar style={{ imageRendering: "pixelated" }}
-                                                          mode="image"
-                                                          size={64}
-                                                          src={serverData.icon}
-                                                  />
-                                              }
-                                              description={`Игроков: ${serverData.players.online} / ${serverData.players.max}`}
-                                        >
-                                            <div className={`server-motd_${scheme}`}>
-                                                <span dangerouslySetInnerHTML={{__html: serverData.motd.html[0]}}/>
-                                                <span dangerouslySetInnerHTML={{__html: serverData.motd.html[1]}}/>
-                                            </div>
-                                        </Cell>
-                                        {
-                                            serverData.players.list &&
-                                            <>
+                                    {
+                                        serverData &&
+                                        <>
+                                            <Header aside={
+                                                favorite.servers.includes(serverData.ip) ?
+                                                    <Icon24DoneOutline style={{opacity: ".2"}}/>
+                                                    :
+                                                    <Icon24FavoriteOutline onClick={() => addFavorite(serverData.ip)}/>
+                                            }
+                                            >
+                                                { serverData.ip }
+                                            </Header>
+                                            <List>
                                                 <Cell multiline
-                                                      style={{ whiteSpace: "pre-wrap" }}
+                                                      before={
+                                                          <Avatar style={{ imageRendering: "pixelated" }}
+                                                                  mode="image"
+                                                                  size={64}
+                                                                  src={serverData.icon}
+                                                          />
+                                                      }
+                                                      description={`Игроков: ${serverData.players.online} / ${serverData.players.max}`}
                                                 >
-                                                    <Headline weight="semibold"
-                                                              style={{ marginBottom: 5 }}
-                                                    >
-                                                        Игроки
-                                                    </Headline>
-                                                    {
-                                                        serverData.players.list
-                                                    }
+                                                    <div className={`server-motd_${scheme}`}>
+                                                        <span dangerouslySetInnerHTML={{__html: serverData.motd.html[0]}}/>
+                                                        <span dangerouslySetInnerHTML={{__html: serverData.motd.html[1]}}/>
+                                                    </div>
                                                 </Cell>
                                                 {
-                                                    serverData.version &&
-                                                    <Cell>
-                                                        <Headline weight="semibold"
-                                                                  style={{ marginBottom: 5 }}
+                                                    serverData.players.list &&
+                                                    <>
+                                                        <Cell multiline
+                                                              style={{ whiteSpace: "pre-wrap" }}
                                                         >
-                                                            Ядро сервера
-                                                        </Headline>
-                                                        { serverData.version }
-                                                    </Cell>
+                                                            <Headline weight="semibold"
+                                                                      style={{ marginBottom: 5 }}
+                                                            >
+                                                                Игроки
+                                                            </Headline>
+                                                            {
+                                                                serverData.players.list
+                                                            }
+                                                        </Cell>
+                                                        {
+                                                            serverData.version &&
+                                                            <Cell>
+                                                                <Headline weight="semibold"
+                                                                          style={{ marginBottom: 5 }}
+                                                                >
+                                                                    Ядро сервера
+                                                                </Headline>
+                                                                { serverData.version }
+                                                            </Cell>
+                                                        }
+                                                    </>
                                                 }
-                                            </>
-                                        }
-                                    </List>
+                                            </List>
+                                        </>
+                                    }
+                                    {
+                                        error && <Error error={error}/>
+                                    }
                                 </Card>
                             </CardGrid>
                         </Group>
                     </>
-                }
-                {
-                    error && <Error error={error}/>
                 }
             </Online>
             <Offline>
