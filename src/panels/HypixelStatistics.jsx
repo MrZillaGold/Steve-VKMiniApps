@@ -100,13 +100,13 @@ export function HypixelStatistics({ navigator, id }) {
         }
 
         setHistory({ users: historyList })
-        saveHistory();
+        saveHistory(historyList);
     };
 
-    const saveHistory = () => {
+    const saveHistory = (history) => {
         VKBridge.send("VKWebAppStorageSet", {
             key: "steveHypixelHistoryList",
-            value: history.users.join(",")
+            value: history.join(",")
         });
     };
 

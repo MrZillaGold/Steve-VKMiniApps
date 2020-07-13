@@ -198,13 +198,13 @@ export function UserInfo({ id, navigator }) {
         }
 
         setHistory({ users: historyList })
-        saveHistory();
+        saveHistory(historyList);
     };
 
-    const saveHistory = () => {
+    const saveHistory = (history) => {
         VKBridge.send("VKWebAppStorageSet", {
             key: "steveHistoryList",
-            value: history.users.join(",")
+            value: history.join(",")
         });
     };
 
