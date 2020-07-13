@@ -202,7 +202,7 @@ export function HypixelStatistics({ navigator, id }) {
                                                         <Icon24DoneOutline
                                                             onClick={() => {
                                                                 setHistory({ edit: false });
-                                                                saveHistory();
+                                                                saveHistory(history.users);
                                                             }}
                                                         />
                                                     </div>

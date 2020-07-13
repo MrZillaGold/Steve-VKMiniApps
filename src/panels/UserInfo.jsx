@@ -334,7 +334,7 @@ export function UserInfo({ id, navigator }) {
                                                             <Icon24DoneOutline
                                                                 onClick={() => {
                                                                     setHistory({ edit: false });
-                                                                    saveHistory();
+                                                                    saveHistory(history.users);
                                                                 }}
                                                             />
                                                         </div>
