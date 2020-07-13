@@ -37,7 +37,7 @@ VKBridge.subscribe(({ detail: { type, data }}) => {
         changeStatusBarColor();
     }
 });
-VKBridge.send("VKWebAppInit");
+setTimeout(() => VKBridge.send("VKWebAppInit"), 500);
 
 const Os = platform();
 const root = document.getElementById('root');
