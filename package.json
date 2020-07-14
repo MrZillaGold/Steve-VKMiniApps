@@ -23,7 +23,7 @@
     "bootstrap": "^4.5.0",
     "chalk": "^4.1.0",
     "core-js": "^3.6.5",
-    "namemcwrapper": "^1.1.0",
+    "namemcwrapper": "^1.1.1",
     "node-sass": "^4.14.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
