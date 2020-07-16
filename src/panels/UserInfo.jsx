@@ -229,7 +229,13 @@ export function UserInfo({ id, navigator }) {
                     });
                 }
             })
-            .catch(console.log);
+            .catch((error) => {
+                const { error_reason } = error;
+
+                if (error_reason && error_reason === "User denied") return setUser({ lock: false });
+
+                console.log(error)
+            });
     };
 
     const selectSkin = (skin, index) => {
