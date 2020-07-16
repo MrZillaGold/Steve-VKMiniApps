@@ -2,15 +2,17 @@
   "name": "steve-vkminiapps",
   "version": "1.0.2",
   "description": "",
-  "homepage": "https://steve-vkminiapps.herokuapp.com/",
+  "homepage": "./",
   "scripts": {
     "start": "serve -s build",
     "dev": "react-scripts start",
+    "deploy": "vk-miniapps-deploy",
     "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build"
   },
   "author": "MrZillaGold",
   "license": "CC",
   "devDependencies": {
+    "@vkontakte/vk-miniapps-deploy": "0.0.19",
     "cross-env": "^7.0.2",
     "react-scripts": "^3.4.1"
   },
