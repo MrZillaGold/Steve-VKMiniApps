@@ -95,7 +95,7 @@ export function ServerInfo({ id, navigator }) {
                         data.icon = defaultImage;
                     }
 
-                    data.ip = ip;
+                    data.ip = ip.toLowerCase();
 
                     setServerData(data);
                 } else {
@@ -117,7 +117,6 @@ export function ServerInfo({ id, navigator }) {
         setIP(
             value.replace(/[^а-яА-ЯёЁa-zA-Z0-9.:-]/g, "")
                 .slice(0, 100)
-                .toLowerCase()
         );
     };
 
@@ -126,7 +125,7 @@ export function ServerInfo({ id, navigator }) {
 
         const favoriteList = servers;
 
-        favoriteList.unshift(ip);
+        favoriteList.unshift(ip.toLowerCase());
         setFavorite(favoriteList);
 
         saveFavorite();
