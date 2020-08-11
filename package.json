@@ -14,7 +14,7 @@
   "devDependencies": {
     "@vkontakte/vk-miniapps-deploy": "0.0.19",
     "cross-env": "^7.0.2",
-    "react-scripts": "^3.4.1"
+    "react-scripts": "^3.4.2"
   },
   "dependencies": {
     "@vkontakte/icons": "^1.30.1",
