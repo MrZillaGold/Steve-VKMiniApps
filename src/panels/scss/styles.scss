@@ -182,3 +182,7 @@ $btn-border-width: 4px;
 .Placeholder {
   background: transparent !important;
 }
+
+::-webkit-scrollbar {
+  width: 0;
+}
