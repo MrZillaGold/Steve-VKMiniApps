@@ -8,24 +8,14 @@ import * as SkinView from "skinview3d";
 
 import { Panel, Input, FormLayout, Button, Group, Cell, List, Div, Separator, Header, FormLayoutGroup, TabsItem, Tabs, CardGrid, Card } from "@vkontakte/vkui";
 import { OfflineBlock, Spinner, PanelHeader, Error } from "../components/components";
+import { IconRun, IconWalk } from "../icons/icons";
+import { Icon24Message, Icon24DoneOutline, Icon24Chevron, Icon24Dropdown, Icon24Write, Icon24Cancel, Icon24Pause, Icon16Play } from "@vkontakte/icons";
 
 import { timeConvert } from "../functions";
 
-import { IconRun, IconWalk } from "../icons/icons";
-import Icon24Message from "@vkontakte/icons/dist/24/message";
-import Icon24DoneOutline from "@vkontakte/icons/dist/24/done_outline";
-import Icon24Chevron from "@vkontakte/icons/dist/24/chevron";
-import Icon24Dropdown from "@vkontakte/icons/dist/24/dropdown";
-import Icon24Write from "@vkontakte/icons/dist/24/write";
-import Icon24Cancel from "@vkontakte/icons/dist/24/cancel";
-import Icon24Pause from "@vkontakte/icons/dist/24/pause";
-import Icon16Play from "@vkontakte/icons/dist/16/play";
-
 import "./UserInfo.css";
 
-export function UserInfo({ id, navigator }) {
-
-    const scheme = sessionStorage.getItem("scheme");
+export function UserInfo({ id, navigator, scheme }) {
 
     const [error, setError] = useState(null);
     const [spinner, setSpinner] = useReducer((state, spinner) => {

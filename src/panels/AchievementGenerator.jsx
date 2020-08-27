@@ -5,13 +5,10 @@ import { Offline, Online } from "react-detect-offline";
 
 import { Panel,Input, FormLayout, Button, Group, Div, Separator, FormLayoutGroup, CardGrid, Card } from "@vkontakte/vkui";
 import { OfflineBlock, Spinner, Error, PanelHeader } from "../components/components";
+import { IconChest } from "../icons/icons";
+import { Icon24Message, Icon16Done, Icon24CameraOutline } from "@vkontakte/icons";
 
 import { randomInteger } from "../functions";
-
-import { IconChest } from "../icons/icons";
-import Icon24Message from "@vkontakte/icons/dist/24/message";
-import Icon16Done from "@vkontakte/icons/dist/16/done";
-import Icon24CameraOutline from "@vkontakte/icons/dist/24/camera_outline";
 
 import "./AchievementGenerator.css";
 

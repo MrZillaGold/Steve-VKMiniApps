@@ -3,9 +3,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import { Panel, Group, Separator, Input, FormLayout, Select, List, Cell, Button, Card, CardGrid, Div, Headline } from "@vkontakte/vkui";
 import { PanelHeader } from "../components/components";
-
-import Icon24Copy from "@vkontakte/icons/dist/24/copy";
-import Icon16Done from "@vkontakte/icons/dist/16/done";
+import { Icon24Copy, Icon16Done } from "@vkontakte/icons";
 
 import "./Calculator.css";
 

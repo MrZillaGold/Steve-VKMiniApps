@@ -2,15 +2,9 @@ import React from "react";
 import VKBridge from "@vkontakte/vk-bridge";
 
 import { Panel, Group, Button, Cell, SimpleCell, Avatar, CardGrid, Card } from "@vkontakte/vkui";
-
-import { PanelHeader } from "../components/components";
-
 import { IconCalculator, IconServer, IconSteve } from "../icons/icons";
-import Icon28SmileOutline from '@vkontakte/icons/dist/28/smile_outline';
-import Icon28Globe from "@vkontakte/icons/dist/24/globe";
-import Icon32Graffiti from '@vkontakte/icons/dist/32/graffiti';
-import Icon28AddOutline from "@vkontakte/icons/dist/24/add_outline";
-import Icon28StatisticsOutline from '@vkontakte/icons/dist/28/statistics_outline';
+import { Icon28SmileOutline, Icon24Globe, Icon32Graffiti, Icon28AddOutline, Icon28StatisticsOutline } from "@vkontakte/icons";
+import { PanelHeader } from "../components/components";
 
 export function Home({ id, navigator }) {
     return (
@@ -80,7 +74,7 @@ export function Home({ id, navigator }) {
                     </Card>
                     <Card size="l">
                         <SimpleCell before={
-                            <Icon28Globe/>
+                            <Icon24Globe/>
                         }
                               onClick={() => navigator.go("status")}
                               size="m"

@@ -4,23 +4,16 @@ import VKBridge from "@vkontakte/vk-bridge";
 import { Offline, Online } from "react-detect-offline";
 
 import { Panel, Input, FormLayout, Button, Avatar, Group, Cell, Header, List, FormLayoutGroup, Separator, Div, Card, CardGrid, Headline } from "@vkontakte/vkui";
+import { Icon24Chevron, Icon24Dropdown, Icon24FavoriteOutline, Icon24Write, Icon24DoneOutline, Icon24Cancel } from "@vkontakte/icons";
 import { OfflineBlock, Spinner, Error, PanelHeader } from "../components/components";
 
 import { declOfNum, isIP } from "../functions";
-
-import Icon24Chevron from "@vkontakte/icons/dist/24/chevron";
-import Icon24Dropdown from "@vkontakte/icons/dist/24/dropdown";
-import Icon24FavoriteOutline from "@vkontakte/icons/dist/24/favorite_outline";
-import Icon24Write from "@vkontakte/icons/dist/24/write";
-import Icon24DoneOutline from "@vkontakte/icons/dist/24/done_outline";
-import Icon24Cancel from "@vkontakte/icons/dist/24/cancel";
 
 import defaultImage from "../assets/server-default.png";
 
 import "./ServerInfo.css";
 
-export function ServerInfo({ id, navigator }) {
-    const scheme = sessionStorage.getItem("scheme");
+export function ServerInfo({ id, navigator, scheme }) {
 
     const [favorite, setFavorite] = useReducer((state, data) => {
         return {

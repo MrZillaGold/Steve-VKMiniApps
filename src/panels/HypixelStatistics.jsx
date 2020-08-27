@@ -4,16 +4,10 @@ import axios from "axios";
 import { Offline, Online } from "react-detect-offline";
 
 import { Button, Card, CardGrid, Cell, Div, FormLayout, FormLayoutGroup, Header, Input, List, Panel, Separator, Tabs, TabsItem, HorizontalScroll, Avatar, Title, Headline, Placeholder } from "@vkontakte/vkui";
-
+import { Icon24DoneOutline, Icon24Chevron, Icon24Dropdown, Icon24Write, Icon24Cancel } from "@vkontakte/icons";
 import { Error, OfflineBlock, PanelHeader, Spinner } from "../components/components";
 
 import { getRatio, timeConvert } from "../functions";
-
-import Icon24DoneOutline from "@vkontakte/icons/dist/24/done_outline";
-import Icon24Chevron from "@vkontakte/icons/dist/24/chevron";
-import Icon24Dropdown from "@vkontakte/icons/dist/24/dropdown";
-import Icon24Write from "@vkontakte/icons/dist/24/write";
-import Icon24Cancel from "@vkontakte/icons/dist/24/cancel";
 
 import "./HypixelStatistics.css";
 
