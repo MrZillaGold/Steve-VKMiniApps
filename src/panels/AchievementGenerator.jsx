@@ -6,7 +6,7 @@ import { Offline, Online } from "react-detect-offline";
 import { Panel,Input, FormLayout, Button, Group, Div, Separator, FormLayoutGroup, CardGrid, Card } from "@vkontakte/vkui";
 import { OfflineBlock, Spinner, Error, PanelHeader } from "../components/components";
 import { IconChest } from "../icons/icons";
-import { Icon24Message, Icon16Done, Icon24CameraOutline } from "@vkontakte/icons";
+import { Icon24Message, Icon16Done, Icon24CameraOutline, Icon24Download } from "@vkontakte/icons";
 
 import { randomInteger } from "../functions";
 
@@ -177,7 +177,7 @@ export function AchievementGenerator({ id, navigator }) {
                                         <Div>
                                             <img src={achievement.url}
                                                  className="achievement-image"
-                                                 style={{ position: "absolute", right: "0", left: "0" }}
+                                                 style={{ position: "absolute", transform: "translate(-50%)", left: "50%" }}
                                                  alt=""
                                             />
                                             <IconChest className="achievement-image"/>
@@ -193,10 +193,21 @@ export function AchievementGenerator({ id, navigator }) {
                                                 </Button>
                                                 <Button disabled={!VKBridge.supports("VKWebAppShowStoryBox")}
                                                         onClick={openStoryEditor}
-                                                        style={{ marginLeft: "10px", width: "8px", flexGrow: "1" }}
-                                                        stretched
+                                                        style={{ marginLeft: "10px", width: "8px" }}
                                                 >
                                                     <Icon24CameraOutline width={16} height={16}/>
+                                                </Button>
+                                                <Button style={{ marginLeft: "10px", width: "8px" }}
+                                                        onClick={() =>
+                                                            VKBridge.send("VKWebAppShowImages", {
+                                                                images: [
+                                                                    achievement.url
+                                                                ]
+                                                            })
+                                                        }
+                                                        disabled={!VKBridge.supports("VKWebAppShowImages")}
+                                                >
+                                                    <Icon24Download width={16} height={16}/>
                                                 </Button>
                                             </div>
                                         </Div>

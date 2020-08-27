@@ -9,7 +9,17 @@ import * as SkinView from "skinview3d";
 import { Panel, Input, FormLayout, Button, Group, Cell, List, Div, Separator, Header, FormLayoutGroup, TabsItem, Tabs, CardGrid, Card } from "@vkontakte/vkui";
 import { OfflineBlock, Spinner, PanelHeader, Error } from "../components/components";
 import { IconRun, IconWalk } from "../icons/icons";
-import { Icon24Message, Icon24DoneOutline, Icon24Chevron, Icon24Dropdown, Icon24Write, Icon24Cancel, Icon24Pause, Icon16Play } from "@vkontakte/icons";
+import {
+    Icon24Message,
+    Icon24DoneOutline,
+    Icon24Chevron,
+    Icon24Dropdown,
+    Icon24Write,
+    Icon24Cancel,
+    Icon24Pause,
+    Icon16Play,
+    Icon24Download
+} from "@vkontakte/icons";
 
 import { timeConvert } from "../functions";
 
@@ -342,7 +352,7 @@ export function UserInfo({ id, navigator, scheme }) {
                                         История запросов
                                     </Header>
                                     {
-                                        (history.users.length > 0 || history.edit) ?
+                                        (history.users.length || history.edit) ?
                                             <List>
                                                 {
                                                     history.users.map((user, index) => (
@@ -459,12 +469,21 @@ export function UserInfo({ id, navigator, scheme }) {
                                                             <Icon24Message width={16} height={16}/>
                                                     }
                                                     disabled={user.lock}
-                                                    onClick={() => {
-                                                        setUser({ lock: true });
-                                                        sendToDM();
-                                                    }}
+                                                    onClick={sendToDM}
                                             >
                                                 <b>{user.sent ? "Сообщение отправлено!" : "Получить cкин в сообщения"}</b>
+                                            </Button>
+                                            <Button style={{ marginLeft: "10px", padding: "0 8px" }}
+                                                    onClick={() =>
+                                                        VKBridge.send("VKWebAppShowImages", {
+                                                            images: [
+                                                                user.data.skin.url
+                                                            ]
+                                                        })
+                                                    }
+                                                    disabled={!VKBridge.supports("VKWebAppShowImages")}
+                                            >
+                                                <Icon24Download width={16} height={16}/>
                                             </Button>
                                         </Div>
                                         {

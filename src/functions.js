@@ -1,3 +1,5 @@
+import getArgs from "vkappsutils/src/Args";
+
 function timeConvert(time) {
     const currentDate = new Date(time);
 
@@ -32,10 +34,17 @@ function getRatio(dividend, divider) {
     return divider && dividend ? (dividend / divider).toFixed(2) : 0;
 }
 
+function isMobile() {
+    const { platform } = getArgs();
+
+    return platform === "mobile_android" && platform === "mobile_iphone" && platform === "mobile_android_messenger" && platform === "mobile_iphone_messenger";
+}
+
 export {
     timeConvert,
     randomInteger,
     declOfNum,
     isIP,
+    isMobile,
     getRatio
 };
