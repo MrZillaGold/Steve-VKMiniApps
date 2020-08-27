@@ -18,5 +18,3 @@ export function Error({ error, stretch }) {
         </Placeholder>
     );
 }
-
-export default Error;

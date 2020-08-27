@@ -1,4 +1,4 @@
-import Error from "./Error";
+import { Error } from "./Error";
 import { HeaderButtons } from "./HeaderButtons";
 import { OfflineBlock } from "./OfflineBlock";
 import { Spinner } from "./Spinner";
