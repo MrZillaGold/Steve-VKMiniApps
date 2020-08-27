@@ -28,9 +28,14 @@ function isIP(ip) {
     return ip.match(ipRegExp1) || ip.match(ipRegExp2) || ip.match(ipRegExp3) || ip.match(ipRegExp4);
 }
 
+function getRatio(dividend, divider) {
+    return divider && dividend ? (dividend / divider).toFixed(2) : 0;
+}
+
 export {
     timeConvert,
     randomInteger,
     declOfNum,
-    isIP
+    isIP,
+    getRatio
 };
