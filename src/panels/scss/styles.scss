@@ -183,6 +183,10 @@ $btn-border-width: 4px;
   background: transparent !important;
 }
 
+.Card--sz-m:nth-child(2n+1) {
+  margin-left: 0 !important;
+}
+
 ::-webkit-scrollbar {
   width: 0;
 }

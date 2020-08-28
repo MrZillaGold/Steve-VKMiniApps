@@ -3,7 +3,7 @@ import VKBridge from "@vkontakte/vk-bridge";
 
 import { Panel, Group, Button, Cell, SimpleCell, Avatar, CardGrid, Card } from "@vkontakte/vkui";
 import { IconCalculator, IconServer, IconSteve } from "../icons/icons";
-import { Icon28SmileOutline, Icon24Globe, Icon32Graffiti, Icon28AddOutline, Icon28StatisticsOutline } from "@vkontakte/icons";
+import { Icon28SmileOutline, Icon24Globe, Icon32Graffiti, Icon28AddOutline, Icon28StatisticsOutline, Icon24Gallery } from "@vkontakte/icons";
 import { PanelHeader } from "../components/components";
 
 export function Home({ id, navigator }) {
@@ -34,6 +34,18 @@ export function Home({ id, navigator }) {
                               description="Количество и список игроков, версия сервера и другая полезная информация"
                         >
                             Информация о сервере по IP
+                        </SimpleCell>
+                    </Card>
+                    <Card size="l">
+                        <SimpleCell before={
+                            <Icon24Gallery/>
+                        }
+                                    onClick={() => navigator.go("gallery")}
+                                    size="m"
+                                    multiline
+                                    description="Скины для Minecraft на любой вкус и цвет"
+                        >
+                            Галерея скинов
                         </SimpleCell>
                     </Card>
                     <Card size="l">
@@ -73,18 +85,6 @@ export function Home({ id, navigator }) {
                         </SimpleCell>
                     </Card>
                     <Card size="l">
-                        <SimpleCell before={
-                            <Icon24Globe/>
-                        }
-                              onClick={() => navigator.go("status")}
-                              size="m"
-                              multiline
-                              description="Информация о доступности всех сервисов Minecraft"
-                        >
-                            Состояние серверов Minecraft
-                        </SimpleCell>
-                    </Card>
-                    <Card size="l">
                         <Cell multiline
                               before={
                                   <Avatar mode="image"
@@ -107,6 +107,18 @@ export function Home({ id, navigator }) {
                         >
                             Steve - Minecraft Бот
                         </Cell>
+                    </Card>
+                    <Card size="l">
+                        <SimpleCell before={
+                            <Icon24Globe/>
+                        }
+                              onClick={() => navigator.go("status")}
+                              size="m"
+                              multiline
+                              description="Информация о доступности всех сервисов Minecraft"
+                        >
+                            Состояние серверов Minecraft
+                        </SimpleCell>
                     </Card>
                     <Card size="l">
                         <SimpleCell before={
