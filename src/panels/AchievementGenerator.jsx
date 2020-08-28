@@ -69,11 +69,13 @@ export function AchievementGenerator({ id, navigator }) {
                 }
             })
             .catch((error) => {
-                const { error_reason } = error;
+                const { error_data } = error;
 
-                if (error_reason && error_reason === "User denied") return setAchievement({ lock: false });
+                if (error_data.error_reason === "User denied") {
+                    return setAchievement({ lock: false });
+                }
 
-                console.log(error)
+                console.log(error);
             });
     };
 

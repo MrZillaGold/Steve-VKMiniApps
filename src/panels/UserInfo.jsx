@@ -231,11 +231,13 @@ export function UserInfo({ id, navigator, scheme }) {
                 }
             })
             .catch((error) => {
-                const { error_reason } = error;
+                const { error_data } = error;
 
-                if (error_reason && error_reason === "User denied") return setUser({ lock: false });
+                if (error_data.error_reason === "User denied") {
+                    return setUser({ lock: false });
+                }
 
-                console.log(error)
+                console.log(error);
             });
     };
 

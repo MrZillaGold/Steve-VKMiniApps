@@ -39,9 +39,9 @@ export function SkinGalleryView({ id, onClose, header, navigator, scheme }) {
                 }
             })
             .catch((error) => {
-                const { error_reason } = error;
+                const { error_data } = error;
 
-                if (error_reason && error_reason === "User denied") {
+                if (error_data.error_reason === "User denied") {
                     return setMessage({ lock: false });
                 }
 
