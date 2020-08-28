@@ -224,7 +224,8 @@ export function UserInfo({ id, navigator, scheme }) {
                         group_id: 175914098,
                         payload: {
                             type: "document", url: data.skin.url.replace("https://stevecors.herokuapp.com/", ""),
-                            name: data.username
+                            name: data.username,
+                            model: data.skin.isSlim ? "slim" : "classic"
                         }
                     });
                 }
