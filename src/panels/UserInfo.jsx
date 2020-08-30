@@ -480,7 +480,7 @@ export function UserInfo({ id, navigator, scheme }) {
                                                     onClick={() =>
                                                         VKBridge.send("VKWebAppShowImages", {
                                                             images: [
-                                                                user.data.skin.url
+                                                                user.data.skin.url.replace("https://stevecors.herokuapp.com/", "")
                                                             ]
                                                         })
                                                     }
