@@ -20,7 +20,7 @@
     "@vkontakte/icons": "^1.37.0",
     "@vkontakte/mvk-mini-apps-scroll-helper": "^1.2.0",
     "@vkontakte/vk-bridge": "^2.2.8",
-    "@vkontakte/vkui": "^3.12.1",
+    "@vkontakte/vkui": "^3.12.5",
     "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
     "chalk": "^4.1.0",
