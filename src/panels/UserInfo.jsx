@@ -394,7 +394,7 @@ export function UserInfo({ id, navigator, scheme }) {
                     )
                 }
                 <Div>
-                    <Button disabled={!(nickname.length > 1 && nickname.match("^[A-Za-z0-9_]+$") && !spinner && !history.edit)}
+                    <Button disabled={!(nickname.length >= 1 && nickname.match("^[A-Za-z0-9_]+$") && !spinner && !history.edit)}
                             onClick={() => getUserInfo(nickname)}
                             size="xl"
                     >
