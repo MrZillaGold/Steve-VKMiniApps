@@ -22,7 +22,7 @@
     "@vkontakte/vk-bridge": "^2.3.0",
     "@vkontakte/vkui": "^3.12.8",
     "axios": "^0.20.0",
-    "bootstrap": "^4.5.2",
+    "bootstrap": "^4.5.3",
     "chalk": "^4.1.0",
     "core-js": "^3.6.5",
     "namemcwrapper": "^1.2.8",
