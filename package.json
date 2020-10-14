@@ -19,7 +19,7 @@
   "dependencies": {
     "@vkontakte/icons": "^1.44.1",
     "@vkontakte/mvk-mini-apps-scroll-helper": "^1.2.0",
-    "@vkontakte/vk-bridge": "^2.2.8",
+    "@vkontakte/vk-bridge": "^2.3.0",
     "@vkontakte/vkui": "^3.12.8",
     "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
