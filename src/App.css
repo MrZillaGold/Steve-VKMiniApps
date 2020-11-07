@@ -1,0 +1,47 @@
+@font-face {
+    font-family: "Minecraft Seven";
+    src: url(./assets/MinecraftSeven.ttf) format("truetype");
+}
+
+.Card {
+    overflow: hidden;
+}
+
+.ModalPageHeader__content-in {
+    font-weight: 700 !important;
+}
+
+.ModalPageHeader--vkcom .ModalPageHeader__content-in {
+    font-weight: 500 !important;
+}
+
+.Header__content {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.Group {
+    z-index: 2;
+}
+
+.Group__inner {
+    overflow: hidden;
+}
+
+.SplitLayout__inner {
+    height: auto !important;
+}
+
+.Tabs {
+    background: unset !important;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+#steve-head {
+    background-color: transparent;
+}

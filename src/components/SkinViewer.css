@@ -1,0 +1,14 @@
+.SkinViewer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.SkinViewer > canvas:active, .SkinViewer > canvas:focus {
+    cursor: move;
+    outline: none !important;
+}
+
+.SkinViewer > canvas::-moz-focus-inner {
+    border: 0 !important;
+}

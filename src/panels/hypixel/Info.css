@@ -1,0 +1,11 @@
+.Info-List {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.Mode {
+    height: 0;
+    transition: height 0.5s;
+}
