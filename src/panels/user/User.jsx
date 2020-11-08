@@ -33,7 +33,7 @@ export function User({ id }) {
         setUser(null);
         setSpinner(true);
 
-        axios.get(`https://stevecors.herokuapp.com/https://api.ashcon.app/mojang/v2/user/${nickname}`)
+        axios.get(`https://api.ashcon.app/mojang/v2/user/${nickname}`)
             .then(async ({ data: { username_history, username, created_at, textures }}) => {
                 const data = {
                     list: username_history,
