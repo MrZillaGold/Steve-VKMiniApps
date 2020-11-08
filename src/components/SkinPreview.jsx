@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useReducer } from "react";
+import getArgs from "vkappsutils/dist/Args";
 import VKBridge from "@vkontakte/vk-bridge";
 import { Button, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
 import { Icon28Play, Icon28Pause, Icon28DownloadOutline } from "@vkontakte/icons";
@@ -13,8 +14,8 @@ import "./SkinPreview.css";
 export function SkinPreview({ skin, cape, isSlim, username = "", ...rest }) {
 
     const { viewWidth } = useAdaptivity();
-
     const { scheme } = useContext(SchemeContext);
+    const { platform } = getArgs();
 
     const [{ paused, walk, lock }, setPreview] = useReducer((currentState, updates) => ({
         ...currentState,
@@ -46,8 +47,6 @@ export function SkinPreview({ skin, cape, isSlim, username = "", ...rest }) {
 
     const sendMessage = () => {
         const skinUrl = skin.replace("https://stevecors.herokuapp.com/", "");
-
-        console.log(skinUrl)
 
         if (VKBridge.supports("VKWebAppShowImages")) {
             VKBridge.send("VKWebAppShowImages", {
@@ -86,6 +85,8 @@ export function SkinPreview({ skin, cape, isSlim, username = "", ...rest }) {
         }
     };
 
+    const isWeb = platform === "desktop_web" || platform === "mobile_web";
+
     return (
         <div className={`SkinPreview SkinPreview-${scheme}`} {...rest}>
             <div className="SkinPreview-Buttons"
@@ -109,8 +110,11 @@ export function SkinPreview({ skin, cape, isSlim, username = "", ...rest }) {
                 </Button>
                 <Button mode="secondary"
                         className="SkinPreview-Button"
+                        target="_blank"
+                        rel="noreferrer"
+                        href={isWeb ? skin.replace("https://stevecors.herokuapp.com/", "") : null}
                         disabled={lock}
-                        onClick={sendMessage}
+                        onClick={isWeb ? null : sendMessage}
                 >
                     <Icon28DownloadOutline/>
                 </Button>
