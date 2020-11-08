@@ -112,7 +112,7 @@ export function SkinPreview({ skin, cape, isSlim, username = "", ...rest }) {
                         className="SkinPreview-Button"
                         target="_blank"
                         rel="noreferrer"
-                        href={isWeb ? skin.replace("https://stevecors.herokuapp.com/", "") : null}
+                        href={skin && isWeb ? skin.replace("https://stevecors.herokuapp.com/", "") : null}
                         disabled={lock}
                         onClick={isWeb ? null : sendMessage}
                 >
