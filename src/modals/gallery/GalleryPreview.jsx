@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ModalPage, PanelHeaderButton, ModalPageHeader, ANDROID, VKCOM, ConfigProviderContext, Card, Div } from "@vkontakte/vkui";
+import { ModalPage, PanelHeaderButton, ModalPageHeader, ANDROID, VKCOM, ConfigProviderContext, Card, Div, IOS } from "@vkontakte/vkui";
 import { Icon24Dismiss, Icon24Cancel } from "@vkontakte/icons";
 import { ModalsContext } from "vkui-navigation";
 
@@ -20,19 +20,21 @@ function GalleryPreview({ id }) {
     useEffect(() => {
         setParams(activeModal.params);
     }, []);
-
+    <Icon24Cancel/>
     return (
         <ModalPage id={id}
                    header={
                        <ModalPageHeader
                            right={
+                               platform === IOS &&
                                <PanelHeaderButton onClick={closeModal}>
-                                   {
-                                       (platform === ANDROID || platform === VKCOM) ?
-                                           <Icon24Cancel/>
-                                           :
-                                           <Icon24Dismiss/>
-                                   }
+                                   <Icon24Dismiss/>
+                               </PanelHeaderButton>
+                           }
+                           left={
+                               (platform === ANDROID || platform === VKCOM) &&
+                               <PanelHeaderButton onClick={closeModal}>
+                                   <Icon24Cancel/>
                                </PanelHeaderButton>
                            }
                        >
