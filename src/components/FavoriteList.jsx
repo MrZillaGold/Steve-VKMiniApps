@@ -7,7 +7,18 @@ import { Error } from "./Error";
 
 import { HeightAnimation } from "../animation/animation";
 
-export function FavoriteList({ onSelect = () => {}, bridgeKey = "", header = "", opened = true, empty = "", getState = () => {} }) {
+/**
+ * @description Список с избранными элементами
+ * @param {function} onSelect - Действие при выборе элемента
+ * @param {string} bridgeKey="" - Название строки с данными в хранилище
+ * @param {string} header="" - Название списка
+ * @param {boolean} opened - Состояние открытия списка (Только для мобильных устройств)
+ * @param {boolean} disabled - Отключение выбора элементов списка
+ * @param {string} empty - Текст заглушки при пустом списке
+ * @param {function} getState - ункция для получения текущего состояния компонента
+ * @return {Node}
+ */
+export function FavoriteList({ onSelect = () => {}, bridgeKey = "", header = "", opened = true, disabled = false, empty = "", getState = () => {} }) {
 
     const [{ items, edit, loaded, old, mount }, setFavorite] = useReducer((state, data) => ({
         ...state,
@@ -124,6 +135,7 @@ export function FavoriteList({ onSelect = () => {}, bridgeKey = "", header = "",
                             {
                                 items.map((item, index) => (
                                     <Cell key={item + Math.random()}
+                                          disabled={disabled}
                                           draggable={edit}
                                           removable={edit}
                                           onDragFinish={({from, to}) => {

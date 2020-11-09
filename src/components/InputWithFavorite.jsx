@@ -79,6 +79,7 @@ export function InputWithFavorite({ input, inputTop, inputBottom, favoriteHeader
                               header={favoriteHeader}
                               empty={favoriteEmpty}
                               onSelect={onSelect}
+                              disabled={spinner}
                               getState={(state) => {
                                   setFavorite(state);
 
