@@ -1,10 +1,13 @@
 import React, { useEffect, useReducer } from "react";
 import VKBridge from "@vkontakte/vk-bridge";
+import { Button, Group } from "@vkontakte/vkui";
+import { Icon16Done, Icon20StoryOutline, Icon24Message, Icon24Replay } from "@vkontakte/icons";
 
-import { Button, Group, Div } from "@vkontakte/vkui";
-import { Icon16Done, Icon24Message, Icon24Replay } from "@vkontakte/icons";
+import { randomInteger, storyBackgrounds } from "../../functions";
 
-export function Send({ title, body, index, getSpriteCoordinates }) {
+import "./Send.css";
+
+export function Send({ title, body, index, getSpriteCoordinates, blob }) {
 
     const [{ sent, lock }, setSend] = useReducer((state, updates) => ({
         ...state,
@@ -15,8 +18,6 @@ export function Send({ title, body, index, getSpriteCoordinates }) {
     });
 
     const send = () => {
-        console.log(title, body, index)
-
         setSend({ lock: true });
 
         VKBridge.send("VKWebAppAllowMessagesFromGroup", {
@@ -48,6 +49,29 @@ export function Send({ title, body, index, getSpriteCoordinates }) {
             });
     };
 
+    const openStoryEditor = () => {
+        VKBridge.send("VKWebAppShowStoryBox", {
+            background_type: "image",
+            url: storyBackgrounds[randomInteger(0, storyBackgrounds.length - 1)],
+            stickers: [{
+                sticker_type: "renderable",
+                sticker: {
+                    content_type: "image",
+                    blob,
+                    transform: {
+                        relation_width: 0.8
+                    }
+                }
+            }],
+            attachment: {
+                text: "open",
+                type: "url",
+                url: "https://vk.com/minetools#achievements"
+            }
+        })
+            .catch(console.log);
+    }
+
     useEffect(() => setSend({
         lock: false,
         sent: false
@@ -55,7 +79,7 @@ export function Send({ title, body, index, getSpriteCoordinates }) {
 
     return (
         <Group mode="plain">
-            <Div style={{ display: "flex" }}>
+            <div className="Send-Buttons">
                 <Button before={
                     sent ?
                         <Icon16Done/>
@@ -75,11 +99,22 @@ export function Send({ title, body, index, getSpriteCoordinates }) {
                     }
                 </Button>
                 <Button onClick={getSpriteCoordinates}
-                        style={{ marginLeft: "10px", width: "8px" }}
+                        className="Send-Button"
                 >
                     <Icon24Replay width={16} height={16}/>
                 </Button>
-            </Div>
+            </div>
+            <div className="Send-Buttons">
+                <Button onClick={openStoryEditor}
+                        before={
+                            <Icon20StoryOutline width={16} height={16}/>
+                        }
+                        stretched
+                        disabled={!(blob && VKBridge.supports("VKWebAppShowStoryBox"))}
+                >
+                    Поделиться в истории
+                </Button>
+            </div>
         </Group>
     )
 }

@@ -1,0 +1,10 @@
+.Send-Buttons {
+    display: flex;
+    padding: 4px 16px 12px 16px;
+}
+
+
+.Send-Button {
+    margin-left: 10px !important;
+    width: 8px;
+}

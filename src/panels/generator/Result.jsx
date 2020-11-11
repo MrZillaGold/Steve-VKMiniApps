@@ -15,6 +15,7 @@ export function Result({ title, body }) {
 
     const [mount, setMount] = useState(true);
     const [spriteCoordinates, setSpriteCoordinates] = useState(null);
+    const [blob, setBlob] = useState(null);
 
     const getSpriteCoordinates = () => new Promise((resolve, reject) => {
         const sprite = new Image();
@@ -41,9 +42,7 @@ export function Result({ title, body }) {
             resolve(coordinates);
         };
 
-        sprite.onerror = () => {
-            reject("Ошибка при загрузке спрайта.");
-        };
+        sprite.onerror = reject;
     });
 
     useEffect(() => () => setMount(false), []);
@@ -55,8 +54,8 @@ export function Result({ title, body }) {
             </Header>
         }>
             <HeightAnimation>
-                <Achievement title={title} body={body} spriteCoordinates={spriteCoordinates} getSpriteCoordinates={getSpriteCoordinates} ITEM_SIDE_SIZE={ITEM_SIDE_SIZE}/>
-                <Send title={title} body={body} index={spriteCoordinates?.index} getSpriteCoordinates={getSpriteCoordinates}/>
+                <Achievement title={title} body={body} spriteCoordinates={spriteCoordinates} getSpriteCoordinates={getSpriteCoordinates} ITEM_SIDE_SIZE={ITEM_SIDE_SIZE} setBlob={setBlob}/>
+                <Send title={title} body={body} index={spriteCoordinates?.index} getSpriteCoordinates={getSpriteCoordinates} blob={blob}/>
             </HeightAnimation>
         </Group>
     )

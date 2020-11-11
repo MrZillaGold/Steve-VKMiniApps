@@ -22,7 +22,7 @@ export function Generator({ id }) {
         url: null
     });
 
-    let GeneratorForm = <Form key="GeneratorForm" title={title} body={body} setAchievement={setAchievement} />
+    let GeneratorForm = <Form key="GeneratorForm" title={title} body={body} setAchievement={setAchievement}/>
     let GeneratorInfo = <Result key="GeneratorResult" title={title} body={body}/>
 
     if (viewWidth > ViewWidth.MOBILE) {

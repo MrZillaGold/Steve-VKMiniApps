@@ -32,3 +32,23 @@ export function isIP(ip) {
 export function getRatio(dividend, divider) {
     return divider && dividend ? (dividend / divider).toFixed(2) : 0;
 }
+
+export function loadImage(src) {
+    return new Promise((resolve, reject) => {
+        const image = new Image();
+
+        image.src = src;
+        image.onload = () => {
+            resolve(image);
+        };
+        image.onerror = reject;
+    });
+}
+
+export const storyBackgrounds = [
+    "https://sun1-89.userapi.com/KuxE4p0_eMMsy-zoDTwjOGdP-bABJyg9W2jkTQ/ZTRT9qKrJxE.jpg",
+    "https://sun1-15.userapi.com/_swcoPn4QQsqSOdiHOKgveXC6FKvGip0zwtQTw/2KE8Qqhm9aM.jpg",
+    "https://sun1-97.userapi.com/ugFzgWC1mztS1RVU7EjKg8RYXWr6gjOUIDAHog/jK07Gyw57q0.jpg",
+    "https://sun1-87.userapi.com/pKoppSSgergzXYlryFblG4iO8em0LL6apARaow/oPWJde2SxTQ.jpg",
+    "https://sun1-85.userapi.com/KpM6KUrM-sIIEUGPZ8tppNl-61RExXl15G5xMw/sg_lnwXqGVs.jpg"
+];
