@@ -107,7 +107,7 @@ export function FavoriteList({ onSelect = () => {}, bridgeKey = "", header = "",
         <div style={!opened ? { display: "none" } : {}}>
             <Header mode="secondary"
                     aside={
-                        (items.length > 0 || edit) &&
+                        (items.length > 0 || edit) && !disabled &&
                         (edit ?
                                 <div style={{ display: "flex" }}>
                                     <Icon24Cancel onClick={() => setFavorite({ edit: false, items: old })}
