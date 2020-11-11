@@ -45,7 +45,6 @@ export function App() {
         setModalsHistory(
             modalsHistory.concat(modal)
         );
-        console.log(modalsHistory.concat(modal))
     };
     const closeModal = () => {
         const history = modalsHistory.slice(0, modalsHistory.length - 1);
