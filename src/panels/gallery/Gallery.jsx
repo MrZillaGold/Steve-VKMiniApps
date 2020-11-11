@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NameMC } from "namemcwrapper";
 import { Offline, Online } from "react-detect-offline";
-import { Panel, Group } from "@vkontakte/vkui";
+import { Panel, Group, ViewWidth, useAdaptivity } from "@vkontakte/vkui";
 
 import { Error, CustomPanelHeader, Spinner, OfflineBlock } from "../../components/components";
 
@@ -12,6 +12,8 @@ const nameMc = new NameMC({
 });
 
 export function Gallery({ id }) {
+
+    const { viewWidth } = useAdaptivity();
 
     const [mount, setMount] = useState(true);
     const [skins, setSkins] = useState([]);
@@ -24,9 +26,23 @@ export function Gallery({ id }) {
         return () => setMount(false);
     }, []);
 
+    const height = viewWidth > ViewWidth.MOBILE ? 280 : 300;
+
     const getSkins = () => {
         nameMc.getSkins("random")
             .then((randomSkins) => {
+                randomSkins = randomSkins.map((skin) => {
+                    skin.renders = new NameMC()
+                        .getRenders({
+                            skin: skin.hash,
+                            model: skin.model,
+                            width: 150,
+                            height
+                        });
+
+                    return skin;
+                });
+
                 if (mount) {
                     setSkins([
                         ...skins,
@@ -59,6 +75,7 @@ export function Gallery({ id }) {
                             <InfinityScroll skins={skins}
                                             getSkins={getSkins}
                                             hasMore={hasMore}
+                                            height={height}
                             />
                             :
                             !error && <Spinner/>

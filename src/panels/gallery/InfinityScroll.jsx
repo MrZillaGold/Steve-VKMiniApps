@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { NameMC } from "namemcwrapper";
 import { Button, CardGrid, FixedLayout, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
 import { Icon28ArrowUpOutline } from "@vkontakte/icons";
 
@@ -9,17 +8,12 @@ import { SkinCard } from "./SkinCard";
 
 import "./InfinityScroll.css";
 
-export function InfinityScroll({ skins, getSkins, hasMore }) {
+export function InfinityScroll({ skins, height, getSkins, hasMore }) {
 
     const { viewWidth } = useAdaptivity();
-
     const ref = useRef();
 
     const [scrollUp, setScrollUp] = useState(false);
-
-    useEffect(() => {
-
-    }, []);
 
     const onScroll = () => {
         if (ref.current.lastScrollTop >= 100) {
@@ -46,24 +40,12 @@ export function InfinityScroll({ skins, getSkins, hasMore }) {
             >
                 <CardGrid style={{ marginBottom: "12px", marginTop: viewWidth > ViewWidth.MOBILE ? "8px" : "2px" }}>
                     {
-                        skins.map((skin, index) => {
-                            const height = viewWidth > ViewWidth.MOBILE ? 280 : 300;
-
-                            skin.renders = new NameMC()
-                                .getRenders({
-                                    skin: skin.hash,
-                                    model: skin.model,
-                                    width: 150,
-                                    height
-                                });
-
-                            return (
-                                <SkinCard key={index}
-                                          height={height}
-                                          {...skin}
-                                />
-                            );
-                        })
+                        skins.map((skin, index) =>
+                            <SkinCard key={index}
+                                      height={height}
+                                      {...skin}
+                            />
+                        )
                     }
                 </CardGrid>
             </InfiniteScroll>
