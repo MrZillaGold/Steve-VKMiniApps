@@ -39,7 +39,6 @@ export function Server({ id }) {
 
         axios.get(`https://api.mcsrvstat.us/2/${ip}`)
             .then(({ data }) => {
-                console.log(data, mount)
                 if (mount) {
                     const { online, players, icon } = data;
 
