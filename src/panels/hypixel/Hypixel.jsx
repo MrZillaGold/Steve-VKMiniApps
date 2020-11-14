@@ -56,12 +56,18 @@ export function Hypixel({ id }) {
                 if (mount) {
                     setSpinner(false);
 
-                    switch (error.toString()) {
-                        case "Error: Player does not exist":
-                            return setError(`Игрока с никнеймом ${nickname} не существует!`);
-                        default:
-                            return setError("Информация об игроках и их статистика в данный момент недоступна. Попробуйте позже.");
+                    if (error?.response?.status) {
+                        switch (error.response.status) {
+                            case 404:
+                                return setError(`Игрока с никнеймом ${nickname} не существует!`);
+                            case 400:
+                                return setError("Никнейм может содержать только латинские буквы, цифры и символ \"_\".");
+                            default:
+                                return setError("Информация об игроках и их статистика в данный момент недоступна. Попробуйте позже.");
+                        }
                     }
+
+                    return setError("Информация об игроках и их статистика в данный момент недоступна. Попробуйте позже.");
                 }
             });
     };
