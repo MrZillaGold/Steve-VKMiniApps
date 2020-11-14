@@ -2,12 +2,13 @@ import React, { useContext, useEffect, useReducer } from "react";
 import getArgs from "vkappsutils/dist/Args";
 import VKBridge from "@vkontakte/vk-bridge";
 import { Button, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
-import { Icon28Play, Icon28Pause, Icon28DownloadOutline } from "@vkontakte/icons";
+import { Icon28Play, Icon28Pause, Icon28DownloadOutline, Icon28StoryOutline } from "@vkontakte/icons";
 
 import { SkinViewer } from "./components";
 import { IconRun, IconWalk } from "../icons/icons";
 
 import { SchemeContext } from "../hooks/hooks";
+import { getRandomElement, storyBackgrounds } from "../functions";
 
 import "./SkinPreview.css";
 
@@ -17,10 +18,11 @@ export function SkinPreview({ skin, cape, isSlim, username = "", ...rest }) {
     const { scheme } = useContext(SchemeContext);
     const { platform } = getArgs();
 
-    const [{ paused, walk, lock }, setPreview] = useReducer((currentState, updates) => ({
+    const [{ skinViewer, paused, walk, lock }, setPreview] = useReducer((currentState, updates) => ({
         ...currentState,
         ...updates
     }), {
+        skinViewer: null,
         lock: false,
         paused: false,
         walk: true
@@ -85,6 +87,38 @@ export function SkinPreview({ skin, cape, isSlim, username = "", ...rest }) {
         }
     };
 
+    const openStoryEditor = async () => {
+        skinViewer.render();
+
+        VKBridge.send("VKWebAppShowStoryBox", {
+            background_type: "image",
+            url: getRandomElement(storyBackgrounds),
+            stickers: [{
+                sticker_type: "renderable",
+                sticker: {
+                    content_type: "image",
+                    blob: skinViewer.canvas.toDataURL(),
+                    transform: {
+                        relation_width: 0.8
+                    },
+                    clickable_zone: {
+                        action_type: "link",
+                        action_app: {
+                            app_id: 7078246
+                        }
+                    },
+                    can_delete: false
+                }
+            }],
+            attachment: {
+                text: "open",
+                type: "url",
+                url: "https://vk.com/minetools"
+            }
+        })
+            .catch(console.log);
+    };
+
     const isWeb = platform === "desktop_web" || platform === "mobile_web";
 
     return (
@@ -107,6 +141,12 @@ export function SkinPreview({ skin, cape, isSlim, username = "", ...rest }) {
                     {
                         walk ? <IconRun/> : <IconWalk/>
                     }
+                </Button>
+                <Button mode="secondary"
+                        className="SkinPreview-Button"
+                        onClick={openStoryEditor}
+                >
+                    <Icon28StoryOutline/>
                 </Button>
                 <Button mode="secondary"
                         className="SkinPreview-Button"
@@ -136,6 +176,11 @@ export function SkinPreview({ skin, cape, isSlim, username = "", ...rest }) {
                                     300
                             }
                             zoom={viewWidth > ViewWidth.MOBILE}
+                            onReady={
+                                (skinViewer) => setPreview({
+                                    skinViewer
+                                })
+                            }
                             animation={walk ? "walk" : "run"}
                             paused={paused}
                 />

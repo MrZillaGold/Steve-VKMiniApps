@@ -3,7 +3,7 @@ import VKBridge from "@vkontakte/vk-bridge";
 import { Button, Group } from "@vkontakte/vkui";
 import { Icon16Done, Icon20StoryOutline, Icon24Message, Icon24Replay } from "@vkontakte/icons";
 
-import { randomInteger, storyBackgrounds } from "../../functions";
+import { getRandomElement, storyBackgrounds } from "../../functions";
 
 import "./Send.css";
 
@@ -52,7 +52,7 @@ export function Send({ title, body, index, getSpriteCoordinates, blob }) {
     const openStoryEditor = () => {
         VKBridge.send("VKWebAppShowStoryBox", {
             background_type: "image",
-            url: storyBackgrounds[randomInteger(0, storyBackgrounds.length - 1)],
+            url: getRandomElement(storyBackgrounds),
             stickers: [{
                 sticker_type: "renderable",
                 sticker: {
@@ -60,7 +60,14 @@ export function Send({ title, body, index, getSpriteCoordinates, blob }) {
                     blob,
                     transform: {
                         relation_width: 0.8
-                    }
+                    },
+                    clickable_zone: {
+                        action_type: "link",
+                        action_app: {
+                            app_id: 7078246
+                        }
+                    },
+                    can_delete: false
                 }
             }],
             attachment: {

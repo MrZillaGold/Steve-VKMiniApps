@@ -45,6 +45,10 @@ export function loadImage(src) {
     });
 }
 
+export function getRandomElement(array) {
+    return array[randomInteger(0, array.length - 1)];
+}
+
 export const storyBackgrounds = [
     "https://sun1-89.userapi.com/KuxE4p0_eMMsy-zoDTwjOGdP-bABJyg9W2jkTQ/ZTRT9qKrJxE.jpg",
     "https://sun1-15.userapi.com/_swcoPn4QQsqSOdiHOKgveXC6FKvGip0zwtQTw/2KE8Qqhm9aM.jpg",
