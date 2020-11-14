@@ -12,7 +12,7 @@ export function HeightAnimation({ children, className, ...rest }) {
             const height = [...ref.current.children].reduce((acc, { offsetHeight }) => acc += offsetHeight, 0);
 
             setHeight(height);
-        }, 1);
+        });
     }, [children]);
 
     return (
