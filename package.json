@@ -15,7 +15,7 @@
     "@vkontakte/icons": "^1.53.0",
     "@vkontakte/mvk-mini-apps-scroll-helper": "^1.2.0",
     "@vkontakte/vk-bridge": "^2.3.0",
-    "@vkontakte/vkjs": "^0.10.0",
+    "@vkontakte/vkjs": "^0.11.1",
     "@vkontakte/vkui": "^4.0.0-beta.32",
     "axios": "^0.21.0",
     "core-js": "^3.7.0",
