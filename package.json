@@ -20,7 +20,7 @@
     "axios": "^0.21.0",
     "core-js": "^3.7.0",
     "fast-chunk-string": "^1.0.1",
-    "konva": "^7.1.6",
+    "konva": "^7.1.7",
     "namemcwrapper": "^1.4.0",
     "react": "^17.0.1",
     "react-copy-to-clipboard": "^5.0.2",
