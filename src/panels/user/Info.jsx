@@ -20,7 +20,7 @@ export function Info({ user, setUser, spinner, error }) {
                 {
                     user ?
                         <Group mode="plain">
-                            <Tabs>
+                            <Tabs style={viewWidth >= ViewWidth.TABLET ? { marginTop: 0, marginBottom: 8 } : {}}>
                                 <TabsItem
                                     onClick={() => setActiveTab("skin")}
                                     selected={activeTab === "skin"}

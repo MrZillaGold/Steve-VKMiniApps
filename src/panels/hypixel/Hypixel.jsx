@@ -1,16 +1,14 @@
 import React, { useEffect, useReducer, useState } from "react";
 import axios from "axios";
 import { Offline, Online } from "react-detect-offline";
-import { Panel, SplitCol, SplitLayout, useAdaptivity, Group, ViewWidth } from "@vkontakte/vkui";
+import { Panel, Group } from "@vkontakte/vkui";
 
 import { Form } from "./Form";
 import { Info } from "./Info";
 
-import { CustomPanelHeader, OfflineBlock } from "../../components/components";
+import { CustomPanelHeader, OfflineBlock, SmartCols } from "../../components/components";
 
 export function Hypixel({ id }) {
-
-    const { viewWidth } = useAdaptivity();
 
     const [error, setError] = useState(null);
     const [spinner, setSpinner] = useReducer((state, spinner) => {
@@ -72,48 +70,25 @@ export function Hypixel({ id }) {
             });
     };
 
-    let HypixelForm = <Form key="HypixelForm" nickname={nickname} setNickname={setNickname} setAdd={setAdd} getUser={getUser} spinner={spinner}/>
-    let HypixelInfo = <Info key="HypixelInfo" user={user} error={error} spinner={spinner}/>
-
-    if (viewWidth > ViewWidth.MOBILE) {
-        HypixelForm = (
-            <SplitCol spaced
-                      key="HypixelForm"
-            >
-                {
-                    HypixelForm
-                }
-            </SplitCol>
-        )
-        HypixelInfo = (
-            <SplitCol width={`${viewWidth >= ViewWidth.DESKTOP ? 200 : 40}px`}
-                      key="HypixelInfo"
-                      spaced
-            >
-                {
-                    HypixelInfo
-                }
-            </SplitCol>
-        )
-    }
-
-    const HypixelChild = [
-        HypixelForm,
-        HypixelInfo
-    ];
-
     return (
         <Panel id={id}>
             <CustomPanelHeader status="Статистика Hypixel"/>
             <Online>
-                {
-                    viewWidth > ViewWidth.MOBILE ?
-                        <SplitLayout>
-                            {HypixelChild}
-                        </SplitLayout>
-                        :
-                        HypixelChild
+                <SmartCols col1={
+                    <Form nickname={nickname}
+                          setNickname={setNickname}
+                          setAdd={setAdd}
+                          getUser={getUser}
+                          spinner={spinner}
+                    />
                 }
+                           col2={
+                               <Info user={user}
+                                     error={error}
+                                     spinner={spinner}
+                               />
+                           }
+                />
             </Online>
             <Offline>
                 <Group>

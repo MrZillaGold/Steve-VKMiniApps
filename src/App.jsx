@@ -21,7 +21,7 @@ export function App() {
         }
     };
 
-    const [platform, setPlatform] = useState("vkcom");
+    const [platform, setPlatform] = useState("android");
     const [scheme, setScheme] = useState(getStorageScheme() || "bright_light");
 
     const toggleScheme = () => {

@@ -19,7 +19,7 @@ export function Layout({ setPlatform }) {
     const { activeModal, closeModal } = useContext(ModalsContext);
 
     useEffect(() => {
-        setPlatform(viewWidth === ViewWidth.DESKTOP ? "vkcom" : platform());
+        setPlatform(viewWidth === ViewWidth.DESKTOP ? "android" : platform());
     }, []);
 
     const root = (
@@ -58,7 +58,7 @@ export function Layout({ setPlatform }) {
     if (viewWidth > ViewWidth.MOBILE) {
         return (
             <SplitLayout header={
-                <PanelHeader separator={false} style={{ zIndex: "1" }}/>
+                <PanelHeader separator={false}/>
             }>
                 <SplitCol spaced={true}>
                     {

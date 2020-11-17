@@ -8,8 +8,10 @@ export function HeightAnimation({ children, className, ...rest }) {
     const [height, setHeight] = useState(0);
 
     useEffect(() => {
+        const refChildren = ref.current.children;
+
         setTimeout(() => {
-            const height = [...ref.current.children].reduce((acc, { offsetHeight }) => acc += offsetHeight, 0);
+            const height = [...refChildren].reduce((acc, { offsetHeight }) => acc += offsetHeight, 0);
 
             setHeight(height);
         });

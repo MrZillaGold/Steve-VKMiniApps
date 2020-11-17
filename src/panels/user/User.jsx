@@ -2,17 +2,15 @@ import React, { useEffect, useReducer, useState } from "react";
 import axios from "axios";
 import { Offline, Online } from "react-detect-offline";
 import { NameMC } from "namemcwrapper";
-import { Panel, SplitCol, SplitLayout, useAdaptivity, Group, ViewWidth } from "@vkontakte/vkui";
+import { Panel, Group } from "@vkontakte/vkui";
 
 import { Form } from "./Form";
 import { Info } from "./Info";
 
-import { CustomPanelHeader, OfflineBlock } from "../../components/components";
+import { CustomPanelHeader, OfflineBlock, SmartCols } from "../../components/components";
 import { timeConvert } from "../../functions";
 
 export function User({ id }) {
-
-    const { viewWidth } = useAdaptivity();
 
     const [mount, setMount] = useState(true);
     const [error, setError] = useState(null);
@@ -86,48 +84,27 @@ export function User({ id }) {
 
     useEffect(() => () => setMount(false), []);
 
-    let UserForm = <Form key="UserForm" nickname={nickname} setNickname={setNickname} setAdd={setAdd} getUser={getUser} spinner={spinner}/>
-    let UserInfo = <Info key="UserInfo" user={user} setUser={setUser} error={error} spinner={spinner}/>
-
-    if (viewWidth > ViewWidth.MOBILE) {
-        UserForm = (
-            <SplitCol spaced
-                      key="UserForm"
-            >
-                {
-                    UserForm
-                }
-            </SplitCol>
-        )
-        UserInfo = (
-            <SplitCol width={`${viewWidth >= ViewWidth.DESKTOP ? 200 : 40}px`}
-                      key="UserInfo"
-                      spaced
-            >
-                {
-                    UserInfo
-                }
-            </SplitCol>
-        )
-    }
-
-    const UserChild = [
-        UserForm,
-        UserInfo
-    ];
-
     return (
         <Panel id={id}>
             <CustomPanelHeader status="Информация об игроке"/>
             <Online>
-            {
-                viewWidth > ViewWidth.MOBILE ?
-                    <SplitLayout>
-                        {UserChild}
-                    </SplitLayout>
-                    :
-                    UserChild
-            }
+                <SmartCols col1={
+                    <Form nickname={nickname}
+                          setNickname={setNickname}
+                          setAdd={setAdd}
+                          getUser={getUser}
+                          spinner={spinner}
+                    />
+                }
+                           col2={
+                               <Info user={user}
+
+                                     setUser={setUser}
+                                     error={error}
+                                     spinner={spinner}
+                               />
+                           }
+                />
             </Online>
             <Offline>
                 <Group>
