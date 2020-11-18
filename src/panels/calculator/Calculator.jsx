@@ -1,12 +1,12 @@
 import React, { useReducer } from "react";
-import { Panel, SplitLayout, SplitCol, withAdaptivity, ViewWidth } from "@vkontakte/vkui";
+import { Panel } from "@vkontakte/vkui";
 
-import { CustomPanelHeader } from "../../components/components";
+import { CustomPanelHeader, SmartCols } from "../../components/components";
 
 import { Form } from "./From";
 import { Result } from "./Result";
 
-export const Calculator = withAdaptivity(({ id, viewWidth }) => {
+export function Calculator({ id }) {
     const [coordinates, setCoordinates] = useReducer((state, coordinates) => {
         return {
             ...state,
@@ -50,49 +50,20 @@ export const Calculator = withAdaptivity(({ id, viewWidth }) => {
         }
     };
 
-    let CalculatorForm = <Form key="CalculatorForm" inputCoordinates={inputCoordinates} {...coordinates}/>
-    let CalculatorResult = <Result key="CalculatorResult" setCoordinates={setCoordinates} {...coordinates}/>
-
-    if (viewWidth > ViewWidth.MOBILE) {
-        CalculatorForm = (
-            <SplitCol width={`${viewWidth === ViewWidth.SMALL_TABLET ? 40 : 80}px`}
-                      key="CalculatorForm"
-                      spaced
-            >
-                {
-                    CalculatorForm
-                }
-            </SplitCol>
-        )
-        CalculatorResult = (
-            <SplitCol spaced
-                      key="CalculatorResult"
-            >
-                {
-                    CalculatorResult
-                }
-            </SplitCol>
-        )
-    }
-
-    const CalculatorChild = [
-            CalculatorForm,
-            CalculatorResult
-    ];
-
     return (
         <Panel id={id}>
             <CustomPanelHeader status="Калькулятор координат"/>
-            {
-                viewWidth > ViewWidth.MOBILE ?
-                    <SplitLayout>
-                        {CalculatorChild}
-                    </SplitLayout>
-                    :
-                    CalculatorChild
+            <SmartCols col1={
+                <Form inputCoordinates={inputCoordinates}
+                      {...coordinates}
+                />
             }
+                       col2={
+                           <Result setCoordinates={setCoordinates}
+                                   {...coordinates}
+                           />
+                       }
+            />
         </Panel>
     )
-}, {
-    viewWidth: true
-})
+}
