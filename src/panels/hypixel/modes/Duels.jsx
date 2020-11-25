@@ -5,7 +5,7 @@ import { getRatio } from "../../../functions";
 
 export function Duels({ user }) {
 
-    const Duels = user.stats.Duels;
+    const Duels = user.stats.Duels.general;
 
     return (
         <div style={{ maxHeight: 200 }}>
