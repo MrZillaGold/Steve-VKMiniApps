@@ -1,5 +1,5 @@
 import React from "react";
-import { FormItem, FormLayout, FormLayoutGroup, Group, Input, Select, ViewWidth, withAdaptivity } from "@vkontakte/vkui";
+import { FormItem, FormLayout, FormLayoutGroup, Group, Input, NativeSelect, ViewWidth, withAdaptivity } from "@vkontakte/vkui";
 
 export const Form = withAdaptivity(({ inputCoordinates, x, y, z, dimension, viewWidth }) => {
     return (
@@ -8,13 +8,13 @@ export const Form = withAdaptivity(({ inputCoordinates, x, y, z, dimension, view
                 <FormItem top="Измерение"
                           bottom="Для которого необходимо просчитать координаты."
                 >
-                    <Select name="dimension"
-                            onChange={inputCoordinates}
-                            value={dimension}
+                    <NativeSelect name="dimension"
+                                  onChange={inputCoordinates}
+                                  value={dimension}
                     >
                         <option value="world">Обычный мир</option>
                         <option value="nether">Ад</option>
-                    </Select>
+                    </NativeSelect>
                 </FormItem>
                 <FormLayoutGroup mode={viewWidth > ViewWidth.MOBILE ? "horizontal" : "vertical"}>
                     <FormItem top="Координата X"
