@@ -47,6 +47,6 @@
   },
   "devDependencies": {
     "@vkontakte/vk-miniapps-deploy": "0.0.22",
-    "cross-env": "^7.0.2"
+    "cross-env": "^7.0.3"
   }
 }
