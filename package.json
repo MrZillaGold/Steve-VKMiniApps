@@ -16,7 +16,7 @@
     "@vkontakte/mvk-mini-apps-scroll-helper": "^1.2.0",
     "@vkontakte/vk-bridge": "^2.3.0",
     "@vkontakte/vkjs": "^0.16.0",
-    "@vkontakte/vkui": "^4.0.0-beta.36",
+    "@vkontakte/vkui": "^4.0.0-beta.37",
     "axios": "^0.21.0",
     "core-js": "^3.8.1",
     "fast-chunk-string": "^1.0.1",
