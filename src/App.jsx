@@ -8,9 +8,6 @@ import { Layout } from "./Layout";
 
 import { SchemeContext, schemes } from "./hooks/hooks";
 
-import "@vkontakte/vkui/dist/vkui.css";
-import "./App.css";
-
 export function App() {
     const getStorageScheme = () => {
         const storageScheme = localStorage.getItem("scheme");
