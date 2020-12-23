@@ -5,7 +5,7 @@ import { timeConvert } from "../../../functions";
 
 export function Main({ user }) {
     return (
-        <div style={{ maxHeight: 200 }}>
+        <div>
             <div className="Info-List">
                 <Cell description="Статус"
                       disabled

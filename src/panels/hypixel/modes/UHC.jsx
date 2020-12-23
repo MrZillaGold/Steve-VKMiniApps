@@ -7,7 +7,7 @@ export function UHC({ user }) {
     const SpeedUHC = user.stats.SpeedUHC;
 
     return (
-        <div style={{ maxHeight: 360 }}>
+        <div>
             <div className="Info-List">
                 <Cell description="Монет"
                       disabled

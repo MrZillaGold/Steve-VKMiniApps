@@ -6,7 +6,7 @@ export function BuildBattle({ user }) {
     const BuildBattle = user.stats.BuildBattle;
 
     return (
-        <div style={{ maxHeight: 320 }}>
+        <div>
             <div className="Info-List">
                 <Cell description="Очки"
                       disabled

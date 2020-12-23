@@ -8,7 +8,7 @@ export function BedWars({ user }) {
     const BedWars = user.stats.BedWars;
 
     return (
-        <div style={{ maxHeight: 800 }}>
+        <div>
             <div className="Info-List">
                 <Cell description="Уровень"
                       disabled
