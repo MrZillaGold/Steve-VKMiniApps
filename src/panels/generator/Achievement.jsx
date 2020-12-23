@@ -3,6 +3,8 @@ import Konva from "konva";
 import chunk from "fast-chunk-string";
 import { Group } from "@vkontakte/vkui";
 
+import { IconChest } from "../../icons/IconChest";
+
 import { loadImage } from "../../functions";
 
 import headerAsset from "../../assets/header.png";
@@ -135,6 +137,10 @@ export function Achievement({ title, body, spriteCoordinates, getSpriteCoordinat
     return (
         <Group mode="plain">
             <div style={{ height: text.length * 20 + 44 }}>
+                <IconChest className="Achievement"
+                           height={64}
+                           width={64}
+                />
                 <div className="Achievement"
                      id="achievement"
                 />
