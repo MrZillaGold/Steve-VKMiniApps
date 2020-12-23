@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ModalPage, PanelHeaderButton, ModalPageHeader, ANDROID, VKCOM, ConfigProviderContext, Card, Div, IOS } from "@vkontakte/vkui";
+import { ModalPage, PanelHeaderButton, ModalPageHeader, ANDROID, VKCOM, ConfigProviderContext, Card, Div, IOS, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
 import { Icon24Dismiss, Icon24Cancel } from "@vkontakte/icons";
 import { ModalsContext } from "vkui-navigation";
 
@@ -14,25 +14,26 @@ function GalleryPreview({ id }) {
 
     const { activeModal, closeModal } = useContext(ModalsContext);
     const { platform } = useContext(ConfigProviderContext);
+    const { viewWidth } = useAdaptivity();
 
     const [{ skin, isSlim }, setParams] = useState({});
 
     useEffect(() => {
         setParams(activeModal.params);
     }, []);
-    <Icon24Cancel/>
+
     return (
         <ModalPage id={id}
                    header={
                        <ModalPageHeader
                            right={
-                               platform === IOS &&
+                               platform === IOS && viewWidth < ViewWidth.SMALL_TABLET &&
                                <PanelHeaderButton onClick={closeModal}>
                                    <Icon24Dismiss/>
                                </PanelHeaderButton>
                            }
                            left={
-                               (platform === ANDROID || platform === VKCOM) &&
+                               (platform === ANDROID || platform === VKCOM) && viewWidth < ViewWidth.SMALL_TABLET &&
                                <PanelHeaderButton onClick={closeModal}>
                                    <Icon24Cancel/>
                                </PanelHeaderButton>
@@ -41,6 +42,7 @@ function GalleryPreview({ id }) {
                            Просмотр скина
                        </ModalPageHeader>
                    }
+                   onClose={closeModal}
         >
             <Div style={{ padding: "0px 12px 16px" }}>
                 <Card mode="tint">
