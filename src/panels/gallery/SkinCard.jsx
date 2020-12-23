@@ -13,8 +13,7 @@ export function SkinCard({ url, isSlim, renders, rating, height }) {
     const { scheme } = useContext(SchemeContext);
 
     return (
-        <Card size={viewWidth > ViewWidth.MOBILE ? "s" : "m"}
-              mode="shadow"
+        <Card mode="shadow"
               className={`SkinCard SkinCard_${scheme} ${viewWidth > ViewWidth.MOBILE ? "SkinCard_hover" : ""}`}
               style={{ height: `${height}px` }}
               onClick={() => openModal("gallery-preview", {

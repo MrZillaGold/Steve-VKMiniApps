@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import getArgs from "vkappsutils/dist/Args";
 import VKBridge from "@vkontakte/vk-bridge";
-import { ConfigProvider, AdaptivityProvider } from "@vkontakte/vkui";
+import { ConfigProvider, AdaptivityProvider, AppRoot } from "@vkontakte/vkui";
 import { ModalsContext } from "vkui-navigation";
 
 import { Layout } from "./Layout";
@@ -98,7 +98,9 @@ export function App() {
                                 scheme={scheme}
                 >
                     <AdaptivityProvider>
-                        <Layout setPlatform={setPlatform}/>
+                        <AppRoot>
+                            <Layout setPlatform={setPlatform}/>
+                        </AppRoot>
                     </AdaptivityProvider>
                 </ConfigProvider>
             </ModalsContext.Provider>

@@ -38,7 +38,9 @@ export function InfinityScroll({ skins, height, getSkins, hasMore }) {
                                 <Spinner/>
                             }
             >
-                <CardGrid style={{ marginBottom: "12px", marginTop: viewWidth > ViewWidth.MOBILE ? "8px" : "2px" }}>
+                <CardGrid style={{ marginBottom: "12px", marginTop: viewWidth > ViewWidth.MOBILE ? "8px" : "2px" }}
+                          size={viewWidth > ViewWidth.MOBILE ? "s" : "m"}
+                >
                     {
                         skins.map((skin, index) =>
                             <SkinCard key={index}

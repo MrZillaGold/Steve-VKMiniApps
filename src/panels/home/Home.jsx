@@ -19,8 +19,10 @@ export function Home({ id }) {
             />
             <Group>
                 <Group mode="plain">
-                <CardGrid style={{ marginBottom: "12px", marginTop: viewWidth > ViewWidth.MOBILE ? "8px" : "0px" }}>
-                    <Card size="l">
+                <CardGrid style={{ marginBottom: "12px", marginTop: viewWidth > ViewWidth.MOBILE ? "8px" : "0px" }}
+                          size="l"
+                >
+                    <Card>
                         <SimpleCell before={
                             <Icon28SmileOutline/>
                         }
@@ -32,7 +34,7 @@ export function Home({ id }) {
                             Информация об игроке
                         </SimpleCell>
                     </Card>
-                    <Card size="l">
+                    <Card>
                         <SimpleCell before={
                             <IconServer/>
                         }
@@ -44,7 +46,7 @@ export function Home({ id }) {
                             Информация о сервере по IP
                         </SimpleCell>
                     </Card>
-                    <Card size="l">
+                    <Card>
                         <SimpleCell before={
                             <Icon24Gallery height={28} width={28}/>
                         }
@@ -56,7 +58,7 @@ export function Home({ id }) {
                             Галерея скинов
                         </SimpleCell>
                     </Card>
-                    <Card size="l">
+                    <Card>
                         <SimpleCell before={
                             <Icon28StatisticsOutline/>
                         }
@@ -68,7 +70,7 @@ export function Home({ id }) {
                             Статистика Hypixel
                         </SimpleCell>
                     </Card>
-                    <Card size="l">
+                    <Card>
                         <SimpleCell before={
                             <Icon32Graffiti height={28} width={28}/>
                         }
@@ -80,7 +82,7 @@ export function Home({ id }) {
                             Генератор достижений
                         </SimpleCell>
                     </Card>
-                    <Card size="l">
+                    <Card>
                         <SimpleCell before={
                             <IconCalculator/>
                         }
@@ -92,7 +94,7 @@ export function Home({ id }) {
                             Калькулятор координат
                         </SimpleCell>
                     </Card>
-                    <Card size="l">
+                    <Card>
                         <RichCell multiline
                                   disabled
                                   before={
@@ -118,7 +120,7 @@ export function Home({ id }) {
                             Steve - Minecraft Бот
                         </RichCell>
                     </Card>
-                    <Card size="l">
+                    <Card>
                         <SimpleCell before={
                             <Icon24Globe/>
                         }
@@ -130,7 +132,7 @@ export function Home({ id }) {
                             Состояние сервисов
                         </SimpleCell>
                     </Card>
-                    <Card size="l">
+                    <Card>
                         <SimpleCell before={
                             <Icon28AddOutline/>
                         }
