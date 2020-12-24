@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer } from "react";
+import getArgs from "vkappsutils/dist/Args";
 import VKBridge from "@vkontakte/vk-bridge";
 import { Header, List, Cell } from "@vkontakte/vkui";
 import { Icon24Cancel, Icon24Done, Icon24Write } from "@vkontakte/icons";
@@ -15,10 +16,12 @@ import { HeightAnimation } from "../animation/animation";
  * @param {boolean} opened - Состояние открытия списка (Только для мобильных устройств)
  * @param {boolean} disabled - Отключение выбора элементов списка
  * @param {string} empty - Текст заглушки при пустом списке
- * @param {function} getState - ункция для получения текущего состояния компонента
+ * @param {function} getState - Функция для получения текущего состояния компонента
  * @return {Node}
  */
 export function FavoriteList({ onSelect = () => {}, bridgeKey = "", header = "", opened = true, disabled = false, empty = "", getState = () => {} }) {
+
+    const { id } = getArgs();
 
     const [{ items, edit, loaded, old, mount }, setFavorite] = useReducer((state, data) => ({
         ...state,
@@ -51,43 +54,56 @@ export function FavoriteList({ onSelect = () => {}, bridgeKey = "", header = "",
     };
 
     const save = (items) => {
-        VKBridge.send("VKWebAppStorageSet", {
-            key: bridgeKey,
-            value: items.join(",")
-        });
+        items = items.join(",");
+
+        if (id) {
+            VKBridge.send("VKWebAppStorageSet", {
+                key: bridgeKey,
+                value: items
+            });
+        } else {
+            localStorage.setItem(bridgeKey, items);
+        }
     };
 
     useEffect(() => {
-        VKBridge.send("VKWebAppStorageGet", {
-            keys: [bridgeKey]
-        })
-            .then(({ keys }) => {
-                let [items] = keys;
+        if (id) {
+            VKBridge.send("VKWebAppStorageGet", {
+                keys: [bridgeKey]
+            })
+                .then(({ keys }) => {
+                    let [items] = keys;
 
-                items = items.value;
+                    items = items.value;
 
-                if (mount) {
-                    setFavorite({
-                        loaded: true
-                    });
-
-                    if (items.length > 0) {
+                    if (mount) {
+                        if (items.length > 0) {
+                            setFavorite({
+                                items: items.split(","),
+                                loaded: true
+                            });
+                        }
+                    }
+                })
+                .catch((error) => {
+                    if (mount) {
                         setFavorite({
-                            items: items.split(","),
                             loaded: true
                         });
                     }
-                }
-            })
-            .catch((error) => {
-                if (mount) {
-                    setFavorite({
-                        loaded: true
-                    });
-                }
 
-                console.log(error);
+                    console.log(error);
+                });
+        } else {
+            let storage = localStorage.getItem(bridgeKey);
+
+            storage = storage ? storage.split(",") : [];
+
+            setFavorite({
+                items: storage,
+                loaded: true
             });
+        }
 
         return () => setFavorite({
             mount: false

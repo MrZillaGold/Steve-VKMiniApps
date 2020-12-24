@@ -1,4 +1,5 @@
 import React from "react";
+import getArgs from "vkappsutils/dist/Args";
 import VKBridge from "@vkontakte/vk-bridge";
 import { Panel, Group, CardGrid, Card, SimpleCell, Avatar, Button, ViewWidth, RichCell, useAdaptivity } from "@vkontakte/vkui";
 import { Icon28SmileOutline, Icon24Gallery, Icon28StatisticsOutline, Icon32Graffiti, Icon28AddOutline, Icon24Globe } from "@vkontakte/icons";
@@ -11,6 +12,7 @@ export function Home({ id }) {
 
     const { viewWidth } = useAdaptivity();
     const { go } = useNavigator();
+    const { id: vk_id } = getArgs();
 
     return (
         <Panel id={id}>
@@ -132,19 +134,22 @@ export function Home({ id }) {
                             Состояние сервисов
                         </SimpleCell>
                     </Card>
-                    <Card>
-                        <SimpleCell before={
-                            <Icon28AddOutline/>
-                        }
-                                    onClick={() => VKBridge.send("VKWebAppAddToCommunity", {})}
-                                    size="m"
-                                    multiline
-                                    description="Установите приложение в свое сообщество за один клик"
+                    {
+                        vk_id && VKBridge.supports("VKWebAppAddToCommunity") &&
+                        <Card>
+                            <SimpleCell before={
+                                <Icon28AddOutline/>
+                            }
+                                        onClick={() => VKBridge.send("VKWebAppAddToCommunity", {})}
+                                        size="m"
+                                        multiline
+                                        description="Установите приложение в свое сообщество за один клик"
 
-                        >
-                            Установить приложение
-                        </SimpleCell>
-                    </Card>
+                            >
+                                Установить приложение
+                            </SimpleCell>
+                        </Card>
+                    }
                 </CardGrid>
                 </Group>
             </Group>
