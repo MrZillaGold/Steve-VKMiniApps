@@ -92,7 +92,7 @@ export function App() {
                 closeModal,
                 closeModals
             }}>
-                <ConfigProvider webviewType={appPlatform === "desktop_web" ? "internal" : "vkapps"}
+                <ConfigProvider webviewType={appPlatform === "desktop_web" || appPlatform === "web" ? "internal" : "vkapps"}
                                 isWebView={VKBridge.isWebView()}
                                 platform={platform}
                                 scheme={scheme}
