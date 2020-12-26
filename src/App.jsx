@@ -78,6 +78,12 @@ export function App() {
                 }
             }
         });
+
+        window.Twitch.ext.onContext(({ theme }) => {
+            const scheme = theme === "light" ? "bright_light" : "space_gray";
+
+            setScheme(scheme);
+        });
     }, []);
 
     return (
