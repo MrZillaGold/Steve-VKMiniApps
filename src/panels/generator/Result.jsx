@@ -7,11 +7,11 @@ import { randomInteger } from "../../functions";
 import { Achievement } from "./Achievement";
 import { Send } from "./Send";
 
-import spriteAsset from "../../assets/items.png";
+import spriteAsset from "../../assets/achievement/items.png";
 
 const ITEM_SIDE_SIZE = 32;
 
-export function Result({ title, body }) {
+export function Result(params) {
 
     const [mount, setMount] = useState(true);
     const [spriteCoordinates, setSpriteCoordinates] = useState(null);
@@ -54,8 +54,17 @@ export function Result({ title, body }) {
             </Header>
         }>
             <HeightAnimation>
-                <Achievement title={title} body={body} spriteCoordinates={spriteCoordinates} getSpriteCoordinates={getSpriteCoordinates} ITEM_SIDE_SIZE={ITEM_SIDE_SIZE} setBlob={setBlob}/>
-                <Send title={title} body={body} index={spriteCoordinates?.index} getSpriteCoordinates={getSpriteCoordinates} blob={blob}/>
+                <Achievement spriteCoordinates={spriteCoordinates}
+                             getSpriteCoordinates={getSpriteCoordinates}
+                             ITEM_SIDE_SIZE={ITEM_SIDE_SIZE}
+                             setBlob={setBlob}
+                             {...params}
+                />
+                <Send index={spriteCoordinates?.index}
+                      getSpriteCoordinates={getSpriteCoordinates}
+                      blob={blob}
+                      {...params}
+                />
             </HeightAnimation>
         </Group>
     )

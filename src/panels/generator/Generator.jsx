@@ -9,15 +9,14 @@ import { CustomPanelHeader, OfflineBlock, SmartCols } from "../../components/com
 
 export function Generator({ id }) {
 
-    const [{ title, body }, setAchievement] = useReducer((state, achievement) => ({
+    const [achievement, setAchievement] = useReducer((state, achievement) => ({
         ...state,
         ...achievement
     }), {
         title: "",
         body: "",
-        sent: false,
-        lock: false,
-        url: null
+        backgroundColor: "black",
+        textColor: "yellow"
     });
 
     return (
@@ -25,15 +24,12 @@ export function Generator({ id }) {
             <CustomPanelHeader status="Генератор достижений"/>
             <Online>
                 <SmartCols col1={
-                    <Form title={title}
-                          body={body}
-                          setAchievement={setAchievement}
+                    <Form setAchievement={setAchievement}
+                          {...achievement}
                     />
                 }
                            col2={
-                               <Result title={title}
-                                       body={body}
-                               />
+                               <Result {...achievement}/>
                            }
                 />
             </Online>

@@ -7,14 +7,38 @@ import { IconChest } from "../../icons/IconChest";
 
 import { loadImage } from "../../functions";
 
-import headerAsset from "../../assets/header.png";
-import backgroundAsset from "../../assets/background.png";
-import footerAsset from "../../assets/footer.png";
-import spriteAsset from "../../assets/items.png";
+import whiteHeader from "../../assets/achievement/white/header.png";
+import whiteBackground from "../../assets/achievement/white/background.png";
+import whiteFooter from "../../assets/achievement/white/footer.png";
+
+import blackHeader from "../../assets/achievement/black/header.png";
+import blackBackground from "../../assets/achievement/black/background.png";
+import blackFooter from "../../assets/achievement/black/footer.png";
+
+import spriteAsset from "../../assets/achievement/items.png";
 
 import "./Achievement.css";
 
-export function Achievement({ title, body, spriteCoordinates, getSpriteCoordinates, ITEM_SIDE_SIZE, setBlob }) {
+const assets = new Map([
+    [
+        "black",
+        {
+            header: blackHeader,
+            background: blackBackground,
+            footer: blackFooter
+        }
+    ],
+    [
+        "white",
+        {
+            header: whiteHeader,
+            background: whiteBackground,
+            footer: whiteFooter
+        }
+    ]
+])
+
+export function Achievement({ title, body, textColor, backgroundColor, spriteCoordinates, getSpriteCoordinates, ITEM_SIDE_SIZE, setBlob }) {
 
     const [mount, setMount] = useState(true);
 
@@ -36,6 +60,8 @@ export function Achievement({ title, body, spriteCoordinates, getSpriteCoordinat
         const headerLayer = new Konva.Layer();
         const backgroundLayer = new Konva.Layer();
         const footerLayer = new Konva.Layer();
+
+        const { header: headerAsset, background: backgroundAsset, footer: footerAsset } = assets.get(backgroundColor);
 
         await Promise.all([
             loadImage(headerAsset),
@@ -102,7 +128,13 @@ export function Achievement({ title, body, spriteCoordinates, getSpriteCoordinat
             text: title,
             fontSize: 20,
             fontFamily: "Minecraft Seven",
-            fill: "yellow"
+            fill: textColor === "yellow" ?
+                "yellow"
+                :
+                backgroundColor === "black" ?
+                    "#FC86FC"
+                    :
+                    "#500050"
         }));
 
         text.map((line) => line.trim())
@@ -113,7 +145,7 @@ export function Achievement({ title, body, spriteCoordinates, getSpriteCoordinat
                     text: line,
                     fontSize: 20,
                     fontFamily: "Minecraft Seven",
-                    fill: "white"
+                    fill: backgroundColor === "black" ? "white" : "black"
                 });
 
                 backgroundLayer.add(text);
@@ -130,7 +162,7 @@ export function Achievement({ title, body, spriteCoordinates, getSpriteCoordinat
 
     useEffect(() => {
         generate();
-    }, [title, body, spriteCoordinates]);
+    }, [title, body, textColor, backgroundColor, spriteCoordinates]);
 
     useEffect(() => () => setMount(false), []);
 

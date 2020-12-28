@@ -7,7 +7,7 @@ import { getRandomElement, storyBackgrounds } from "../../functions";
 
 import "./Send.css";
 
-export function Send({ title, body, index, getSpriteCoordinates, blob }) {
+export function Send({ title, body, backgroundColor, textColor, index, getSpriteCoordinates, blob }) {
 
     const [{ sent, lock }, setSend] = useReducer((state, updates) => ({
         ...state,
@@ -33,6 +33,8 @@ export function Send({ title, body, index, getSpriteCoordinates, blob }) {
                             type: "achievement",
                             title,
                             body: body === "" ? " " : body,
+                            background_color: backgroundColor,
+                            text_color: textColor,
                             index
                         }
                     });

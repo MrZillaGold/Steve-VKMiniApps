@@ -1,14 +1,16 @@
 import React, { useEffect, useReducer } from "react";
-import { Group, FormLayout, Input, FormItem, Textarea } from "@vkontakte/vkui";
+import { Group, FormLayout, Input, FormItem, Textarea, SliderSwitch } from "@vkontakte/vkui";
 
 export function Form({ setAchievement }) {
 
-    const [{ title, body }, setInputValue] = useReducer((state, input) => ({
+    const [{ title, body, textColor, backgroundColor }, setInputValue] = useReducer((state, input) => ({
         ...state,
         ...input
     }), {
         title: "",
-        body: ""
+        body: "",
+        textColor: "yellow",
+        backgroundColor: "black"
     });
 
     const input = ({ currentTarget }) => {
@@ -35,11 +37,13 @@ export function Form({ setAchievement }) {
     useEffect(() => {
         const timeout = setTimeout(() => setAchievement({
             title,
-            body
+            body,
+            textColor,
+            backgroundColor
         }), 500)
 
         return () => clearTimeout(timeout);
-    }, [title, body]);
+    }, [title, body, backgroundColor, textColor]);
 
     return (
         <Group>
@@ -59,6 +63,42 @@ export function Form({ setAchievement }) {
                            value={body}
                            onChange={input}
                            placeholder="Терпение и труд"
+                    />
+                </FormItem>
+                <FormItem top="Цвет текста">
+                    <SliderSwitch options={[
+                        {
+                            name: "Жёлтый",
+                            value: "yellow",
+                        },
+                        {
+                            name: "Розовый",
+                            value: "pink",
+                        },
+                    ]}
+                                  name="text"
+                                  activeValue={textColor}
+                                  onSwitch={(textColor) => setInputValue({
+                                      textColor
+                                  })}
+                    />
+                </FormItem>
+                <FormItem top="Цвет фона">
+                    <SliderSwitch options={[
+                        {
+                            name: "Чёрный",
+                            value: "black",
+                        },
+                        {
+                            name: "Белый",
+                            value: "white",
+                        },
+                    ]}
+                                  name="background"
+                                  activeValue={backgroundColor}
+                                  onSwitch={(backgroundColor) => setInputValue({
+                                      backgroundColor
+                                  })}
                     />
                 </FormItem>
             </FormLayout>
