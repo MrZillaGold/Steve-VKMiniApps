@@ -1,11 +1,11 @@
 import React from "react";
 import { Avatar, List, SimpleCell } from "@vkontakte/vkui";
 
-import green from "../../assets/green.gif";
-import yellow from "../../assets/yellow.gif";
-import red from "../../assets/red.gif";
 import { HeightAnimation } from "../../animation/animation";
 
+import green from "../../assets/status/green.gif";
+import yellow from "../../assets/status/yellow.gif";
+import red from "../../assets/status/red.gif";
 
 const statuses = new Map([
     ["green", [green, "Всё в порядке"]],

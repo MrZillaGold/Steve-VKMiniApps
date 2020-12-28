@@ -9,7 +9,7 @@ import { Info } from "./Info";
 import { CustomPanelHeader, OfflineBlock, ScrollToUp, SmartCols } from "../../components/components";
 import { declOfNum } from "../../functions";
 
-import defaultImage from "../../assets/server-default.png";
+import defaultImage from "../../assets/server/server-default.png";
 
 export function Server({ id }) {
 
