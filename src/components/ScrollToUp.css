@@ -1,4 +1,4 @@
-.InfinityScroll-Up {
+.ScrollToUp-Up {
     width: auto !important;
     right: 0;
     margin: 0 10px 10px 0;
@@ -6,12 +6,12 @@
     transition: opacity 0.2s linear;
 }
 
-.InfinityScroll-Up-Show {
+.ScrollToUp-Up-Show {
     opacity: 1;
     cursor: pointer !important;
 }
 
-.InfinityScroll-Up-Button {
+.ScrollToUp-Up-Button {
     cursor: unset !important;
     border-radius: 26px !important;
     padding: 0 11px !important;

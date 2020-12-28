@@ -3,6 +3,7 @@ export { Error } from "./Error";
 export { OfflineBlock } from "./OfflineBlock";
 export { Spinner } from "./Spinner";
 export { SmartCols } from "./SmartCols";
+export { ScrollToUp } from "./ScrollToUp";
 
 export { SkinViewer } from "./SkinViewer";
 export { SkinPreview } from "./SkinPreview";

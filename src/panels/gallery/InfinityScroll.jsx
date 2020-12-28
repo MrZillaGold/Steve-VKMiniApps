@@ -1,17 +1,14 @@
 import React, { useRef, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Button, CardGrid, FixedLayout, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
-import { Icon28ArrowUpOutline } from "@vkontakte/icons";
+import { CardGrid, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
 
-import { Spinner } from "../../components/Spinner";
+import { ScrollToUp, Spinner } from "../../components/components";
 import { SkinCard } from "./SkinCard";
-
-import "./InfinityScroll.css";
 
 export function InfinityScroll({ skins, height, getSkins, hasMore }) {
 
-    const { viewWidth } = useAdaptivity();
     const ref = useRef();
+    const { viewWidth } = useAdaptivity();
 
     const [scrollUp, setScrollUp] = useState(false);
 
@@ -21,10 +18,6 @@ export function InfinityScroll({ skins, height, getSkins, hasMore }) {
         } else {
             setScrollUp(false);
         }
-    };
-
-    const scrollToUp = () => {
-        window.scrollTo(0, 0);
     };
 
     return (
@@ -51,17 +44,7 @@ export function InfinityScroll({ skins, height, getSkins, hasMore }) {
                     }
                 </CardGrid>
             </InfiniteScroll>
-            <FixedLayout vertical="bottom"
-                         className={`InfinityScroll-Up ${scrollUp ? "InfinityScroll-Up-Show" : ""}`}
-            >
-                <Button size="l"
-                        mode="secondary"
-                        className="InfinityScroll-Up-Button"
-                        onClick={scrollToUp}
-                >
-                    <Icon28ArrowUpOutline/>
-                </Button>
-            </FixedLayout>
-            </>
-    )
+            <ScrollToUp scrollUp={scrollUp}/>
+        </>
+    );
 }
