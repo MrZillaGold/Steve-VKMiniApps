@@ -6,13 +6,14 @@ import { Panel, Group } from "@vkontakte/vkui";
 import { Form } from "./Form";
 import { Info } from "./Info";
 
-import { CustomPanelHeader, OfflineBlock, SmartCols } from "../../components/components";
+import { CustomPanelHeader, OfflineBlock, ScrollToUp, SmartCols } from "../../components/components";
 import { declOfNum } from "../../functions";
 
 import defaultImage from "../../assets/server-default.png";
 
 export function Server({ id }) {
 
+    const [scrollUp, setScrollUp] = useState(false);
     const [mount, setMount] = useState(true);
     const [error, setError] = useState(null);
     const [spinner, setSpinner] = useReducer((state, spinner) => {
@@ -35,28 +36,44 @@ export function Server({ id }) {
         setServer(null);
         setSpinner(true);
 
-        axios.get(`https://api.mcsrvstat.us/2/${ip}`)
-            .then(({ data }) => {
+        Promise.allSettled([
+            axios.get(`https://api.mcsrvstat.us/2/${ip}`)
+                .then(({ data }) => data),
+            axios.get(`https://minecraft-statistic.net/api/server/info/${ip.replace(":", "_")}`)
+                .then(({ data }) => data)
+        ])
+            .then(([server, statistic]) => {
+                if (server.status === "rejected") {
+                    throw server.reason;
+                }
+
+                if (statistic.status === "fulfilled") {
+                    console.log(statistic.value._id)
+                    server.value.id = statistic.value._id;
+                }
+
+                server = server.value;
+
                 if (mount) {
-                    const { online, players, icon } = data;
+                    const { online, players, icon } = server;
 
                     if (online) {
                         if (players.list) {
                             const online = players.online || 0;
                             const list = players.list.filter((name) => name.match(/^[A-Za-z0-9_]{1,16}$/g));
 
-                            data.players.list = (list.length < online && list.length === 12 ? `${list} и еще ${online - list.length} ${declOfNum(online - list.length, ["другой", "других", "других"])} ${declOfNum(online - list.length, ["игрок", "игрока", "игроков"])}` : list.toString()).replace(/,/g, ", ");
+                            server.players.list = (list.length < online && list.length === 12 ? `${list} и еще ${online - list.length} ${declOfNum(online - list.length, ["другой", "других", "других"])} ${declOfNum(online - list.length, ["игрок", "игрока", "игроков"])}` : list.toString()).replace(/,/g, ", ");
                         }
 
                         if (icon) {
-                            data.icon = icon.replace(/\//g, "/");
+                            server.icon = icon.replace(/\//g, "/");
                         } else {
-                            data.icon = defaultImage;
+                            server.icon = defaultImage;
                         }
 
-                        data.ip = ip.toLowerCase();
+                        server.ip = ip.toLowerCase();
 
-                        setServer(data);
+                        setServer(server);
                     } else {
                         setError(`Сервер ${ip} оффлайн, либо информация отсутствует.`);
                     }
@@ -95,9 +112,11 @@ export function Server({ id }) {
                                      spinner={spinner}
                                      add={add}
                                      favorite={items}
+                                     setScrollUp={setScrollUp}
                                />
                            }
                 />
+                <ScrollToUp scrollUp={scrollUp}/>
             </Online>
             <Offline>
                 <Group>

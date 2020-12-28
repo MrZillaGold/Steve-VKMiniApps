@@ -1,12 +1,15 @@
 import React, { useContext } from "react";
-
-import { Header, Cell, Avatar, Group, Div } from "@vkontakte/vkui";
+import { Cell, Avatar, Group } from "@vkontakte/vkui";
 
 import { SchemeContext } from "../../hooks/hooks";
 
+import { Players } from "./Players";
+import { Core } from "./Core";
+import { ServerTop } from "./ServerTop";
+
 import "./ServerCard.css";
 
-export function ServerCard({ server }) {
+export function ServerCard({ server, setScrollUp }) {
 
     const { scheme } = useContext(SchemeContext);
 
@@ -33,35 +36,17 @@ export function ServerCard({ server }) {
             </Group>
             {
                 server.players.list &&
-                <Group mode="plain"
-                       header={
-                           <Header mode="secondary">
-                               Игроки
-                           </Header>
-                       }
-                >
-                    <Div className="ServerCard-Line">
-                        {
-                            server.players.list
-                        }
-                    </Div>
-                </Group>
+                <Players server={server}/>
             }
             {
                 server.version &&
-                <Group header={
-                    <Header mode="secondary">
-                        Ядро сервера
-                    </Header>
-                }
-                       mode="plain"
-                >
-                    <Div className="ServerCard-Line">
-                        {
-                            server.version
-                        }
-                    </Div>
-                </Group>
+                <Core server={server}/>
+            }
+            {
+                server.id &&
+                <ServerTop server={server}
+                           setScrollUp={setScrollUp}
+                />
             }
         </>
     )

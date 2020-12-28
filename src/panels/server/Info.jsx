@@ -3,11 +3,10 @@ import { Group, Header, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
 import { Icon24DoneOutline, Icon24FavoriteOutline } from "@vkontakte/icons";
 
 import { Error, Spinner } from "../../components/components";
-import { HeightAnimation } from "../../animation/animation";
 
 import { ServerCard } from "./ServerCard";
 
-export function Info({ server, spinner, error, favorite, add }) {
+export function Info({ server, spinner, error, favorite, add, setScrollUp }) {
 
     const { viewWidth } = useAdaptivity();
 
@@ -26,20 +25,18 @@ export function Info({ server, spinner, error, favorite, add }) {
                 }
             </Header>
         }>
-            <HeightAnimation>
-                {
-                    server ?
-                        <ServerCard server={server} favorite={favorite} add={add}/>
-                        :
-                        !spinner && !error && viewWidth > ViewWidth.MOBILE && <Error error="Информация о сервере появится здесь после ее получения."/>
-                }
-                {
-                    spinner && <Spinner/>
-                }
-                {
-                    error && <Error error={error}/>
-                }
-            </HeightAnimation>
+            {
+                server ?
+                    <ServerCard server={server} favorite={favorite} add={add} setScrollUp={setScrollUp}/>
+                    :
+                    !spinner && !error && viewWidth > ViewWidth.MOBILE && <Error error="Информация о сервере появится здесь после ее получения."/>
+            }
+            {
+                spinner && <Spinner/>
+            }
+            {
+                error && <Error error={error}/>
+            }
         </Group>
     )
 }
