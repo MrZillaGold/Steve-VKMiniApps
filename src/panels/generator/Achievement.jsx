@@ -36,7 +36,7 @@ const assets = new Map([
             footer: whiteFooter
         }
     ]
-])
+]);
 
 export function Achievement({ title, body, textColor, backgroundColor, spriteCoordinates, getSpriteCoordinates, ITEM_SIDE_SIZE, setBlob }) {
 

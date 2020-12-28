@@ -65,7 +65,7 @@ export function Form({ setAchievement }) {
                            placeholder="Терпение и труд"
                     />
                 </FormItem>
-                <FormItem top="Цвет текста">
+                <FormItem top="Цвет заголовка">
                     <SliderSwitch options={[
                         {
                             name: "Жёлтый",
