@@ -12,7 +12,7 @@ export function Home({ id }) {
 
     const { viewWidth } = useAdaptivity();
     const { go } = useNavigator();
-    const { id: vk_id } = getArgs();
+    const { user_id } = getArgs();
 
     return (
         <Panel id={id}>
@@ -135,7 +135,7 @@ export function Home({ id }) {
                         </SimpleCell>
                     </Card>
                     {
-                        vk_id && VKBridge.supports("VKWebAppAddToCommunity") &&
+                        user_id && VKBridge.supports("VKWebAppAddToCommunity") &&
                         <Card>
                             <SimpleCell before={
                                 <Icon28AddOutline/>

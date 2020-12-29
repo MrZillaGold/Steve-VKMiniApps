@@ -17,11 +17,11 @@ import { HeightAnimation } from "../animation/animation";
  * @param {boolean} disabled - Отключение выбора элементов списка
  * @param {string} empty - Текст заглушки при пустом списке
  * @param {function} getState - Функция для получения текущего состояния компонента
- * @return {Node}
+ * @return {JSX.Element}
  */
 export function FavoriteList({ onSelect = () => {}, bridgeKey = "", header = "", opened = true, disabled = false, empty = "", getState = () => {} }) {
 
-    const { id } = getArgs();
+    const { user_id } = getArgs();
 
     const [{ items, edit, loaded, old, mount }, setFavorite] = useReducer((state, data) => ({
         ...state,
@@ -56,7 +56,7 @@ export function FavoriteList({ onSelect = () => {}, bridgeKey = "", header = "",
     const save = (items) => {
         items = items.join(",");
 
-        if (id) {
+        if (user_id) {
             VKBridge.send("VKWebAppStorageSet", {
                 key: bridgeKey,
                 value: items
@@ -67,7 +67,7 @@ export function FavoriteList({ onSelect = () => {}, bridgeKey = "", header = "",
     };
 
     useEffect(() => {
-        if (id) {
+        if (user_id) {
             VKBridge.send("VKWebAppStorageGet", {
                 keys: [bridgeKey]
             })

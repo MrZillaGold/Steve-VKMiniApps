@@ -16,7 +16,7 @@ export function SkinPreview({ skin, cape, isSlim, username = "", ...rest }) {
 
     const { viewWidth } = useAdaptivity();
     const { scheme } = useContext(SchemeContext);
-    const { platform, id } = getArgs();
+    const { platform, user_id } = getArgs();
 
     const [{ skinViewer, paused, walk, lock }, setPreview] = useReducer((currentState, updates) => ({
         ...currentState,
@@ -145,7 +145,7 @@ export function SkinPreview({ skin, cape, isSlim, username = "", ...rest }) {
                 <Button mode="secondary"
                         className="SkinPreview-Button"
                         onClick={openStoryEditor}
-                        style={!id ? { display: "none" } : {}}
+                        style={!user_id ? { display: "none" } : {}}
                 >
                     <Icon28StoryOutline/>
                 </Button>
@@ -153,9 +153,9 @@ export function SkinPreview({ skin, cape, isSlim, username = "", ...rest }) {
                         className="SkinPreview-Button"
                         target="_blank"
                         rel="noreferrer"
-                        href={skin && (isWeb || !id) ? skin.replace("https://stevecors.herokuapp.com/", "") : null}
+                        href={skin && (isWeb || !user_id) ? skin.replace("https://stevecors.herokuapp.com/", "") : null}
                         disabled={lock}
-                        onClick={isWeb || !id ? null : sendMessage}
+                        onClick={isWeb || !user_id ? null : sendMessage}
                 >
                     <Icon28DownloadOutline/>
                 </Button>
