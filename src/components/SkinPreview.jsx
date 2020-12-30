@@ -129,26 +129,25 @@ export function SkinPreview({ skin, cape, isSlim, username = "", ...rest }) {
                 <Button mode="secondary"
                         className="SkinPreview-Button"
                         onClick={() => togglePreviewAnimation("pause")}
-                >
-                    {
-                        paused ? <Icon28Play/> : <Icon28Pause/>
-                    }
-                </Button>
+                        before={
+                            paused ? <Icon28Play/> : <Icon28Pause/>
+                        }
+                />
                 <Button mode="secondary"
                         className="SkinPreview-Button"
                         onClick={() => togglePreviewAnimation("animation")}
-                >
-                    {
-                        walk ? <IconRun/> : <IconWalk/>
-                    }
-                </Button>
+                        before={
+                            walk ? <IconRun/> : <IconWalk/>
+                        }
+                />
                 <Button mode="secondary"
                         className="SkinPreview-Button"
                         onClick={openStoryEditor}
                         style={!user_id ? { display: "none" } : {}}
-                >
-                    <Icon28StoryOutline/>
-                </Button>
+                        before={
+                            <Icon28StoryOutline/>
+                        }
+                />
                 <Button mode="secondary"
                         className="SkinPreview-Button"
                         target="_blank"
@@ -156,9 +155,10 @@ export function SkinPreview({ skin, cape, isSlim, username = "", ...rest }) {
                         href={skin && (isWeb || !user_id) ? skin.replace("https://stevecors.herokuapp.com/", "") : null}
                         disabled={lock}
                         onClick={isWeb || !user_id ? null : sendMessage}
-                >
-                    <Icon28DownloadOutline/>
-                </Button>
+                        before={
+                            <Icon28DownloadOutline/>
+                        }
+                />
             </div>
             <div className="SkinPreview-Render">
                 <SkinViewer skin={skin}

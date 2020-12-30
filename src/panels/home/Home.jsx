@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigator } from "vkui-navigation";
 import getArgs from "vkappsutils/dist/Args";
 import VKBridge from "@vkontakte/vk-bridge";
 import { Panel, Group, CardGrid, Card, SimpleCell, Avatar, Button, ViewWidth, RichCell, useAdaptivity } from "@vkontakte/vkui";
@@ -6,7 +7,6 @@ import { Icon28SmileOutline, Icon24Gallery, Icon28StatisticsOutline, Icon32Graff
 
 import { CustomPanelHeader } from "../../components/CustomPanelHeader";
 import { IconServer, IconCalculator, IconSteve } from "../../icons/icons";
-import { useNavigator } from "vkui-navigation";
 
 export function Home({ id }) {
 
