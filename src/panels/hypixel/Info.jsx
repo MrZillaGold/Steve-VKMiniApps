@@ -5,7 +5,7 @@ import { Error, Spinner } from "../../components/components";
 import { HeightAnimation } from "../../animation/animation";
 
 import { UserCard } from "./UserCard";
-import { TabSelect } from "./TabSelect";
+import { TabsSelect } from "../../components/TabsSelect";
 
 import { Main, BedWars, SkyWars, BuildBattle, UHC, TNT, Duels, MurderMystery } from "./modes";
 
@@ -35,9 +35,9 @@ export function Info({ user, spinner, error }) {
                     user ?
                         <Group mode="plain">
                             <UserCard user={user}/>
-                            <TabSelect activeTab={activeTab}
+                            <TabsSelect activeTab={activeTab}
                                        setActiveTab={setActiveTab}
-                                       modes={modes}
+                                       tabs={modes}
                             />
                             {
                                 modes.get(activeTab)[1]

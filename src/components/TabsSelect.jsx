@@ -1,12 +1,11 @@
 import React, { useEffect, useRef } from "react";
-import { HorizontalScroll, Tabs, TabsItem, useAdaptivity } from "@vkontakte/vkui";
+import { HorizontalScroll, Tabs, TabsItem } from "@vkontakte/vkui";
 
-export function TabSelect({ activeTab, setActiveTab, modes }) {
+export function TabsSelect({ activeTab, setActiveTab, tabs }) {
 
     const ref = useRef();
     const tabsRef = new Set([]);
 
-    const { viewWidth } = useAdaptivity();
     const getScrollToLeft = (offset) => {
         const containerWidth = ref.current.offsetWidth;
 
@@ -42,7 +41,7 @@ export function TabSelect({ activeTab, setActiveTab, modes }) {
     }
 
     useEffect(() => {
-        modes.forEach((value, key) => {
+        tabs.forEach((value, key) => {
             tabsRef.add(document.querySelector(`#${key}`));
         });
     });
@@ -55,7 +54,7 @@ export function TabSelect({ activeTab, setActiveTab, modes }) {
                                   getScrollToLeft={getScrollToLeft}
                 >
                     {
-                        [...modes].map(([ tab, [title] ]) =>
+                        [...tabs].map(([ tab, [title] ]) =>
                             <TabsItem onClick={() => setActiveTab(tab)}
                                       id={tab}
                                       key={tab}
