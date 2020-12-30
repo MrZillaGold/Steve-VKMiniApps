@@ -2,20 +2,12 @@ import React, { useState } from "react";
 import { Group, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
 
 import { Error, Spinner } from "../../components/components";
-
 import { HeightAnimation } from "../../animation/animation";
 
 import { UserCard } from "./UserCard";
 import { TabSelect } from "./TabSelect";
 
-import { Main } from "./modes/Main";
-import { BedWars } from "./modes/BedWars";
-import { BuildBattle } from "./modes/BuildBattle";
-import { Duels } from "./modes/Duels";
-import { UHC } from "./modes/UHC";
-import { SkyWars } from "./modes/SkyWars";
-import { MurderMystery } from "./modes/MurderMystery";
-import { TNT } from "./modes/TNT";
+import { Main, BedWars, SkyWars, BuildBattle, UHC, TNT, Duels, MurderMystery } from "./modes";
 
 import "./Info.css";
 
@@ -28,12 +20,12 @@ export function Info({ user, spinner, error }) {
     const modes = new Map([
         ["main", ["Основная информация", <Main user={user}/>]],
         ["bedwars", ["BedWars", <BedWars user={user}/>]],
-        ["buildbattle", ["BuildBattle", <BuildBattle user={user}/>]],
-        ["duels", ["Duels", <Duels user={user}/>]],
-        ["uhc", ["UHC", <UHC user={user}/>]],
         ["skywars", ["SkyWars", <SkyWars user={user}/>]],
         ["murdermystery", ["Murder Mystery", <MurderMystery user={user}/>]],
-        ["tnt", ["TNT Games", <TNT user={user}/>]]
+        ["tnt", ["TNT Games", <TNT user={user}/>]],
+        ["duels", ["Duels", <Duels user={user}/>]],
+        ["buildbattle", ["BuildBattle", <BuildBattle user={user}/>]],
+        ["uhc", ["UHC", <UHC user={user}/>]]
     ]);
 
     return (
