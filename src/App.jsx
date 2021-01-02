@@ -1,34 +1,15 @@
 import React, { useEffect, useState } from "react";
-import getArgs from "vkappsutils/dist/Args";
 import VKBridge from "@vkontakte/vk-bridge";
-import { ConfigProvider, AdaptivityProvider, AppRoot } from "@vkontakte/vkui";
+import { AdaptivityProvider, AppRoot } from "@vkontakte/vkui";
 import { ModalsContext } from "vkui-navigation";
 
 import { Layout } from "./Layout";
 
-import { SchemeContext, schemes } from "./hooks/hooks";
+import { useAppearance } from "./hooks";
 
 export function App() {
-    const getStorageScheme = () => {
-        const storageScheme = localStorage.getItem("scheme");
-        if (schemes.includes(storageScheme)) {
-            return storageScheme;
-        } else {
-            return null;
-        }
-    };
 
-    const [platform, setPlatform] = useState("android");
-    const [scheme, setScheme] = useState(getStorageScheme() || "bright_light");
-
-    const toggleScheme = () => {
-        const newScheme = scheme === "bright_light" ? "space_gray" : "bright_light";
-
-        setScheme(newScheme);
-
-        localStorage.setItem("scheme", newScheme);
-    };
-
+    const { setScheme, appPlatform } = useAppearance();
     const [activeModal, setActiveModal] = useState(null);
     const [modalsHistory, setModalsHistory] = useState([]);
 
@@ -56,8 +37,6 @@ export function App() {
         setActiveModal(null);
         setModalsHistory([]);
     };
-
-    const { platform: appPlatform } = getArgs();
 
     useEffect(() => {
         VKBridge.subscribe(({ detail: { type, data }}) => {
@@ -87,29 +66,18 @@ export function App() {
     }, []);
 
     return (
-        <SchemeContext.Provider value={{
-            scheme,
-            toggleScheme
+        <ModalsContext.Provider value={{
+            activeModal,
+            modalsHistory,
+            openModal,
+            closeModal,
+            closeModals
         }}>
-            <ModalsContext.Provider value={{
-                activeModal,
-                modalsHistory,
-                openModal,
-                closeModal,
-                closeModals
-            }}>
-                <ConfigProvider webviewType={appPlatform === "desktop_web" || appPlatform === "web" ? "internal" : "vkapps"}
-                                isWebView={VKBridge.isWebView()}
-                                platform={platform}
-                                scheme={scheme}
-                >
-                    <AdaptivityProvider>
-                        <AppRoot>
-                            <Layout setPlatform={setPlatform}/>
-                        </AppRoot>
-                    </AdaptivityProvider>
-                </ConfigProvider>
-            </ModalsContext.Provider>
-        </SchemeContext.Provider>
+            <AdaptivityProvider>
+                <AppRoot>
+                    <Layout/>
+                </AppRoot>
+            </AdaptivityProvider>
+        </ModalsContext.Provider>
     )
 }

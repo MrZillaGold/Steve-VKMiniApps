@@ -1,9 +1,5 @@
-.ServerCard-Motd_bright_light {
-    text-shadow: 0.5px 0.5px 1.5px #000000;
-}
-
-.ServerCard-Motd_space_gray {
-    text-shadow: 0.01px 0.01px 1px #FFFFFF;
+.ServerCard-Motd {
+    text-shadow: 0.5px 0.5px 1.5px var(--motd-shadow);
 }
 
 .ServerCard-Line {

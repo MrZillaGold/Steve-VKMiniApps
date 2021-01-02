@@ -1,7 +1,7 @@
 import React from "react";
 import { Group } from "@vkontakte/vkui";
 
-import { SkinPreview } from "../../components/components";
+import { SkinPreview } from "../../components";
 
 import { Skins } from "./Skins";
 

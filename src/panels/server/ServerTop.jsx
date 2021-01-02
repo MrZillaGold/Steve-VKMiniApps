@@ -3,7 +3,7 @@ import React, { useState, useReducer, useEffect, useRef } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Avatar, FormItem, Group, Header, SimpleCell, SliderSwitch } from "@vkontakte/vkui";
 
-import { Spinner, Error } from "../../components/components";
+import { Spinner, Error } from "../../components";
 import { declOfNum } from "../../functions";
 
 export function ServerTop({ server: { id }, setScrollUp }) {

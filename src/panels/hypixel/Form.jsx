@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Input, Group } from "@vkontakte/vkui";
 
-import { InputWithFavorite } from "../../components/components";
+import { InputWithFavorite } from "../../components";
 
 export function Form({ nickname, setNickname, spinner, getUser, setAdd }) {
 

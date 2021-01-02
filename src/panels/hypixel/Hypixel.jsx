@@ -6,7 +6,7 @@ import { Panel, Group } from "@vkontakte/vkui";
 import { Form } from "./Form";
 import { Info } from "./Info";
 
-import { CustomPanelHeader, OfflineBlock, SmartCols } from "../../components/components";
+import { CustomPanelHeader, OfflineBlock, SmartCols } from "../../components";
 
 export function Hypixel({ id }) {
 

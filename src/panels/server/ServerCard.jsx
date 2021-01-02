@@ -1,7 +1,5 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Cell, Avatar, Group } from "@vkontakte/vkui";
-
-import { SchemeContext } from "../../hooks/hooks";
 
 import { Players } from "./Players";
 import { Core } from "./Core";
@@ -10,8 +8,6 @@ import { ServerTop } from "./ServerTop";
 import "./ServerCard.css";
 
 export function ServerCard({ server, setScrollUp }) {
-
-    const { scheme } = useContext(SchemeContext);
 
     return (
         <>
@@ -27,7 +23,7 @@ export function ServerCard({ server, setScrollUp }) {
                       }
                       description={`Игроков: ${server.players.online} / ${server.players.max}`}
                 >
-                    <div className={`ServerCard-Motd_${scheme}`}>
+                    <div className="ServerCard-Motd">
                         <span dangerouslySetInnerHTML={{__html: server.motd.html[0]}}/>
                         <br/>
                         <span dangerouslySetInnerHTML={{__html: server.motd.html[1]}}/>

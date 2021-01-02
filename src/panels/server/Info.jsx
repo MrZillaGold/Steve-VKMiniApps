@@ -2,7 +2,7 @@ import React from "react";
 import { Group, Header, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
 import { Icon24DoneOutline, Icon24FavoriteOutline } from "@vkontakte/icons";
 
-import { Error, Spinner } from "../../components/components";
+import { Error, Spinner } from "../../components";
 
 import { ServerCard } from "./ServerCard";
 

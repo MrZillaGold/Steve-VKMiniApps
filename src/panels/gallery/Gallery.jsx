@@ -3,7 +3,7 @@ import { NameMC } from "namemcwrapper/dist/NameMC";
 import { Offline, Online } from "react-detect-offline";
 import { Panel, Group, ViewWidth, useAdaptivity } from "@vkontakte/vkui";
 
-import { Error, CustomPanelHeader, Spinner, OfflineBlock } from "../../components/components";
+import { Error, CustomPanelHeader, Spinner, OfflineBlock } from "../../components";
 
 import { InfinityScroll } from "./InfinityScroll";
 

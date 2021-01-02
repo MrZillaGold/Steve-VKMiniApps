@@ -1,21 +1,19 @@
-import React, { useContext, useEffect, useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import getArgs from "vkappsutils/dist/Args";
 import VKBridge from "@vkontakte/vk-bridge";
 import { Button, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
 import { Icon28Play, Icon28Pause, Icon28DownloadOutline, Icon28StoryOutline } from "@vkontakte/icons";
 
-import { SkinViewer } from "./components";
+import { SkinViewer } from "./SkinViewer";
 import { IconRun, IconWalk } from "../icons/icons";
 
-import { SchemeContext } from "../hooks/hooks";
 import { getRandomElement, storyBackgrounds } from "../functions";
 
 import "./SkinPreview.css";
 
-export function SkinPreview({ skin, cape, isSlim, username = "", ...rest }) {
+export function SkinPreview({ skin, cape, isSlim, username = "", className, ...rest }) {
 
     const { viewWidth } = useAdaptivity();
-    const { scheme } = useContext(SchemeContext);
     const { platform, user_id } = getArgs();
 
     const [{ skinViewer, paused, walk, lock }, setPreview] = useReducer((currentState, updates) => ({
@@ -122,7 +120,7 @@ export function SkinPreview({ skin, cape, isSlim, username = "", ...rest }) {
     const isWeb = platform === "desktop_web" || platform === "mobile_web";
 
     return (
-        <div className={`SkinPreview SkinPreview-${scheme}`} {...rest}>
+        <div className={`SkinPreview ${className}`} {...rest}>
             <div className="SkinPreview-Buttons"
                  style={{ padding: viewWidth > ViewWidth.MOBILE ? 20 : 10 }}
             >

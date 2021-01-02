@@ -6,7 +6,7 @@ import { Panel, Group } from "@vkontakte/vkui";
 import { Form } from "./Form";
 import { Info } from "./Info";
 
-import { CustomPanelHeader, OfflineBlock, ScrollToUp, SmartCols } from "../../components/components";
+import { CustomPanelHeader, OfflineBlock, ScrollToUp, SmartCols } from "../../components";
 import { declOfNum } from "../../functions";
 
 import defaultImage from "../../assets/server/server-default.png";

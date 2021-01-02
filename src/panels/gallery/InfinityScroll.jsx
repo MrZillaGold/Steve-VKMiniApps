@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { CardGrid, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
 
-import { ScrollToUp, Spinner } from "../../components/components";
+import { ScrollToUp, Spinner } from "../../components";
 import { SkinCard } from "./SkinCard";
 
 export function InfinityScroll({ skins, height, getSkins, hasMore }) {

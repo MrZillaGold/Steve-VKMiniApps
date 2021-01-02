@@ -4,17 +4,19 @@ import { Root, View } from "vkui-navigation";
 import { ModalsContext } from "vkui-navigation";
 
 // Панели
-import { Home, User, Server, Gallery, Hypixel, Generator, Calculator, Status, } from "./panels/panels";
+import { Home, User, Server, Gallery, Hypixel, Generator, Calculator, Status, } from "./panels";
 // Модалки
 import { galleryPreview } from "./modals/gallery/GalleryPreview";
+import { useAppearance } from "./hooks";
 //
 
 const modals = [
     galleryPreview
 ];
 
-export function Layout({ setPlatform }) {
+export function Layout() {
 
+    const { setPlatform } = useAppearance();
     const { viewWidth } = useAdaptivity();
     const { activeModal, closeModal } = useContext(ModalsContext);
 

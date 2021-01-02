@@ -1,16 +1,16 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Avatar, PanelHeaderBack, PanelHeaderContent, PanelHeader, PanelHeaderButton } from "@vkontakte/vkui";
-import { Icon28MoonOutline } from "@vkontakte/icons";
+import { Icon28MoonOutline, Icon28SunOutline } from "@vkontakte/icons";
 import { useNavigator } from "vkui-navigation";
 
 import { IconSteve } from "../icons/icons";
 
-import { SchemeContext } from "../hooks/hooks";
+import { useAppearance } from "../hooks";
 
 export function CustomPanelHeader({ status, left = true }) {
 
     const { goBack } = useNavigator();
-    const { toggleScheme } = useContext(SchemeContext);
+    const { scheme, toggleScheme } = useAppearance();
 
     return (
         <PanelHeader left={
@@ -18,7 +18,12 @@ export function CustomPanelHeader({ status, left = true }) {
         }
                      right={
                          <PanelHeaderButton onClick={toggleScheme}>
-                             <Icon28MoonOutline/>
+                             {
+                                 scheme === "bright_light" ?
+                                     <Icon28MoonOutline/>
+                                     :
+                                     <Icon28SunOutline/>
+                             }
                          </PanelHeaderButton>
                      }
         >

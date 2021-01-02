@@ -3,7 +3,7 @@ import axios from "axios";
 import { Offline, Online } from "react-detect-offline";
 import { Panel, Group, Header } from "@vkontakte/vkui";
 
-import { OfflineBlock, Error, Spinner, CustomPanelHeader } from "../../components/components";
+import { OfflineBlock, Error, Spinner, CustomPanelHeader } from "../../components";
 import { ServicesList } from "./ServicesList";
 
 export function Status({ id }) {

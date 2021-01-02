@@ -6,6 +6,7 @@ import VKBridge from "@vkontakte/vk-bridge";
 import { platform, IOS } from "@vkontakte/vkui";
 import mVKMiniAppsScrollHelper from "@vkontakte/mvk-mini-apps-scroll-helper";
 
+import { AppearanceProvider } from "./components/AppearanceProvider";
 import { App } from "./App";
 
 import "@vkontakte/vkui/dist/vkui.css";
@@ -20,4 +21,9 @@ if (Os === IOS) {
     mVKMiniAppsScrollHelper(root);
 }
 
-ReactDOM.render(<App/>, root);
+ReactDOM.render(
+    <AppearanceProvider>
+        <App/>
+    </AppearanceProvider>,
+    root
+);

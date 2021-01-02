@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import { Panel } from "@vkontakte/vkui";
 
-import { CustomPanelHeader, SmartCols } from "../../components/components";
+import { CustomPanelHeader, SmartCols } from "../../components";
 
 import { Form } from "./From";
 import { Result } from "./Result";

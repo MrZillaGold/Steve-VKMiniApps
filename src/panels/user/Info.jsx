@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Group, Tabs, TabsItem, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
 
-import { Error, Spinner } from "../../components/components";
+import { Error, Spinner } from "../../components";
 import { HeightAnimation } from "../../animation/animation";
 
 import { NameHistory } from "./NameHistory";

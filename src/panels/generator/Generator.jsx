@@ -5,7 +5,7 @@ import { Panel, Group } from "@vkontakte/vkui";
 import { Form } from "./Form";
 import { Result } from "./Result";
 
-import { CustomPanelHeader, OfflineBlock, SmartCols } from "../../components/components";
+import { CustomPanelHeader, OfflineBlock, SmartCols } from "../../components";
 
 export function Generator({ id }) {
 
