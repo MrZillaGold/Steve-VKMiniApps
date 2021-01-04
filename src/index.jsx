@@ -6,8 +6,9 @@ import VKBridge from "@vkontakte/vk-bridge";
 import { platform, IOS } from "@vkontakte/vkui";
 import mVKMiniAppsScrollHelper from "@vkontakte/mvk-mini-apps-scroll-helper";
 
-import { AppearanceProvider } from "./components/AppearanceProvider";
 import { App } from "./App";
+
+import { AppearanceProvider } from "./components/AppearanceProvider";
 
 import "@vkontakte/vkui/dist/vkui.css";
 import "./App.css";

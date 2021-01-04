@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigator } from "vkui-navigation";
 import getArgs from "vkappsutils/dist/Args";
 import VKBridge from "@vkontakte/vk-bridge";
 import { Panel, Group, CardGrid, Card, SimpleCell, Avatar, Button, ViewWidth, RichCell, useAdaptivity } from "@vkontakte/vkui";
@@ -8,10 +7,11 @@ import { Icon28SmileOutline, Icon24Gallery, Icon28StatisticsOutline, Icon32Graff
 import { CustomPanelHeader } from "../../components/CustomPanelHeader";
 import { IconServer, IconCalculator, IconSteve } from "../../icons/icons";
 
+import { router } from "../../router";
+
 export function Home({ id }) {
 
     const { viewWidth } = useAdaptivity();
-    const { go } = useNavigator();
     const { user_id } = getArgs();
 
     return (
@@ -28,7 +28,7 @@ export function Home({ id }) {
                         <SimpleCell before={
                             <Icon28SmileOutline/>
                         }
-                                    onClick={() => go("user")}
+                                    onClick={() => router.go("user")}
                                     size="m"
                                     multiline
                                     description="История никнейма и скин игрока"
@@ -40,7 +40,7 @@ export function Home({ id }) {
                         <SimpleCell before={
                             <IconServer/>
                         }
-                                    onClick={() => go("server")}
+                                    onClick={() => router.go("server")}
                                     size="m"
                                     multiline
                                     description="Количество и список игроков, версия сервера и другая полезная информация"
@@ -52,7 +52,7 @@ export function Home({ id }) {
                         <SimpleCell before={
                             <Icon24Gallery height={28} width={28}/>
                         }
-                                    onClick={() => go("gallery")}
+                                    onClick={() => router.go("gallery")}
                                     size="m"
                                     multiline
                                     description="Скины для Minecraft на любой вкус и цвет"
@@ -64,7 +64,7 @@ export function Home({ id }) {
                         <SimpleCell before={
                             <Icon28StatisticsOutline/>
                         }
-                                    onClick={() => go("hypixel")}
+                                    onClick={() => router.go("hypixel")}
                                     size="m"
                                     multiline
                                     description="Подробная статистика по всем режимам сервера"
@@ -76,7 +76,7 @@ export function Home({ id }) {
                         <SimpleCell before={
                             <Icon32Graffiti height={28} width={28}/>
                         }
-                                    onClick={() => go("generator")}
+                                    onClick={() => router.go("generator")}
                                     size="m"
                                     multiline
                                     description="Создайте достижение с вашим текстом и случайной иконкой"
@@ -88,7 +88,7 @@ export function Home({ id }) {
                         <SimpleCell before={
                             <IconCalculator/>
                         }
-                                    onClick={() => go("calculator")}
+                                    onClick={() => router.go("calculator")}
                                     size="m"
                                     multiline
                                     description="Быстрый подсчёт координат в разных измерениях"
@@ -126,7 +126,7 @@ export function Home({ id }) {
                         <SimpleCell before={
                             <Icon24Globe/>
                         }
-                                    onClick={() => go("status")}
+                                    onClick={() => router.go("status")}
                                     size="m"
                                     multiline
                                     description="Информация о доступности всех серверов Minecraft"

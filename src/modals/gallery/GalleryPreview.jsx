@@ -1,9 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import { ModalPage, PanelHeaderButton, ModalPageHeader, ANDROID, VKCOM, ConfigProviderContext, Card, Div, IOS, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
+import React, { useState } from "react";
+import { ModalPage, PanelHeaderButton, ModalPageHeader, ANDROID, VKCOM, Card, Div, IOS, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
 import { Icon24Dismiss, Icon24Cancel } from "@vkontakte/icons";
-import { ModalsContext } from "vkui-navigation";
 
 import { SkinPreview } from "../../components/SkinPreview";
+
+import { useAppearance } from "../../hooks";
+import { router } from "../../router";
 
 export const galleryPreview = {
     id: "gallery-preview",
@@ -12,15 +14,10 @@ export const galleryPreview = {
 
 function GalleryPreview({ id }) {
 
-    const { activeModal, closeModal } = useContext(ModalsContext);
-    const { platform } = useContext(ConfigProviderContext);
+    const { platform } = useAppearance();
     const { viewWidth } = useAdaptivity();
 
-    const [{ skin, isSlim }, setParams] = useState({});
-
-    useEffect(() => {
-        setParams(activeModal.params);
-    }, []);
+    const [{ skin, isSlim }] = useState(router.getState().params);
 
     return (
         <ModalPage id={id}
@@ -28,13 +25,13 @@ function GalleryPreview({ id }) {
                        <ModalPageHeader
                            right={
                                platform === IOS && viewWidth < ViewWidth.SMALL_TABLET &&
-                               <PanelHeaderButton onClick={closeModal}>
+                               <PanelHeaderButton onClick={router.closeModal}>
                                    <Icon24Dismiss/>
                                </PanelHeaderButton>
                            }
                            left={
                                (platform === ANDROID || platform === VKCOM) && viewWidth < ViewWidth.SMALL_TABLET &&
-                               <PanelHeaderButton onClick={closeModal}>
+                               <PanelHeaderButton onClick={router.closeModal}>
                                    <Icon24Cancel/>
                                </PanelHeaderButton>
                            }
@@ -42,7 +39,7 @@ function GalleryPreview({ id }) {
                            Просмотр скина
                        </ModalPageHeader>
                    }
-                   onClose={closeModal}
+                   onClose={router.closeModal}
         >
             <Div style={{ padding: "0px 12px 16px" }}>
                 <Card mode="tint">

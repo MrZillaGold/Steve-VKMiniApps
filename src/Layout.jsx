@@ -1,14 +1,14 @@
-import React, { useContext, useEffect } from "react";
-import { PanelHeader, SplitCol, SplitLayout, ModalRoot, ViewWidth, platform, useAdaptivity } from "@vkontakte/vkui";
-import { Root, View } from "vkui-navigation";
-import { ModalsContext } from "vkui-navigation";
+import React, { useEffect, useState } from "react";
+import { Root, View, PanelHeader, SplitCol, SplitLayout, ModalRoot, ViewWidth, platform, useAdaptivity } from "@vkontakte/vkui";
 
 // Панели
 import { Home, User, Server, Gallery, Hypixel, Generator, Calculator, Status, } from "./panels";
 // Модалки
 import { galleryPreview } from "./modals/gallery/GalleryPreview";
-import { useAppearance } from "./hooks";
 //
+
+import { useAppearance } from "./hooks";
+import { router } from "./router";
 
 const modals = [
     galleryPreview
@@ -18,19 +18,26 @@ export function Layout() {
 
     const { setPlatform } = useAppearance();
     const { viewWidth } = useAdaptivity();
-    const { activeModal, closeModal } = useContext(ModalsContext);
+
+    const [{ modal, page }, setRouterState] = useState(router.getState());
 
     useEffect(() => {
         setPlatform(viewWidth === ViewWidth.DESKTOP ? "android" : platform());
+
+        router.subscribe(routerListener);
     }, []);
 
+    const routerListener = ({ toState }) => {
+        setRouterState(toState);
+    };
+
     const root = (
-        <Root homeView="home"
+        <Root activeView="home"
               modal={
                   <ModalRoot activeModal={
-                      activeModal?.id || null
+                      modal
                   }
-                             onClose={closeModal}
+                             onClose={router.closeModal}
                   >
                       {
                           modals.map(({ id, content: Modal }) =>
@@ -43,7 +50,7 @@ export function Layout() {
               }
         >
             <View id="home"
-                  homePanel="home"
+                  activePanel={page}
             >
                 <Home id="home"/>
                 <User id="user"/>
