@@ -1,7 +1,8 @@
 import { createNavigator } from "@vkontakte/router";
 
 const config = {
-    defaultRoute: "home"
+    defaultRoute: "home",
+    subRouteKey: "modal"
 };
 
 const routes = [
