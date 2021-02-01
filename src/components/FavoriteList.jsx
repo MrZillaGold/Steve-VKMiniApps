@@ -180,5 +180,5 @@ export function FavoriteList({ onSelect = () => {}, bridgeKey = "", header = "",
                 }
             </HeightAnimation>
         </div>
-    )
+    );
 }

@@ -69,5 +69,5 @@ export function TabsSelect({ activeTab, setActiveTab, tabs }) {
                 </HorizontalScroll>
             </Tabs>
         </div>
-    )
+    );
 }

@@ -1,17 +1,18 @@
 {
-  "name": "stevevkminiapps-2.0",
+  "name": "steve-vkminiapps",
   "version": "3.0.0",
   "description": "",
   "homepage": "./",
   "main": "./src/index.jsx",
   "scripts": {
     "dev": "react-scripts start",
-    "build": "cross-env GENERATE_SOURCEMAP=false INLINE_RUNTIME_CHUNK=false react-scripts build",
+    "build": "cross-env INLINE_RUNTIME_CHUNK=false react-scripts build",
     "deploy": "vk-miniapps-deploy"
   },
-  "author": "MrZillaGold",
+  "author": "MrZillaGold <Pronin Egor / mrzillagold@gmail.com>",
   "license": "SEE LICENSE IN LICENSE.txt",
   "dependencies": {
+    "@unexp/router": "^0.0.25-rc.1",
     "@vkontakte/icons": "^1.54.0",
     "@vkontakte/mvk-mini-apps-scroll-helper": "^1.2.0",
     "@vkontakte/vk-bridge": "^2.4.0",
@@ -21,15 +22,14 @@
     "core-js": "^3.8.3",
     "fast-chunk-string": "^1.0.1",
     "konva": "^7.2.2",
-    "namemcwrapper": "^1.6.0",
+    "namemcwrapper": "^1.6.3",
     "react": "^17.0.1",
     "react-copy-to-clipboard": "^5.0.3",
     "react-detect-offline": "^2.4.1",
     "react-dom": "^17.0.1",
     "react-infinite-scroll-component": "^5.1.0",
     "skinview3d": "^2.0.0-beta.1",
-    "vkappsutils": "github:FlyInk13/VKAppsUtils",
-    "vkui-navigation": "git+https://github.com/SkinnerMC/vkui-navigation.git"
+    "vkappsutils": "github:FlyInk13/VKAppsUtils"
   },
   "browserslist": {
     "production": [

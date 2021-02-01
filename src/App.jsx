@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import VKBridge from "@vkontakte/vk-bridge";
 import { AdaptivityProvider, AppRoot } from "@vkontakte/vkui";
-import { ModalsContext } from "vkui-navigation";
+import { Router } from "@unexp/router";
 
 import { Layout } from "./Layout";
 
@@ -10,33 +10,6 @@ import { useAppearance } from "./hooks";
 export function App() {
 
     const { setScheme, appPlatform } = useAppearance();
-    const [activeModal, setActiveModal] = useState(null);
-    const [modalsHistory, setModalsHistory] = useState([]);
-
-    const openModal = (modalId, params = {}) => {
-        const modal = {
-            id: modalId,
-            params
-        };
-
-        setActiveModal(modal);
-        setModalsHistory(
-            modalsHistory.concat(modal)
-        );
-    };
-    const closeModal = () => {
-        const history = modalsHistory.slice(0, modalsHistory.length - 1);
-
-        setModalsHistory(history);
-
-        setActiveModal(
-            history[history.length - 1] || null
-        );
-    };
-    const closeModals = () => {
-        setActiveModal(null);
-        setModalsHistory([]);
-    };
 
     useEffect(() => {
         VKBridge.subscribe(({ detail: { type, data }}) => {
@@ -66,18 +39,12 @@ export function App() {
     }, []);
 
     return (
-        <ModalsContext.Provider value={{
-            activeModal,
-            modalsHistory,
-            openModal,
-            closeModal,
-            closeModals
-        }}>
+        <Router>
             <AdaptivityProvider>
                 <AppRoot>
                     <Layout/>
                 </AppRoot>
             </AdaptivityProvider>
-        </ModalsContext.Provider>
-    )
+        </Router>
+    );
 }

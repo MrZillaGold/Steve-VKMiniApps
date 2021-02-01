@@ -1,19 +1,19 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Card, Text, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
-import { ModalsContext } from "vkui-navigation";
+import { useRouter } from "@unexp/router";
 
 import "./SkinCard.css";
 
 export function SkinCard({ url, isSlim, renders, rating, height }) {
 
     const { viewWidth } = useAdaptivity();
-    const { openModal } = useContext(ModalsContext);
+    const { push } = useRouter();
 
     return (
         <Card mode="shadow"
               className={`SkinCard ${viewWidth > ViewWidth.MOBILE ? "SkinCard_hover" : ""}`}
               style={{ height: `${height}px` }}
-              onClick={() => openModal("gallery-preview", {
+              onClick={() => push({ modal: "gallery-preview" }, {
                   skin: url,
                   isSlim
               })}

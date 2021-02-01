@@ -185,5 +185,5 @@ export function SkinPreview({ skin, cape, isSlim, username = "", className, ...r
                 />
             </div>
         </div>
-    )
+    );
 }

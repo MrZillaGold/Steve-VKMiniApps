@@ -1,49 +1,40 @@
-import React, { useContext, useEffect } from "react";
-import { PanelHeader, SplitCol, SplitLayout, ModalRoot, ViewWidth, platform, useAdaptivity } from "@vkontakte/vkui";
-import { Root, View } from "vkui-navigation";
-import { ModalsContext } from "vkui-navigation";
+import React, { useEffect } from "react";
+import { PanelHeader, SplitCol, SplitLayout, ModalRoot, View, Root, ViewWidth, platform, useAdaptivity } from "@vkontakte/vkui";
+import { useRouter, useStructure, useSwipeBack } from "@unexp/router";
 
 // Панели
 import { Home, User, Server, Gallery, Hypixel, Generator, Calculator, Status, } from "./panels";
 // Модалки
-import { galleryPreview } from "./modals/gallery/GalleryPreview";
-import { useAppearance } from "./hooks";
+import { GalleryPreview } from "./modals";
 //
 
-const modals = [
-    galleryPreview
-];
+import { useAppearance } from "./hooks";
 
 export function Layout() {
 
     const { setPlatform } = useAppearance();
     const { viewWidth } = useAdaptivity();
-    const { activeModal, closeModal } = useContext(ModalsContext);
+    const { popout, view, modal, panel } = useStructure({ view: "home", panel: "home" });
+    const { back } = useRouter();
 
     useEffect(() => {
         setPlatform(viewWidth === ViewWidth.DESKTOP ? "android" : platform());
     }, []);
 
     const root = (
-        <Root homeView="home"
-              modal={
-                  <ModalRoot activeModal={
-                      activeModal?.id || null
-                  }
-                             onClose={closeModal}
+        <Root modal={
+                  <ModalRoot activeModal={modal}
+                             onClose={back}
                   >
-                      {
-                          modals.map(({ id, content: Modal }) =>
-                              <Modal id={id}
-                                     key={id}
-                              />
-                          )
-                      }
+                      <GalleryPreview id="gallery-preview"/>
                   </ModalRoot>
               }
+              activeView={view}
+              popout={popout}
         >
             <View id="home"
-                  homePanel="home"
+                  activePanel={panel}
+                  {...useSwipeBack()}
             >
                 <Home id="home"/>
                 <User id="user"/>

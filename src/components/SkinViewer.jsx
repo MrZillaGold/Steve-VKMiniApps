@@ -97,5 +97,5 @@ export function SkinViewer({ skin = null, isSlim, cape = null, height = 300, wid
         >
             <canvas ref={ref}/>
         </div>
-    )
+    );
 }

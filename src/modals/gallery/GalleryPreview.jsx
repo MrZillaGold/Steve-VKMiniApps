@@ -1,26 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
-import { ModalPage, PanelHeaderButton, ModalPageHeader, ANDROID, VKCOM, ConfigProviderContext, Card, Div, IOS, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
+import React from "react";
+import { ModalPage, PanelHeaderButton, ModalPageHeader, ANDROID, VKCOM, Card, Div, IOS, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
 import { Icon24Dismiss, Icon24Cancel } from "@vkontakte/icons";
-import { ModalsContext } from "vkui-navigation";
+import { useParams, useRouter } from "@unexp/router";
 
 import { SkinPreview } from "../../components/SkinPreview";
+import { useAppearance } from "../../hooks";
 
-export const galleryPreview = {
-    id: "gallery-preview",
-    content: GalleryPreview
-};
+export function GalleryPreview({ id }) {
 
-function GalleryPreview({ id }) {
-
-    const { activeModal, closeModal } = useContext(ModalsContext);
-    const { platform } = useContext(ConfigProviderContext);
+    const { platform } = useAppearance();
     const { viewWidth } = useAdaptivity();
-
-    const [{ skin, isSlim }, setParams] = useState({});
-
-    useEffect(() => {
-        setParams(activeModal.params);
-    }, []);
+    const { skin, isSlim } = useParams();
+    const { back } = useRouter();
 
     return (
         <ModalPage id={id}
@@ -28,13 +19,13 @@ function GalleryPreview({ id }) {
                        <ModalPageHeader
                            right={
                                platform === IOS && viewWidth < ViewWidth.SMALL_TABLET &&
-                               <PanelHeaderButton onClick={closeModal}>
+                               <PanelHeaderButton onClick={back}>
                                    <Icon24Dismiss/>
                                </PanelHeaderButton>
                            }
                            left={
                                (platform === ANDROID || platform === VKCOM) && viewWidth < ViewWidth.SMALL_TABLET &&
-                               <PanelHeaderButton onClick={closeModal}>
+                               <PanelHeaderButton onClick={back}>
                                    <Icon24Cancel/>
                                </PanelHeaderButton>
                            }
@@ -42,7 +33,7 @@ function GalleryPreview({ id }) {
                            Просмотр скина
                        </ModalPageHeader>
                    }
-                   onClose={closeModal}
+                   onClose={back}
         >
             <Div style={{ padding: "0px 12px 16px" }}>
                 <Card mode="tint">
@@ -52,5 +43,5 @@ function GalleryPreview({ id }) {
                 </Card>
             </Div>
         </ModalPage>
-    )
+    );
 }

@@ -12,5 +12,5 @@ export function IconPug({ width = 56, height = 56 }) {
                 <path style={{stroke: "none", fillRule: "nonzero", fill: "rgb(89.803922%,45.098039%,45.098039%)", fillOpacity: 1}} d="M 22.914062 45.804688 L 28 45.804688 L 28 55.976562 L 22.914062 55.976562 Z M 22.914062 45.804688 "/>
             </g>
         </svg>
-    )
+    );
 }

@@ -7,5 +7,5 @@ export function Spinner({ style, ...rest }) {
         <div style={{ display: "flex", alignItems: "center", flexDirection: "column", ...style }} {...rest}>
             <IconChest/>
         </div>
-    )
+    );
 }

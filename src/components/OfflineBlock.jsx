@@ -22,5 +22,5 @@ export function OfflineBlock() {
             <br/>
             Эта вкладка будет доступна как появится соединение.
         </Error>
-    )
+    );
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useState } from "react";
 import axios from "axios";
 import { Offline, Online } from "react-detect-offline";
-import { NameMC } from "namemcwrapper/dist/NameMC";
+import { NameMC } from "namemcwrapper";
 import { Panel, Group } from "@vkontakte/vkui";
 
 import { Form } from "./Form";

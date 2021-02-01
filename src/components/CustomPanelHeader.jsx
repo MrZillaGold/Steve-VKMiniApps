@@ -1,7 +1,7 @@
 import React from "react";
 import { Avatar, PanelHeaderBack, PanelHeaderContent, PanelHeader, PanelHeaderButton } from "@vkontakte/vkui";
 import { Icon28MoonOutline, Icon28SunOutline } from "@vkontakte/icons";
-import { useNavigator } from "vkui-navigation";
+import { useRouter } from "@unexp/router";
 
 import { IconSteve } from "../icons/icons";
 
@@ -9,12 +9,12 @@ import { useAppearance } from "../hooks";
 
 export function CustomPanelHeader({ status, left = true }) {
 
-    const { goBack } = useNavigator();
+    const { back } = useRouter();
     const { scheme, toggleScheme } = useAppearance();
 
     return (
         <PanelHeader left={
-            left && <PanelHeaderBack onClick={goBack} />
+            left && <PanelHeaderBack onClick={back}/>
         }
                      right={
                          <PanelHeaderButton onClick={toggleScheme}>
@@ -40,5 +40,5 @@ export function CustomPanelHeader({ status, left = true }) {
                 Steve
             </PanelHeaderContent>
         </PanelHeader>
-    )
+    );
 }

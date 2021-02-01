@@ -47,5 +47,5 @@ export function SmartCols({ col1, col2 }) {
                     col2
                 }
             </>
-    )
+    );
 }

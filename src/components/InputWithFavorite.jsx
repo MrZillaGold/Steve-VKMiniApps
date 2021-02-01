@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { FormItem, FormLayout, Group, FormLayoutGroup, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
 import { Icon24Dropdown, Icon24Chevron } from "@vkontakte/icons";
 
-
 import { FavoriteList } from "./FavoriteList";
 
 export function InputWithFavorite({ input, inputTop, inputBottom, favoriteHeader, favoriteEmpty, favoriteBridgeKey, button, onSelect, getState, spinner, ...rest }) {
@@ -92,5 +91,5 @@ export function InputWithFavorite({ input, inputTop, inputBottom, favoriteHeader
                 />
             </Group>
         </div>
-    )
+    );
 }

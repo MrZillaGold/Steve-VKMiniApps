@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Minecraft Seven";
-    src: url(./assets/achievement/MinecraftSeven.ttf) format("truetype");
+    src: url(assets/achievement/MinecraftSeven.ttf) format("truetype");
 }
 
 .Card {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NameMC } from "namemcwrapper/dist/NameMC";
+import { NameMC } from "namemcwrapper";
 import { Offline, Online } from "react-detect-offline";
 import { Panel, Group, ViewWidth, useAdaptivity } from "@vkontakte/vkui";
 
