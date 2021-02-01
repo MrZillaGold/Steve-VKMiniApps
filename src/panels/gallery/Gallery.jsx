@@ -29,7 +29,7 @@ export function Gallery({ id }) {
     const height = viewWidth > ViewWidth.MOBILE ? 280 : 300;
 
     const getSkins = () => {
-        nameMc.getSkins("random")
+        nameMc.getSkins({ tab: "random" })
             .then((randomSkins) => {
                 randomSkins = randomSkins.map((skin) => {
                     skin.renders = new NameMC()
