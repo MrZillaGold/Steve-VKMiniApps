@@ -50,7 +50,7 @@ export function User({ id }) {
                     proxy: "https://stevecors.herokuapp.com"
                 });
 
-                await nameMc.skinHistory(username)
+                await nameMc.skinHistory({ nickname: username })
                     .then((skins) => data.skin.history = skins)
                     .catch(console.log);
 
