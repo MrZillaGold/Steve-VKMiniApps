@@ -1,5 +1,5 @@
 import React from "react";
-import { Cell, Headline } from "@vkontakte/vkui";
+import { SimpleCell, Headline } from "@vkontakte/vkui";
 
 export function UHC({ user }) {
 
@@ -7,92 +7,92 @@ export function UHC({ user }) {
     const SpeedUHC = user.stats.SpeedUHC;
 
     return (
-        <div>
+        <>
             <div className="Info-List">
-                <Cell description="Монет"
+                <SimpleCell description="Монет"
                       disabled
                 >
                     { UHC.coins.toLocaleString() }
-                </Cell>
+                </SimpleCell>
             </div>
             <Headline weight="semibold"
-                      className="Info-List"
+                      className="Info-Title"
             >
                 UHC
             </Headline>
             <div className="Info-List">
-                <Cell description="Побед"
+                <SimpleCell description="Побед"
                       disabled
                 >
                     { UHC.wins.toLocaleString() }
-                </Cell>
-                <Cell description="Поражений"
+                </SimpleCell>
+                <SimpleCell description="Поражений"
                       disabled
                 >
                     { UHC.deaths.toLocaleString() }
-                </Cell>
-                <Cell description="П/П"
+                </SimpleCell>
+                <SimpleCell description="П/П"
                       disabled
                 >
                     { UHC.win_loss }
-                </Cell>
+                </SimpleCell>
             </div>
             <div className="Info-List">
-                <Cell description="Убийств"
+                <SimpleCell description="Убийств"
                       disabled
                 >
                     { UHC.kills.toLocaleString() }
-                </Cell>
-                <Cell description="Смертей"
+                </SimpleCell>
+                <SimpleCell description="Смертей"
                       disabled
                 >
                     { UHC.deaths.toLocaleString() }
-                </Cell>
-                <Cell description="У/С"
+                </SimpleCell>
+                <SimpleCell description="У/С"
                       disabled
                 >
                     { UHC.kd }
-                </Cell>
+                </SimpleCell>
             </div>
             <Headline weight="semibold"
-                      className="Info-List"
+                      className="Info-Title"
             >
                 Speed UHC
             </Headline>
             <div className="Info-List">
-                <Cell description="Побед"
+                <SimpleCell description="Побед"
                       disabled
                 >
                     { SpeedUHC.wins.toLocaleString() }
-                </Cell>
-                <Cell description="Поражений"
+                </SimpleCell>
+                <SimpleCell description="Поражений"
                       disabled
                 >
                     { SpeedUHC.losses.toLocaleString() }
-                </Cell>
-                <Cell description="П/П"
+                </SimpleCell>
+                <SimpleCell description="П/П"
                       disabled
                 >
                     { SpeedUHC.win_loss }
-                </Cell>
+                </SimpleCell>
             </div>
             <div className="Info-List">
-                <Cell description="Убийств"
+                <SimpleCell description="Убийств"
                       disabled
                 >
                     { SpeedUHC.kills.toLocaleString() }
-                </Cell>
-                <Cell description="Смертей"
+                </SimpleCell>
+                <SimpleCell description="Смертей"
                       disabled
                 >
                     { SpeedUHC.deaths.toLocaleString() }
-                </Cell>
-                <Cell description="У/С"
+                </SimpleCell>
+                <SimpleCell description="У/С"
                       disabled
                 >
                     { SpeedUHC.kd }
-                </Cell>
+                </SimpleCell>
             </div>
-        </div>
+        </>
     )
 }

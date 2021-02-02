@@ -1,5 +1,5 @@
 import React from "react";
-import { Cell, Headline } from "@vkontakte/vkui";
+import { SimpleCell, Headline } from "@vkontakte/vkui";
 
 import { getRatio } from "../../../functions";
 
@@ -8,209 +8,209 @@ export function BedWars({ user }) {
     const BedWars = user.stats.BedWars;
 
     return (
-        <div>
+        <>
             <div className="Info-List">
-                <Cell description="Уровень"
+                <SimpleCell description="Уровень"
                       disabled
                 >
                     { BedWars.level }
-                </Cell>
-                <Cell description="Монет"
+                </SimpleCell>
+                <SimpleCell description="Монет"
                       disabled
                 >
                     { BedWars.coins.toLocaleString() }
-                </Cell>
+                </SimpleCell>
             </div>
             <div className="Info-List">
-                <Cell description="Побед"
+                <SimpleCell description="Побед"
                       disabled
                 >
                     { BedWars.wins.toLocaleString() }
-                </Cell>
-                <Cell description="Поражений"
+                </SimpleCell>
+                <SimpleCell description="Поражений"
                       disabled
                 >
                     { BedWars.losses.toLocaleString() }
-                </Cell>
-                <Cell description="П/П"
+                </SimpleCell>
+                <SimpleCell description="П/П"
                       disabled
                 >
                     { BedWars.w_l }
-                </Cell>
+                </SimpleCell>
             </div>
             <div className="Info-List">
-                <Cell description="Убийств"
+                <SimpleCell description="Убийств"
                       disabled
                 >
                     { BedWars.kills.toLocaleString() }
-                </Cell>
-                <Cell description="Смертей"
+                </SimpleCell>
+                <SimpleCell description="Смертей"
                       disabled
                 >
                     { BedWars.deaths.toLocaleString() }
-                </Cell>
-                <Cell description="У/С"
+                </SimpleCell>
+                <SimpleCell description="У/С"
                       disabled
                 >
                     { BedWars.k_d }
-                </Cell>
+                </SimpleCell>
             </div>
             <Headline weight="semibold"
-                      className="Info-List"
+                      className="Info-Title"
             >
                 Одиночный
             </Headline>
             <div className="Info-List">
-                <Cell description="Побед"
+                <SimpleCell description="Побед"
                       disabled
                 >
                     { (BedWars.gamemodes.solo.wins || 0).toLocaleString() }
-                </Cell>
-                <Cell description="Поражений"
+                </SimpleCell>
+                <SimpleCell description="Поражений"
                       disabled
                 >
                     { (BedWars.gamemodes.solo.losses || 0).toLocaleString() }
-                </Cell>
-                <Cell description="П/П"
+                </SimpleCell>
+                <SimpleCell description="П/П"
                       disabled
                 >
                     { getRatio(BedWars.gamemodes.solo.wins,BedWars.gamemodes.solo.losses) }
-                </Cell>
+                </SimpleCell>
             </div>
             <div className="Info-List">
-                <Cell description="Убийств"
+                <SimpleCell description="Убийств"
                       disabled
                 >
                     { (BedWars.gamemodes.solo.kills || 0).toLocaleString() }
-                </Cell>
-                <Cell description="Смертей"
+                </SimpleCell>
+                <SimpleCell description="Смертей"
                       disabled
                 >
                     { (BedWars.gamemodes.solo.deaths || 0).toLocaleString() }
-                </Cell>
-                <Cell description="У/С"
+                </SimpleCell>
+                <SimpleCell description="У/С"
                       disabled
                 >
                     { getRatio(BedWars.gamemodes.solo.kills, BedWars.gamemodes.solo.deaths) }
-                </Cell>
+                </SimpleCell>
             </div>
             <Headline weight="semibold"
-                      className="Info-List"
+                      className="Info-Title"
             >
                 Командный
             </Headline>
             <div className="Info-List">
-                <Cell description="Побед"
+                <SimpleCell description="Побед"
                       disabled
                 >
                     { (BedWars.gamemodes.doubles.wins || 0).toLocaleString() }
-                </Cell>
-                <Cell description="Поражений"
+                </SimpleCell>
+                <SimpleCell description="Поражений"
                       disabled
                 >
                     { (BedWars.gamemodes.doubles.losses || 0).toLocaleString() }
-                </Cell>
-                <Cell description="П/П"
+                </SimpleCell>
+                <SimpleCell description="П/П"
                       disabled
                 >
                     { getRatio(BedWars.gamemodes.doubles.wins, BedWars.gamemodes.doubles.losses) }
-                </Cell>
+                </SimpleCell>
             </div>
             <div className="Info-List">
-                <Cell description="Убийств"
+                <SimpleCell description="Убийств"
                       disabled
                 >
                     { (BedWars.gamemodes.doubles.kills || 0).toLocaleString() }
-                </Cell>
-                <Cell description="Смертей"
+                </SimpleCell>
+                <SimpleCell description="Смертей"
                       disabled
                 >
                     { (BedWars.gamemodes.doubles.deaths || 0).toLocaleString() }
-                </Cell>
-                <Cell description="У/С"
+                </SimpleCell>
+                <SimpleCell description="У/С"
                       disabled
                 >
                     { getRatio(BedWars.gamemodes.doubles.kills, BedWars.gamemodes.doubles.deaths)  }
-                </Cell>
+                </SimpleCell>
             </div>
             <Headline weight="semibold"
-                      className="Info-List"
+                      className="Info-Title"
             >
                 3v3v3v3
             </Headline>
             <div className="Info-List">
-                <Cell description="Побед"
+                <SimpleCell description="Побед"
                       disabled
                 >
                     { (BedWars.gamemodes["3v3v3v3"].wins || 0).toLocaleString() }
-                </Cell>
-                <Cell description="Поражений"
+                </SimpleCell>
+                <SimpleCell description="Поражений"
                       disabled
                 >
                     { (BedWars.gamemodes["3v3v3v3"].losses || 0).toLocaleString() }
-                </Cell>
-                <Cell description="П/П"
+                </SimpleCell>
+                <SimpleCell description="П/П"
                       disabled
                 >
                     { getRatio(BedWars.gamemodes["3v3v3v3"].wins, BedWars.gamemodes["3v3v3v3"].losses) }
-                </Cell>
+                </SimpleCell>
             </div>
             <div className="Info-List">
-                <Cell description="Убийств"
+                <SimpleCell description="Убийств"
                       disabled
                 >
                     { (BedWars.gamemodes["3v3v3v3"].kills || 0).toLocaleString() }
-                </Cell>
-                <Cell description="Смертей"
+                </SimpleCell>
+                <SimpleCell description="Смертей"
                       disabled
                 >
                     { (BedWars.gamemodes["3v3v3v3"].deaths || 0).toLocaleString() }
-                </Cell>
-                <Cell description="У/С"
+                </SimpleCell>
+                <SimpleCell description="У/С"
                       disabled
                 >
                     { getRatio(BedWars.gamemodes["3v3v3v3"].kills, BedWars.gamemodes["3v3v3v3"].deaths) }
-                </Cell>
+                </SimpleCell>
             </div>
             <Headline weight="semibold"
-                      className="Info-List"
+                      className="Info-Title"
             >
                 4v4v4v4
             </Headline>
             <div className="Info-List">
-                <Cell description="Побед"
+                <SimpleCell description="Побед"
                       disabled
                 >
                     { (BedWars.gamemodes["4v4v4v4"].wins || 0).toLocaleString() }
-                </Cell>
-                <Cell description="Поражений"
+                </SimpleCell>
+                <SimpleCell description="Поражений"
                       disabled
                 >
                     { (BedWars.gamemodes["4v4v4v4"].losses || 0).toLocaleString() }
-                </Cell>
-                <Cell description="П/П"
+                </SimpleCell>
+                <SimpleCell description="П/П"
                       disabled
                 >
                     { getRatio(BedWars.gamemodes["4v4v4v4"].wins, BedWars.gamemodes["4v4v4v4"].losses) }
-                </Cell>
+                </SimpleCell>
             </div>
             <div className="Info-List">
-                <Cell description="Убийств"
+                <SimpleCell description="Убийств"
                       disabled
                 >
                     { (BedWars.gamemodes["4v4v4v4"].kills || 0).toLocaleString() }
-                </Cell>
-                <Cell description="Смертей"
+                </SimpleCell>
+                <SimpleCell description="Смертей"
                       disabled
                 >
                     { (BedWars.gamemodes["4v4v4v4"].deaths || 0).toLocaleString() }
-                </Cell>
-                <Cell description="У/С"
+                </SimpleCell>
+                <SimpleCell description="У/С"
                       disabled
                 >
                     { getRatio(BedWars.gamemodes["4v4v4v4"].kills, BedWars.gamemodes["4v4v4v4"].deaths) }
-                </Cell>
+                </SimpleCell>
             </div>
-        </div>
+        </>
     )
 }

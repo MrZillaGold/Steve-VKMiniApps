@@ -1,10 +1,17 @@
 .Info-List {
-    display: flex;
-    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, max-content));
     justify-content: center;
 }
 
-.Mode {
-    height: 0;
-    transition: height 0.5s;
+.Info-List > .SimpleCell > .SimpleCell__main {
+    text-align: center;
+}
+
+.Info-List > .SimpleCell > .SimpleCell__main > .SimpleCell__content {
+    display: unset !important;
+}
+
+.Info-Title {
+    text-align: center;
 }

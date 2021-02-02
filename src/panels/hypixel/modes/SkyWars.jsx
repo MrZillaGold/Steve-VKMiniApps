@@ -1,5 +1,5 @@
 import React from "react";
-import { Cell } from "@vkontakte/vkui";
+import { SimpleCell } from "@vkontakte/vkui";
 
 export function SkyWars({ user }) {
 
@@ -8,45 +8,45 @@ export function SkyWars({ user }) {
     return (
         <div>
             <div className="Info-List">
-                <Cell description="Монет"
+                <SimpleCell description="Монет"
                       disabled
                 >
                     { SkyWars.coins.toLocaleString() }
-                </Cell>
+                </SimpleCell>
             </div>
             <div className="Info-List">
-                <Cell description="Побед"
+                <SimpleCell description="Побед"
                       disabled
                 >
                     { SkyWars.wins.toLocaleString() }
-                </Cell>
-                <Cell description="Поражений"
+                </SimpleCell>
+                <SimpleCell description="Поражений"
                       disabled
                 >
                     { SkyWars.losses.toLocaleString() }
-                </Cell>
-                <Cell description="П/П"
+                </SimpleCell>
+                <SimpleCell description="П/П"
                       disabled
                 >
                     { SkyWars.win_loss_ratio }
-                </Cell>
+                </SimpleCell>
             </div>
             <div className="Info-List">
-                <Cell description="Убийств"
+                <SimpleCell description="Убийств"
                       disabled
                 >
                     { SkyWars.kills.toLocaleString() }
-                </Cell>
-                <Cell description="Смертей"
+                </SimpleCell>
+                <SimpleCell description="Смертей"
                       disabled
                 >
                     { SkyWars.deaths.toLocaleString() }
-                </Cell>
-                <Cell description="У/С"
+                </SimpleCell>
+                <SimpleCell description="У/С"
                       disabled
                 >
                     { SkyWars.kill_death_ratio }
-                </Cell>
+                </SimpleCell>
             </div>
         </div>
     )

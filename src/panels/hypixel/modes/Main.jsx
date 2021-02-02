@@ -1,5 +1,5 @@
 import React from "react";
-import { Cell } from "@vkontakte/vkui";
+import { SimpleCell } from "@vkontakte/vkui";
 
 import { timeConvert } from "../../../functions";
 
@@ -7,47 +7,47 @@ export function Main({ user }) {
     return (
         <div>
             <div className="Info-List">
-                <Cell description="Статус"
+                <SimpleCell description="Статус"
                       disabled
                 >
                     { user.online ? "Онлайн" : "Оффлайн" }
-                </Cell>
-                <Cell description="Уровень"
+                </SimpleCell>
+                <SimpleCell description="Уровень"
                       disabled
                 >
                     { Math.trunc(user.level) }
-                </Cell>
-                <Cell description="Очки достижений"
+                </SimpleCell>
+                <SimpleCell description="Очки достижений"
                       disabled
                 >
                     { user.achievement_points.toLocaleString() }
-                </Cell>
+                </SimpleCell>
             </div>
             <div className="Info-List">
                 { !user.online &&
-                <Cell description="Последний вход"
+                <SimpleCell description="Последний вход"
                       disabled
                 >
                     { user.last_login ? timeConvert(user.last_login) : "Неизвестно" }
-                </Cell>
+                </SimpleCell>
                 }
-                <Cell description="Первый вход"
+                <SimpleCell description="Первый вход"
                       disabled
                 >
                     { user.first_login ? timeConvert(user.first_login) : "Неизвестно" }
-                </Cell>
+                </SimpleCell>
             </div>
             <div className="Info-List">
-                <Cell description="Последняя игра"
+                <SimpleCell description="Последняя игра"
                       disabled
                 >
                     { user.last_game ?? "Неизвестно"  }
-                </Cell>
-                <Cell description="Карма"
+                </SimpleCell>
+                <SimpleCell description="Карма"
                       disabled
                 >
                     { user.karma.toLocaleString() }
-                </Cell>
+                </SimpleCell>
             </div>
         </div>
     )

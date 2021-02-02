@@ -1,138 +1,138 @@
 import React from "react";
-import { Cell, Headline } from "@vkontakte/vkui";
+import { SimpleCell, Headline } from "@vkontakte/vkui";
 
 export function TNT({ user }) {
 
     const TNT = user.stats.TNT;
 
     return (
-        <div>
+        <>
             <div className="Info-List">
-                <Cell description="Монет"
+                <SimpleCell description="Монет"
                       disabled
                 >
                     { TNT.coins.toLocaleString() }
-                </Cell>
+                </SimpleCell>
             </div>
             <Headline weight="semibold"
-                      className="Info-List"
+                      className="Info-Title"
             >
                 TNT Run
             </Headline>
             <div className="Info-List">
-                <Cell description="Побед"
+                <SimpleCell description="Побед"
                       disabled
                 >
                     { TNT.gamemodes.tnt_run.wins.toLocaleString() }
-                </Cell>
-                <Cell description="Поражений"
+                </SimpleCell>
+                <SimpleCell description="Поражений"
                       disabled
                 >
                     { TNT.gamemodes.tnt_run.losses.toLocaleString() }
-                </Cell>
-                <Cell description="П/П"
+                </SimpleCell>
+                <SimpleCell description="П/П"
                       disabled
                 >
                     { TNT.gamemodes.tnt_run.win_loss_ratio }
-                </Cell>
+                </SimpleCell>
             </div>
             <Headline weight="semibold"
-                      className="Info-List"
+                      className="Info-Title"
             >
                 PVP Run
             </Headline>
             <div className="Info-List">
-                <Cell description="Убийств"
+                <SimpleCell description="Убийств"
                       disabled
                 >
                     { TNT.gamemodes.pvp_run.kills.toLocaleString() }
-                </Cell>
+                </SimpleCell>
             </div>
             <div className="Info-List">
-                <Cell description="Побед"
+                <SimpleCell description="Побед"
                       disabled
                 >
                     { TNT.gamemodes.pvp_run.wins.toLocaleString() }
-                </Cell>
-                <Cell description="Поражений"
+                </SimpleCell>
+                <SimpleCell description="Поражений"
                       disabled
                 >
                     { TNT.gamemodes.pvp_run.losses.toLocaleString() }
-                </Cell>
-                <Cell description="П/П"
+                </SimpleCell>
+                <SimpleCell description="П/П"
                       disabled
                 >
                     { TNT.gamemodes.pvp_run.win_loss_ratio }
-                </Cell>
+                </SimpleCell>
             </div>
             <Headline weight="semibold"
-                      className="Info-List"
+                      className="Info-Title"
             >
                 TNT Tag
             </Headline>
             <div className="Info-List">
-                <Cell description="Убийств"
+                <SimpleCell description="Убийств"
                       disabled
                 >
                     { TNT.gamemodes.tnt_tag.kills.toLocaleString() }
-                </Cell>
-                <Cell description="Побед"
+                </SimpleCell>
+                <SimpleCell description="Побед"
                       disabled
                 >
                     { TNT.gamemodes.tnt_tag.wins.toLocaleString() }
-                </Cell>
+                </SimpleCell>
             </div>
             <Headline weight="semibold"
-                      className="Info-List"
+                      className="Info-Title"
             >
                 Bow Spleef
             </Headline>
             <div className="Info-List">
-                <Cell description="Побед"
+                <SimpleCell description="Побед"
                       disabled
                 >
                     { TNT.gamemodes.bow_spleef.wins.toLocaleString() }
-                </Cell>
-                <Cell description="Поражений"
+                </SimpleCell>
+                <SimpleCell description="Поражений"
                       disabled
                 >
                     { TNT.gamemodes.bow_spleef.losses.toLocaleString() }
-                </Cell>
-                <Cell description="П/П"
+                </SimpleCell>
+                <SimpleCell description="П/П"
                       disabled
                 >
                     { TNT.gamemodes.bow_spleef.win_loss_ratio }
-                </Cell>
+                </SimpleCell>
             </div>
             <Headline weight="semibold"
-                      className="Info-List"
+                      className="Info-Title"
             >
                 Wizards
             </Headline>
             <div className="Info-List">
-                <Cell description="Побед"
+                <SimpleCell description="Побед"
                       disabled
                 >
                     { TNT.gamemodes.wizards.wins.toLocaleString() }
-                </Cell>
+                </SimpleCell>
             </div>
             <div className="Info-List">
-                <Cell description="Убийств"
+                <SimpleCell description="Убийств"
                       disabled
                 >
                     { TNT.gamemodes.wizards.kills.toLocaleString() }
-                </Cell>
-                <Cell description="Смертей"
+                </SimpleCell>
+                <SimpleCell description="Смертей"
                       disabled
                 >
                     { TNT.gamemodes.wizards.deaths.toLocaleString() }
-                </Cell>
-                <Cell description="У/С"
+                </SimpleCell>
+                <SimpleCell description="У/С"
                       disabled
                 >
                     { TNT.gamemodes.wizards.kill_death_ratio }
-                </Cell>
+                </SimpleCell>
             </div>
-        </div>
+        </>
     )
 }

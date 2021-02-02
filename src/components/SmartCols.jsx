@@ -7,7 +7,8 @@ export function SmartCols({ col1, col2 }) {
 
     if (viewWidth > ViewWidth.MOBILE) {
         col1 = (
-            <SplitCol key="SmartCol-1"
+            <SplitCol width={viewWidth >= ViewWidth.TABLET ? 400 : 300}
+                      maxWidth={viewWidth >= ViewWidth.TABLET ? 400 : 300}
                       spaced
             >
                 {
@@ -17,10 +18,7 @@ export function SmartCols({ col1, col2 }) {
         );
 
         col2 = (
-            <SplitCol width={viewWidth >= ViewWidth.TABLET ? 200 : 40}
-                      key="SmartCol-2"
-                      spaced
-            >
+            <SplitCol spaced>
                 {
                     col2
                 }

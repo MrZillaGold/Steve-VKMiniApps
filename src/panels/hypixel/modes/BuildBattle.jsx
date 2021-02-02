@@ -1,5 +1,5 @@
 import React from "react";
-import { Cell, Headline } from "@vkontakte/vkui";
+import { SimpleCell, Headline } from "@vkontakte/vkui";
 
 export function BuildBattle({ user }) {
 
@@ -8,70 +8,70 @@ export function BuildBattle({ user }) {
     return (
         <div>
             <div className="Info-List">
-                <Cell description="Очки"
+                <SimpleCell description="Очки"
                       disabled
                 >
                     { BuildBattle.score.toLocaleString() }
-                </Cell>
-                <Cell description="Монет"
+                </SimpleCell>
+                <SimpleCell description="Монет"
                       disabled
                 >
                     { BuildBattle.coins.toLocaleString() }
-                </Cell>
-                <Cell description="Побед"
+                </SimpleCell>
+                <SimpleCell description="Побед"
                       disabled
                 >
                     { BuildBattle.wins.toLocaleString() }
-                </Cell>
+                </SimpleCell>
             </div>
             <Headline weight="semibold"
-                      className="Info-List"
+                      className="Info-Title"
             >
                 Одиночный
             </Headline>
             <div className="Info-List">
-                <Cell description="Побед в обычном режиме"
+                <SimpleCell description="Побед в обычном режиме"
                       multiline
                       disabled
                 >
                     { (BuildBattle.wins_solo_normal || 0).toLocaleString() }
-                </Cell>
-                <Cell description="Побед в Pro-режиме"
+                </SimpleCell>
+                <SimpleCell description="Побед в Pro-режиме"
                       multiline
                       disabled
                 >
                     { (BuildBattle.wins_solo_pro || 0).toLocaleString() }
-                </Cell>
+                </SimpleCell>
             </div>
             <Headline weight="semibold"
-                      className="Info-List"
+                      className="Info-Title"
             >
                 Командный
             </Headline>
             <div className="Info-List">
-                <Cell description="Побед в обычном режиме"
+                <SimpleCell description="Побед в обычном режиме"
                       multiline
                       disabled
                 >
                     { (BuildBattle.wins_teams_normal || 0).toLocaleString() }
-                </Cell>
+                </SimpleCell>
             </div>
             <Headline weight="semibold"
-                      className="Info-List"
+                      className="Info-Title"
             >
                 Угадай постройку
             </Headline>
             <div className="Info-List">
-                <Cell description="Побед"
+                <SimpleCell description="Побед"
                       disabled
                 >
                     { (BuildBattle.wins_guess_the_build || 0).toLocaleString() }
-                </Cell>
-                <Cell description="Угадано построек"
+                </SimpleCell>
+                <SimpleCell description="Угадано построек"
                       disabled
                 >
                     { (BuildBattle.correct_guesses || 0).toLocaleString() }
-                </Cell>
+                </SimpleCell>
             </div>
         </div>
     )
