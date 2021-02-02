@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import VKBridge from "@vkontakte/vk-bridge";
 import getArgs from "vkappsutils/dist/Args";
 import { ConfigProvider } from "@vkontakte/vkui";
 
 import { AppearanceContext, schemes } from "../hooks";
-import VKBridge from "@vkontakte/vk-bridge";
 
 export function AppearanceProvider({ children }) {
 
