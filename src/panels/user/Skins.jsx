@@ -6,7 +6,6 @@ import "./Skins.css";
 export function Skins({ user, setUser }) {
 
     const selectSkin = (skin, index) => {
-
         if (user.skin.selected - 1 !== index) {
             setUser({
                 ...user,

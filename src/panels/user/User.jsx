@@ -58,6 +58,24 @@ export function User({ id }) {
                     setUser(data);
                     add(username);
                     setSpinner(false);
+
+                    while (!(data.skin.history.length % 30)) {
+                        const prevLength = data.skin.history.length;
+
+                        await nameMc.skinHistory({ nickname: username, page: data.skin.history.length / 30 + 1 })
+                            .then((skins) => {
+                                data.skin.history.push(...skins);
+
+                                if (mount) {
+                                    setUser({...data});
+                                }
+                            })
+                            .catch(console.log);
+
+                        if (prevLength === data.skin.history.length) {
+                            break;
+                        }
+                    }
                 }
             })
             .catch((error) => {
@@ -98,7 +116,6 @@ export function User({ id }) {
                 }
                            col2={
                                <Info user={user}
-
                                      setUser={setUser}
                                      error={error}
                                      spinner={spinner}

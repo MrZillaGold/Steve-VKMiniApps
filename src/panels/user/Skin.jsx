@@ -17,7 +17,7 @@ export function Skin({ user, setUser }) {
                 />
             </Group>
             {
-                user.skin.history.length > 0 && <Skins user={user} setUser={setUser}/>
+                user.skin.history.length && <Skins user={user} setUser={setUser}/>
             }
         </>
     )
