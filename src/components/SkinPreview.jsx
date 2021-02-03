@@ -17,7 +17,6 @@ export function SkinPreview({ skin, cape, isSlim, username = "", className, ...r
     const { platform, user_id } = getArgs();
 
     const ref = useRef();
-    console.log(ref)
     const [{ skinViewer, paused, walk, lock }, setPreview] = useReducer((currentState, updates) => ({
         ...currentState,
         ...updates
