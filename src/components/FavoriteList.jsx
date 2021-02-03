@@ -1,12 +1,12 @@
 import React, { useEffect, useReducer } from "react";
 import getArgs from "vkappsutils/dist/Args";
 import VKBridge from "@vkontakte/vk-bridge";
-import { Header, List, Cell } from "@vkontakte/vkui";
+import { Header, List, Cell, Group } from "@vkontakte/vkui";
 import { Icon24Cancel, Icon24Done, Icon24Write } from "@vkontakte/icons";
 
 import { Error } from "./Error";
 
-import { HeightAnimation } from "../animation/animation";
+import { HeightAnimation } from "../animation";
 
 /**
  * @description Список с избранными элементами
@@ -120,30 +120,35 @@ export function FavoriteList({ onSelect = () => {}, bridgeKey = "", header = "",
     }, [items, edit]);
 
     return (
-        <div style={!opened ? { display: "none" } : {}}>
-            <Header mode="secondary"
-                    aside={
-                        (items.length > 0 || edit) && !disabled &&
-                        (edit ?
-                                <div style={{ display: "flex" }}>
-                                    <Icon24Cancel onClick={() => setFavorite({ edit: false, items: old })}
-                                                  style={{ marginRight: "5px" }}
-                                    />
-                                    <Icon24Done onClick={() => {
-                                        setFavorite({ edit: false });
-                                        save(items);
-                                    }}
-                                    />
-                                </div>
-                                :
-                                <Icon24Write onClick={() => setFavorite({ edit: true, old: items})}/>
-                        )
-                    }
-            >
-                {
-                    header
-                }
-            </Header>
+        <Group mode="plain"
+               separator="hide"
+               style={!opened ? { display: "none" } : {}}
+               header={
+                   <Header mode="secondary"
+                           aside={
+                               (items.length || edit) && !disabled &&
+                               (edit ?
+                                       <>
+                                           <Icon24Cancel onClick={() => setFavorite({ edit: false, items: old })}
+                                                         style={{ marginRight: "5px" }}
+                                           />
+                                           <Icon24Done onClick={() => {
+                                               setFavorite({ edit: false });
+                                               save(items);
+                                           }}
+                                           />
+                                       </>
+                                       :
+                                       <Icon24Write onClick={() => setFavorite({ edit: true, old: items})}/>
+                               )
+                           }
+                   >
+                       {
+                           header
+                       }
+                   </Header>
+               }
+        >
             <HeightAnimation>
                 {
                     (items.length || edit) ?
@@ -179,6 +184,6 @@ export function FavoriteList({ onSelect = () => {}, bridgeKey = "", header = "",
                         loaded && <Error error={empty}/>
                 }
             </HeightAnimation>
-        </div>
+        </Group>
     );
 }

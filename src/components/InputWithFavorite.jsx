@@ -19,18 +19,18 @@ export function InputWithFavorite({ input, inputTop, inputBottom, favoriteHeader
     return (
         <div {...rest}>
             <Group mode="plain"
-                   separator={!displayFavorite ? "hide" : "show"}
+                   separator="hide"
             >
                 <FormLayout>
                     <FormLayoutGroup style={{ display: "flex" }}>
-                    <FormItem top={inputTop}
-                              bottom={inputBottom}
-                              style={{ flexGrow: 99 }}
-                    >
-                        {
-                            input
-                        }
-                    </FormItem>
+                        <FormItem top={inputTop}
+                                  bottom={inputBottom}
+                                  style={{ flexGrow: 99 }}
+                        >
+                            {
+                                input
+                            }
+                        </FormItem>
                         {
                             viewWidth <= ViewWidth.MOBILE && (
                                 <FormItem style={{ flexGrow: 1, marginTop: 30 }}>
@@ -71,25 +71,22 @@ export function InputWithFavorite({ input, inputTop, inputBottom, favoriteHeader
                     </FormItem>
                 </FormLayout>
             </Group>
-            <Group mode="plain"
-                   style={ !displayFavorite ? { display: "none" } : {}}
-            >
-                <FavoriteList bridgeKey={favoriteBridgeKey}
-                              header={favoriteHeader}
-                              empty={favoriteEmpty}
-                              onSelect={onSelect}
-                              disabled={spinner}
-                              getState={(state) => {
-                                  setFavorite(state);
+            <FavoriteList opened={displayFavorite}
+                          bridgeKey={favoriteBridgeKey}
+                          header={favoriteHeader}
+                          empty={favoriteEmpty}
+                          onSelect={onSelect}
+                          disabled={spinner}
+                          getState={(state) => {
+                              setFavorite(state);
 
-                                  getState({
-                                      ...state,
-                                      open,
-                                      setOpen
-                                  });
-                              }}
-                />
-            </Group>
+                              getState({
+                                  ...state,
+                                  open,
+                                  setOpen
+                              });
+                          }}
+            />
         </div>
     );
 }
