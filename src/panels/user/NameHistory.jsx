@@ -28,5 +28,5 @@ export function NameHistory({ user }) {
                     .reverse()
             }
         </List>
-    )
+    );
 }

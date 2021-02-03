@@ -1,7 +1,7 @@
 import React from "react";
 import { Avatar, List, SimpleCell } from "@vkontakte/vkui";
 
-import { HeightAnimation } from "../../animation/animation";
+import { HeightAnimation } from "../../animation";
 
 import green from "../../assets/status/green.gif";
 import yellow from "../../assets/status/yellow.gif";

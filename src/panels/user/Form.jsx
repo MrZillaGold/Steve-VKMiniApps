@@ -66,5 +66,5 @@ export function Form({ nickname, setNickname, spinner, getUser, setAdd }) {
                                }}
             />
         </Group>
-    )
+    );
 }
