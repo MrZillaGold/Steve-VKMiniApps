@@ -9,6 +9,7 @@ export { AppearanceProvider } from "./components/AppearanceProvider";
 
 export { SkinViewer } from "./components/SkinViewer";
 export { SkinPreview } from "./components/SkinPreview";
+export { UserCard } from "./components/UserCard";
 
 export { FavoriteList } from "./components/FavoriteList";
 export { InputWithFavorite } from "./components/InputWithFavorite";

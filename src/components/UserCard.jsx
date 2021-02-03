@@ -2,6 +2,7 @@ import React from "react";
 import { Cell, Avatar, Title } from "@vkontakte/vkui";
 
 export function UserCard({ user }) {
+
     return (
         <Cell before={
             <Avatar src={`https://api.ashcon.app/mojang/v2/avatar/${user.username}`}
@@ -12,7 +13,7 @@ export function UserCard({ user }) {
         }
               style={{ marginTop: "8px" }}
               description={
-                  user.rank_formatted !== "&7" ?
+                  user.rank_formatted && user.rank_formatted !== "&7" ?
                       user.rank_formatted.replace(/&./g, "")
                       :
                       ""
@@ -27,5 +28,5 @@ export function UserCard({ user }) {
                 }
             </Title>
         </Cell>
-    )
+    );
 }

@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { Group, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
 
-import { Error, Spinner } from "../../components";
-import { HeightAnimation } from "../../animation/animation";
-
-import { UserCard } from "./UserCard";
-import { TabsSelect } from "../../components/TabsSelect";
+import { Error, Spinner, TabsSelect, UserCard } from "../../components";
+import { HeightAnimation } from "../../animation";
 
 import { Main, BedWars, SkyWars, BuildBattle, UHC, TNT, Duels, MurderMystery } from "./modes";
 
