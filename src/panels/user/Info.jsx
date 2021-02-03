@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Group, Tabs, TabsItem, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
 
-import { Error, Spinner } from "../../components";
-import { HeightAnimation } from "../../animation/animation";
+import { Error, Spinner, UserCard } from "../../components";
+import { HeightAnimation } from "../../animation";
 
 import { NameHistory } from "./NameHistory";
 import { Skin } from "./Skin";
-
 
 export function Info({ user, setUser, spinner, error }) {
 
@@ -20,6 +19,7 @@ export function Info({ user, setUser, spinner, error }) {
                 {
                     user ?
                         <Group mode="plain">
+                            <UserCard user={user}/>
                             <Tabs style={viewWidth <= ViewWidth.SMALL_TABLET ? { marginTop: 0, marginBottom: 8 } : {}}>
                                 <TabsItem
                                     onClick={() => setActiveTab("skin")}
@@ -53,5 +53,5 @@ export function Info({ user, setUser, spinner, error }) {
                 }
             </HeightAnimation>
         </Group>
-    )
+    );
 }
