@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { NameMC } from "namemcwrapper";
 import { Offline, Online } from "react-detect-offline";
-import { Panel, Group, ViewWidth, useAdaptivity } from "@vkontakte/vkui";
+import { Panel, Group, ViewWidth, useAdaptivity, CardGrid } from "@vkontakte/vkui";
 
-import { Error, CustomPanelHeader, Spinner, OfflineBlock } from "../../components";
-
-import { InfinityScroll } from "./InfinityScroll";
+import { Error, CustomPanelHeader, Spinner, OfflineBlock, InfinityScroll } from "../../components";
+import { SkinCard } from "./SkinCard";
 
 const nameMc = new NameMC({
     proxy: "https://stevecors.herokuapp.com"
@@ -72,11 +71,23 @@ export function Gallery({ id }) {
                 <Online>
                     {
                         skins.length > 0 ?
-                            <InfinityScroll skins={skins}
-                                            getSkins={getSkins}
+                            <InfinityScroll data={skins}
                                             hasMore={hasMore}
-                                            height={height}
-                            />
+                                            get={getSkins}
+                            >
+                                <CardGrid style={{ marginBottom: "12px", marginTop: viewWidth > ViewWidth.MOBILE ? "8px" : "2px" }}
+                                          size={viewWidth > ViewWidth.MOBILE ? "s" : "m"}
+                                >
+                                    {
+                                        skins.map((skin, index) =>
+                                            <SkinCard key={index}
+                                                      height={height}
+                                                      {...skin}
+                                            />
+                                        )
+                                    }
+                                </CardGrid>
+                            </InfinityScroll>
                             :
                             !error && <Spinner/>
                     }

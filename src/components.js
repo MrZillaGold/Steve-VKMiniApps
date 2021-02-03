@@ -6,6 +6,7 @@ export { SmartCols } from "./components/SmartCols";
 export { ScrollToUp } from "./components/ScrollToUp";
 export { TabsSelect } from "./components/TabsSelect";
 export { AppearanceProvider } from "./components/AppearanceProvider";
+export { InfinityScroll } from "./components/InfinityScroll";
 
 export { SkinViewer } from "./components/SkinViewer";
 export { SkinPreview } from "./components/SkinPreview";
