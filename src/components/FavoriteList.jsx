@@ -19,7 +19,7 @@ import { HeightAnimation } from "../animation";
  * @param {function} getState - Функция для получения текущего состояния компонента
  * @return {JSX.Element}
  */
-export function FavoriteList({ onSelect = () => {}, bridgeKey = "", header = "", opened = true, disabled = false, empty = "", getState = () => {} }) {
+export function FavoriteList({ onSelect = () => {}, bridgeKey = "", header = "", opened = true, disabled = false, empty = "", getState = () => {}, ...rest }) {
 
     const { user_id } = getArgs();
 
@@ -27,7 +27,7 @@ export function FavoriteList({ onSelect = () => {}, bridgeKey = "", header = "",
         ...state,
         ...data
     }), {
-        items: [],
+        items: null,
         edit: false,
         open: false,
         loaded: false,
@@ -126,7 +126,7 @@ export function FavoriteList({ onSelect = () => {}, bridgeKey = "", header = "",
                header={
                    <Header mode="secondary"
                            aside={
-                               (items.length || edit) && !disabled &&
+                               (items?.length || edit) && !disabled &&
                                (edit ?
                                        <>
                                            <Icon24Cancel onClick={() => setFavorite({ edit: false, items: old })}
@@ -148,10 +148,11 @@ export function FavoriteList({ onSelect = () => {}, bridgeKey = "", header = "",
                        }
                    </Header>
                }
+               {...rest}
         >
             <HeightAnimation>
                 {
-                    (items.length || edit) ?
+                    (items?.length || edit) ?
                         <List>
                             {
                                 items.map((item, index) => (
