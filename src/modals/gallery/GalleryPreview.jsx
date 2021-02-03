@@ -1,37 +1,20 @@
 import React from "react";
-import { ModalPage, PanelHeaderButton, ModalPageHeader, ANDROID, VKCOM, Card, Div, IOS, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
-import { Icon24Dismiss, Icon24Cancel } from "@vkontakte/icons";
+import { ModalPage, Card, Div } from "@vkontakte/vkui";
 import { useParams, useRouter } from "@unexp/router";
 
-import { SkinPreview } from "../../components/SkinPreview";
-import { useAppearance } from "../../hooks";
+import { SkinPreview, ModalHeader } from "../../components";
 
 export function GalleryPreview({ id }) {
 
-    const { platform } = useAppearance();
-    const { viewWidth } = useAdaptivity();
     const { skin, isSlim } = useParams();
     const { back } = useRouter();
 
     return (
         <ModalPage id={id}
                    header={
-                       <ModalPageHeader
-                           right={
-                               platform === IOS && viewWidth < ViewWidth.SMALL_TABLET &&
-                               <PanelHeaderButton onClick={back}>
-                                   <Icon24Dismiss/>
-                               </PanelHeaderButton>
-                           }
-                           left={
-                               (platform === ANDROID || platform === VKCOM) && viewWidth < ViewWidth.SMALL_TABLET &&
-                               <PanelHeaderButton onClick={back}>
-                                   <Icon24Cancel/>
-                               </PanelHeaderButton>
-                           }
-                       >
+                       <ModalHeader>
                            Просмотр скина
-                       </ModalPageHeader>
+                       </ModalHeader>
                    }
                    onClose={back}
         >

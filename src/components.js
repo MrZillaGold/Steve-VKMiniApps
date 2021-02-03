@@ -1,4 +1,5 @@
 export { CustomPanelHeader } from "./components/CustomPanelHeader";
+export { ModalHeader } from "./components/ModalHeader";
 export { Error } from "./components/Error";
 export { OfflineBlock } from "./components/OfflineBlock";
 export { Spinner } from "./components/Spinner";
