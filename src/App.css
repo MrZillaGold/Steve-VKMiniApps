@@ -38,6 +38,17 @@
     background: unset !important;
 }
 
+/**
+ * https://github.com/VKCOM/VKUI/pull/1264
+ */
+.Header__aside {
+    display: flex;
+}
+
+.Header__aside > .Icon:not(:last-child) {
+    margin-right: 6px;
+}
+
 ::-webkit-scrollbar {
     display: none;
 }
