@@ -1,5 +1,6 @@
 .SkinPreview {
     position: relative;
+    overflow: hidden;
     background-size: auto 12.5%;
     background-image: var(--skinpreview-background);
     animation-name: Background-Animation;

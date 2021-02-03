@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useRef } from "react";
 import getArgs from "vkappsutils/dist/Args";
 import VKBridge from "@vkontakte/vk-bridge";
 import { Button, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
@@ -16,6 +16,8 @@ export function SkinPreview({ skin, cape, isSlim, username = "", className, ...r
     const { viewWidth } = useAdaptivity();
     const { platform, user_id } = getArgs();
 
+    const ref = useRef();
+    console.log(ref)
     const [{ skinViewer, paused, walk, lock }, setPreview] = useReducer((currentState, updates) => ({
         ...currentState,
         ...updates
@@ -120,7 +122,10 @@ export function SkinPreview({ skin, cape, isSlim, username = "", className, ...r
     const isWeb = platform === "desktop_web" || platform === "mobile_web";
 
     return (
-        <div className={`SkinPreview ${className}`} {...rest}>
+        <div className={`SkinPreview ${className}`}
+             ref={ref}
+             {...rest}
+        >
             <div className="SkinPreview-Buttons"
                  style={{ padding: viewWidth > ViewWidth.MOBILE ? 20 : 10 }}
             >
@@ -168,12 +173,7 @@ export function SkinPreview({ skin, cape, isSlim, username = "", className, ...r
                                     :
                                     300
                             }
-                            width={
-                                viewWidth > ViewWidth.SMALL_TABLET ?
-                                    350
-                                    :
-                                    300
-                            }
+                            width={ref?.current?.clientWidth}
                             zoom={viewWidth > ViewWidth.MOBILE}
                             onReady={
                                 (skinViewer) => setPreview({
