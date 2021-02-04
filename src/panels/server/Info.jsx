@@ -6,17 +6,19 @@ import { Error, Spinner } from "../../components";
 
 import { ServerCard } from "./ServerCard";
 
-export function Info({ server, spinner, error, favorite, add, setScrollUp }) {
+export function Info({ server, spinner, error, favorite, add, setScrollUp, ...rest }) {
 
     const { viewWidth } = useAdaptivity();
 
     return (
         <Group header={
             server && <Header aside={
-                favorite.includes(server.ip) ?
-                    <Icon24DoneOutline style={{ opacity: ".2" }}/>
-                    :
-                    <Icon24FavoriteOutline onClick={() => add(server.ip)}/>
+                favorite && (
+                    favorite.includes(server.ip) ?
+                        <Icon24DoneOutline style={{ opacity: ".2" }}/>
+                        :
+                        <Icon24FavoriteOutline onClick={() => add(server.ip)}/>
+                )
             }
                               mode="secondary"
             >
@@ -24,7 +26,9 @@ export function Info({ server, spinner, error, favorite, add, setScrollUp }) {
                     server.ip
                 }
             </Header>
-        }>
+        }
+               {...rest}
+        >
             {
                 server ?
                     <ServerCard server={server} favorite={favorite} add={add} setScrollUp={setScrollUp}/>

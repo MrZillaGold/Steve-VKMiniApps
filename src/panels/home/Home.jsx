@@ -3,7 +3,7 @@ import getArgs from "vkappsutils/dist/Args";
 import VKBridge from "@vkontakte/vk-bridge";
 import { useRouter } from "@unexp/router";
 import { Panel, Group, CardGrid, Card, SimpleCell, Avatar, Button, ViewWidth, RichCell, useAdaptivity } from "@vkontakte/vkui";
-import { Icon28SmileOutline, Icon24Gallery, Icon28StatisticsOutline, Icon32Graffiti, Icon28AddOutline, Icon24Globe } from "@vkontakte/icons";
+import { Icon28SmileOutline, Icon24Gallery, Icon28StatisticsOutline, Icon32Graffiti, Icon28AddOutline, Icon24Globe, Icon28GraphOutline } from "@vkontakte/icons";
 
 import { CustomPanelHeader } from "../../components/CustomPanelHeader";
 import { IconServer, IconCalculator, IconSteve } from "../../icons/icons";
@@ -74,6 +74,18 @@ export function Home({ id }) {
                     </Card>
                     <Card>
                         <SimpleCell before={
+                            <Icon24Globe height={28} width={28}/>
+                        }
+                                    onClick={() => push({ panel: "servers" })}
+                                    size="m"
+                                    multiline
+                                    description="Список случайных серверов Minecraft"
+                        >
+                            Сервера Minecraft
+                        </SimpleCell>
+                    </Card>
+                    <Card>
+                        <SimpleCell before={
                             <Icon32Graffiti height={28} width={28}/>
                         }
                                     onClick={() => push({ panel: "generator" })}
@@ -124,7 +136,7 @@ export function Home({ id }) {
                     </Card>
                     <Card>
                         <SimpleCell before={
-                            <Icon24Globe/>
+                            <Icon28GraphOutline/>
                         }
                                     onClick={() => push({ panel: "status" })}
                                     size="m"

@@ -5,7 +5,7 @@ import { useRouter, useStructure, useSwipeBack } from "@unexp/router";
 // Панели
 import { Home, User, Server, Gallery, Servers, Hypixel, Generator, Calculator, Status } from "./panels";
 // Модалки
-import { GalleryPreview } from "./modals";
+import { GalleryPreview, ServerPreview } from "./modals";
 //
 
 import { useAppearance } from "./hooks";
@@ -31,6 +31,7 @@ export function Layout() {
                                onClose={back}
                     >
                         <GalleryPreview id="gallery-preview"/>
+                        <ServerPreview id="server-preview"/>
                     </ModalRoot>
                 }
                       activeView={view}

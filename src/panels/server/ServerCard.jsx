@@ -1,49 +1,96 @@
 import React from "react";
-import { Cell, Avatar, Group } from "@vkontakte/vkui";
+import { RichCell, Avatar, Group, Counter, Tappable, ViewWidth, useAdaptivity } from "@vkontakte/vkui";
 
-import { Players } from "./Players";
-import { Core } from "./Core";
+import { InfoRow } from "./InfoRow";
 import { ServerTop } from "./ServerTop";
 
 import "./ServerCard.css";
 
-export function ServerCard({ server, setScrollUp }) {
+export function ServerCard({ server, setScrollUp = () => {}, onClick }) {
 
-    return (
+    const { viewWidth } = useAdaptivity();
+
+    const { icon, rating, version, id, country, uptime, players: { online, max, list }, motd: { html } } = server;
+
+    const card = (
         <>
             <Group mode="plain">
-                <Cell multiline
-                      disabled
-                      before={
-                          <Avatar style={{ imageRendering: "pixelated" }}
-                                  mode="image"
-                                  size={64}
-                                  src={server.icon}
-                          />
-                      }
-                      description={`Игроков: ${server.players.online} / ${server.players.max}`}
+                <RichCell multiline
+                          disabled
+                          before={
+                              <Avatar style={{ imageRendering: "pixelated" }}
+                                      mode="image"
+                                      size={64}
+                                      src={icon}
+                              />
+                          }
+                          text={
+                              country &&
+                              <>
+                                  <img src={country.image}
+                                       alt={country.emoji}
+                                       height={16}
+                                       style={{ verticalAlign: "-0.15em", marginRight: "5px" }}
+                                  />
+                                  {
+                                      country.name
+                                  }
+                              </>
+                          }
+                          caption={`Игроков: ${online} / ${max}`}
+                          after={
+                              rating && <Counter>★ {rating}</Counter>
+                          }
+                          onClick={onClick}
                 >
                     <div className="ServerCard-Motd">
-                        <span dangerouslySetInnerHTML={{__html: server.motd.html[0]}}/>
+                        <span dangerouslySetInnerHTML={{__html: html[0]}}/>
                         <br/>
-                        <span dangerouslySetInnerHTML={{__html: server.motd.html[1]}}/>
+                        <span dangerouslySetInnerHTML={{__html: html[1]}}/>
                     </div>
-                </Cell>
+                </RichCell>
             </Group>
             {
-                server.players.list &&
-                <Players server={server}/>
+                list &&
+                <InfoRow header="Игроки">
+                    {
+                        list
+                    }
+                </InfoRow>
             }
             {
-                server.version &&
-                <Core server={server}/>
+                version &&
+                <InfoRow header="Ядро сервера">
+                    {
+                        version
+                    }
+                </InfoRow>
             }
             {
-                server.id &&
+                uptime &&
+                <InfoRow header="Время безотказной работы">
+                    { uptime }%
+                </InfoRow>
+            }
+            {
+                id &&
                 <ServerTop server={server}
                            setScrollUp={setScrollUp}
                 />
             }
         </>
-    )
+    );
+
+    return (
+        onClick ?
+            <Tappable onClick={onClick}
+                      style={{ height: viewWidth > ViewWidth.MOBILE ? "100%" : "auto" }}
+            >
+                {
+                    card
+                }
+            </Tappable>
+            :
+            card
+    );
 }
