@@ -6,7 +6,7 @@ import { Error, Spinner } from "../../components";
 
 import { ServerCard } from "./ServerCard";
 
-export function Info({ server, spinner, error, favorite, add, setScrollUp, ...rest }) {
+export function Info({ server, spinner, error, favorite, add, setScrollUp, showIpCopy, ...rest }) {
 
     const { viewWidth } = useAdaptivity();
 
@@ -31,7 +31,7 @@ export function Info({ server, spinner, error, favorite, add, setScrollUp, ...re
         >
             {
                 server ?
-                    <ServerCard server={server} favorite={favorite} add={add} setScrollUp={setScrollUp}/>
+                    <ServerCard server={server} favorite={favorite} add={add} setScrollUp={setScrollUp} showIpCopy={showIpCopy}/>
                     :
                     !spinner && !error && viewWidth > ViewWidth.MOBILE && <Error error="Информация о сервере появится здесь после ее получения."/>
             }

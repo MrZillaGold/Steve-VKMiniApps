@@ -62,6 +62,7 @@ export function ServerPreview({ id }) {
             <Info className="ServerPreview-Info"
                   server={server}
                   favorite={items}
+                  showIpCopy={true}
                   add={add}
             />
             {

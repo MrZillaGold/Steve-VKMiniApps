@@ -1,14 +1,18 @@
-import React from "react";
-import { RichCell, Avatar, Group, Counter, Tappable, ViewWidth, useAdaptivity } from "@vkontakte/vkui";
+import React, { useState } from "react";
+import { RichCell, Avatar, Group, Counter, Tappable, ViewWidth, useAdaptivity, Button } from "@vkontakte/vkui";
+import { Icon16Done, Icon24Copy } from "@vkontakte/icons";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import { InfoRow } from "./InfoRow";
 import { ServerTop } from "./ServerTop";
 
 import "./ServerCard.css";
 
-export function ServerCard({ server, setScrollUp = () => {}, onClick }) {
+export function ServerCard({ server, showIpCopy = false, setScrollUp = () => {}, onClick }) {
 
     const { viewWidth } = useAdaptivity();
+
+    const [copy, setCopy] = useState(false);
 
     const { icon, rating, version, id, country, uptime, players: { online, max, list }, motd: { html } } = server;
 
@@ -40,6 +44,25 @@ export function ServerCard({ server, setScrollUp = () => {}, onClick }) {
                           caption={`Игроков: ${online} / ${max}`}
                           after={
                               rating && <Counter>★ {rating}</Counter>
+                          }
+                          actions={
+                              showIpCopy &&
+                              <CopyToClipboard text={server.ip}>
+                                  <Button onClick={() => setCopy(true)}
+                                          stretched
+                                          before={
+                                              copy ? <Icon16Done/> : <Icon24Copy width={16} height={16}/>
+                                          }
+                                          disabled={copy}
+                                  >
+                                      {
+                                          copy ?
+                                              "IP-адрес скопирован!"
+                                              :
+                                              "Скопировать IP-адрес"
+                                      }
+                                  </Button>
+                              </CopyToClipboard>
                           }
                           onClick={onClick}
                 >
