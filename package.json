@@ -12,7 +12,7 @@
   "author": "MrZillaGold <Pronin Egor / mrzillagold@gmail.com>",
   "license": "SEE LICENSE IN LICENSE.txt",
   "dependencies": {
-    "@unexp/router": "^0.0.25-rc.1",
+    "@unexp/router": "^0.0.26",
     "@vkontakte/icons": "^1.54.0",
     "@vkontakte/mvk-mini-apps-scroll-helper": "^1.2.0",
     "@vkontakte/vk-bridge": "^2.4.0",
