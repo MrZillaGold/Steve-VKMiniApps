@@ -13,7 +13,7 @@
   "license": "SEE LICENSE IN LICENSE.txt",
   "dependencies": {
     "@unexp/router": "^0.0.29",
-    "@vkontakte/icons": "^1.79.0",
+    "@vkontakte/icons": "^1.80.0",
     "@vkontakte/mvk-mini-apps-scroll-helper": "^1.2.0",
     "@vkontakte/vk-bridge": "^2.4.1",
     "@vkontakte/vkjs": "^0.20.0",
@@ -22,6 +22,8 @@
     "core-js": "^3.9.1",
     "fast-chunk-string": "^1.0.1",
     "konva": "^7.2.4",
+    "namemcwrapper": "^1.6.8",
+    "konva": "^7.2.5",
     "namemcwrapper": "^1.6.8",
     "react": "^17.0.1",
     "react-copy-to-clipboard": "^5.0.3",
