@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { PanelHeader, SplitCol, SplitLayout, ModalRoot, View, Root, ViewWidth, platform, useAdaptivity } from "@vkontakte/vkui";
+import { PanelHeader, SplitCol, SplitLayout, ModalRoot, View, ViewWidth, platform, useAdaptivity } from "@vkontakte/vkui";
 import { useRouter, useStructure, useSwipeBack } from "@unexp/router";
 
 // Панели
@@ -23,35 +23,36 @@ export function Layout() {
 
     return (
         <SplitLayout header={
-            <PanelHeader separator={false}/>
-        }>
-            <SplitCol spaced={viewWidth > ViewWidth.MOBILE}>
-                <Root modal={
-                    <ModalRoot activeModal={modal}
-                               onClose={back}
-                    >
-                        <GalleryPreview id="gallery-preview"/>
-                        <ServerPreview id="server-preview"/>
-                    </ModalRoot>
-                }
-                      activeView={view}
-                      popout={popout}
+            viewWidth >= ViewWidth.SMALL_TABLET && <PanelHeader separator={false}/>
+        }
+                     modal={
+                         <ModalRoot activeModal={modal}
+                                    onClose={back}
+                         >
+                             <GalleryPreview id="gallery-preview"/>
+                             <ServerPreview id="server-preview"/>
+                         </ModalRoot>
+                     }
+                     activeView={view}
+                     popout={popout}
+        >
+            <SplitCol spaced={viewWidth > ViewWidth.MOBILE}
+                      animate={viewWidth < ViewWidth.SMALL_TABLET}
+            >
+                <View id="home"
+                      activePanel={panel}
+                      {...useSwipeBack()}
                 >
-                    <View id="home"
-                          activePanel={panel}
-                          {...useSwipeBack()}
-                    >
-                        <Home id="home"/>
-                        <User id="user"/>
-                        <Server id="server"/>
-                        <Gallery id="gallery"/>
-                        <Servers id="servers"/>
-                        <Hypixel id="hypixel"/>
-                        <Generator id="generator"/>
-                        <Calculator id="calculator"/>
-                        <Status id="status"/>
-                    </View>
-                </Root>
+                    <Home id="home"/>
+                    <User id="user"/>
+                    <Server id="server"/>
+                    <Gallery id="gallery"/>
+                    <Servers id="servers"/>
+                    <Hypixel id="hypixel"/>
+                    <Generator id="generator"/>
+                    <Calculator id="calculator"/>
+                    <Status id="status"/>
+                </View>
             </SplitCol>
         </SplitLayout>
     );
