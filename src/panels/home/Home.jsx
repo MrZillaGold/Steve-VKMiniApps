@@ -8,6 +8,57 @@ import { Icon28SmileOutline, Icon24Gallery, Icon28StatisticsOutline, Icon32Graff
 import { CustomPanelHeader } from "../../components/CustomPanelHeader";
 import { IconServer, IconCalculator, IconSteve } from "../../icons/icons";
 
+const panels = [
+    {
+        id: "user",
+        title: "Информация об игроке",
+        description: "История никнейма и скин игрока",
+        icon: <Icon28SmileOutline/>
+    },
+    {
+        id: "server",
+        title: "Информация о сервере по IP",
+        description: "Количество и список игроков, версия сервера и другая полезная информация",
+        icon: <IconServer/>
+    },
+    {
+        id: "gallery",
+        title: "Галерея скинов",
+        description: "Скины для Minecraft на любой вкус и цвет",
+        icon: <Icon24Gallery height={28} width={28}/>
+    },
+    {
+        id: "hypixel",
+        title: "Статистика Hypixel",
+        description: "Подробная статистика по всем режимам сервера",
+        icon: <Icon28StatisticsOutline/>
+    },
+    {
+        id: "servers",
+        title: "Сервера Minecraft",
+        description: "Список случайных серверов Minecraft",
+        icon: <Icon24Globe height={28} width={28}/>
+    },
+    {
+        id: "generator",
+        title: "Генератор достижений",
+        description: "Создайте достижение с вашим текстом и случайной иконкой",
+        icon: <Icon32Graffiti height={28} width={28}/>
+    },
+    {
+        id: "calculator",
+        title: "Калькулятор координат",
+        description: "Быстрый подсчёт координат в разных измерениях",
+        icon: <IconCalculator/>
+    },
+    {
+        id: "status",
+        title: "Состояние сервисов",
+        description: "Информация о доступности всех серверов Minecraft",
+        icon: <Icon28GraphOutline/>
+    }
+];
+
 export function Home({ id }) {
 
     const { viewWidth } = useAdaptivity();
@@ -21,148 +72,73 @@ export function Home({ id }) {
             />
             <Group>
                 <Group mode="plain">
-                <CardGrid style={{ marginBottom: "12px", marginTop: viewWidth > ViewWidth.MOBILE ? "8px" : "0" }}
-                          size="l"
-                >
-                    <Card>
-                        <SimpleCell before={
-                            <Icon28SmileOutline/>
+                    <CardGrid style={{ marginBottom: "12px", marginTop: viewWidth > ViewWidth.MOBILE ? "8px" : "0" }}
+                              size="l"
+                    >
+                        {
+                            panels.map(({ id, title, description, icon }, index) =>
+                                <>
+                                    <Card>
+                                        <SimpleCell before={icon}
+                                                    onClick={() => push({ panel: id })}
+                                                    size="m"
+                                                    multiline
+                                                    description={description}
+                                        >
+                                            {
+                                                title
+                                            }
+                                        </SimpleCell>
+                                    </Card>
+                                    {
+                                        index === 5 &&
+                                        <Card>
+                                            <RichCell multiline
+                                                      disabled
+                                                      before={
+                                                          <Avatar mode="image"
+                                                                  id="steve-head"
+                                                                  size={64}
+                                                          >
+                                                              <IconSteve height={64} width={64}/>
+                                                          </Avatar>
+                                                      }
+                                                      size="l"
+                                                      text="Получите быстрый доступ ко всем функциям в сообщениях ВК!"
+                                                      actions={
+                                                          <Button mode="secondary"
+                                                                  target="_blank"
+                                                                  href="https://vk.com/public175914098"
+                                                                  rel="noreferrer"
+                                                          >
+                                                              Открыть
+                                                          </Button>
+                                                      }
+                                            >
+                                                Steve - Minecraft Бот
+                                            </RichCell>
+                                        </Card>
+                                    }
+                                </>
+                            )
                         }
-                                    onClick={() => push({ panel: "user" })}
-                                    size="m"
-                                    multiline
-                                    description="История никнейма и скин игрока"
-                        >
-                            Информация об игроке
-                        </SimpleCell>
-                    </Card>
-                    <Card>
-                        <SimpleCell before={
-                            <IconServer/>
-                        }
-                                    onClick={() => push({ panel: "server" })}
-                                    size="m"
-                                    multiline
-                                    description="Количество и список игроков, версия сервера и другая полезная информация"
-                        >
-                            Информация о сервере по IP
-                        </SimpleCell>
-                    </Card>
-                    <Card>
-                        <SimpleCell before={
-                            <Icon24Gallery height={28} width={28}/>
-                        }
-                                    onClick={() => push({ panel: "gallery" })}
-                                    size="m"
-                                    multiline
-                                    description="Скины для Minecraft на любой вкус и цвет"
-                        >
-                            Галерея скинов
-                        </SimpleCell>
-                    </Card>
-                    <Card>
-                        <SimpleCell before={
-                            <Icon28StatisticsOutline/>
-                        }
-                                    onClick={() => push({ panel: "hypixel" })}
-                                    size="m"
-                                    multiline
-                                    description="Подробная статистика по всем режимам сервера"
-                        >
-                            Статистика Hypixel
-                        </SimpleCell>
-                    </Card>
-                    <Card>
-                        <SimpleCell before={
-                            <Icon24Globe height={28} width={28}/>
-                        }
-                                    onClick={() => push({ panel: "servers" })}
-                                    size="m"
-                                    multiline
-                                    description="Список случайных серверов Minecraft"
-                        >
-                            Сервера Minecraft
-                        </SimpleCell>
-                    </Card>
-                    <Card>
-                        <SimpleCell before={
-                            <Icon32Graffiti height={28} width={28}/>
-                        }
-                                    onClick={() => push({ panel: "generator" })}
-                                    size="m"
-                                    multiline
-                                    description="Создайте достижение с вашим текстом и случайной иконкой"
-                        >
-                            Генератор достижений
-                        </SimpleCell>
-                    </Card>
-                    <Card>
-                        <SimpleCell before={
-                            <IconCalculator/>
-                        }
-                                    onClick={() => push({ panel: "calculator" })}
-                                    size="m"
-                                    multiline
-                                    description="Быстрый подсчёт координат в разных измерениях"
-                        >
-                            Калькулятор координат
-                        </SimpleCell>
-                    </Card>
-                    <Card>
-                        <RichCell multiline
-                                  disabled
-                                  before={
-                                      <Avatar mode="image"
-                                              id="steve-head"
-                                              size={64}
-                                      >
-                                          <IconSteve height={64} width={64}/>
-                                      </Avatar>
-                                  }
-                                  size="l"
-                                  text="Получите быстрый доступ ко всем функциям в сообщениях ВК!"
-                                  actions={
-                                      <Button mode="secondary"
-                                              target="_blank"
-                                              href="https://vk.com/public175914098"
-                                              rel="noreferrer"
-                                      >
-                                          Открыть
-                                      </Button>
-                                  }
-                        >
-                            Steve - Minecraft Бот
-                        </RichCell>
-                    </Card>
-                    <Card>
-                        <SimpleCell before={
-                            <Icon28GraphOutline/>
-                        }
-                                    onClick={() => push({ panel: "status" })}
-                                    size="m"
-                                    multiline
-                                    description="Информация о доступности всех серверов Minecraft"
-                        >
-                            Состояние сервисов
-                        </SimpleCell>
-                    </Card>
-                    {
-                        user_id && VKBridge.supports("VKWebAppAddToCommunity") &&
-                        <Card>
-                            <SimpleCell before={
-                                <Icon28AddOutline/>
-                            }
-                                        onClick={() => VKBridge.send("VKWebAppAddToCommunity", {})}
-                                        size="m"
-                                        multiline
-                                        description="Установите приложение в свое сообщество за один клик"
+                        {
+                            user_id && VKBridge.supports("VKWebAppAddToCommunity") &&
+                            <Card>
+                                <SimpleCell before={
+                                    <Icon28AddOutline/>
+                                }
+                                            onClick={() => VKBridge.send("VKWebAppAddToCommunity", {})}
+                                            size="m"
+                                            multiline
+                                            description="Установите приложение в свое сообщество за один клик"
 
-                            >
-                                Установить приложение
-                            </SimpleCell>
-                        </Card>
-                    }
-                </CardGrid>
+                                >
+                                    Установить приложение
+                                </SimpleCell>
+                            </Card>
+                        }
+                    </CardGrid>
                 </Group>
             </Group>
         </Panel>
