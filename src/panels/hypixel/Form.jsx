@@ -3,7 +3,7 @@ import { Button, Input, Group } from "@vkontakte/vkui";
 
 import { InputWithFavorite } from "../../components";
 
-export function Form({ nickname, setNickname, spinner, getUser, setAdd }) {
+export default function Form({ nickname, setNickname, spinner, getUser, setAdd }) {
 
     const [{ edit, setOpen }, setFavorite] = useState({});
 

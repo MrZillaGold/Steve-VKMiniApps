@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { Placeholder } from "@vkontakte/vkui";
 
-import { IconPug, IconPig, IconZombie } from "../icons/icons";
+import { IconPug, IconPig, IconZombie } from "../icons";
 
 import { randomInteger } from "../functions";
 

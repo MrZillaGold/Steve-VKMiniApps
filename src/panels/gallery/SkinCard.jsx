@@ -20,6 +20,7 @@ export function SkinCard({ url, isSlim, renders, rating, height }) {
         >
             <img src={renders.body.front}
                  className="SkinCard-Image"
+                 height={height}
                  alt=""
             />
             <Text className="SkinCard-Rating"

@@ -1,14 +1,14 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState, Suspense } from "react";
 import axios from "axios";
 import { NameMC } from "namemcwrapper";
 import { Offline, Online } from "react-detect-offline";
 import { Panel, Group } from "@vkontakte/vkui";
 
-import { Form } from "./Form";
-import { Info } from "./Info";
-
 import { CustomPanelHeader, OfflineBlock, SmartCols } from "../../components";
 import { timeConvert } from "../../functions";
+
+const Form = React.lazy(() => import("./Form"));
+const Info = React.lazy(() => import("./Info"));
 
 export function User({ id }) {
 
@@ -107,19 +107,23 @@ export function User({ id }) {
             <CustomPanelHeader status="Информация об игроке"/>
             <Online>
                 <SmartCols col1={
-                    <Form nickname={nickname}
-                          setNickname={setNickname}
-                          setAdd={setAdd}
-                          getUser={getUser}
-                          spinner={spinner}
-                    />
+                    <Suspense fallback={<></>}>
+                        <Form nickname={nickname}
+                              setNickname={setNickname}
+                              setAdd={setAdd}
+                              getUser={getUser}
+                              spinner={spinner}
+                        />
+                    </Suspense>
                 }
                            col2={
-                               <Info user={user}
-                                     setUser={setUser}
-                                     error={error}
-                                     spinner={spinner}
-                               />
+                               <Suspense fallback={<></>}>
+                                   <Info user={user}
+                                         setUser={setUser}
+                                         error={error}
+                                         spinner={spinner}
+                                   />
+                               </Suspense>
                            }
                 />
             </Online>

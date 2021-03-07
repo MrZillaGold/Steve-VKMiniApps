@@ -1,11 +1,11 @@
-import React, { useReducer } from "react";
+import React, {Suspense, useReducer} from "react";
 import { Offline, Online } from "react-detect-offline";
 import { Panel, Group } from "@vkontakte/vkui";
 
-import { Form } from "./Form";
-import { Result } from "./Result";
-
 import { CustomPanelHeader, OfflineBlock, SmartCols } from "../../components";
+
+const Form = React.lazy(() => import("./Form"));
+const Result = React.lazy(() => import("./Result"));
 
 export function Generator({ id }) {
 
@@ -24,12 +24,16 @@ export function Generator({ id }) {
             <CustomPanelHeader status="Генератор достижений"/>
             <Online>
                 <SmartCols col1={
-                    <Form setAchievement={setAchievement}
-                          {...achievement}
-                    />
+                    <Suspense fallback={<></>}>
+                        <Form setAchievement={setAchievement}
+                              {...achievement}
+                        />
+                    </Suspense>
                 }
                            col2={
-                               <Result {...achievement}/>
+                               <Suspense fallback={<></>}>
+                                   <Result {...achievement}/>
+                               </Suspense>
                            }
                 />
             </Online>

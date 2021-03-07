@@ -1,6 +1,6 @@
 import React from "react";
 
-import { IconChest } from "../icons/icons";
+import { IconChest } from "../icons";
 
 export function Spinner({ style, ...rest }) {
     return (

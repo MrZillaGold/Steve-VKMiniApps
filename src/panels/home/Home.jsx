@@ -1,12 +1,12 @@
-import React from "react";
+import React, { Fragment } from "react";
 import getArgs from "vkappsutils/dist/Args";
 import VKBridge from "@vkontakte/vk-bridge";
 import { useRouter } from "@unexp/router";
 import { Panel, Group, CardGrid, Card, SimpleCell, Avatar, Button, ViewWidth, RichCell, useAdaptivity } from "@vkontakte/vkui";
 import { Icon28SmileOutline, Icon24Gallery, Icon28StatisticsOutline, Icon32Graffiti, Icon28AddOutline, Icon24Globe, Icon28GraphOutline } from "@vkontakte/icons";
 
-import { CustomPanelHeader } from "../../components/CustomPanelHeader";
-import { IconServer, IconCalculator, IconSteve } from "../../icons/icons";
+import { CustomPanelHeader } from "../../components";
+import { IconServer, IconCalculator, IconSteve } from "../../icons";
 
 const panels = [
     {
@@ -77,7 +77,7 @@ export function Home({ id }) {
                     >
                         {
                             panels.map(({ id, title, description, icon }, index) =>
-                                <>
+                                <Fragment key={id}>
                                     <Card>
                                         <SimpleCell before={icon}
                                                     onClick={() => push({ panel: id })}
@@ -119,7 +119,7 @@ export function Home({ id }) {
                                             </RichCell>
                                         </Card>
                                     }
-                                </>
+                                </Fragment>
                             )
                         }
                         {

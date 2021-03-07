@@ -3,7 +3,7 @@ import { Avatar, PanelHeaderBack, PanelHeaderContent, PanelHeader, PanelHeaderBu
 import { Icon28MoonOutline, Icon28SunOutline } from "@vkontakte/icons";
 import { useRouter } from "@unexp/router";
 
-import { IconSteve } from "../icons/icons";
+import { IconSteve } from "../icons";
 
 import { useAppearance } from "../hooks";
 

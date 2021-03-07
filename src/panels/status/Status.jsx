@@ -52,7 +52,7 @@ export function Status({ id }) {
 
     return (
         <Panel id={id}
-               centered={Boolean(spinner)}
+               /*centered={Boolean(spinner)}*/
         >
             <CustomPanelHeader status="Состояние сервисов"/>
             <Online>

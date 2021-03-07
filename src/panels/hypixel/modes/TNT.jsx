@@ -1,12 +1,14 @@
 import React from "react";
 import { SimpleCell, Headline } from "@vkontakte/vkui";
 
-export function TNT({ user }) {
+import { HeightAnimation } from "../../../animation";
+
+export default function TNT({ user }) {
 
     const TNT = user.stats.TNT;
 
     return (
-        <>
+        <HeightAnimation>
             <div className="Info-List">
                 <SimpleCell description="Монет"
                       disabled
@@ -133,6 +135,6 @@ export function TNT({ user }) {
                     { TNT.gamemodes.wizards.kill_death_ratio }
                 </SimpleCell>
             </div>
-        </>
+        </HeightAnimation>
     )
 }

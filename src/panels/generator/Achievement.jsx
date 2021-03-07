@@ -3,7 +3,7 @@ import Konva from "konva";
 import chunk from "fast-chunk-string";
 import { Group } from "@vkontakte/vkui";
 
-import { IconChest } from "../../icons/IconChest";
+import { IconChest } from "../../icons";
 
 import { loadImage } from "../../functions";
 

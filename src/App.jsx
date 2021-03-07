@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import VKBridge from "@vkontakte/vk-bridge";
-import { AdaptivityProvider, AppRoot } from "@vkontakte/vkui";
+import { AdaptivityProvider, ANDROID, AppRoot } from "@vkontakte/vkui";
 import { Router } from "@unexp/router";
 
 import { Layout } from "./Layout";
@@ -9,7 +9,7 @@ import { useAppearance } from "./hooks";
 
 export function App() {
 
-    const { setScheme, appPlatform } = useAppearance();
+    const { setScheme, setPlatform, appPlatform } = useAppearance();
 
     useEffect(() => {
         VKBridge.subscribe(({ detail: { type, data }}) => {
@@ -34,6 +34,7 @@ export function App() {
         window.Twitch.ext.onContext(({ theme }) => {
             const scheme = theme === "light" ? "bright_light" : "space_gray";
 
+            setPlatform(ANDROID);
             setScheme(scheme);
         });
     }, []);

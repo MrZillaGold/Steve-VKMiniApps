@@ -5,7 +5,7 @@ import { Button, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
 import { Icon28Play, Icon28Pause, Icon28DownloadOutline, Icon28StoryOutline } from "@vkontakte/icons";
 
 import { SkinViewer } from "./SkinViewer";
-import { IconRun, IconWalk } from "../icons/icons";
+import { IconRun, IconWalk } from "../icons";
 
 import { getRandomElement, storyBackgrounds } from "../functions";
 

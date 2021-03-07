@@ -4,7 +4,7 @@ import { Button, Input, Group } from "@vkontakte/vkui";
 import { InputWithFavorite } from "../../components";
 import { isIP } from "../../functions";
 
-export function Form({ IP, setIP, spinner, getServer, setAdd, setOpen, edit, setFavorite }) {
+export default function Form({ IP, setIP, spinner, getServer, setAdd, setOpen, edit, setFavorite }) {
 
     const input = ({ currentTarget }) => {
         const { value } = currentTarget;

@@ -64,7 +64,7 @@ export function Gallery({ id }) {
 
     return (
         <Panel id={id}
-               centered={Boolean(skins.length === 0 || error)}
+               /*centered={Boolean(skins.length === 0 || error)}*/
         >
             <CustomPanelHeader status="Галерея скинов"/>
             <Group>

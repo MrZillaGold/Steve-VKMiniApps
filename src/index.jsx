@@ -1,12 +1,10 @@
-import "core-js";
-
 import React from "react";
 import ReactDOM from "react-dom";
 import VKBridge from "@vkontakte/vk-bridge";
 import { platform, IOS } from "@vkontakte/vkui";
 import mVKMiniAppsScrollHelper from "@vkontakte/mvk-mini-apps-scroll-helper";
 
-import { AppearanceProvider } from "./components/AppearanceProvider";
+import { AppearanceProvider } from "./components";
 import { App } from "./App";
 
 import "@vkontakte/vkui/dist/vkui.css";

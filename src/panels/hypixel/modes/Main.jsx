@@ -1,11 +1,13 @@
 import React from "react";
 import { SimpleCell } from "@vkontakte/vkui";
 
+import { HeightAnimation } from "../../../animation";
+
 import { timeConvert } from "../../../functions";
 
-export function Main({ user }) {
+export default function Main({ user }) {
     return (
-        <div>
+        <HeightAnimation>
             <div className="Info-List">
                 <SimpleCell description="Статус"
                       disabled
@@ -49,6 +51,6 @@ export function Main({ user }) {
                     { user.karma.toLocaleString() }
                 </SimpleCell>
             </div>
-        </div>
+        </HeightAnimation>
     )
 }

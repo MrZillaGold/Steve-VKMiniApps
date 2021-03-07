@@ -1,12 +1,14 @@
 import React from "react";
 import { SimpleCell, Headline } from "@vkontakte/vkui";
 
-export function BuildBattle({ user }) {
+import { HeightAnimation } from "../../../animation";
+
+export default function BuildBattle({ user }) {
 
     const BuildBattle = user.stats.BuildBattle;
 
     return (
-        <div>
+        <HeightAnimation>
             <div className="Info-List">
                 <SimpleCell description="Очки"
                       disabled
@@ -73,6 +75,6 @@ export function BuildBattle({ user }) {
                     { (BuildBattle.correct_guesses || 0).toLocaleString() }
                 </SimpleCell>
             </div>
-        </div>
+        </HeightAnimation>
     )
 }

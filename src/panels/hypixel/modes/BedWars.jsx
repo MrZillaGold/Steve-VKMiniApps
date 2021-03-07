@@ -1,14 +1,16 @@
 import React from "react";
 import { SimpleCell, Headline } from "@vkontakte/vkui";
 
+import { HeightAnimation } from "../../../animation";
+
 import { getRatio } from "../../../functions";
 
-export function BedWars({ user }) {
+export default function BedWars({ user }) {
 
     const BedWars = user.stats.BedWars;
 
     return (
-        <>
+        <HeightAnimation>
             <div className="Info-List">
                 <SimpleCell description="Уровень"
                       disabled
@@ -211,6 +213,6 @@ export function BedWars({ user }) {
                     { getRatio(BedWars.gamemodes["4v4v4v4"].kills, BedWars.gamemodes["4v4v4v4"].deaths) }
                 </SimpleCell>
             </div>
-        </>
+        </HeightAnimation>
     )
 }
