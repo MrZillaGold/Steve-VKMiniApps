@@ -6,7 +6,7 @@ import { Error, Spinner } from "../../components";
 
 import { ServerCard } from "./ServerCard";
 
-export default function Info({ server, spinner, error, favorite, add, setScrollUp, showIpCopy, ...rest }) {
+export function Info({ server, spinner, error, favorite, add, setScrollUp, showIpCopy, ...rest }) {
 
     const { viewWidth } = useAdaptivity();
 

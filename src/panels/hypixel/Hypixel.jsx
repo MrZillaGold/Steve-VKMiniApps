@@ -1,12 +1,12 @@
-import React, { useEffect, useReducer, useState, Suspense } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import axios from "axios";
 import { Offline, Online } from "react-detect-offline";
 import { Panel, Group } from "@vkontakte/vkui";
 
 import { CustomPanelHeader, OfflineBlock, SmartCols } from "../../components";
 
-const Form = React.lazy(() => import("./Form"));
-const Info = React.lazy(() => import("./Info"));
+import { Form } from "./Form";
+import { Info } from "./Info";
 
 export function Hypixel({ id }) {
 
@@ -75,22 +75,18 @@ export function Hypixel({ id }) {
             <CustomPanelHeader status="Статистика Hypixel"/>
             <Online>
                 <SmartCols col1={
-                    <Suspense fallback={<></>}>
-                        <Form nickname={nickname}
-                              setNickname={setNickname}
-                              setAdd={setAdd}
-                              getUser={getUser}
-                              spinner={spinner}
-                        />
-                    </Suspense>
+                    <Form nickname={nickname}
+                          setNickname={setNickname}
+                          setAdd={setAdd}
+                          getUser={getUser}
+                          spinner={spinner}
+                    />
                 }
                            col2={
-                               <Suspense fallback={<></>}>
-                                   <Info user={user}
-                                         error={error}
-                                         spinner={spinner}
-                                   />
-                               </Suspense>
+                               <Info user={user}
+                                     error={error}
+                                     spinner={spinner}
+                               />
                            }
                 />
             </Online>

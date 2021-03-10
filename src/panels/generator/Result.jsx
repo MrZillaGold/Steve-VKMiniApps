@@ -11,7 +11,7 @@ import spriteAsset from "../../assets/achievement/items.png";
 
 const ITEM_SIDE_SIZE = 32;
 
-export default function Result(params) {
+export function Result(params) {
 
     const [mount, setMount] = useState(true);
     const [spriteCoordinates, setSpriteCoordinates] = useState(null);

@@ -7,7 +7,7 @@ import { HeightAnimation } from "../../animation";
 import { NameHistory } from "./NameHistory";
 import { Skin } from "./Skin";
 
-export default function Info({ user, setUser, spinner, error }) {
+export function Info({ user, setUser, spinner, error }) {
 
     const { viewWidth } = useAdaptivity();
 

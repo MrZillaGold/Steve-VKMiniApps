@@ -1,15 +1,13 @@
 import React from "react";
 import { SimpleCell, Headline } from "@vkontakte/vkui";
 
-import { HeightAnimation } from "../../../animation";
-
-export default function UHC({ user }) {
+export function UHC({ user }) {
 
     const UHC = user.stats.UHC;
     const SpeedUHC = user.stats.SpeedUHC;
 
     return (
-        <HeightAnimation>
+        <>
             <div className="Info-List">
                 <SimpleCell description="Монет"
                       disabled
@@ -95,6 +93,6 @@ export default function UHC({ user }) {
                     { SpeedUHC.kd }
                 </SimpleCell>
             </div>
-        </HeightAnimation>
+        </>
     )
 }

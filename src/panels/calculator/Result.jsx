@@ -5,7 +5,7 @@ import { Icon16Done, Icon24Copy } from "@vkontakte/icons";
 
 import "./Result.css";
 
-export default function Result({ x, y, z, dimension, copied, setCoordinates }) {
+export function Result({ x, y, z, dimension, copied, setCoordinates }) {
 
     const X = x === "" || isNaN(x) ? 0 : x;
     const Y = y === "" || isNaN(y) ? 0 : y;

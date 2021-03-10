@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from "react";
 import { Group, FormLayout, Input, FormItem, Textarea, SliderSwitch } from "@vkontakte/vkui";
 
-export default function Form({ setAchievement }) {
+export function Form({ setAchievement }) {
 
     const [{ title, body, textColor, backgroundColor }, setInputValue] = useReducer((state, input) => ({
         ...state,

@@ -1,20 +1,14 @@
-import React, { useState, Suspense } from "react";
+import React, { useState } from "react";
 import { Group, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
 
 import { Error, Spinner, TabsSelect, UserCard } from "../../components";
+import { HeightAnimation } from "../../animation";
+
+import { Main, BedWars, SkyWars, BuildBattle, UHC, TNT, MurderMystery, Duels  } from "./modes";
 
 import "./Info.css";
 
-const Main = React.lazy(() => import("./modes/Main"));
-const BedWars = React.lazy(() => import("./modes/BedWars"));
-const SkyWars = React.lazy(() => import("./modes/SkyWars"));
-const BuildBattle = React.lazy(() => import("./modes/BuildBattle"));
-const UHC = React.lazy(() => import("./modes/UHC"));
-const TNT = React.lazy(() => import("./modes/TNT"));
-const Duels = React.lazy(() => import("./modes/Duels"));
-const MurderMystery = React.lazy(() => import("./modes/MurderMystery"));
-
-export default function Info({ user, spinner, error }) {
+export function Info({ user, spinner, error }) {
 
     const { viewWidth } = useAdaptivity();
 
@@ -33,19 +27,18 @@ export default function Info({ user, spinner, error }) {
 
     return (
         <Group>
+            <HeightAnimation>
                 {
                     user ?
                         <Group mode="plain">
                             <UserCard user={user}/>
                             <TabsSelect activeTab={activeTab}
-                                       setActiveTab={setActiveTab}
-                                       tabs={modes}
+                                        setActiveTab={setActiveTab}
+                                        tabs={modes}
                             />
-                            <Suspense fallback={<></>}>
-                                {
-                                    modes.get(activeTab)[1]
-                                }
-                            </Suspense>
+                            {
+                                modes.get(activeTab)[1]
+                            }
                         </Group>
                         :
                         !spinner && !error && viewWidth > ViewWidth.MOBILE && <Error error="Информация об игроке появится здесь после ее получения."/>
@@ -56,6 +49,7 @@ export default function Info({ user, spinner, error }) {
                 {
                     error && <Error error={error}/>
                 }
+            </HeightAnimation>
         </Group>
     )
 }

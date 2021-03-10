@@ -1,10 +1,10 @@
-import React, { useReducer, Suspense } from "react";
+import React, { useReducer } from "react";
 import { Panel } from "@vkontakte/vkui";
 
 import { CustomPanelHeader, SmartCols } from "../../components";
 
-const Form = React.lazy(() => import("./Form"));
-const Result = React.lazy(() => import("./Result"));
+import { Form } from "./Form";
+import { Result } from "./Result";
 
 export function Calculator({ id }) {
     const [coordinates, setCoordinates] = useReducer((state, coordinates) => {
@@ -54,18 +54,14 @@ export function Calculator({ id }) {
         <Panel id={id}>
             <CustomPanelHeader status="Калькулятор координат"/>
             <SmartCols col1={
-                <Suspense fallback={<></>}>
                 <Form inputCoordinates={inputCoordinates}
                       {...coordinates}
                 />
-                </Suspense>
             }
                        col2={
-                           <Suspense fallback={<></>}>
                            <Result setCoordinates={setCoordinates}
                                    {...coordinates}
                            />
-                           </Suspense>
                        }
             />
         </Panel>

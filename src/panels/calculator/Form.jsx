@@ -1,7 +1,7 @@
 import React from "react";
 import { FormItem, FormLayout, FormLayoutGroup, Group, Input, NativeSelect, ViewWidth, useAdaptivity } from "@vkontakte/vkui";
 
-export default function Form({ inputCoordinates, x, y, z, dimension }) {
+export function Form({ inputCoordinates, x, y, z, dimension }) {
 
     const { viewWidth } = useAdaptivity();
 

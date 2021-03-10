@@ -1,16 +1,14 @@
 import React from "react";
 import { SimpleCell } from "@vkontakte/vkui";
 
-import { HeightAnimation } from "../../../animation";
-
 import { getRatio } from "../../../functions";
 
-export default function Duels({ user }) {
+export function Duels({ user }) {
 
     const Duels = user.stats.Duels.general;
 
     return (
-        <HeightAnimation>
+        <>
             <div className="Info-List">
                 <SimpleCell description="Монет"
                       disabled
@@ -52,6 +50,6 @@ export default function Duels({ user }) {
                     { getRatio(Duels.kills, Duels.deaths) }
                 </SimpleCell>
             </div>
-        </HeightAnimation>
+        </>
     )
 }

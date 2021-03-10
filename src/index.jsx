@@ -7,6 +7,7 @@ import mVKMiniAppsScrollHelper from "@vkontakte/mvk-mini-apps-scroll-helper";
 import { AppearanceProvider } from "./components";
 import { App } from "./App";
 
+import "core-js";
 import "@vkontakte/vkui/dist/vkui.css";
 import "./App.css";
 

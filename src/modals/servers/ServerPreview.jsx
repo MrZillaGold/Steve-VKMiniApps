@@ -5,7 +5,7 @@ import { useParams, useRouter } from "@unexp/router";
 
 import { HeightAnimation } from "../../animation";
 import { FavoriteList, ModalHeader } from "../../components";
-import Info from "../../panels/server/Info";
+import { Info } from "../../panels/server/Info";
 
 import "./ServerPreview.css";
 

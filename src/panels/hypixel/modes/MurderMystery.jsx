@@ -1,14 +1,12 @@
 import React from "react";
 import { SimpleCell } from "@vkontakte/vkui";
 
-import { HeightAnimation } from "../../../animation";
-
-export default function MurderMystery({ user }) {
+export function MurderMystery({ user }) {
 
     const MurderMystery = user.stats.MurderMystery;
 
     return (
-        <HeightAnimation>
+        <>
             <div className="Info-List">
                 <SimpleCell description="Монет"
                       disabled
@@ -50,6 +48,6 @@ export default function MurderMystery({ user }) {
                     { MurderMystery.kill_death_ratio }
                 </SimpleCell>
             </div>
-        </HeightAnimation>
+        </>
     )
 }

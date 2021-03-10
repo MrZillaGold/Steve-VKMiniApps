@@ -1,14 +1,12 @@
 import React from "react";
 import { SimpleCell } from "@vkontakte/vkui";
 
-import { HeightAnimation } from "../../../animation";
-
-export default function SkyWars({ user }) {
+export function SkyWars({ user }) {
 
     const SkyWars = user.stats.SkyWars;
 
     return (
-        <HeightAnimation>
+        <>
             <div className="Info-List">
                 <SimpleCell description="Монет"
                       disabled
@@ -50,6 +48,6 @@ export default function SkyWars({ user }) {
                     { SkyWars.kill_death_ratio }
                 </SimpleCell>
             </div>
-        </HeightAnimation>
+        </>
     )
 }

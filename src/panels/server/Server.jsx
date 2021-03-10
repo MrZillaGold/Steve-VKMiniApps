@@ -1,15 +1,16 @@
-import React, { useEffect, useReducer, useState, Suspense } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import axios from "axios";
 import { Offline, Online } from "react-detect-offline";
 import { Panel, Group } from "@vkontakte/vkui";
 
 import { CustomPanelHeader, OfflineBlock, ScrollToUp, SmartCols } from "../../components";
+
+import { Form } from "./Form";
+import { Info } from "./Info";
+
 import { declOfNum } from "../../functions";
 
 import defaultImage from "../../assets/server/server-default.png";
-
-const Form = React.lazy(() => import("./Form"));
-const Info = React.lazy(() => import("./Info"));
 
 export function Server({ id }) {
 
@@ -96,28 +97,24 @@ export function Server({ id }) {
             <CustomPanelHeader status="Информация о сервере"/>
             <Online>
                 <SmartCols col1={
-                    <Suspense fallback={<></>}>
-                        <Form IP={IP}
-                              setIP={setIP}
-                              setAdd={setAdd}
-                              getServer={getServer}
-                              spinner={spinner}
-                              edit={edit}
-                              setOpen={setOpen}
-                              setFavorite={setFavorite}
-                        />
-                    </Suspense>
+                    <Form IP={IP}
+                          setIP={setIP}
+                          setAdd={setAdd}
+                          getServer={getServer}
+                          spinner={spinner}
+                          edit={edit}
+                          setOpen={setOpen}
+                          setFavorite={setFavorite}
+                    />
                 }
                            col2={
-                               <Suspense fallback={<></>}>
-                                   <Info server={server}
-                                         error={error}
-                                         spinner={spinner}
-                                         add={add}
-                                         favorite={items}
-                                         setScrollUp={setScrollUp}
-                                   />
-                               </Suspense>
+                               <Info server={server}
+                                     error={error}
+                                     spinner={spinner}
+                                     add={add}
+                                     favorite={items}
+                                     setScrollUp={setScrollUp}
+                               />
                            }
                 />
                 <ScrollToUp scrollUp={scrollUp}/>
