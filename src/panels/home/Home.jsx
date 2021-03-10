@@ -43,7 +43,8 @@ const panels = [
         id: "generator",
         title: "Генератор достижений",
         description: "Создайте достижение с вашим текстом и случайной иконкой",
-        icon: <Icon32Graffiti height={28} width={28}/>
+        icon: <Icon32Graffiti height={28} width={28}/>,
+        checkClient: true
     },
     {
         id: "calculator",
@@ -63,7 +64,7 @@ export function Home({ id }) {
 
     const { viewWidth } = useAdaptivity();
     const { push } = useRouter();
-    const { user_id } = getArgs();
+    const { user_id, client } = getArgs();
 
     return (
         <Panel id={id}>
@@ -76,51 +77,57 @@ export function Home({ id }) {
                               size="l"
                     >
                         {
-                            panels.map(({ id, title, description, icon }, index) =>
-                                <Fragment key={id}>
-                                    <Card>
-                                        <SimpleCell before={icon}
-                                                    onClick={() => push({ panel: id })}
-                                                    size="m"
-                                                    multiline
-                                                    description={description}
-                                        >
-                                            {
-                                                title
-                                            }
-                                        </SimpleCell>
-                                    </Card>
-                                    {
-                                        index === 5 &&
+                            panels.map(({ id, title, description, icon, checkClient }, index) => {
+                                if (checkClient && client === "ok") {
+                                    return;
+                                }
+
+                                return (
+                                    <Fragment key={id}>
                                         <Card>
-                                            <RichCell multiline
-                                                      disabled
-                                                      before={
-                                                          <Avatar mode="image"
-                                                                  id="steve-head"
-                                                                  size={64}
-                                                          >
-                                                              <IconSteve height={64} width={64}/>
-                                                          </Avatar>
-                                                      }
-                                                      size="l"
-                                                      text="Получите быстрый доступ ко всем функциям в сообщениях ВК!"
-                                                      actions={
-                                                          <Button mode="secondary"
-                                                                  target="_blank"
-                                                                  href="https://vk.com/public175914098"
-                                                                  rel="noreferrer"
-                                                          >
-                                                              Открыть
-                                                          </Button>
-                                                      }
+                                            <SimpleCell before={icon}
+                                                        onClick={() => push({panel: id})}
+                                                        size="m"
+                                                        multiline
+                                                        description={description}
                                             >
-                                                Steve - Minecraft Бот
-                                            </RichCell>
+                                                {
+                                                    title
+                                                }
+                                            </SimpleCell>
                                         </Card>
-                                    }
-                                </Fragment>
-                            )
+                                        {
+                                            client !== "ok" && index === 5 &&
+                                            <Card>
+                                                <RichCell multiline
+                                                          disabled
+                                                          before={
+                                                              <Avatar mode="image"
+                                                                      id="steve-head"
+                                                                      size={64}
+                                                              >
+                                                                  <IconSteve height={64} width={64}/>
+                                                              </Avatar>
+                                                          }
+                                                          size="l"
+                                                          text="Получите быстрый доступ ко всем функциям в сообщениях ВК!"
+                                                          actions={
+                                                              <Button mode="secondary"
+                                                                      target="_blank"
+                                                                      href="https://vk.com/public175914098"
+                                                                      rel="noreferrer"
+                                                              >
+                                                                  Открыть
+                                                              </Button>
+                                                          }
+                                                >
+                                                    Steve - Minecraft Бот
+                                                </RichCell>
+                                            </Card>
+                                        }
+                                    </Fragment>
+                                );
+                            })
                         }
                         {
                             user_id && VKBridge.supports("VKWebAppAddToCommunity") &&

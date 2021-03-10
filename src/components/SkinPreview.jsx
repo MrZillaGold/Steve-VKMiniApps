@@ -14,7 +14,7 @@ import "./SkinPreview.css";
 export function SkinPreview({ skin, cape, isSlim, username = "", className, ...rest }) {
 
     const { viewWidth } = useAdaptivity();
-    const { platform, user_id } = getArgs();
+    const { platform, user_id, client } = getArgs();
 
     const ref = useRef();
     const [{ skinViewer, paused, walk, lock }, setPreview] = useReducer((currentState, updates) => ({
@@ -115,7 +115,7 @@ export function SkinPreview({ skin, cape, isSlim, username = "", className, ...r
                 url: "https://vk.com/minetools"
             }
         })
-            .catch(console.log);
+            .catch(console.error);
     };
 
     const isWeb = platform === "desktop_web" || platform === "mobile_web";
@@ -145,7 +145,7 @@ export function SkinPreview({ skin, cape, isSlim, username = "", className, ...r
                 <Button mode="secondary"
                         className="SkinPreview-Button"
                         onClick={openStoryEditor}
-                        style={!user_id ? { display: "none" } : {}}
+                        style={!user_id || client === "ok" ? { display: "none" } : {}}
                         before={
                             <Icon28StoryOutline/>
                         }
