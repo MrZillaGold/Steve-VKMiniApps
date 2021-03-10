@@ -64,7 +64,7 @@ export function InputWithFavorite({ input, inputTop, inputBottom, favoriteHeader
                             )
                         }
                     </FormLayoutGroup>
-                    <FormItem style={{ paddingBottom: 0 }}>
+                    <FormItem>
                         {
                             button
                         }
