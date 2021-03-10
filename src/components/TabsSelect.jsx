@@ -9,7 +9,7 @@ export function TabsSelect({ activeTab, setActiveTab, tabs }) {
     const getScrollToLeft = (offset) => {
         const containerWidth = ref.current.offsetWidth;
 
-        const tab = tabsRef.find((element) => element.offsetLeft + element.offsetWidth - offset >= 0);
+        const tab = [...tabsRef].find((element) => element.offsetLeft + element.offsetWidth - offset >= 0);
         if (!tab) {
             return offset;
         }
@@ -31,7 +31,7 @@ export function TabsSelect({ activeTab, setActiveTab, tabs }) {
     const getScrollToRight = (offset) => {
         const containerWidth = ref.current.offsetWidth;
 
-        const tab = tabsRef.find((element) => element.offsetLeft + element.offsetWidth - offset > containerWidth);
+        const tab = [...tabsRef].find((element) => element.offsetLeft + element.offsetWidth - offset > containerWidth);
         if (!tab) {
             return offset;
         }
