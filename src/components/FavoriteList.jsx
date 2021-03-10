@@ -77,12 +77,13 @@ export function FavoriteList({ onSelect = () => {}, bridgeKey = "", header = "",
                     items = items.value;
 
                     if (mount) {
-                        if (items.length > 0) {
-                            setFavorite({
-                                items: items.split(","),
-                                loaded: true
-                            });
-                        }
+                        setFavorite({
+                            items: items.length > 0 ?
+                                items.split(",")
+                                :
+                                [],
+                            loaded: true
+                        });
                     }
                 })
                 .catch((error) => {
