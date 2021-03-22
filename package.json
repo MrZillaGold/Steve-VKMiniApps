@@ -26,7 +26,7 @@
     "react": "^17.0.2",
     "react-copy-to-clipboard": "^5.0.3",
     "react-detect-offline": "^2.4.3",
-    "react-dom": "^17.0.1",
+    "react-dom": "^17.0.2",
     "react-infinite-scroll-component": "^6.0.0",
     "skinview3d": "^2.0.0",
     "vkappsutils": "github:FlyInk13/VKAppsUtils"
