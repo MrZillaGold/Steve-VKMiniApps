@@ -22,7 +22,7 @@
     "core-js": "^3.9.1",
     "fast-chunk-string": "^1.0.1",
     "konva": "^7.2.5",
-    "namemcwrapper": "^1.6.8",
+    "namemcwrapper": "^1.6.9",
     "react": "^17.0.2",
     "react-copy-to-clipboard": "^5.0.3",
     "react-detect-offline": "^2.4.3",
