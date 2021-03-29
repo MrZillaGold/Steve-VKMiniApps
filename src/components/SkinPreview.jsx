@@ -168,7 +168,7 @@ export function SkinPreview({ skin, cape, isSlim, username = "", className, ...r
                             isSlim={isSlim}
                             height={
                                 viewWidth > ViewWidth.MOBILE ?
-                                    450
+                                    400
                                     :
                                     300
                             }
