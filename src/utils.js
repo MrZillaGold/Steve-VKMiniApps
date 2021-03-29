@@ -15,7 +15,7 @@ export const STORY_BACKGROUNDS = [
 ];
 
 export const nameMc = new NameMC({
-    proxy: "https://stevecors.herokuapp.com",
+    proxy: PROXY,
     rendersIgnoreProxy: true,
     defaultSkinsModel: "slim"
 });
