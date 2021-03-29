@@ -13,7 +13,7 @@ export function ScrollToUp({ scrollUp }) {
 
     return (
         <FixedLayout vertical="bottom"
-                     className={`ScrollToUp-Up ${scrollUp ? "ScrollToUp-Up-Show" : ""}`}
+                     className={`ScrollToUp-Up ${scrollUp ? "ScrollToUp-Up_show" : ""}`}
         >
             <Button size="l"
                     mode="secondary"

@@ -3,49 +3,54 @@
     src: url(assets/achievement/MinecraftSeven.ttf) format("truetype");
 }
 
-.Card {
+.vkuiCard {
     overflow: hidden;
 }
 
-.ModalPageHeader__content-in {
+.vkuiCard__in {
+    height: 100%;
+}
+
+.vkuiModalPageHeader__content-in {
     font-weight: 600 !important;
 }
 
-.ModalPageHeader--vkcom .ModalPageHeader__content-in {
+.vkuiModalPageHeader--vkcom,
+.vkuiModalPageHeader__content-in {
     font-weight: 500 !important;
 }
 
-.Header__content {
+.vkuiHeader__content {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
 }
 
-.Group {
+.vkuiGroup {
     z-index: 2;
 }
 
-.Group__inner {
+.vkuiGroup__inner {
     overflow: hidden;
 }
 
-.SplitLayout__inner {
+.vkuiSplitLayout__inner {
     height: auto !important;
 }
 
-.Tabs {
+.vkuiTabs {
     background: unset !important;
 }
 
 /**
  * https://github.com/VKCOM/VKUI/pull/1264
  */
-.Header__aside {
+.vkuiHeader__aside {
     display: flex;
 }
 
-.Header__aside > .Icon:not(:last-child) {
+.vkuiHeader__aside > .vkuiIcon:not(:last-child) {
     margin-right: 6px;
 }
 

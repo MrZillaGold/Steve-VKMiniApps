@@ -4,7 +4,8 @@
     align-items: center;
 }
 
-.SkinViewer > canvas:active, .SkinViewer > canvas:focus {
+.SkinViewer > canvas:active,
+.SkinViewer > canvas:focus {
     cursor: move;
     outline: none !important;
 }

@@ -6,7 +6,7 @@
     transition: opacity 0.2s linear;
 }
 
-.ScrollToUp-Up-Show {
+.ScrollToUp-Up_show {
     opacity: 1;
     cursor: pointer !important;
 }

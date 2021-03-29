@@ -4,11 +4,11 @@
     justify-content: center;
 }
 
-.Info-List > .SimpleCell > .SimpleCell__main {
+.Info-List > .SimpleCell > .vkuiSimpleCell__main {
     text-align: center;
 }
 
-.Info-List > .SimpleCell > .SimpleCell__main > .SimpleCell__content {
+.Info-List > .SimpleCell > .vkuiSimpleCell__main > .vkuiSimpleCell__content {
     display: unset !important;
 }
 
