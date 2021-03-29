@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { NameMC } from "namemcwrapper";
 import { Offline, Online } from "react-detect-offline";
 import { Card, CardGrid, Group, Panel, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
 import { useRouter } from "@unexp/router";
@@ -7,9 +6,7 @@ import { useRouter } from "@unexp/router";
 import { CustomPanelHeader, InfinityScroll, Spinner, Error, OfflineBlock } from "../../components";
 import { ServerCard } from "../server/ServerCard";
 
-const nameMc = new NameMC({
-    proxy: "https://stevecors.herokuapp.com"
-});
+import { nameMc } from "../../utils";
 
 export function Servers({ id }) {
 

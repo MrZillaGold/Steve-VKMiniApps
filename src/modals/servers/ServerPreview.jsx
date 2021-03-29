@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { NameMC } from "namemcwrapper";
 import { ModalPage, Spinner, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
 import { useParams, useRouter } from "@unexp/router";
 
@@ -7,11 +6,9 @@ import { HeightAnimation } from "../../animation";
 import { FavoriteList, ModalHeader } from "../../components";
 import { Info } from "../../panels/server/Info";
 
-import "./ServerPreview.css";
+import { nameMc } from "../../utils";
 
-const nameMc = new NameMC({
-    proxy: "https://stevecors.herokuapp.com"
-});
+import "./ServerPreview.css";
 
 export function ServerPreview({ id }) {
 

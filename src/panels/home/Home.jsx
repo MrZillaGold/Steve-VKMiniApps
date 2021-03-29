@@ -71,8 +71,7 @@ export function Home({ id }) {
             <CustomPanelHeader status="Minecraft помощник"
                                left={false}
             />
-            <Group>
-                <Group mode="plain">
+                <Group>
                     <CardGrid style={{ marginBottom: "12px", marginTop: viewWidth > ViewWidth.MOBILE ? "8px" : "0" }}
                               size="l"
                     >
@@ -147,7 +146,6 @@ export function Home({ id }) {
                         }
                     </CardGrid>
                 </Group>
-            </Group>
         </Panel>
     )
 }

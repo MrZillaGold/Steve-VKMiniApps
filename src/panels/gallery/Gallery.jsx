@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { NameMC } from "namemcwrapper";
 import { Offline, Online } from "react-detect-offline";
 import { Panel, Group, ViewWidth, useAdaptivity, CardGrid } from "@vkontakte/vkui";
 
 import { Error, CustomPanelHeader, Spinner, OfflineBlock, InfinityScroll } from "../../components";
 import { SkinCard } from "./SkinCard";
 
-const nameMc = new NameMC({
-    proxy: "https://stevecors.herokuapp.com"
-});
+import { nameMc } from "../../utils";
 
 export function Gallery({ id }) {
 
@@ -31,8 +28,7 @@ export function Gallery({ id }) {
         nameMc.getSkins({ tab: "random" })
             .then((randomSkins) => {
                 randomSkins = randomSkins.map((skin) => {
-                    skin.renders = new NameMC()
-                        .getRenders({
+                    skin.renders = nameMc.getRenders({
                             skin: skin.hash,
                             model: skin.model,
                             width: 150,

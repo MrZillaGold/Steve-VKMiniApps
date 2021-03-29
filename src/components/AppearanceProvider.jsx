@@ -12,14 +12,20 @@ export function AppearanceProvider({ children }) {
     const getStorageScheme = () => {
         const storageScheme = localStorage.getItem("scheme");
 
-        return schemes.includes(storageScheme) ? storageScheme : "bright_light";
+        return schemes.includes(storageScheme) ?
+            storageScheme
+            :
+            "bright_light";
     };
 
     const [scheme, setScheme] = useState(getStorageScheme());
     const [platform, setPlatform] = useState("android");
 
     const toggleScheme = () => {
-        const newScheme = scheme === "bright_light" ? "space_gray" : "bright_light";
+        const newScheme = scheme === "bright_light" ?
+            "space_gray"
+            :
+            "bright_light";
 
         setScheme(newScheme);
 

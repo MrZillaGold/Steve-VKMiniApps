@@ -1,6 +1,5 @@
 import React, { useEffect, useReducer, useState } from "react";
 import axios from "axios";
-import { NameMC } from "namemcwrapper";
 import { Offline, Online } from "react-detect-offline";
 import { Panel, Group } from "@vkontakte/vkui";
 
@@ -9,7 +8,8 @@ import { CustomPanelHeader, OfflineBlock, SmartCols } from "../../components";
 import { Form } from "./Form";
 import { Info } from "./Info";
 
-import { timeConvert } from "../../utils";
+import { timeConvert, nameMc } from "../../utils";
+
 export function User({ id }) {
 
     const [mount, setMount] = useState(true);
@@ -45,10 +45,6 @@ export function User({ id }) {
                         selected: 1
                     }
                 };
-
-                const nameMc = new NameMC({
-                    proxy: "https://stevecors.herokuapp.com"
-                });
 
                 await nameMc.skinHistory({ nickname: username })
                     .then((skins) => data.skin.history = skins)

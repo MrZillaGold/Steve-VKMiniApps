@@ -1,3 +1,11 @@
+import { NameMC } from "namemcwrapper";
+
+export const nameMc = new NameMC({
+    proxy: "https://stevecors.herokuapp.com",
+    rendersIgnoreProxy: true,
+    defaultSkinsModel: "slim"
+});
+
 const pad = (number) => {
     return number > 9 ? number : `0${number}`;
 };
