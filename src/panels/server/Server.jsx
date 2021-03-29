@@ -8,7 +8,7 @@ import { CustomPanelHeader, OfflineBlock, ScrollToUp, SmartCols } from "../../co
 import { Form } from "./Form";
 import { Info } from "./Info";
 
-import { declOfNum } from "../../utils";
+import { declOfNum, MCSRVSTAT_ENDPOINT, MINECRAFT_STATISTIC_ENDPOINT } from "../../utils";
 
 import defaultImage from "../../assets/server/server-default.png";
 
@@ -38,9 +38,9 @@ export function Server({ id }) {
         setSpinner(true);
 
         Promise.allSettled([
-            axios.get(`https://api.mcsrvstat.us/2/${ip}`)
+            axios.get(`${MCSRVSTAT_ENDPOINT}/${ip}`)
                 .then(({ data }) => data),
-            axios.get(`https://minecraft-statistic.net/api/server/info/${ip.replace(":", "_")}`)
+            axios.get(`${MINECRAFT_STATISTIC_ENDPOINT}/server/info/${ip.replace(":", "_")}`)
                 .then(({ data }) => data)
         ])
             .then(([server, statistic]) => {
@@ -49,7 +49,6 @@ export function Server({ id }) {
                 }
 
                 if (statistic.status === "fulfilled") {
-                    console.log(statistic.value._id)
                     server.value.id = statistic.value._id;
                 }
 

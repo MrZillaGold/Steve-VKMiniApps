@@ -6,6 +6,8 @@ import { Panel, Group, Header } from "@vkontakte/vkui";
 import { OfflineBlock, Error, Spinner, CustomPanelHeader } from "../../components";
 import { ServicesList } from "./ServicesList";
 
+import { PROXY } from "../../utils";
+
 export function Status({ id }) {
 
     const [mount, setMount] = useState(true);
@@ -29,7 +31,7 @@ export function Status({ id }) {
         setSpinner(true);
         setError(null);
 
-        axios.get("https://stevecors.herokuapp.com/https://status.mojang.com/check")
+        axios.get(`${PROXY}https://status.mojang.com/check`)
             .then(({ data }) => {
                 if (mount) {
                     setServices(data);

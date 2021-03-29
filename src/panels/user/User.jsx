@@ -8,7 +8,7 @@ import { CustomPanelHeader, OfflineBlock, SmartCols } from "../../components";
 import { Form } from "./Form";
 import { Info } from "./Info";
 
-import { timeConvert, nameMc } from "../../utils";
+import { timeConvert, nameMc, ASHCON_ENDPOINT, PROXY } from "../../utils";
 
 export function User({ id }) {
 
@@ -31,14 +31,14 @@ export function User({ id }) {
         setUser(null);
         setSpinner(true);
 
-        axios.get(`https://api.ashcon.app/mojang/v2/user/${nickname}`)
+        axios.get(`${ASHCON_ENDPOINT}/user/${nickname}`)
             .then(async ({ data: { username_history, username, created_at, textures }}) => {
                 const data = {
                     list: username_history,
                     username: username,
                     createdAt: created_at ? timeConvert(created_at) : null,
                     skin: {
-                        url: `https://stevecors.herokuapp.com/${textures.skin.url.replace("http://", "https://")}`,
+                        url: `${PROXY}${textures.skin.url.replace("http://", "https://")}`,
                         history: [],
                         isSlim: textures.slim || false,
                         cape: (textures.cape && textures.cape.data) || null,

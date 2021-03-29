@@ -7,7 +7,7 @@ import { Icon28Play, Icon28Pause, Icon28DownloadOutline, Icon28StoryOutline } fr
 import { SkinViewer } from "./SkinViewer";
 import { IconRun, IconWalk } from "../icons";
 
-import { getRandomElement, STORY_BACKGROUNDS } from "../utils";
+import { getRandomElement, PROXY, STORY_BACKGROUNDS } from "../utils";
 
 import "./SkinPreview.css";
 
@@ -154,7 +154,7 @@ export function SkinPreview({ skin, cape, isSlim, username = "", className, ...r
                         className="SkinPreview-Button"
                         target="_blank"
                         rel="noreferrer"
-                        href={skin && (isWeb || !user_id) ? skin.replace("https://stevecors.herokuapp.com/", "") : null}
+                        href={skin && (isWeb || !user_id) ? skin.replace(PROXY, "") : null}
                         disabled={lock}
                         onClick={isWeb || !user_id ? null : sendMessage}
                         before={

@@ -1,5 +1,11 @@
 import { NameMC } from "namemcwrapper";
 
+export const PROXY = "https://stevecors.herokuapp.com/";
+export const ASHCON_ENDPOINT  = "https://api.ashcon.app/mojang/v2";
+export const SLOTHPIXEL_ENDPOINT = "https://api.slothpixel.me/api";
+export const MCSRVSTAT_ENDPOINT = "https://api.mcsrvstat.us/2";
+export const MINECRAFT_STATISTIC_ENDPOINT = "https://minecraft-statistic.net/api";
+
 export const nameMc = new NameMC({
     proxy: "https://stevecors.herokuapp.com",
     rendersIgnoreProxy: true,

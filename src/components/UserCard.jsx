@@ -1,11 +1,13 @@
 import React from "react";
 import { Cell, Avatar, Title } from "@vkontakte/vkui";
 
+import { ASHCON_ENDPOINT } from "../utils";
+
 export function UserCard({ user }) {
 
     return (
         <Cell before={
-            <Avatar src={`https://api.ashcon.app/mojang/v2/avatar/${user.username}`}
+            <Avatar src={`${ASHCON_ENDPOINT}/avatar/${user.username}`}
                     size={64}
                     mode="image"
                     className="user-avatar"

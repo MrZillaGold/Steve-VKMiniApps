@@ -8,6 +8,8 @@ import { CustomPanelHeader, OfflineBlock, SmartCols } from "../../components";
 import { Form } from "./Form";
 import { Info } from "./Info";
 
+import { SLOTHPIXEL_ENDPOINT } from "../../utils";
+
 export function Hypixel({ id }) {
 
     const [error, setError] = useState(null);
@@ -31,7 +33,7 @@ export function Hypixel({ id }) {
         setUser(null);
         setSpinner(true);
 
-        axios.get(`https://api.slothpixel.me/api/players/${nickname}`)
+        axios.get(`${SLOTHPIXEL_ENDPOINT}/players/${nickname}`)
             .then(({ data }) => {
                 if (!data) {
                     return setError("Произошла ошибка. Попробуйте позже.");
