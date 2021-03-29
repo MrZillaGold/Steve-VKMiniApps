@@ -6,6 +6,14 @@ export const SLOTHPIXEL_ENDPOINT = "https://api.slothpixel.me/api";
 export const MCSRVSTAT_ENDPOINT = "https://api.mcsrvstat.us/2";
 export const MINECRAFT_STATISTIC_ENDPOINT = "https://minecraft-statistic.net/api";
 
+export const STORY_BACKGROUNDS = [
+    "https://sun1-89.userapi.com/KuxE4p0_eMMsy-zoDTwjOGdP-bABJyg9W2jkTQ/ZTRT9qKrJxE.jpg",
+    "https://sun1-15.userapi.com/_swcoPn4QQsqSOdiHOKgveXC6FKvGip0zwtQTw/2KE8Qqhm9aM.jpg",
+    "https://sun1-97.userapi.com/ugFzgWC1mztS1RVU7EjKg8RYXWr6gjOUIDAHog/jK07Gyw57q0.jpg",
+    "https://sun1-87.userapi.com/pKoppSSgergzXYlryFblG4iO8em0LL6apARaow/oPWJde2SxTQ.jpg",
+    "https://sun1-85.userapi.com/KpM6KUrM-sIIEUGPZ8tppNl-61RExXl15G5xMw/sg_lnwXqGVs.jpg"
+];
+
 export const nameMc = new NameMC({
     proxy: "https://stevecors.herokuapp.com",
     rendersIgnoreProxy: true,
@@ -65,10 +73,11 @@ export function getRandomElement(array) {
     return array[randomInteger(0, array.length - 1)];
 }
 
-export const STORY_BACKGROUNDS = [
-    "https://sun1-89.userapi.com/KuxE4p0_eMMsy-zoDTwjOGdP-bABJyg9W2jkTQ/ZTRT9qKrJxE.jpg",
-    "https://sun1-15.userapi.com/_swcoPn4QQsqSOdiHOKgveXC6FKvGip0zwtQTw/2KE8Qqhm9aM.jpg",
-    "https://sun1-97.userapi.com/ugFzgWC1mztS1RVU7EjKg8RYXWr6gjOUIDAHog/jK07Gyw57q0.jpg",
-    "https://sun1-87.userapi.com/pKoppSSgergzXYlryFblG4iO8em0LL6apARaow/oPWJde2SxTQ.jpg",
-    "https://sun1-85.userapi.com/KpM6KUrM-sIIEUGPZ8tppNl-61RExXl15G5xMw/sg_lnwXqGVs.jpg"
-];
+export function parseIP(ip) {
+    const ipMatch = ip.match(/([^]+):([\d]+)/);
+
+    return {
+        host: ipMatch ? ipMatch[1] : ip,
+        port: ipMatch ? parseInt(ipMatch[2]) : 25565
+    };
+}

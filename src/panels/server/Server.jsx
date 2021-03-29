@@ -8,7 +8,7 @@ import { CustomPanelHeader, OfflineBlock, ScrollToUp, SmartCols } from "../../co
 import { Form } from "./Form";
 import { Info } from "./Info";
 
-import { declOfNum, MCSRVSTAT_ENDPOINT, MINECRAFT_STATISTIC_ENDPOINT } from "../../utils";
+import { declOfNum, MCSRVSTAT_ENDPOINT, MINECRAFT_STATISTIC_ENDPOINT, parseIP } from "../../utils";
 
 import defaultImage from "../../assets/server/server-default.png";
 
@@ -49,7 +49,16 @@ export function Server({ id }) {
                 }
 
                 if (statistic.status === "fulfilled") {
-                    server.value.id = statistic.value._id;
+                    const id = statistic.value._id;
+
+                    if (!id) {
+                        const { host, port } = parseIP(ip);
+
+                        axios.post(`${MINECRAFT_STATISTIC_ENDPOINT}/server/add/?ip=${host}&port=${port}`)
+                            .catch(() => {});
+                    }
+
+                    server.value.id = id;
                 }
 
                 server = server.value;
