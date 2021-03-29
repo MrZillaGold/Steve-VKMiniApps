@@ -9,7 +9,7 @@ import { CustomPanelHeader, OfflineBlock, SmartCols } from "../../components";
 import { Form } from "./Form";
 import { Info } from "./Info";
 
-import { timeConvert } from "../../functions";
+import { timeConvert } from "../../utils";
 export function User({ id }) {
 
     const [mount, setMount] = useState(true);

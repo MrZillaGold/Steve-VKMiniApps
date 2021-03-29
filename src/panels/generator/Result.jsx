@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Group, Header } from "@vkontakte/vkui";
 
 import { HeightAnimation } from "../../animation";
-import { randomInteger } from "../../functions";
+import { randomInteger } from "../../utils";
 
 import { Achievement } from "./Achievement";
 import { Send } from "./Send";

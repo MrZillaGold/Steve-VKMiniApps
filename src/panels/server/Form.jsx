@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Input, Group } from "@vkontakte/vkui";
 
 import { InputWithFavorite } from "../../components";
-import { isIP } from "../../functions";
+import { isIP } from "../../utils";
 
 export function Form({ IP, setIP, spinner, getServer, setAdd, setOpen, edit, setFavorite }) {
 

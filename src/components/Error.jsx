@@ -4,7 +4,7 @@ import { Placeholder } from "@vkontakte/vkui";
 
 import { IconPug, IconPig, IconZombie } from "../icons";
 
-import { randomInteger } from "../functions";
+import { randomInteger } from "../utils";
 
 export function Error({ error, children, ...rest }) {
     const [icon, setIcon] = useState(null);

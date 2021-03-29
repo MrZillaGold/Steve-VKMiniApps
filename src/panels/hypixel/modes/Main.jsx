@@ -1,7 +1,7 @@
 import React from "react";
 import { SimpleCell } from "@vkontakte/vkui";
 
-import { timeConvert } from "../../../functions";
+import { timeConvert } from "../../../utils";
 
 export function Main({ user }) {
     return (

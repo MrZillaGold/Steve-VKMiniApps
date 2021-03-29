@@ -3,7 +3,7 @@ import VKBridge from "@vkontakte/vk-bridge";
 import { Button, Group } from "@vkontakte/vkui";
 import { Icon16Done, Icon20StoryOutline, Icon24Message, Icon24Replay } from "@vkontakte/icons";
 
-import { getRandomElement, storyBackgrounds } from "../../functions";
+import { getRandomElement, STORY_BACKGROUNDS } from "../../utils";
 
 import "./Send.css";
 
@@ -54,7 +54,7 @@ export function Send({ title, body, backgroundColor, textColor, index, getSprite
     const openStoryEditor = () => {
         VKBridge.send("VKWebAppShowStoryBox", {
             background_type: "image",
-            url: getRandomElement(storyBackgrounds),
+            url: getRandomElement(STORY_BACKGROUNDS),
             stickers: [{
                 sticker_type: "renderable",
                 sticker: {

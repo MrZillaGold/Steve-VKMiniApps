@@ -4,7 +4,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { Avatar, FormItem, Group, Header, SimpleCell, SliderSwitch } from "@vkontakte/vkui";
 
 import { Spinner, Error } from "../../components";
-import { declOfNum } from "../../functions";
+import { declOfNum } from "../../utils";
 
 export function ServerTop({ server: { id }, setScrollUp }) {
 

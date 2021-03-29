@@ -1,8 +1,8 @@
-export function timeConvert(time) {
-    const pad = (number) => {
-        return number > 9 ? number : `0${number}`;
-    };
+const pad = (number) => {
+    return number > 9 ? number : `0${number}`;
+};
 
+export function timeConvert(time) {
     const currentDate = new Date(time);
 
     const date = currentDate.getDate();
@@ -28,7 +28,11 @@ export function isIP(ip) {
 }
 
 export function getRatio(dividend, divider) {
-    return divider && dividend ? (dividend / divider).toFixed(2) : 0;
+    return divider && dividend ?
+        (dividend / divider)
+        .toFixed(2)
+        :
+        0;
 }
 
 export function loadImage(src) {
@@ -47,7 +51,7 @@ export function getRandomElement(array) {
     return array[randomInteger(0, array.length - 1)];
 }
 
-export const storyBackgrounds = [
+export const STORY_BACKGROUNDS = [
     "https://sun1-89.userapi.com/KuxE4p0_eMMsy-zoDTwjOGdP-bABJyg9W2jkTQ/ZTRT9qKrJxE.jpg",
     "https://sun1-15.userapi.com/_swcoPn4QQsqSOdiHOKgveXC6FKvGip0zwtQTw/2KE8Qqhm9aM.jpg",
     "https://sun1-97.userapi.com/ugFzgWC1mztS1RVU7EjKg8RYXWr6gjOUIDAHog/jK07Gyw57q0.jpg",

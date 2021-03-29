@@ -1,7 +1,7 @@
 import React from "react";
 import { SimpleCell, Headline } from "@vkontakte/vkui";
 
-import { getRatio } from "../../../functions";
+import { getRatio } from "../../../utils";
 
 export function BedWars({ user }) {
 

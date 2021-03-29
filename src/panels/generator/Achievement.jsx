@@ -5,7 +5,7 @@ import { Group } from "@vkontakte/vkui";
 
 import { IconChest } from "../../icons";
 
-import { loadImage } from "../../functions";
+import { loadImage } from "../../utils";
 
 import whiteHeader from "../../assets/achievement/white/header.png";
 import whiteBackground from "../../assets/achievement/white/background.png";

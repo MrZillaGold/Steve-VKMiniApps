@@ -7,7 +7,7 @@ import { Icon28Play, Icon28Pause, Icon28DownloadOutline, Icon28StoryOutline } fr
 import { SkinViewer } from "./SkinViewer";
 import { IconRun, IconWalk } from "../icons";
 
-import { getRandomElement, storyBackgrounds } from "../functions";
+import { getRandomElement, STORY_BACKGROUNDS } from "../utils";
 
 import "./SkinPreview.css";
 
@@ -91,7 +91,7 @@ export function SkinPreview({ skin, cape, isSlim, username = "", className, ...r
 
         VKBridge.send("VKWebAppShowStoryBox", {
             background_type: "image",
-            url: getRandomElement(storyBackgrounds),
+            url: getRandomElement(STORY_BACKGROUNDS),
             stickers: [{
                 sticker_type: "renderable",
                 sticker: {

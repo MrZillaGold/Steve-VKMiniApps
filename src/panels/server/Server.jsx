@@ -8,7 +8,7 @@ import { CustomPanelHeader, OfflineBlock, ScrollToUp, SmartCols } from "../../co
 import { Form } from "./Form";
 import { Info } from "./Info";
 
-import { declOfNum } from "../../functions";
+import { declOfNum } from "../../utils";
 
 import defaultImage from "../../assets/server/server-default.png";
 
