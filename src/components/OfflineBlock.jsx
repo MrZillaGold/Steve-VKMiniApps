@@ -12,7 +12,7 @@ export function OfflineBlock() {
                            stretched
                            target="_blank"
                            mode="tertiary"
-                           href="https://vk.com/stevebotmc"
+                           href="https://vk.com/club175914098"
                    >
                        Группа
                    </Button>
