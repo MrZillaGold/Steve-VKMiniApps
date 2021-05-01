@@ -15,8 +15,6 @@ export function Skins({ user, setUser }) {
         }
     };
 
-    console.log(user.textures.skin.loaded)
-
     return (
         <Group mode="plain">
             <Header mode="secondary">

@@ -76,9 +76,8 @@ export function User({ id }) {
                                 history: skins,
                                 id: username,
                             },
-                            cape: {
-                                types: capes.map(({ name }) => name)
-                            }
+                            cape: {},
+                            capes
                         }
                     };
                 } else {
@@ -103,13 +102,13 @@ export function User({ id }) {
                     }];
 
                     if (!user.textures.cape) {
-                        user.textures.cape = {
-                            types: []
-                        };
+                        user.textures.cape = {};
                     }
 
+                    user.textures.capes = [];
+
                     if (player) {
-                        const { skins, views } = player;
+                        const { skins, views, capes } = player;
 
                         user.textures.skin.history.push(...skins.slice(1));
                         user.textures.skin.history[0] = {
@@ -117,11 +116,13 @@ export function User({ id }) {
                             rating: skins[0].rating,
                             hash: skins[0].hash
                         };
+                        user.textures.capes = capes;
                         user.views = views;
                     }
                 }
 
                 user.textures.skin.selected = 0;
+                user.textures.cape.selected = 0;
 
                 if (mount) {
                     setSpinner(false);
