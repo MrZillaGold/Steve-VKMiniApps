@@ -35,10 +35,6 @@
     overflow: hidden;
 }
 
-.vkuiSplitLayout__inner {
-    height: auto !important;
-}
-
 .vkuiTabs {
     background: unset !important;
 }
