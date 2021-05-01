@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Input, Group } from "@vkontakte/vkui";
+import { Button, Group } from "@vkontakte/vkui";
 
 import { InputWithFavorite } from "../../components";
 import { isIP } from "../../utils";
@@ -19,18 +19,22 @@ export function Form({ IP, setIP, spinner, getServer, setAdd, setOpen, edit, set
         <Group>
             <InputWithFavorite inputTop="IP-Адрес сервера"
                                inputBottom={"Например: Hypixel.net"}
-                               input={
-                                   <Input
-                                       disabled={spinner || edit}
-                                       name="ip"
-                                       value={IP}
-                                       onChange={input}
-                                       status={isIP(IP) || IP === "" ? "default" : "error"}
-                                       bottom={isIP(IP) || IP === "" ? "Например: Hypixel.net" : "Неверный IP-Адрес."}
-                                       placeholder="Введите IP-Адрес"
-                                       maxLength="255"
-                                   />
-                               }
+                               input={{
+                                   name: "ip",
+                                   value: IP,
+                                   disabled: spinner || edit,
+                                   onChange: input,
+                                   status: isIP(IP) || IP === "" ?
+                                       "default"
+                                       :
+                                       "error",
+                                   bottom: isIP(IP) || IP === "" ?
+                                       "Например: Hypixel.net"
+                                       :
+                                       "Неверный IP-Адрес.",
+                                   placeholder: "Введите IP-Адрес",
+                                   maxLength: 255
+                               }}
                                button={
                                    <Button disabled={!(IP.length > 2 && !edit && !spinner && isIP(IP))}
                                            stretched
