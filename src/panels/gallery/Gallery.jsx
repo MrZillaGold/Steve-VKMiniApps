@@ -27,17 +27,6 @@ export function Gallery({ id }) {
     const getSkins = () => {
         nameMc.getSkins({ tab: "random" })
             .then((randomSkins) => {
-                randomSkins = randomSkins.map((skin) => {
-                    skin.renders = nameMc.getRenders({
-                            skin: skin.hash,
-                            model: skin.model,
-                            width: 150,
-                            height
-                        });
-
-                    return skin;
-                });
-
                 if (mount) {
                     setSkins([
                         ...skins,
@@ -78,7 +67,7 @@ export function Gallery({ id }) {
                                         skins.map((skin, index) =>
                                             <SkinCard key={index}
                                                       height={height}
-                                                      {...skin}
+                                                      skin={skin}
                                             />
                                         )
                                     }
