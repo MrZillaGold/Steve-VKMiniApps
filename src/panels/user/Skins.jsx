@@ -5,16 +5,12 @@ import "./Skins.css";
 
 export function Skins({ user, setUser }) {
 
-    const selectSkin = (skin, index) => {
-        if (user.skin.selected - 1 !== index) {
+    const selectSkin = (index) => {
+        if (user.textures.skin.selected !== index) {
+            user.textures.skin.selected = index;
+
             setUser({
-                ...user,
-                skin: {
-                    ...user.skin,
-                    isSlim: skin.isSlim,
-                    url: skin.url,
-                    selected: index + 1
-                }
+                ...user
             });
         }
     };
@@ -26,12 +22,12 @@ export function Skins({ user, setUser }) {
             </Header>
             <Div style={{ textAlign: "center" }}>
                 {
-                    user.skin.history.map((skin, index) =>
+                    user.textures.skin.history.map((skin, index) =>
                         <img key={skin.url}
-                             className={`Skins-Head ${user.skin.selected - 1 === index && "Skins-Head_selected"}`}
-                             src={skin.renders.face.replace("https://stevecors.herokuapp.com/", "")}
-                             onClick={() => selectSkin(skin, index)}
-                             onPointerEnter={() => selectSkin(skin, index)}
+                             className={`Skins-Head ${user.textures.skin.selected === index && "Skins-Head_selected"}`}
+                             src={skin.renders.face}
+                             onClick={() => selectSkin(index)}
+                             onPointerEnter={() => selectSkin(index)}
                              alt=""
                         />
                     )

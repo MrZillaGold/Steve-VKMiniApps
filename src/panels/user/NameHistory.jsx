@@ -4,26 +4,28 @@ import { Cell, List } from "@vkontakte/vkui";
 import { timeConvert } from "../../utils";
 
 export function NameHistory({ user }) {
+
     return (
         <List>
             {
-                user.list.map(({username, changed_at}, index) =>
-                    <Cell key={index}
-                          description={
-                              changed_at ?
-                                  timeConvert(changed_at)
-                                  :
-                                  user.createdAt ?
-                                      user.createdAt
+                user.username_history.map(({username, changed_at}, index) => (
+                        <Cell key={index}
+                              description={
+                                  changed_at ?
+                                      timeConvert(changed_at)
                                       :
-                                      "Первый"
-                          }
-                          disabled
-                    >
-                        {
-                            username
-                        }
-                    </Cell>
+                                      user.createdAt ?
+                                          timeConvert(user.createdAt)
+                                          :
+                                          "Первый"
+                              }
+                              disabled
+                        >
+                            {
+                                username
+                            }
+                        </Cell>
+                    )
                 )
                     .reverse()
             }

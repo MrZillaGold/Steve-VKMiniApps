@@ -7,7 +7,7 @@ import { Online, Offline, CustomPanelHeader, OfflineBlock, SmartCols } from "../
 import { Form } from "./Form";
 import { Info } from "./Info";
 
-import { timeConvert, nameMc, ASHCON_ENDPOINT, PROXY } from "../../utils";
+import { nameMc, ASHCON_ENDPOINT, MC_HEADS_ENDPOINT, PROXY } from "../../utils";
 
 export function User({ id }) {
 
@@ -30,44 +30,124 @@ export function User({ id }) {
         setUser(null);
         setSpinner(true);
 
-        axios.get(`${ASHCON_ENDPOINT}/user/${nickname}`)
-            .then(async ({ data: { username_history, username, created_at, textures }}) => {
-                const data = {
-                    list: username_history,
-                    username: username,
-                    createdAt: created_at ? timeConvert(created_at) : null,
-                    skin: {
-                        url: `${PROXY}${textures.skin.url.replace("http://", "https://")}`,
-                        history: [],
-                        isSlim: textures.slim || false,
-                        cape: (textures.cape && textures.cape.data) || null,
-                        selected: 1
-                    }
-                };
+        Promise.allSettled([
+            axios.get(`${ASHCON_ENDPOINT}/user/${nickname}`)
+                .then(({ data }) => data),
+            nameMc.getPlayer(nickname)
+        ])
+            .then(async ([user, player]) => {
+                const userStatusRejected = user.status === "rejected";
+                const playerStatusRejected = player.status === "rejected";
 
-                await nameMc.skinHistory({ nickname: username })
-                    .then((skins) => data.skin.history = skins)
-                    .catch(console.log);
+                if (userStatusRejected && playerStatusRejected) {
+                    const userStatus = user.reason?.response?.status;
+                    const playerStatus = player.reason?.code;
+
+                    if (playerStatus !== 3) {
+                        console.log(user.reason);
+                        console.log(player.reason);
+                    }
+
+                    throw playerStatus ?
+                            playerStatus === 3 ?
+                                404
+                                :
+                                userStatus
+                            :
+                            user.reason;
+                }
+
+                player = player.value;
+                user = user.value;
+
+                if (userStatusRejected && !playerStatusRejected) {
+                    const { uuid, username, skins, views, capes, names } = player;
+
+                    user = {
+                        uuid,
+                        username,
+                        views,
+                        username_history: names.map(({ nickname: username, ...name }) => ({
+                            username,
+                            ...name
+                        })),
+                        textures: {
+                            skin: {
+                                history: skins,
+                                id: username,
+                            },
+                            cape: {
+                                types: capes.map(({ name }) => name)
+                            }
+                        }
+                    };
+                } else {
+                    const { textures: { skin, slim }, username } = user;
+
+                    const skinId = /texture\/([^]+)/.exec(skin.url);
+
+                    user.views = 0;
+                    user.textures.skin.id = skinId ? skinId[1] : username;
+                    user.textures.skin.history = [{
+                        url: `${PROXY}${skin.url.replace("http://", "https://")}`,
+                        isSlim: slim,
+                        model: slim ? "slim" : "classic",
+                        hash: username,
+                        rating: 0,
+                        renders: {
+                            body: {
+                                front_and_back: `${MC_HEADS_ENDPOINT}/body/${skin.id}/128`
+                            },
+                            face: `${MC_HEADS_ENDPOINT}/avatar/${skin.id}/64`
+                        }
+                    }];
+
+                    if (!user.textures.cape) {
+                        user.textures.cape = {
+                            types: []
+                        };
+                    }
+
+                    if (player) {
+                        const { skins, views } = player;
+
+                        user.textures.skin.history.push(...skins.slice(1));
+                        user.textures.skin.history[0] = {
+                            ...user.textures.skin.history[0],
+                            rating: skins[0].rating,
+                            hash: skins[0].hash
+                        };
+                        user.views = views;
+                    }
+                }
+
+                user.textures.skin.selected = 0;
 
                 if (mount) {
-                    setUser(data);
-                    add(username);
                     setSpinner(false);
+                    setUser(user);
+                    add(user.username);
 
-                    while (!(data.skin.history.length % 30)) {
-                        const prevLength = data.skin.history.length;
+                    await nameMc.skinHistory({ nickname })
+                        .then((skins) => user.textures.skin.history = skins)
+                        .catch(console.log);
 
-                        await nameMc.skinHistory({ nickname: username, page: data.skin.history.length / 30 + 1 })
+                    while (!(user.textures.skin.history.length % 30)) {
+                        const prevLength = user.textures.skin.history.length;
+
+                        await nameMc.skinHistory({ nickname, page: user.textures.skin.history.length / 30 + 1 })
                             .then((skins) => {
-                                data.skin.history.push(...skins);
+                                user.textures.skin.history.push(...skins);
 
                                 if (mount) {
-                                    setUser({...data});
+                                    setUser({
+                                        ...user
+                                    });
                                 }
                             })
                             .catch(console.log);
 
-                        if (prevLength === data.skin.history.length) {
+                        if (prevLength === user.textures.skin.history.length) {
                             break;
                         }
                     }
@@ -77,21 +157,17 @@ export function User({ id }) {
                 if (mount) {
                     setSpinner(false);
 
-                    if (error?.response?.status) {
-                        switch (error.response.status) {
+                        switch (error) {
                             case 404:
                                 return setError(`Игрока с никнеймом ${nickname} не существует!`);
                             case 400:
                                 return setError("Никнейм может содержать только латинские буквы, цифры и символ \"_\".");
                             default:
+                                console.log(error);
+
                                 return setError("Произошла ошибка при получении данных. Попробуйте позже.");
                         }
-                    }
-
-                    setError("Произошла ошибка. Попробуйте позже.");
                 }
-
-                console.log(error);
             });
     };
 

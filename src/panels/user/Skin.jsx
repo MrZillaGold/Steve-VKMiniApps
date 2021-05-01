@@ -6,20 +6,23 @@ import { Skins } from "./Skins";
 
 export function Skin({ user, setUser }) {
 
+    const selectedSkin = user.textures.skin.history[user.textures.skin.selected];
+    const cape = user.textures.cape.data;
+
     return (
         <>
             <Group mode="plain">
                 <Div>
-                    <SkinPreview skin={user.skin.url}
-                                 cape={user.skin.cape ? `data:image/png;base64,${user.skin.cape}` : ""}
-                                 isSlim={user.skin.isSlim}
+                    <SkinPreview skin={selectedSkin.url}
+                                 cape={cape ? `data:image/png;base64,${cape}` : ""}
+                                 isSlim={selectedSkin.isSlim}
                                  username={user.username}
                                  style={{ borderRadius: 10 }}
                     />
                 </Div>
             </Group>
             {
-                user.skin.history.length !== 0 && <Skins user={user} setUser={setUser}/>
+                user.textures.skin.history.length !== 0 && <Skins user={user} setUser={setUser}/>
             }
         </>
     );

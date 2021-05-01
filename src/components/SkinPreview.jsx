@@ -47,7 +47,7 @@ export function SkinPreview({ skin, cape, isSlim, username = "", className, ...r
     }, [skin]);
 
     const sendMessage = () => {
-        const skinUrl = skin.replace("https://stevecors.herokuapp.com/", "");
+        const skinUrl = skin.replace(PROXY, "");
 
         if (VKBridge.supports("VKWebAppShowImages")) {
             VKBridge.send("VKWebAppShowImages", {

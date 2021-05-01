@@ -1,6 +1,7 @@
 import { NameMC } from "namemcwrapper";
 
 export const PROXY = "https://stevecors.herokuapp.com/";
+export const MC_HEADS_ENDPOINT = "https://mc-heads.net";
 export const ASHCON_ENDPOINT  = "https://api.ashcon.app/mojang/v2";
 export const SLOTHPIXEL_ENDPOINT = "https://api.slothpixel.me/api";
 export const MCSRVSTAT_ENDPOINT = "https://api.mcsrvstat.us/2";
