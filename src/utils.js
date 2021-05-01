@@ -83,3 +83,9 @@ export function parseIP(ip) {
         port: ipMatch ? parseInt(ipMatch[2]) : 25565
     };
 }
+
+export function getOnlineStatus() {
+    return navigator && typeof navigator.onLine === "boolean"
+        ? navigator.onLine
+        : true;
+}

@@ -1,9 +1,8 @@
 import React, { useReducer, useState, useEffect } from "react";
 import axios from "axios";
-import { Offline, Online } from "react-detect-offline";
 import { Panel, Group, Header } from "@vkontakte/vkui";
 
-import { OfflineBlock, Error, Spinner, CustomPanelHeader } from "../../components";
+import { Online, Offline, OfflineBlock, Error, Spinner, CustomPanelHeader } from "../../components";
 import { ServicesList } from "./ServicesList";
 
 import { PROXY } from "../../utils";

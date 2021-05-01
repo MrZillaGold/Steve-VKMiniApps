@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Offline, Online } from "react-detect-offline";
 import { Panel, Group, ViewWidth, useAdaptivity, CardGrid } from "@vkontakte/vkui";
 
-import { Error, CustomPanelHeader, Spinner, OfflineBlock, InfinityScroll } from "../../components";
+import { Online, Offline, Error, CustomPanelHeader, Spinner, OfflineBlock, InfinityScroll } from "../../components";
 import { SkinCard } from "./SkinCard";
 
 import { nameMc } from "../../utils";

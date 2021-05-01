@@ -1,9 +1,8 @@
 import React, { useEffect, useReducer, useState } from "react";
 import axios from "axios";
-import { Offline, Online } from "react-detect-offline";
 import { Panel, Group } from "@vkontakte/vkui";
 
-import { CustomPanelHeader, OfflineBlock, SmartCols } from "../../components";
+import { Online, Offline, CustomPanelHeader, OfflineBlock, SmartCols } from "../../components";
 
 import { Form } from "./Form";
 import { Info } from "./Info";

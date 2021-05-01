@@ -8,6 +8,8 @@ export { ScrollToUp } from "./ScrollToUp";
 export { TabsSelect } from "./TabsSelect";
 export { AppearanceProvider } from "./AppearanceProvider";
 export { InfinityScroll } from "./InfinityScroll";
+export { Online } from "./Online";
+export { Offline } from "./Offline";
 
 export { SkinViewer } from "./SkinViewer";
 export { SkinPreview } from "./SkinPreview";

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Offline, Online } from "react-detect-offline";
 import { Card, CardGrid, Group, Panel, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
 import { useRouter } from "@unexp/router";
 
-import { CustomPanelHeader, InfinityScroll, Spinner, Error, OfflineBlock } from "../../components";
+import { Online, Offline, CustomPanelHeader, InfinityScroll, Spinner, Error, OfflineBlock } from "../../components";
 import { ServerCard } from "../server/ServerCard";
 
 import { nameMc } from "../../utils";
