@@ -38,15 +38,11 @@ export function Hypixel({ id }) {
                     return setError("Произошла ошибка. Попробуйте позже.");
                 }
 
-                const { username } = data;
-
                 if (mount) {
-                    if (!username) {
-                        setError(`Игрок ${nickname} никогда не заходил на Hypixel.`);
-                    } else {
-                        add(username);
-                        setUser(data);
-                    }
+                    const { username } = data;
+
+                    add(username);
+                    setUser(data);
 
                     setSpinner(false);
                 }
@@ -58,7 +54,7 @@ export function Hypixel({ id }) {
                     if (error?.response?.status) {
                         switch (error.response.status) {
                             case 404:
-                                return setError(`Игрока с никнеймом ${nickname} не существует!`);
+                                return setError(`Игрока с никнеймом ${nickname} не существует, либо он никогда не играл на Hypixel!`);
                             case 400:
                                 return setError("Никнейм может содержать только латинские буквы, цифры и символ \"_\".");
                             default:
