@@ -57,7 +57,7 @@ export function Servers({ id }) {
 
     return (
         <Panel id={id}
-               /*centered={Boolean(servers.length === 0 || error)}*/
+               centered={Boolean(servers.length === 0 || error)}
         >
             <CustomPanelHeader status="Сервера Minecraft"/>
             <Group>
