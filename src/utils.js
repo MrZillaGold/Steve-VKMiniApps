@@ -17,6 +17,8 @@ export const STORY_BACKGROUNDS = [
 
 export const COORDINATE_REGEXP = /^-?[0-9]/g;
 
+export const EMPTY_PIXEL = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+
 export const nameMc = new NameMC({
     proxy: PROXY,
     rendersIgnoreProxy: true,
