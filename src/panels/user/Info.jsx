@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Group, Tabs, TabsItem, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
 
 import { Error, Spinner, UserCard } from "../../components";
@@ -12,6 +12,10 @@ export function Info({ user, setUser, spinner, error }) {
     const { viewWidth } = useAdaptivity();
 
     const [activeTab, setActiveTab] = useState("skin");
+
+    useEffect(() => {
+        setActiveTab("skin");
+    }, [spinner]);
 
     return (
         <Group>
