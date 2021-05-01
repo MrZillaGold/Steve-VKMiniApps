@@ -4,7 +4,7 @@ import { useRouter } from "@unexp/router";
 
 import "./SkinCard.css";
 
-export function SkinCard({ url, isSlim, renders, rating, height }) {
+export function SkinCard({ skin, height }) {
 
     const { viewWidth } = useAdaptivity();
     const { push } = useRouter();
@@ -14,11 +14,11 @@ export function SkinCard({ url, isSlim, renders, rating, height }) {
               className={`SkinCard ${viewWidth > ViewWidth.MOBILE ? "SkinCard_hover" : ""}`}
               style={{ height: `${height}px` }}
               onClick={() => push({ modal: "gallery-preview" }, {
-                  skin: url,
-                  isSlim
+                  skin: skin.url,
+                  isSlim: skin.isSlim
               })}
         >
-            <img src={renders.body.front}
+            <img src={skin.renders.body.front}
                  className="SkinCard-Image"
                  height={height}
                  alt=""
@@ -26,7 +26,7 @@ export function SkinCard({ url, isSlim, renders, rating, height }) {
             <Text className="SkinCard-Rating"
                   weight="medium"
             >
-                ★{ rating }
+                ★{ skin.rating }
             </Text>
         </Card>
     )

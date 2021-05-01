@@ -1,10 +1,15 @@
 .SkinCard {
+    display: flex;
+    justify-content: center;
     text-align: center;
     cursor: pointer;
-    width: 150px;
     background-position: center !important;
     background-size: auto 12.5%;
     background-image: var(--skinpreview-background) !important;
+}
+
+.SkinCard > .vkuiCard__in {
+    width: 100%;
 }
 
 .SkinCard_hover:hover {
@@ -12,6 +17,8 @@
 }
 
 .SkinCard-Image {
+    width: 150px;
+    object-fit: cover;
     filter: drop-shadow(-5px 5px 7px rgba(0, 0, 0, 0.4));
     image-rendering: pixelated;
     image-rendering: -webkit-crisp-edges;
