@@ -25,24 +25,30 @@ export function Calculator({ id }) {
 
         setCoordinates({ copied: false });
 
+        value = value.replace(/[^-0-9]/g, "");
+
         switch(name) {
             case "x":
             case "z":
-                value = value.replace(/[^-0-9]/g, "");
-
                 setCoordinates({
-                    [name]: value.slice(0, 9) >= 0 ?
-                        value.slice(0, 8) > 29999999 ? "29999999" : value.slice(0, 8)
+                    [name]: value > 29999999 ?
+                        "29999999"
                         :
-                        value.slice(0, 9) < -29999999 ? "-29999999" : value.slice(0, 9)
+                        value < -29999999 ?
+                            "-29999999"
+                            :
+                            value
                 });
                 break;
             case "y":
-                value = value.replace(/[^0-9]/g, "")
-                    .slice(0, 3);
-
                 setCoordinates({
-                    [name]: value > 256 ? "256" : value
+                    [name]: value > 384 ?
+                        "384"
+                        :
+                        value < -64 ?
+                            "-64"
+                            :
+                            value
                 });
                 break;
             default:
