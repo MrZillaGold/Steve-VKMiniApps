@@ -1,6 +1,8 @@
 import React from "react";
 import { FormItem, FormLayout, FormLayoutGroup, Group, Input, NativeSelect, ViewWidth, useAdaptivity } from "@vkontakte/vkui";
 
+import { COORDINATE_REGEXP } from "../../utils";
+
 export function Form({ inputCoordinates, x, y, z, dimension }) {
 
     const { viewWidth } = useAdaptivity();
@@ -22,7 +24,7 @@ export function Form({ inputCoordinates, x, y, z, dimension }) {
                 <FormLayoutGroup mode={viewWidth > ViewWidth.MOBILE ? "horizontal" : "vertical"}>
                     <FormItem top="Координата X"
                               bottom="Целое число. (-29999999 — 29999999)"
-                              status={x.match(/^-?[0-9]/g) || x === "" ? "default" : "error"}
+                              status={x.match(COORDINATE_REGEXP) || x === "" ? "default" : "error"}
                     >
                         <Input name="x"
                                value={x}
@@ -32,8 +34,8 @@ export function Form({ inputCoordinates, x, y, z, dimension }) {
                         />
                     </FormItem>
                     <FormItem top="Координата Y"
-                              bottom="Целое число. (0 — 256)"
-                              status={y.match(/^[0-9]/g) || y === "" ? "default" : "error"}
+                              bottom="Целое число. (-64 — 384)"
+                              status={y.match(COORDINATE_REGEXP) || y === "" ? "default" : "error"}
                     >
                         <Input name="y"
                                value={y}
@@ -44,7 +46,7 @@ export function Form({ inputCoordinates, x, y, z, dimension }) {
                     </FormItem>
                     <FormItem top="Координата Z"
                               bottom="Целое число. (-29999999 — 29999999)"
-                              status={z.match(/^-?[0-9]/g) || z === "" ? "default" : "error"}
+                              status={z.match(COORDINATE_REGEXP) || z === "" ? "default" : "error"}
                     >
                         <Input name="z"
                                value={z}

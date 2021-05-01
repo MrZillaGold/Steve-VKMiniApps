@@ -14,6 +14,8 @@ export const STORY_BACKGROUNDS = [
     "https://sun1-85.userapi.com/KpM6KUrM-sIIEUGPZ8tppNl-61RExXl15G5xMw/sg_lnwXqGVs.jpg"
 ];
 
+export const COORDINATE_REGEXP = /^-?[0-9]/g;
+
 export const nameMc = new NameMC({
     proxy: PROXY,
     rendersIgnoreProxy: true,
