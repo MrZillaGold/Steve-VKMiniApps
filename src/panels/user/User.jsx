@@ -151,6 +151,14 @@ export function User({ id }) {
                             break;
                         }
                     }
+
+                    user.textures.skin.loaded = true;
+
+                    if (mount) {
+                        setUser({
+                            ...user
+                        });
+                    }
                 }
             })
             .catch((error) => {

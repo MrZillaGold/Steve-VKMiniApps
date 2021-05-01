@@ -1,16 +1,22 @@
-.Skins-Head {
-    width: 32px;
-    height: 32px;
+.Skin-Head {
+    width: 32px !important;
+    height: 32px !important;
     margin: 3px;
     border-radius: 12.5%;
     background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAABjElEQVRYCe2SzyuDcRzHn6MIUUpiHEZ6qKnNQcKycJGD5SJRFFlbaomy1Pw4WAonp50cxcmvg+bo33rzOXntu/Xs4LDL89SrXtv3u+f16fudFxtqFxmLtIvEBjtFRvvbRKK9LSIjfa0ifJe5P1CNx7i5+wPGzRk3Z9yccXP3feEANSfgHlGjz/Fol8i83y0y5/eIjEc6RNwr9BoF3XXGzRk3Z9yccfNwgIYn8F7KilRu8iLf90WRyvXvOrk5/N3/x9PRukhiuFuk5j/AuDnj5oybV8VtEMTNGTdn3DwcwHs83RV5vcyJcM38uZiropzfEPks5UXK+8sKIhyg+SfA+zZ3n9WZkshbYU+E923Ovebu4/6nvHCApp9AeWdR5KWwLfJxnhfJJCcUxNdVVuQhsyRSTCdEPMbNGTdn3DwobmuMmzNuzrh5OIB3t5kSud9KihzPT+o/3G7Oipylp0TCAZp/AgcL4yK5lC/C+6rnJytxkYu1aQXBveYe4+aMm9eL8jv3hUFxW3P3hwP8AN4YWum1AAXXAAAAAElFTkSuQmCC");
+    background-color: var(--content_tint_background);
     image-rendering: pixelated;
     image-rendering: -webkit-optimize-contrast;
     vertical-align: top;
     cursor: pointer;
 }
 
-.Skins-Head_selected {
+.Skin-Head_selected {
     box-shadow: 0 0 10px var(--accent);
     background-color: var(--accent);
+}
+
+.Skin-Head.vkuiSpinner {
+    background-image: unset !important;
+    cursor: wait;
 }

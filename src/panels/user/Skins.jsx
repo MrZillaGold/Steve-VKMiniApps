@@ -1,5 +1,5 @@
 import React from "react";
-import { Div, Group, Header } from "@vkontakte/vkui";
+import { Div, Group, Header, Spinner } from "@vkontakte/vkui";
 
 import "./Skins.css";
 
@@ -15,22 +15,27 @@ export function Skins({ user, setUser }) {
         }
     };
 
+    console.log(user.textures.skin.loaded)
+
     return (
         <Group mode="plain">
             <Header mode="secondary">
                 Скины
             </Header>
-            <Div style={{ textAlign: "center" }}>
+            <Div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap" }}>
                 {
                     user.textures.skin.history.map((skin, index) =>
                         <img key={skin.url}
-                             className={`Skins-Head ${user.textures.skin.selected === index && "Skins-Head_selected"}`}
+                             className={`Skin-Head ${user.textures.skin.selected === index && "Skin-Head_selected"}`}
                              src={skin.renders.face}
                              onClick={() => selectSkin(index)}
                              onPointerEnter={() => selectSkin(index)}
                              alt=""
                         />
                     )
+                }
+                {
+                    !user.textures.skin.loaded && <Spinner className="Skin-Head" size="regular"/>
                 }
             </Div>
         </Group>
