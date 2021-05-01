@@ -15,7 +15,7 @@ export function ServerPreview({ id }) {
     const { viewWidth } = useAdaptivity();
     const { back } = useRouter();
 
-    const [server, setServer] = useState(useParams().server);
+    const [server, setServer] = useState(useParams());
     const [{ items, add }, setFavorite] = useState({});
     const [spinner, setSpinner] = useState(true);
     const [mount, setMount] = useState(true);

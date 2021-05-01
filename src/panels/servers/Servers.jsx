@@ -72,16 +72,16 @@ export function Servers({ id }) {
                                           size={viewWidth > ViewWidth.MOBILE ? "m" : "l"}
                                 >
                                     {
-                                        servers.map((server) =>
-                                            <Card key={server.ip}>
+                                        servers.map((server) => {
+                                            server = server.toJSON();
+
+                                            return <Card key={server.ip}>
                                                 <ServerCard server={server}
                                                             disabled={false}
-                                                            onClick={() => push({ modal: "server-preview" }, {
-                                                                server
-                                                            })}
+                                                            onClick={() => push({ modal: "server-preview" }, server)}
                                                 />
                                             </Card>
-                                        )
+                                        })
                                     }
                                 </CardGrid>
                             </InfinityScroll>
