@@ -119,7 +119,7 @@ export function Main({ user: { uuid, views, friends, servers, badlion }, setActi
                             }
                         </SimpleCell>
                         {
-                            Boolean(badlion.login_streak.current && badlion.login_streak.max) &&
+                            Boolean(badlion.login_streak.current || badlion.login_streak.max) &&
                             <SimpleCell description="Входов подряд"
                                         disabled
                             >
