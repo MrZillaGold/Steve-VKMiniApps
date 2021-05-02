@@ -4,6 +4,10 @@
     justify-content: center;
 }
 
+.Info-List > .SimpleCell {
+    border-radius: 8px;
+}
+
 .Info-List > .SimpleCell > .vkuiSimpleCell__main {
     text-align: center;
 }

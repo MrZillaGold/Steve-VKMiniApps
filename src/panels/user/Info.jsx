@@ -1,21 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { Group, Tabs, TabsItem, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
+import { Group, useAdaptivity, ViewWidth } from "@vkontakte/vkui";
 
-import { Error, Spinner, UserCard } from "../../components";
+import { Error, Spinner, TabsSelect, UserCard}  from "../../components";
 import { HeightAnimation } from "../../animation";
 
-import { NameHistory } from "./NameHistory";
-import { Skin } from "./Skin";
+import { Main, Skin, NameHistory, Friends, Servers } from "./tabs";
 
-export function Info({ user, setUser, spinner, error }) {
+export function Info({ user, setUser, spinner, error, setNickname, getUser }) {
 
     const { viewWidth } = useAdaptivity();
 
-    const [activeTab, setActiveTab] = useState("skin");
+    const [activeTab, setActiveTab] = useState("main");
 
     useEffect(() => {
-        setActiveTab("skin");
+        setActiveTab("main");
     }, [spinner]);
+
+    const tabs = new Map([
+        ["main", ["Основная информация", <Main user={user} setUser={setUser} setActiveTab={setActiveTab}/>]],
+        ["skin", ["Скин", <Skin user={user} setUser={setUser}/>]],
+        ["names", ["История никнейма", <NameHistory user={user} setUser={setUser}/>]],
+        ["friends", ["Друзья", <Friends user={user} setNickname={setNickname} getUser={getUser}/>]],
+        ["servers", ["Любимые сервера", <Servers user={user}/>]]
+    ]);
 
     return (
         <Group>
@@ -24,30 +31,18 @@ export function Info({ user, setUser, spinner, error }) {
                     user ?
                         <Group mode="plain">
                             <UserCard user={user}/>
-                            <Tabs style={viewWidth <= ViewWidth.SMALL_TABLET ? { marginTop: 0, marginBottom: 8 } : {}}>
-                                <TabsItem
-                                    onClick={() => setActiveTab("skin")}
-                                    selected={activeTab === "skin"}
-                                >
-                                    Скин
-                                </TabsItem>
-                                <TabsItem
-                                    onClick={() => setActiveTab("names")}
-                                    selected={activeTab === "names"}
-                                >
-                                    История никнейма
-                                </TabsItem>
-                            </Tabs>
+                            <TabsSelect style={viewWidth <= ViewWidth.SMALL_TABLET ? { marginTop: 0, marginBottom: 8 } : {}}
+                                        activeTab={activeTab}
+                                        setActiveTab={setActiveTab}
+                                        tabs={tabs}
+                            />
                             {
-                                activeTab === "skin" && <Skin user={user} setUser={setUser}/>
-
-                            }
-                            {
-                                activeTab === "names" && <NameHistory user={user}/>
+                                tabs.get(activeTab)[1]
                             }
                         </Group>
                         :
-                        !spinner && !error && viewWidth > ViewWidth.MOBILE && <Error error="Информация об игроке появится здесь после ее получения."/>
+                        !spinner && !error && viewWidth > ViewWidth.MOBILE &&
+                        <Error error="Информация об игроке появится здесь после ее получения."/>
                 }
                 {
                     spinner && <Spinner/>
