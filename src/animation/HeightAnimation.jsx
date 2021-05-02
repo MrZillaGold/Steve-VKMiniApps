@@ -5,7 +5,9 @@ import "./HeightAnimation.css";
 export function HeightAnimation({ children, className, ...rest }) {
 
     const ref = useRef();
+    const [mount, setMount] = useState(true);
     const [height, setHeight] = useState(0);
+
 
     useEffect(() => {
         const refChildren = ref.current.children;
@@ -13,9 +15,12 @@ export function HeightAnimation({ children, className, ...rest }) {
         setTimeout(() => {
             const height = [...refChildren].reduce((acc, { offsetHeight }) => acc += offsetHeight, 0);
 
-            setHeight(height);
+            if (mount) {
+                setHeight(height);
+            }
         });
     }, [children]);
+    useEffect(() => () => setMount(false), []);
 
     return (
         <div ref={ref}
