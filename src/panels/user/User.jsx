@@ -26,6 +26,8 @@ export function User({ id }) {
     const [user, setUser] = useState(null);
     const [add, setAdd] = useReducer((currentState, updates) => (updates), null);
 
+    const userData = user;
+
     const getUser = (nickname) => {
         setUser(null);
         setSpinner(true);
@@ -60,13 +62,15 @@ export function User({ id }) {
                 player = player.value;
                 user = user.value;
 
+                await player.loadPayload();
+
+                player = player.toJSON();
+
                 if (userStatusRejected && !playerStatusRejected) {
-                    const { uuid, username, skins, views, capes, names } = player;
+                    const { username, skins, capes, names } = player;
 
                     user = {
-                        uuid,
-                        username,
-                        views,
+                        ...player,
                         username_history: names.map(({ nickname: username, ...name }) => ({
                             username,
                             ...name
@@ -106,9 +110,11 @@ export function User({ id }) {
                     }
 
                     user.textures.capes = [];
+                    user.friends = [];
+                    user.servers = [];
 
                     if (player) {
-                        const { skins, views, capes } = player;
+                        const { skins, capes } = player;
 
                         user.textures.skin.history.push(...skins.slice(1));
                         user.textures.skin.history[0] = {
@@ -117,7 +123,10 @@ export function User({ id }) {
                             hash: skins[0].hash
                         };
                         user.textures.capes = capes;
-                        user.views = views;
+                        user = {
+                            ...user,
+                            ...player
+                        };
                     }
                 }
 
@@ -133,7 +142,7 @@ export function User({ id }) {
                         .then((skins) => user.textures.skin.history = skins)
                         .catch(console.log);
 
-                    while (!(user.textures.skin.history.length % 30)) {
+                    while (!(user.textures.skin.history.length % 30) && nickname === userData?.username) {
                         const prevLength = user.textures.skin.history.length;
 
                         await nameMc.skinHistory({ nickname, page: user.textures.skin.history.length / 30 + 1 })
@@ -155,7 +164,7 @@ export function User({ id }) {
 
                     user.textures.skin.loaded = true;
 
-                    if (mount) {
+                    if (mount && nickname === userData?.username) {
                         setUser({
                             ...user
                         });
@@ -196,7 +205,9 @@ export function User({ id }) {
                 }
                            col2={
                                <Info user={user}
+                                     setNickname={setNickname}
                                      setUser={setUser}
+                                     getUser={getUser}
                                      error={error}
                                      spinner={spinner}
                                />
