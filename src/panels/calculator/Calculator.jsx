@@ -21,15 +21,15 @@ export function Calculator({ id }) {
     });
 
     const inputCoordinates = (event) => {
-        let { value, name } = event.currentTarget || event;
+        let { value, name } = event.currentTarget;
 
         setCoordinates({ copied: false });
-
-        value = value.replace(/[^-0-9]/g, "");
 
         switch(name) {
             case "x":
             case "z":
+                value = value.replace(/[^-0-9]/g, "");
+
                 setCoordinates({
                     [name]: value > 29999999 ?
                         "29999999"
@@ -41,6 +41,8 @@ export function Calculator({ id }) {
                 });
                 break;
             case "y":
+                value = value.replace(/[^-0-9]/g, "");
+
                 setCoordinates({
                     [name]: value > 384 ?
                         "384"

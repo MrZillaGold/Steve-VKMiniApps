@@ -1,5 +1,5 @@
 import React from "react";
-import { FormItem, FormLayout, FormLayoutGroup, Group, Input, NativeSelect, ViewWidth, useAdaptivity } from "@vkontakte/vkui";
+import { FormItem, FormLayout, FormLayoutGroup, Group, Input, Select, CustomSelectOption, ViewWidth, useAdaptivity } from "@vkontakte/vkui";
 
 import { COORDINATE_REGEXP } from "../../utils";
 
@@ -13,13 +13,21 @@ export function Form({ inputCoordinates, x, y, z, dimension }) {
                 <FormItem top="Измерение"
                           bottom="Для которого необходимо просчитать координаты."
                 >
-                    <NativeSelect name="dimension"
-                                  onChange={inputCoordinates}
-                                  value={dimension}
-                    >
-                        <option value="world">Обычный мир</option>
-                        <option value="nether">Ад</option>
-                    </NativeSelect>
+                    <Select name="dimension"
+                            onChange={inputCoordinates}
+                            value={dimension}
+                            options={[
+                                {
+                                    label: "Обычный мир",
+                                    value: "world"
+                                },
+                                {
+                                    label: "Ад",
+                                    value: "nether"
+                                }
+                            ]}
+                            renderOption={({ ...props }) => <CustomSelectOption {...props}/>}
+                    />
                 </FormItem>
                 <FormLayoutGroup mode={viewWidth > ViewWidth.MOBILE ? "horizontal" : "vertical"}>
                     <FormItem top="Координата X"
