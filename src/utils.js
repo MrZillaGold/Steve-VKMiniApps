@@ -92,3 +92,11 @@ export function getOnlineStatus() {
         ? navigator.onLine
         : true;
 }
+
+export function humanizeDuration(duration) {
+    const days = Math.floor((duration / 3600) / 24);
+    const hours = Math.floor((duration / 3600) % 24);
+    const minutes = Math.floor((duration % 3600) / 60);
+
+    return `${days ? `${days}д ` : ""}${hours ? `${hours}ч ` : ""}${minutes}м`;
+}
