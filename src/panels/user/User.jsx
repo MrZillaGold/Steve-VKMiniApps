@@ -139,7 +139,15 @@ export function User({ id }) {
                     add(user.username);
 
                     await nameMc.skinHistory({ nickname })
-                        .then((skins) => user.textures.skin.history = skins)
+                        .then((skins) => {
+                            if (mount && nickname === userData?.username) {
+                                user.textures.skin.history = skins;
+
+                                setUser({
+                                    ...user
+                                });
+                            }
+                        })
                         .catch(console.log);
 
                     while (!(user.textures.skin.history.length % 30) && nickname === userData?.username) {
@@ -147,9 +155,9 @@ export function User({ id }) {
 
                         await nameMc.skinHistory({ nickname, page: user.textures.skin.history.length / 30 + 1 })
                             .then((skins) => {
-                                user.textures.skin.history.push(...skins);
-
                                 if (mount && nickname === userData?.username) {
+                                    user.textures.skin.history.push(...skins);
+
                                     setUser({
                                         ...user
                                     });
@@ -157,14 +165,14 @@ export function User({ id }) {
                             })
                             .catch(console.log);
 
-                        if (prevLength === user.textures.skin.history.length) {
+                        if (prevLength === user.textures.skin.history.length || nickname !== userData?.username) {
                             break;
                         }
                     }
 
-                    user.textures.skin.loaded = true;
-
                     if (mount && nickname === userData?.username) {
+                        user.textures.skin.loaded = true;
+
                         setUser({
                             ...user
                         });
