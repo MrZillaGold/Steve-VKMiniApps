@@ -149,7 +149,7 @@ export function User({ id }) {
                             .then((skins) => {
                                 user.textures.skin.history.push(...skins);
 
-                                if (mount) {
+                                if (mount && nickname === userData?.username) {
                                     setUser({
                                         ...user
                                     });
