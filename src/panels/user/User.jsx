@@ -9,6 +9,8 @@ import { Info } from "./Info";
 
 import { nameMc, ASHCON_ENDPOINT, MC_HEADS_ENDPOINT, PROXY } from "../../utils";
 
+let rejectOldRequest = () => {};
+
 export function User({ id }) {
 
     const [mount, setMount] = useState(true);
@@ -26,11 +28,11 @@ export function User({ id }) {
     const [user, setUser] = useState(null);
     const [add, setAdd] = useReducer((currentState, updates) => (updates), null);
 
-    const userData = user;
-
     const getUser = (nickname) => {
         setUser(null);
         setSpinner(true);
+
+        rejectOldRequest();
 
         Promise.allSettled([
             axios.get(`${ASHCON_ENDPOINT}/user/${nickname}`)
@@ -138,45 +140,7 @@ export function User({ id }) {
                     setUser(user);
                     add(user.username);
 
-                    await nameMc.skinHistory({ nickname })
-                        .then((skins) => {
-                            if (mount && nickname === userData?.username) {
-                                user.textures.skin.history = skins;
-
-                                setUser({
-                                    ...user
-                                });
-                            }
-                        })
-                        .catch(console.log);
-
-                    while (!(user.textures.skin.history.length % 30) && nickname === userData?.username) {
-                        const prevLength = user.textures.skin.history.length;
-
-                        await nameMc.skinHistory({ nickname, page: user.textures.skin.history.length / 30 + 1 })
-                            .then((skins) => {
-                                if (mount && nickname === userData?.username) {
-                                    user.textures.skin.history.push(...skins);
-
-                                    setUser({
-                                        ...user
-                                    });
-                                }
-                            })
-                            .catch(console.log);
-
-                        if (prevLength === user.textures.skin.history.length || nickname !== userData?.username) {
-                            break;
-                        }
-                    }
-
-                    if (mount && nickname === userData?.username) {
-                        user.textures.skin.loaded = true;
-
-                        setUser({
-                            ...user
-                        });
-                    }
+                    loadSkins(user);
                 }
             })
             .catch((error) => {
@@ -195,6 +159,49 @@ export function User({ id }) {
                         }
                 }
             });
+    };
+
+    const loadSkins = async (user) => {
+        let rejected = false;
+
+        rejectOldRequest = () => {
+            rejected = true;
+        };
+
+        let page = 1;
+
+        while (!rejected) {
+            const skins = await nameMc.skinHistory({ nickname: user.username, page })
+                .catch(() => null);
+
+            if (!skins) {
+                break;
+            }
+
+            if (mount && !rejected) {
+                if (page === 1) {
+                    user.textures.skin.history = skins;
+                } else {
+                    user.textures.skin.history.push(...skins);
+                }
+
+                page++;
+
+                setUser({
+                    ...user
+                });
+            } else {
+                break;
+            }
+        }
+
+        if (mount && !rejected) {
+            user.textures.skin.loaded = true;
+
+            setUser({
+                ...user
+            });
+        }
     };
 
     useEffect(() => () => setMount(false), []);
