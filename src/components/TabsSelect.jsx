@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { HorizontalScroll, Tabs, TabsItem } from "@vkontakte/vkui";
 
-export function TabsSelect({ activeTab, setActiveTab, tabs }) {
+export function TabsSelect({ activeTab, setActiveTab, tabs, ...props }) {
 
     const ref = useRef();
     const tabsRef = new Set([]);
@@ -47,7 +47,9 @@ export function TabsSelect({ activeTab, setActiveTab, tabs }) {
     });
 
     return (
-        <div ref={ref}>
+        <div ref={ref}
+             {...props}
+        >
             <Tabs>
                 <HorizontalScroll showArrows
                                   getScrollToRight={getScrollToRight}
