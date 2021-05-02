@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import Konva from "konva";
 import { Div, Group, Header } from "@vkontakte/vkui";
 
-import { EMPTY_PIXEL } from "../../utils";
+import { EMPTY_PIXEL } from "../../../../utils";
 
 import "./Skins.css";
 import "./Capes.css";

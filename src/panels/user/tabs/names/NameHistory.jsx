@@ -1,7 +1,7 @@
 import React from "react";
 import { Cell, List } from "@vkontakte/vkui";
 
-import { timeConvert } from "../../utils";
+import { timeConvert } from "../../../../utils";
 
 export function NameHistory({ user }) {
 
