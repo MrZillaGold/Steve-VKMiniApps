@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer} from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Input, FormLayout, FormItem, FormLayoutGroup, SimpleCell } from "@vkontakte/vkui";
 import { Icon24Copy, Icon24Done } from "@vkontakte/icons";
@@ -9,6 +9,7 @@ import "../../../hypixel/Info.css";
 
 export function Main({ user: { uuid, views, friends, servers, badlion }, setActiveTab }) {
 
+    const [mount, setMount] = useState(true);
     const [copied, setCopied] = useReducer((state, updates) => ({
         ...state,
         ...updates
@@ -18,10 +19,16 @@ export function Main({ user: { uuid, views, friends, servers, badlion }, setActi
     });
 
     useEffect(() => {
-        setInterval(() => setCopied({
-            uuid: false,
-            clearedUuid: false
-        }), 10_000);
+        setInterval(() => {
+            if (mount) {
+                setCopied({
+                    uuid: false,
+                    clearedUuid: false
+                });
+            }
+        }, 10_000);
+
+        return () => setMount(false);
     }, []);
 
     const clearedUUID = uuid.replaceAll("-", "");
