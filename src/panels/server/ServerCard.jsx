@@ -14,7 +14,7 @@ export function ServerCard({ server, showIpCopy = false, setScrollUp = () => {},
 
     const [copy, setCopy] = useState(false);
 
-    const { icon, rating, version, id, country, uptime, players: { online, max, list }, motd: { html } } = server;
+    const { title, icon, rating, version, id, country, uptime, players: { online, max, list }, motd: { html } } = server;
 
     const card = (
         <>
@@ -41,9 +41,9 @@ export function ServerCard({ server, showIpCopy = false, setScrollUp = () => {},
                                   }
                               </>
                           }
-                          caption={`Игроков: ${online} / ${max}`}
+                          caption={Boolean(online || max) && `Игроков: ${online} / ${max}`}
                           after={
-                              rating && <Counter>★ {rating}</Counter>
+                              Boolean(rating) && <Counter>★ {rating}</Counter>
                           }
                           actions={
                               showIpCopy &&
@@ -67,9 +67,16 @@ export function ServerCard({ server, showIpCopy = false, setScrollUp = () => {},
                           onClick={onClick}
                 >
                     <div className="ServerCard-Motd">
-                        <span dangerouslySetInnerHTML={{__html: html[0]}}/>
-                        <br/>
-                        <span dangerouslySetInnerHTML={{__html: html[1]}}/>
+                        {
+                            html.length ?
+                                <>
+                                    <span dangerouslySetInnerHTML={{__html: html[0]}}/>
+                                    <br/>
+                                    <span dangerouslySetInnerHTML={{__html: html[1]}}/>
+                                </>
+                                :
+                                title || ip
+                        }
                     </div>
                 </RichCell>
             </Group>
