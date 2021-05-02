@@ -4,7 +4,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { Avatar, FormItem, Group, Header, SimpleCell, SliderSwitch } from "@vkontakte/vkui";
 
 import { Spinner, Error } from "../../components";
-import { declOfNum } from "../../utils";
+
+import { ASHCON_ENDPOINT, declOfNum } from "../../utils";
 
 export function ServerTop({ server: { id }, setScrollUp }) {
 
@@ -114,7 +115,7 @@ export function ServerTop({ server: { id }, setScrollUp }) {
 
                                     return (
                                         <SimpleCell before={
-                                            <Avatar src={`https://api.ashcon.app/mojang/v2/avatar/${nickname}`}
+                                            <Avatar src={`${ASHCON_ENDPOINT}/avatar/${nickname}`}
                                                     mode="image"
                                             />
                                         }
