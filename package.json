@@ -19,7 +19,7 @@
     "@vkontakte/vkjs": "^0.21.0",
     "@vkontakte/vkui": "^4.6.0",
     "axios": "^0.21.1",
-    "core-js": "^3.11.2",
+    "core-js": "^3.11.3",
     "fast-chunk-string": "^1.0.1",
     "konva": "^7.2.5",
     "namemcwrapper": "^2.0.6",
