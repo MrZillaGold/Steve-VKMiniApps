@@ -29,7 +29,7 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-virtualized": "^9.22.3",
     "react-virtualized-auto-sizer": "^1.0.5",
-    "skinview3d": "^2.0.0",
+    "skinview3d": "^2.0.1",
     "vkappsutils": "github:FlyInk13/VKAppsUtils"
   },
   "browserslist": {
