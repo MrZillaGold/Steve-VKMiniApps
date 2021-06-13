@@ -13,7 +13,7 @@
   "license": "SEE LICENSE IN LICENSE.txt",
   "dependencies": {
     "@unexp/router": "^0.0.30",
-    "@vkontakte/icons": "^1.104.0",
+    "@vkontakte/icons": "^1.105.0",
     "@vkontakte/mvk-mini-apps-scroll-helper": "^1.2.0",
     "@vkontakte/vk-bridge": "^2.4.2",
     "@vkontakte/vkjs": "^0.21.0",
