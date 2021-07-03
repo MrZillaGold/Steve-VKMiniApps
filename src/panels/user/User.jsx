@@ -47,13 +47,13 @@ export function User({ id }) {
                     const userStatus = user.reason?.response?.status;
                     const playerStatus = player.reason?.code;
 
-                    if (playerStatus !== 3) {
+                    if (playerStatus !== "NOT_FOUND") {
                         console.log(user.reason);
                         console.log(player.reason);
                     }
 
                     throw playerStatus ?
-                            playerStatus === 3 ?
+                            playerStatus === "NOT_FOUND" ?
                                 404
                                 :
                                 userStatus
@@ -73,10 +73,7 @@ export function User({ id }) {
 
                     user = {
                         ...player,
-                        username_history: names.map(({ nickname: username, ...name }) => ({
-                            username,
-                            ...name
-                        })),
+                        username_history: names,
                         textures: {
                             skin: {
                                 history: skins,
