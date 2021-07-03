@@ -168,7 +168,7 @@ export function User({ id }) {
         let page = 1;
 
         while (!rejected) {
-            const skins = await nameMc.skinHistory({ nickname: user.username, page })
+            const skins = await nameMc.skinHistory({ username: user.username, page })
                 .catch(() => null);
 
             if (!skins) {
