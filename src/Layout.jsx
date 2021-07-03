@@ -30,7 +30,9 @@ export function Layout() {
                                     onClose={back}
                          >
                              <GalleryPreview id="gallery-preview"/>
-                             <ServerPreview id="server-preview"/>
+                             <ServerPreview id="server-preview"
+                                            dynamicContentHeight
+                             />
                          </ModalRoot>
                      }
                      activeView={view}
