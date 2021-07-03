@@ -28,13 +28,13 @@ export function ServerPreview({ id }) {
 
     const getServer = async (ip) => {
         await nameMc.getServer(ip)
-            .then(({ version, uptime }) => {
+            .then((server) => {
+                server = server.toJSON();
+
+                server.motd.html = server.motd.html.split("\n");
+
                 if (mount) {
-                    setServer({
-                        ...server,
-                        version,
-                        uptime
-                    });
+                    setServer(server);
                 }
             })
             .catch((error) => {
@@ -79,7 +79,6 @@ export function ServerPreview({ id }) {
                        </ModalHeader>
                    }
                    onClose={back}
-                   dynamicContentHeight
         >
             {
                 viewWidth > ViewWidth.MOBILE ?
