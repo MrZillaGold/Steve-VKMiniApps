@@ -21,13 +21,13 @@ export function Friends({ user, setNickname, getUser }) {
                           rowCount={friendsCount}
                           rowHeight={ROW_HEIGHT}
                           rowRenderer={({ index, key, style }) => {
-                              const { name } = user.friends[index];
+                              const { name, uuid } = user.friends[index];
 
                               return (
                                   <SimpleCell key={key}
                                               style={{ ...style, width: width - 30 }}
                                               before={
-                                                  <Avatar src={`${ASHCON_ENDPOINT}/avatar/${name}`}
+                                                  <Avatar src={`${ASHCON_ENDPOINT}/avatar/${uuid}`}
                                                           mode="image"
                                                   />
                                               }
